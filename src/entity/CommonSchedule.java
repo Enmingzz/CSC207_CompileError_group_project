@@ -1,4 +1,4 @@
 package entity;
 
-public class CommonSchedule {
+public class CommonSchedule implements Schedule{
 }

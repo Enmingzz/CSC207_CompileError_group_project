@@ -1,4 +1,4 @@
 package entity;
 
-public class Comment {
+public interface Comment {
 }

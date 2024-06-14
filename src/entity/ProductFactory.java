@@ -1,4 +1,4 @@
 package entity;
 
-public class ProductFactory {
+public interface ProductFactory {
 }

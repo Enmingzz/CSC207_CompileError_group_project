@@ -1,4 +1,4 @@
 package entity;
 
-public class CommonComment {
+public class CommonComment implements Comment{
 }

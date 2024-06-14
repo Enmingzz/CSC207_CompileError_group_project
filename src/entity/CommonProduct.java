@@ -1,4 +1,4 @@
 package entity;
 
-public class CommonProduct {
+public class CommonProduct implements Product{
 }
