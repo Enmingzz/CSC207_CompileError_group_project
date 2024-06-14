@@ -18,6 +18,22 @@ public class CommonProduct implements Product{
     ArrayList<Question> questions;
     ArrayList<String> listTags;
 
+    public CommonProduct(Image image, String description, String title, float price, Integer rating, boolean isPending, String eTransferEmail, CommonUser buyer, CommonUser seller, String address, CommonSchedule schedule, ArrayList<Question> questions, ArrayList<String> listTags) {
+        this.image = image;
+        this.description = description;
+        this.title = title;
+        this.price = price;
+        this.rating = rating;
+        this.isPending = isPending;
+        this.eTransferEmail = eTransferEmail;
+        Buyer = buyer;
+        Seller = seller;
+        this.address = address;
+        this.schedule = schedule;
+        this.questions = questions;
+        this.listTags = listTags;
+    }
+
     @Override
     public Image getImage() {
         return image;
