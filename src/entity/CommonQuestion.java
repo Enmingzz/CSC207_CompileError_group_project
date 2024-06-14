@@ -7,4 +7,9 @@ public class CommonQuestion extends CommonComment implements Question{
         super(description, commonUser);
         this.answer = answer;
     }
+
+    @Override
+    public Answer getAnswer() {
+        return answer;
+    }
 }
