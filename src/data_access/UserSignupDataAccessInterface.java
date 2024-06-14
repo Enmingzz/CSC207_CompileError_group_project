@@ -5,5 +5,5 @@ import entity.User;
 public interface UserSignupDataAccessInterface {
     boolean existsByUTorID(String identifier);
 
-    void save(User user);
+    void saveUser(User user);
 }

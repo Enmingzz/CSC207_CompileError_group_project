@@ -2,7 +2,7 @@ package data_access;
 
 import entity.Question;
 
-public interface SaveCommonDataAccessInterface {
+public interface CommonSaveDataAccessInterface {
 
     void saveQuestion(Question question);
 }
