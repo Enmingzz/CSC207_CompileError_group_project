@@ -1,7 +1,7 @@
 package entity;
 
 public interface Question{
-    public String getDescription();
+    String getDescription();
 
-    public User getPostedUser();
+    User getPostedUser();
 }
