@@ -2,7 +2,7 @@ package data_access;
 
 import entity.Question;
 
-public class DataBaseCommonSaveDataAccessObject implements CommonSaveDataAccessInterface {
+public class DatabaseCommentSaveDataAccessObject implements CommentSaveDataAccessInterface {
     @Override
     public void saveQuestion(Question question) {
 

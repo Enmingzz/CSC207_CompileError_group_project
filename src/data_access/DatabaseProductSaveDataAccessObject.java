@@ -2,7 +2,7 @@ package data_access;
 
 import entity.Product;
 
-public class DataBaseProductSaveDataAccessObject implements ProductSaveDataAccessInterface {
+public class DatabaseProductSaveDataAccessObject implements ProductSaveDataAccessInterface {
     @Override
     public void saveProduct(Product product) {
         
