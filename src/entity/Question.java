@@ -4,4 +4,6 @@ public interface Question{
     String getDescription();
 
     User getPostedUser();
+
+    Answer getAnswer();
 }
