@@ -26,8 +26,8 @@ public class CommonProduct implements Product{
         this.rating = rating;
         this.isPending = isPending;
         this.eTransferEmail = eTransferEmail;
-        Buyer = buyer;
-        Seller = seller;
+        this.Buyer = buyer;
+        this.Seller = seller;
         this.address = address;
         this.schedule = schedule;
         this.questions = questions;
