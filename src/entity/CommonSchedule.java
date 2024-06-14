@@ -4,8 +4,8 @@ import java.sql.Time;
 import java.util.ArrayList;
 
 public class CommonSchedule implements Schedule{
-    Time buyerTime;
-    ArrayList<Time> sellerTime;
+    private Time buyerTime;
+    private ArrayList<Time> sellerTime;
 
     public CommonSchedule(Time buyerTime, ArrayList<Time> sellerTime) {
         this.buyerTime = buyerTime;

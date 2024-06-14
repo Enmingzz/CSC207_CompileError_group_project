@@ -4,19 +4,19 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class CommonProduct implements Product{
-    Image image;
-    String description;
-    float price;
-    String title;
-    boolean isPending;
-    Integer rating;
-    String eTransferEmail;
-    CommonUser Buyer;
-    CommonUser Seller;
-    String address;
-    CommonSchedule schedule;
-    ArrayList<Question> questions;
-    ArrayList<String> listTags;
+    private Image image;
+    private String description;
+    private float price;
+    private String title;
+    private boolean isPending;
+    private Integer rating;
+    private String eTransferEmail;
+    private CommonUser Buyer;
+    private CommonUser Seller;
+    private String address;
+    private CommonSchedule schedule;
+    private ArrayList<Question> questions;
+    private ArrayList<String> listTags;
 
     public CommonProduct(Image image, String description, String title, float price, Integer rating, boolean isPending, String eTransferEmail, CommonUser buyer, CommonUser seller, String address, CommonSchedule schedule, ArrayList<Question> questions, ArrayList<String> listTags) {
         this.image = image;
