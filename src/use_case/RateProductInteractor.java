@@ -1,4 +1,4 @@
 package use_case;
 
-public class RateProductInteractor {
+public class RateProductInteractor implements RateProductInputBoundary{
 }

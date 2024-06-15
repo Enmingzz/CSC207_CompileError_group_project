@@ -1,4 +1,4 @@
 package use_case;
 
-public class SellerSelectScheduleInteractor {
+public class SellerSelectScheduleInteractor implements SellerSelectScheduleInputBoundary{
 }

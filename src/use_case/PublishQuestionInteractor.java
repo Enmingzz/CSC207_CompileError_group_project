@@ -1,4 +1,4 @@
 package use_case;
 
-public class PublishQuestionInteractor {
+public class PublishQuestionInteractor implements PublishQuestionInputBoundary{
 }

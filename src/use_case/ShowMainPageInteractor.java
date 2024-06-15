@@ -1,4 +1,4 @@
 package use_case;
 
-public class ShowMainPageInteractor {
+public class ShowMainPageInteractor implements ShowMainPageInputBoundary{
 }

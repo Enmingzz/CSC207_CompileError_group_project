@@ -1,4 +1,4 @@
 package use_case;
 
-public class SignupInteractor {
+public class SignupInteractor implements SignupInputBoundary{
 }
