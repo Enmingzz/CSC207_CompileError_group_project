@@ -1,4 +1,4 @@
 package use_case;
 
-public class ReplyQuestionInteractor {
+public class ReplyQuestionInteractor implements ReplyQuestionInputBoundary{
 }

@@ -1,4 +1,4 @@
 package use_case;
 
-public class LoginInteractor {
+public class LoginInteractor implements LoginInputBoundary{
 }

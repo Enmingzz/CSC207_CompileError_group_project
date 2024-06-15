@@ -3,6 +3,11 @@ package entity;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * One of core entities. Override all getter method in the interface Product.
+ * Has some important attributes; ArrayList<Question> questions and CommonUser Buyer, Seller.
+ * @author CompileError group
+ */
 public class CommonProduct implements Product{
     private Image image;
     private String description;
@@ -11,8 +16,8 @@ public class CommonProduct implements Product{
     private boolean isPending;
     private Integer rating;
     private String eTransferEmail;
-    private CommonUser Buyer;
-    private CommonUser Seller;
+    private CommonUser buyer;
+    private CommonUser seller;
     private String address;
     private CommonSchedule schedule;
     private ArrayList<Question> questions;
@@ -26,8 +31,8 @@ public class CommonProduct implements Product{
         this.rating = rating;
         this.isPending = isPending;
         this.eTransferEmail = eTransferEmail;
-        this.Buyer = buyer;
-        this.Seller = seller;
+        this.buyer = buyer;
+        this.seller = seller;
         this.address = address;
         this.schedule = schedule;
         this.questions = questions;
@@ -71,12 +76,12 @@ public class CommonProduct implements Product{
 
     @Override
     public CommonUser getBuyer() {
-        return Buyer;
+        return buyer;
     }
 
     @Override
     public CommonUser getSeller() {
-        return Seller;
+        return seller;
     }
 
     @Override

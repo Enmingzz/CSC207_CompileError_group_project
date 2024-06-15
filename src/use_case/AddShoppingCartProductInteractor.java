@@ -1,4 +1,5 @@
 package use_case;
 
-public class AddShoppingCartProductInteractor {
+public class AddShoppingCartProductInteractor implements AddShoppingCartProductInputBoundary{
+
 }

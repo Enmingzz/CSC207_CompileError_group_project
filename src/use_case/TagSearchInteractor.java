@@ -1,4 +1,4 @@
 package use_case;
 
-public class TagSearchInteractor {
+public class TagSearchInteractor implements TagSearchProductInputBoundary{
 }

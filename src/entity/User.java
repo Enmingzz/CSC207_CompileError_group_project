@@ -15,4 +15,6 @@ public interface User {
     public ArrayList<Product> getProductList();
 
     public float getUserRating();
+
+    public String getUtroid();
 }

@@ -1,4 +1,4 @@
 package use_case;
 
-public class ChangeProductInteractor {
+public class ChangeProductInteractor implements ChangeProductInputBoundary{
 }
