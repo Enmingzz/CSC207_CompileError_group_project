@@ -39,7 +39,7 @@ public class DatabaseUserSignupSaveDataAccessObject implements UserSignupDataAcc
         String insertSQL = "INSERT INTO tb_user (id, name, email, password, createdate) VALUES (?,?,?,?,?)";
         preparedStatement = connection.prepareStatement(insertSQL);
 
-        preparedStatement.setString(1, "1");
+        preparedStatement.setString(1, user.getUtroid());
         preparedStatement.setString(2, user.getName());
         preparedStatement.setString(3, user.getPassword());
         preparedStatement.setString(4, user.getPassword());
