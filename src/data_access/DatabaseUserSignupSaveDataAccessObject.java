@@ -11,7 +11,7 @@ public class DatabaseUserSignupSaveDataAccessObject implements UserSignupDataAcc
     private User user;
 
     public DatabaseUserSignupSaveDataAccessObject() throws SQLException {
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/207project", "root", "Hz04.05.19");
+        connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/207project", "root", "Hz04.05.19");
         statement = connection.createStatement();
         this.user = user;
 
