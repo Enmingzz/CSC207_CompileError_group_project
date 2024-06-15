@@ -10,7 +10,7 @@ public class DatabaseUserSignupSaveDataAccessObject implements UserSignupDataAcc
     private PreparedStatement preparedStatement = null;
     private User user;
 
-    public DatabaseUserSignupSaveDataAccessObject(User user) throws SQLException {
+    public DatabaseUserSignupSaveDataAccessObject() throws SQLException {
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/207project", "root", "Hz04.05.19");
         statement = connection.createStatement();
         this.user = user;
@@ -52,5 +52,11 @@ public class DatabaseUserSignupSaveDataAccessObject implements UserSignupDataAcc
         preparedStatement.close();
         statement.close();
         connection.close();
+    }
+
+    public static void main(String[] args) throws SQLException {
+        DatabaseUserSignupSaveDataAccessObject dataAccessObject = new DatabaseUserSignupSaveDataAccessObject();
+        System.out.println(dataAccessObject.existsByUTorID("1"));
+
     }
 }
