@@ -8,4 +8,3 @@ public class CommonScheduleFactory implements ScheduleFactory {
         return new CommonSchedule(buyerTime, sellerTime);
     }
 }
-

@@ -1,4 +1,4 @@
 package entity;
 
-public class UtoridValidator {
+public interface UtoridValidator {
 }
