@@ -12,7 +12,7 @@ public class LoginViewModel extends ViewModel {
     public final String LAST_NAME_LABEL = "Enter last name";
     public final String EMAIL_LABEL = "Enter email";
     public final String UTORID_LABEL = "Enter UTORID";
-    public final String
+    public final String VERIFICATION_LABEL = "Enter verification code";
 
     public final String SIGNUP_BUTTON_LABEL = "Sign up";
 
