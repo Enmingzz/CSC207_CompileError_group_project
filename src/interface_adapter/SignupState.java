@@ -9,6 +9,7 @@ public class SignupState {
     private String repeatPasswordError = null;
     private String verificationCode = "";
     private String verificationCodeError = null;
+    private String email = "";
 
     public SignupState(SignupState copy) {
         username = copy.username;
@@ -17,6 +18,9 @@ public class SignupState {
         passwordError = copy.passwordError;
         repeatPassword = copy.repeatPassword;
         repeatPasswordError = copy.repeatPasswordError;
+        verificationCode = copy.verificationCode;
+        verificationCodeError = copy.verificationCodeError;
+        email = copy.email;
     }
 
     public SignupState() {}
@@ -75,5 +79,9 @@ public class SignupState {
 
     public String getVerificationCodeError() {
         return verificationCodeError;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

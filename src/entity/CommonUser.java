@@ -6,17 +6,13 @@ public class CommonUser implements User{
     String name;
     String password;
     String email;
-    ArrayList<Product> productList;
-    ShoppingCart userCart;
     float userRating;
     String Utroid;
 
-    public CommonUser(String name, String Password, String email, ArrayList<Product> ProductList, ShoppingCart userCart, float userRating, String Utroid){
+    public CommonUser(String name, String Password, String email, float userRating, String Utroid){
         this.name = name;
         this.password = Password;
         this.email = email;
-        this.productList = ProductList;
-        this.userCart = userCart;
         this.userRating = userRating;
         this.Utroid = Utroid;
     }
@@ -34,16 +30,6 @@ public class CommonUser implements User{
     @Override
     public String getEmail() {
         return email;
-    }
-
-    @Override
-    public ShoppingCart getUserCart() {
-        return userCart;
-    }
-
-    @Override
-    public ArrayList<Product> getProductList() {
-        return productList;
     }
 
     @Override

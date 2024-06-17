@@ -18,9 +18,9 @@ public interface Product{
 
     String geteTransferEmail();
 
-    CommonUser getBuyer();
+    String getBuyerUtorid();
 
-    CommonUser getSeller();
+    String getSellerUtorid();
 
     String getAddress();
 

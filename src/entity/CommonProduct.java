@@ -16,14 +16,14 @@ public class CommonProduct implements Product{
     private boolean isPending;
     private Integer rating;
     private String eTransferEmail;
-    private CommonUser buyer;
-    private CommonUser seller;
+    private String buyerUtorid;
+    private String sellerUtorid;
     private String address;
     private CommonSchedule schedule;
     private ArrayList<Question> questions;
     private ArrayList<String> listTags;
 
-    public CommonProduct(Image image, String description, String title, float price, Integer rating, boolean isPending, String eTransferEmail, CommonUser buyer, CommonUser seller, String address, CommonSchedule schedule, ArrayList<Question> questions, ArrayList<String> listTags) {
+    public CommonProduct(Image image, String description, String title, float price, Integer rating, boolean isPending, String eTransferEmail, String buyerUtorid, String sellerUtorid, String address, CommonSchedule schedule, ArrayList<Question> questions, ArrayList<String> listTags) {
         this.image = image;
         this.description = description;
         this.title = title;
@@ -31,8 +31,8 @@ public class CommonProduct implements Product{
         this.rating = rating;
         this.isPending = isPending;
         this.eTransferEmail = eTransferEmail;
-        this.buyer = buyer;
-        this.seller = seller;
+        this.buyerUtorid = buyerUtorid;
+        this.sellerUtorid = sellerUtorid;
         this.address = address;
         this.schedule = schedule;
         this.questions = questions;
@@ -75,13 +75,13 @@ public class CommonProduct implements Product{
     }
 
     @Override
-    public CommonUser getBuyer() {
-        return buyer;
+    public String getBuyerUtorid() {
+        return buyerUtorid;
     }
 
     @Override
-    public CommonUser getSeller() {
-        return seller;
+    public String getSellerUtorid() {
+        return sellerUtorid;
     }
 
     @Override
