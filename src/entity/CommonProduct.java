@@ -20,10 +20,9 @@ public class CommonProduct implements Product{
     private String sellerUtorid;
     private String address;
     private CommonSchedule schedule;
-    private ArrayList<Question> questions;
     private ArrayList<String> listTags;
 
-    public CommonProduct(Image image, String description, String title, float price, Integer rating, boolean isPending, String eTransferEmail, String buyerUtorid, String sellerUtorid, String address, CommonSchedule schedule, ArrayList<Question> questions, ArrayList<String> listTags) {
+    public CommonProduct(Image image, String description, String title, float price, Integer rating, boolean isPending, String eTransferEmail, String buyerUtorid, String sellerUtorid, String address, CommonSchedule schedule, ArrayList<String> listTags) {
         this.image = image;
         this.description = description;
         this.title = title;
@@ -35,7 +34,6 @@ public class CommonProduct implements Product{
         this.sellerUtorid = sellerUtorid;
         this.address = address;
         this.schedule = schedule;
-        this.questions = questions;
         this.listTags = listTags;
     }
 
@@ -92,11 +90,6 @@ public class CommonProduct implements Product{
     @Override
     public CommonSchedule getSchedule() {
         return schedule;
-    }
-
-    @Override
-    public ArrayList<Question> getQuestions() {
-        return questions;
     }
 
     @Override

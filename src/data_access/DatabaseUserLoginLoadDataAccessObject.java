@@ -45,7 +45,6 @@ public class DatabaseUserLoginLoadDataAccessObject implements UserLoginDataAcces
                 if (resultSetProducts.next()) {
                     InputStream inputStream = resultSetProducts.getBinaryStream("ImageData");
                     BufferedImage bufferedImage = ImageIO.read(inputStream);
-                    ImageIO.write(bufferedImage, "jpg", new File("product_image.jpg"));
 
                     Image image = bufferedImage;
                     String description = resultSetProducts.getString("Description");

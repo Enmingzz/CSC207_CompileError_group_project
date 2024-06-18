@@ -26,7 +26,5 @@ public interface Product{
 
     CommonSchedule getSchedule();
 
-    ArrayList<Question> getQuestions();
-
     ArrayList<String> getListTags();
 }
