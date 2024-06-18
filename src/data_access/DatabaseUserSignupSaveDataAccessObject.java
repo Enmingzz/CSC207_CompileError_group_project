@@ -65,7 +65,7 @@ public class DatabaseUserSignupSaveDataAccessObject implements UserSignupDataAcc
 //TODO: Delete this psvm after testing successful.
     public static void main(String[] args) throws SQLException {
         DatabaseUserSignupSaveDataAccessObject dataAccessObject = new DatabaseUserSignupSaveDataAccessObject();
-//        System.out.println(dataAccessObject.existsByUTorID("1"));
-        dataAccessObject.saveUser();
+        System.out.println(dataAccessObject.existsByUTorID("1"));
+//        dataAccessObject.saveUser();
     }
 }
