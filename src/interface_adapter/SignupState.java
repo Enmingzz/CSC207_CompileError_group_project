@@ -49,6 +49,18 @@ public class SignupState {
         return repeatPasswordError;
     }
 
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public String getVerificationCodeError() {
+        return verificationCodeError;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -73,15 +85,15 @@ public class SignupState {
         this.repeatPasswordError = repeatPasswordError;
     }
 
-    public String getVerificationCode() {
-        return verificationCode;
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 
-    public String getVerificationCodeError() {
-        return verificationCodeError;
+    public void setVerificationCodeError(String verificationCodeError) {
+        this.verificationCodeError = verificationCodeError;
     }
 
-    public String getEmail() {
-        return email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
