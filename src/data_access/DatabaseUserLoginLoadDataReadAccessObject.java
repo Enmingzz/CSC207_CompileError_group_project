@@ -2,24 +2,22 @@ package data_access;
 
 import entity.CommonUserFactory;
 import entity.CommonShoppingCartFactory;
-import entity.CommonShoppingCartFactory;
 import entity.CommonProductFactory;
 import entity.User;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DatabaseUserLoginLoadDataAccessObject implements UserLoginDataAccessInterface {
+public class DatabaseUserLoginLoadDataReadAccessObject implements UserLoginDataReadAccessInterface {
     private final Connection connection;
     private final Statement statement;
 
-    public DatabaseUserLoginLoadDataAccessObject() throws SQLException {
+    public DatabaseUserLoginLoadDataReadAccessObject() throws SQLException {
         this.connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/207project", "root", "Hz04.05.19");
         this.statement = connection.createStatement();
     }

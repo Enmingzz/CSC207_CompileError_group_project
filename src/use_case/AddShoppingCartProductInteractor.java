@@ -1,16 +1,15 @@
 package use_case;
 
-import data_access.ShoppingCartAddDataAccessInterface;
 import entity.Product;
 import entity.ShoppingCart;
-import data_access.ShoppingCartSaveDataAccessInterface;
+import data_access.ShoppingCartUpdateDataAccessInterface;
 
 public class AddShoppingCartProductInteractor implements AddShoppingCartProductInputBoundary{
 
-    final ShoppingCartSaveDataAccessInterface shoppingCartAddDataAccessObject;
+    final ShoppingCartUpdateDataAccessInterface shoppingCartAddDataAccessObject;
     final AddShoppingCartProductOutputBoundary addShoppingCartProductPresenter;
 
-    public AddShoppingCartProductInteractor(ShoppingCartSaveDataAccessInterface shoppingCartAddDataAccessObject,
+    public AddShoppingCartProductInteractor(ShoppingCartUpdateDataAccessInterface shoppingCartAddDataAccessObject,
                                             AddShoppingCartProductOutputBoundary addShoppingCartProductPresenter) {
         this.shoppingCartAddDataAccessObject = shoppingCartAddDataAccessObject;
         this.addShoppingCartProductPresenter = addShoppingCartProductPresenter;

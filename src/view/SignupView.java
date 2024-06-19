@@ -27,7 +27,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final SignupController signupController;
 
     private final JButton signUp;
-    private final JButton cancel;
 
     public SignupView(SignupController controller, SignupViewModel signupViewModel) {
 
@@ -51,8 +50,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         JPanel buttons = new JPanel();
         signUp = new JButton(signupViewModel.SIGNUP_BUTTON_LABEL);
         buttons.add(signUp);
-        cancel = new JButton(signupViewModel.CANCEL_BUTTON_LABEL);
-        buttons.add(cancel);
 
         class SignUpButtonListener implements ActionListener {
             public void actionPerformed(ActionEvent evt) {
@@ -63,10 +60,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 }
             }
         }
-        signUp.addActionListener(new SignUpButtonListener());
-        cancel.addActionListener(this);
 
-        class KeyListener implements java.awt.event.KeyListener{
+        class UsernameKeyListener implements KeyListener{
             @Override
             public void keyTyped(KeyEvent e) {
                 SignupState currentState = signupViewModel.getState();
@@ -82,7 +77,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
             public void keyReleased(KeyEvent e) {
             }
         }
-        usernameInputField.addKeyListener(new KeyListener());
+
+        signUp.addActionListener(new SignUpButtonListener());
+        usernameInputField.addKeyListener(new UsernameKeyListener());
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
@@ -93,7 +90,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     }
 
     public void actionPerformed(ActionEvent evt) {
-        System.out.println("Cancel not implemented yet.");
+
     }
 
     @Override
@@ -102,6 +99,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         if (state.getUsernameError() != null) {
             JOptionPane.showMessageDialog(this, state.getUsernameError());
         }
+    }
+
+    public static void main(String[] args) {
+
     }
 
 }

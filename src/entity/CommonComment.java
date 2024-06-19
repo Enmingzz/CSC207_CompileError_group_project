@@ -7,9 +7,9 @@ package entity;
  */
 public class CommonComment implements Comment{
     private String description;
-    private CommonUser postedUser;
+    private User postedUser;
 
-    public CommonComment(String description, CommonUser postedUser) {
+    public CommonComment(String description, User postedUser) {
         this.description = description;
         this.postedUser = postedUser;
     }
