@@ -2,8 +2,10 @@ package data_access;
 
 import entity.User;
 
-public interface UserSignupDataAccessInterface {
-    boolean existsByUTorID(String identifier);
+import java.sql.SQLException;
 
-    void saveUser(User user);
+public interface UserSignupDataAccessInterface {
+    boolean existsByUTorID(String identifier) throws SQLException;
+
+    void saveUser(User user) throws SQLException;
 }

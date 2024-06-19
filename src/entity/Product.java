@@ -4,29 +4,27 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public interface Product{
-    public Image getImage();
+    Image getImage();
 
-    public String getDescription();
+    String getDescription();
 
-    public float getPrice();
+    float getPrice();
 
-    public String getTitle();
+    String getTitle();
 
-    public Integer getRating();
+    Integer getRating();
 
-    public boolean isPending();
+    boolean isPending();
 
-    public String geteTransferEmail();
+    String geteTransferEmail();
 
-    public CommonUser getBuyer();
+    String getBuyerUtorid();
 
-    public CommonUser getSeller();
+    String getSellerUtorid();
 
-    public String getAddress();
+    String getAddress();
 
-    public CommonSchedule getSchedule();
+    CommonSchedule getSchedule();
 
-    public ArrayList<Question> getQuestions();
-
-    public ArrayList<String> getListTags();
+    ArrayList<String> getListTags();
 }

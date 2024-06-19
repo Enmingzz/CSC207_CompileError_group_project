@@ -10,9 +10,7 @@ public interface User {
 
     public String getEmail();
 
-    public ShoppingCart getUserCart();
-
-    public ArrayList<Product> getProductList();
-
     public float getUserRating();
+
+    public String getUtroid();
 }

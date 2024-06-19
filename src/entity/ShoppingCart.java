@@ -3,9 +3,9 @@ package entity;
 import java.util.ArrayList;
 
 public interface ShoppingCart {
-    public float getTotalPrice();
+    float getTotalPrice();
 
-    public CommonUser getUser();
+    CommonUser getUser();
 
-    public ArrayList<Product> getListProducts();
+    ArrayList<Product> getListProducts();
 }

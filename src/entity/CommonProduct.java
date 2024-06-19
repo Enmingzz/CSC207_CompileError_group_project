@@ -3,22 +3,26 @@ package entity;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * One of core entities. Override all getter method in the interface Product.
+ * Has some important attributes; ArrayList<Question> questions and CommonUser Buyer, Seller.
+ * @author CompileError group
+ */
 public class CommonProduct implements Product{
-    Image image;
-    String description;
-    float price;
-    String title;
-    boolean isPending;
-    Integer rating;
-    String eTransferEmail;
-    CommonUser Buyer;
-    CommonUser Seller;
-    String address;
-    CommonSchedule schedule;
-    ArrayList<Question> questions;
-    ArrayList<String> listTags;
+    private Image image;
+    private String description;
+    private float price;
+    private String title;
+    private boolean isPending;
+    private Integer rating;
+    private String eTransferEmail;
+    private String buyerUtorid;
+    private String sellerUtorid;
+    private String address;
+    private CommonSchedule schedule;
+    private ArrayList<String> listTags;
 
-    public CommonProduct(Image image, String description, String title, float price, Integer rating, boolean isPending, String eTransferEmail, CommonUser buyer, CommonUser seller, String address, CommonSchedule schedule, ArrayList<Question> questions, ArrayList<String> listTags) {
+    public CommonProduct(Image image, String description, String title, float price, Integer rating, boolean isPending, String eTransferEmail, String buyerUtorid, String sellerUtorid, String address, CommonSchedule schedule, ArrayList<String> listTags) {
         this.image = image;
         this.description = description;
         this.title = title;
@@ -26,11 +30,10 @@ public class CommonProduct implements Product{
         this.rating = rating;
         this.isPending = isPending;
         this.eTransferEmail = eTransferEmail;
-        this.Buyer = buyer;
-        this.Seller = seller;
+        this.buyerUtorid = buyerUtorid;
+        this.sellerUtorid = sellerUtorid;
         this.address = address;
         this.schedule = schedule;
-        this.questions = questions;
         this.listTags = listTags;
     }
 
@@ -70,13 +73,13 @@ public class CommonProduct implements Product{
     }
 
     @Override
-    public CommonUser getBuyer() {
-        return Buyer;
+    public String getBuyerUtorid() {
+        return buyerUtorid;
     }
 
     @Override
-    public CommonUser getSeller() {
-        return Seller;
+    public String getSellerUtorid() {
+        return sellerUtorid;
     }
 
     @Override
@@ -87,11 +90,6 @@ public class CommonProduct implements Product{
     @Override
     public CommonSchedule getSchedule() {
         return schedule;
-    }
-
-    @Override
-    public ArrayList<Question> getQuestions() {
-        return questions;
     }
 
     @Override

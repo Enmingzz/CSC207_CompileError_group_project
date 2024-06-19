@@ -1,9 +1,12 @@
 package entity;
 
+/**
+ * The interface of CommonAnswer Class
+ * @author CompileError group
+ */
 public interface Answer{
-    public String getDescription();
+    String getDescription();
 
-    public User getPostedUser();
-
+    User getPostedUser();
 
 }
