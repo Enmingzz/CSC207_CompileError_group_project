@@ -4,11 +4,11 @@ import entity.Question;
 
 import java.sql.*;
 
-public class DatabaseQuestionLoadDataAccessObject implements QuestionLoadDataAccessInterface {
+public class DatabaseQuestionReadDataAccessObject implements QuestionReadDataAccessInterface {
     private final Connection connection;
     private final Statement statement;
 
-    public DatabaseQuestionLoadDataAccessObject() throws SQLException {
+    public DatabaseQuestionReadDataAccessObject() throws SQLException {
         this.connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/207project", "root", "Hz04.05.19");
         this.statement = connection.createStatement();
     }
