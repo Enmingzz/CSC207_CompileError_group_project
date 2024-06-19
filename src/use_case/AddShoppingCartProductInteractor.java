@@ -2,38 +2,34 @@ package use_case;
 
 import entity.Product;
 import entity.ShoppingCart;
-import data_access.ShoppingCartUpdateDataAccessInterface;
+import entity.User;
+import data_access.ShoppingCartSaveDataAccessInterface;
+import data_access.ShoppingCartLoadDataAccessInterface;
 
 public class AddShoppingCartProductInteractor implements AddShoppingCartProductInputBoundary{
 
-    final ShoppingCartUpdateDataAccessInterface shoppingCartAddDataAccessObject;
+    final ShoppingCartSaveDataAccessInterface shoppingCartAddDataAccessObject;
     final AddShoppingCartProductOutputBoundary addShoppingCartProductPresenter;
+    final ShoppingCartLoadDataAccessInterface shoppingCartLoadDataAccessObject;
 
-    public AddShoppingCartProductInteractor(ShoppingCartUpdateDataAccessInterface shoppingCartAddDataAccessObject,
-                                            AddShoppingCartProductOutputBoundary addShoppingCartProductPresenter) {
+    public AddShoppingCartProductInteractor(ShoppingCartSaveDataAccessInterface shoppingCartAddDataAccessObject,
+                                            AddShoppingCartProductOutputBoundary addShoppingCartProductPresenter,
+                                            ShoppingCartLoadDataAccessInterface shoppingCartLoadDataAccessObject) {
         this.shoppingCartAddDataAccessObject = shoppingCartAddDataAccessObject;
         this.addShoppingCartProductPresenter = addShoppingCartProductPresenter;
+        this.shoppingCartLoadDataAccessObject = shoppingCartLoadDataAccessObject;
     }
 
+    @Override
     public void addProductToShoppingCart(AddShoppingCartProductInputData addShoppingCartProductInputData) {
-        ShoppingCart shoppingCart = addShoppingCartProductInputData.getShoppingCart();
+        User user = addShoppingCartProductInputData.getUser();
         Product addProduct = addShoppingCartProductInputData.getProduct();
-        boolean isRepeated = false;
-        for (Product product: shoppingCart.getListProducts()) {
-            if (addProduct.equals(product)) {
-                isRepeated = true;
-                break;
-            }
-        }
-        if (isRepeated) {
-            addShoppingCartProductPresenter.prepareFailView("Product Already Exists In Cart");
-        }
-        else {
-            shoppingCart.getListProducts().add(addProduct);
-            shoppingCartAddDataAccessObject.save(shoppingCart, addProduct);
-            AddShoppingCartProductOutputData addShoppingCartProductOutputData = new AddShoppingCartProductOutputData(addProduct, shoppingCart, false);
-            addShoppingCartProductPresenter.prepareSuccessView(addShoppingCartProductOutputData);
-        }
+        ShoppingCart shoppingCart = shoppingCartLoadDataAccessObject.load(user);
+
+        shoppingCart.getListProducts().add(addProduct);
+        shoppingCartAddDataAccessObject.save(shoppingCart, addProduct);
+        AddShoppingCartProductOutputData addShoppingCartProductOutputData = new AddShoppingCartProductOutputData(user);
+        addShoppingCartProductPresenter.prepareSuccessView(addShoppingCartProductOutputData);
 
     }
 
