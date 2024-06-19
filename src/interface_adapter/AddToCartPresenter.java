@@ -3,8 +3,6 @@ package interface_adapter;
 import use_case.AddShoppingCartProductOutputData;
 import use_case.AddShoppingCartProductOutputBoundary;
 
-import javax.swing.text.View;
-
 public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary{
     private final AddToCartViewModel addToCartViewModel;
     private final ShoppingCartViewModel shoppingCartViewModel;
@@ -16,7 +14,9 @@ public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary{
         this.shoppingCartViewModel = shoppingCartViewModel;
     }
 
-    public void prepareSuccessView(AddShoppingCartProductOutputData updatedShoppingCart){
-        //stay on current page
+    @Override
+    public void prepareSuccessView(AddShoppingCartProductOutputData response{
+        //move to shopping_cart_View
+
     }
 }

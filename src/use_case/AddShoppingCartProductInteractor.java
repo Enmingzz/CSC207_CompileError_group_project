@@ -20,6 +20,7 @@ public class AddShoppingCartProductInteractor implements AddShoppingCartProductI
         this.shoppingCartLoadDataAccessObject = shoppingCartLoadDataAccessObject;
     }
 
+    @Override
     public void addProductToShoppingCart(AddShoppingCartProductInputData addShoppingCartProductInputData) {
         User user = addShoppingCartProductInputData.getUser();
         Product addProduct = addShoppingCartProductInputData.getProduct();
