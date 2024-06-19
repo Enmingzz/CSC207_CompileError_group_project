@@ -2,7 +2,7 @@ package data_access;
 
 import entity.Question;
 
-public interface QuestionSaveDataAccessInterface {
+public interface QuestionCreateDataAccessInterface {
 
     void saveQuestion(Question question);
 }

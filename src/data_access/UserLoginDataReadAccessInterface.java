@@ -5,6 +5,6 @@ import entity.User;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public interface UserLoginDataAccessInterface {
+public interface UserLoginDataReadAccessInterface {
     User getUser(String userEmail) throws SQLException, IOException;
 }
