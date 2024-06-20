@@ -15,55 +15,33 @@ import java.util.ArrayList;
 
 public class DatabaseUserReadDataAccessObject implements UserReadDataAccessInterface {
     private final Connection connection;
-    private final Statement statement;
+    private PreparedStatement preparedStatement = null;
+    private ResultSet resultSet = null;
+    private CommonUserFactory commonUserFactory = null;
+    private String query;
 
-    public DatabaseUserReadDataAccessObject() throws SQLException {
-        this.connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/207project", "root", "Hz04.05.19");
-        this.statement = connection.createStatement();
+    public DatabaseUserReadDataAccessObject(CommonUserFactory commonUserFactory) throws SQLException {
+        this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
+                "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
+                "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
+        this.commonUserFactory = commonUserFactory;
     }
 
     @Override
-    public User getUser(String userEmail) throws SQLException, IOException {
-        CommonProductFactory ProductFactory = new CommonProductFactory();
-        CommonShoppingCartFactory ShoppingCartFactory = new CommonShoppingCartFactory();
-        CommonUserFactory CommonUserFactory = new CommonUserFactory();
-
-        String query = "SELECT * FROM Users WHERE Email = '" + userEmail + "'";
-        ResultSet resultSet = statement.executeQuery(query);
+    public User getUser(String studentNumber) throws SQLException {
+        query = "SELECT * FROM Users WHERE UserID = ?";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, studentNumber);
+        resultSet = preparedStatement.executeQuery();
+        User user = null;
         if (resultSet.next()) {
-            String userId = resultSet.getString("UserID");
+            String userID = resultSet.getString("UserID");
             String name = resultSet.getString("Name");
+            String email = resultSet.getString("Email");
             String password = resultSet.getString("Password");
             float rating = resultSet.getFloat("Rating");
-
-            ArrayList<String> lstSellProducts = (ArrayList<String>) resultSet.getArray("ListSellProducts").getArray();
-            for (String i : lstSellProducts) {
-                query = "SELECT * FROM Products WHERE ProdcutID = '" + i + "'";
-                ResultSet resultSetProducts = statement.executeQuery(query);
-                if (resultSetProducts.next()) {
-                    InputStream inputStream = resultSetProducts.getBinaryStream("ImageData");
-                    BufferedImage bufferedImage = ImageIO.read(inputStream);
-
-                    Image image = bufferedImage;
-                    String description = resultSetProducts.getString("Description");
-                    String title = resultSetProducts.getString("Title");
-                    float price = resultSetProducts.getFloat("Price");
-                    int Productratinng = resultSetProducts.getInt("Ratinng");
-                }
-            }
-
-
-            String cartId = resultSet.getString("CartID");
-            query = "SELECT * FROM Carts WHERE UserID = '" + userId + "'";
-            ResultSet resultSetCard = statement.executeQuery(query);
-
-            if (resultSetCard.next()) {
-                Array listProductId = resultSetCard.getArray("ListProducts");
-
-            }
-
+            user = commonUserFactory.createUser(name, password, email, rating, userID);
         }
-
-    return null;
+        return user;
     }
 }

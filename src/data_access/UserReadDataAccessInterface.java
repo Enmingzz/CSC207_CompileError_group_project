@@ -6,5 +6,5 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public interface UserReadDataAccessInterface {
-    User getUser(String userEmail) throws SQLException, IOException;
+    User getUser(String studentNumber) throws SQLException;
 }
