@@ -8,7 +8,9 @@ import java.sql.*;
 public class DatabaseUserCreateDataAccessObject implements UserCreateDataAccessInterface {
     private final Connection connection;
     private PreparedStatement preparedStatement = null;
+    private ResultSet resultSet = null;
     private User user;
+    private String query;
 
     public DatabaseUserCreateDataAccessObject() throws SQLException {
         this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
@@ -19,11 +21,11 @@ public class DatabaseUserCreateDataAccessObject implements UserCreateDataAccessI
     }
     @Override
     public boolean existsByUTorID(String identifier) throws SQLException {
-        String query = "SELECT UserID FROM Users WHERE UserID = ?";
+        query = "SELECT UserID FROM Users WHERE UserID = ?";
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, identifier);
 
-        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             resultSet.close();
             preparedStatement.close();
@@ -38,7 +40,7 @@ public class DatabaseUserCreateDataAccessObject implements UserCreateDataAccessI
 
     @Override
     public void saveUser(User user) throws SQLException {
-        String query = "INSERT INTO Users (UserID, Name, Email, Password) VALUES (?,?,?,?)";
+        query = "INSERT INTO Users (UserID, Name, Email, Password) VALUES (?,?,?,?)";
         preparedStatement = connection.prepareStatement(query);
 
         preparedStatement.setString(1, user.getUtorid());
@@ -52,8 +54,8 @@ public class DatabaseUserCreateDataAccessObject implements UserCreateDataAccessI
     }
 
     public void saveUser() throws SQLException {
-        String query = "INSERT INTO dbo.Users (UserID, Name, Email, Password) VALUES (?,?,?,?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        query = "INSERT INTO dbo.Users (UserID, Name, Email, Password) VALUES (?,?,?,?)";
+        preparedStatement = connection.prepareStatement(query);
 
         preparedStatement.setString(1, "1");
         preparedStatement.setString(2, "Tester");
