@@ -14,11 +14,11 @@ public interface Product{
 
     Integer getRating();
 
-    boolean isPending();
+    int getState();
 
     String geteTransferEmail();
 
-    String getBuyerStudentNumber();
+    ArrayList<String> getBuyerStudentNumber();
 
     String getSellerStudentNumber();
 
