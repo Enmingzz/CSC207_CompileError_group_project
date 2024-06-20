@@ -1,19 +1,19 @@
 package use_case;
 
-import data_access.QuestionSaveDataAccessInterface;//QuestionCreateDataAccessInterface;
+import data_access.QuestionCreateDataAccessInterface;//QuestionCreateDataAccessInterface;
 import entity.CommonQuestion;
 import entity.QuestionFactory;
 import entity.Question;
 
 public class PublishQuestionInteractor implements PublishQuestionInputBoundary{
-    QuestionSaveDataAccessInterface questionSaveDataAccessObject;
+    QuestionCreateDataAccessInterface questionSaveDataAccessObject;
     QuestionFactory questionFactory;
     PublishQuestionOutputBoundary publishPresenter;
 
-    public PublishQuestionInteractor(QuestionSaveDataAccessInterface questionSaveDataAccessInterface,
+    public PublishQuestionInteractor(QuestionCreateDataAccessInterface questionCreateDataAccessInterface,
                                    QuestionFactory questionFactory,
                                    PublishQuestionOutputBoundary publishQuestionOutputBoundary){
-        this.questionSaveDataAccessObject = questionSaveDataAccessInterface;
+        this.questionSaveDataAccessObject = questionCreateDataAccessInterface;
         this.questionFactory = questionFactory;
         this.publishPresenter = publishQuestionOutputBoundary;
     }
@@ -21,7 +21,7 @@ public class PublishQuestionInteractor implements PublishQuestionInputBoundary{
     public void execute(PublishQuestionInputData publishQuestionInputData){
         CommonQuestion publishQuestion = publishQuestionInputData.getCommonQuestion();
 
-    Question question = questionFactory.createQuestion(publishQuestion.getDescription(), publishQuestion.getPostedUser().,
+    Question question = questionFactory.createQuestion(publishQuestion.getDescription(), publishQuestion.getPostedUser(),
                 publishQuestion.getAnswer());
         questionSaveDataAccessObject.saveQuestion(question);
     }
