@@ -27,10 +27,13 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.loginViewModel = loginViewModel;
         this.loginViewModel.addPropertyChangeListener(this);
         this.logInButton = new JButton(loginViewModel.LOGIN_BUTTON_LABEL);
-        LabelTextPanel studentNumberInfo = new(loginViewModel.NUMBER_LABEL, studentNumberField);
+        LabelTextPanel studentNumberInfo = new LabelTextPanel(new JLabel(loginViewModel.NUMBER_LABEL), studentNumberField);
+        LabelTextPanel passwordInfo = new LabelTextPanel(new JLabel(loginViewModel.PASSWORD_LABEL), passwordField);
 
         JLabel title = new JLabel(loginViewModel.TITLE_LABEL);
         title.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+
+        
 
     }
 

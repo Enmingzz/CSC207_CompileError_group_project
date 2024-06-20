@@ -18,8 +18,6 @@ public interface Product{
 
     String geteTransferEmail();
 
-    ArrayList<String> getBuyerStudentNumber();
-
     String getSellerStudentNumber();
 
     String getAddress();
@@ -27,4 +25,6 @@ public interface Product{
     CommonSchedule getSchedule();
 
     ArrayList<String> getListTags();
+
+    String getProductID();
 }
