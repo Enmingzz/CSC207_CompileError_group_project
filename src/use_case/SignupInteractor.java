@@ -1,21 +1,20 @@
 package use_case;
 
-import data_access.DatabaseUserSignupSaveDataAccessObject;
-import data_access.UserSignupDataAccessInterface;
+import data_access.UserCreateDataAccessInterface;
 import entity.User;
 import entity.UserFactory;
 
 import java.sql.SQLException;
 
 public class SignupInteractor implements SignupInputBoundary{
-    final UserSignupDataAccessInterface userDataAccessObject;
+    final UserCreateDataAccessInterface userDataAccessObject;
     final SignupOutputBoundary userPresenter;
     final UserFactory userFactory;
 
-    public SignupInteractor(UserSignupDataAccessInterface userSignupDataAccessInterface,
+    public SignupInteractor(UserCreateDataAccessInterface userCreateDataAccessInterface,
                             SignupOutputBoundary signupOutputBoundary,
                             UserFactory userFactory) {
-            this.userDataAccessObject = userSignupDataAccessInterface;
+            this.userDataAccessObject = userCreateDataAccessInterface;
             this.userPresenter = signupOutputBoundary;
             this.userFactory = userFactory;
         }
@@ -29,7 +28,7 @@ public class SignupInteractor implements SignupInputBoundary{
             User user = userFactory.createUser(signupInputData.getUsername(), signupInputData.getPassword(), signupInputData.getEmailAddress(), 0, signupInputData.getUtorid());
             userDataAccessObject.saveUser(user);
 
-            SignupOutputData signupOutputData = new SignupOutputData(user.getName(), user.getUtroid(), false);
+            SignupOutputData signupOutputData = new SignupOutputData(user.getName(), user.getUtorid(), false);
             userPresenter.presentSuccessfulView(signupOutputData);
         }
     }

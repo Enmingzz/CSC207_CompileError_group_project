@@ -3,7 +3,7 @@ package entity;
 public interface Question{
     String getDescription();
 
-    User getPostedUser();
+    String getStudentNumber();
 
     Answer getAnswer();
 }

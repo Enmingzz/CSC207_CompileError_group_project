@@ -7,14 +7,14 @@ public class CommonUser implements User{
     String password;
     String email;
     float userRating;
-    String Utroid;
+    String studentNumber;
 
-    public CommonUser(String name, String Password, String email, float userRating, String Utroid){
+    public CommonUser(String name, String Password, String email, float userRating, String studentNumber){
         this.name = name;
         this.password = Password;
         this.email = email;
         this.userRating = userRating;
-        this.Utroid = Utroid;
+        this.studentNumber = studentNumber;
     }
 
     @Override
@@ -37,7 +37,8 @@ public class CommonUser implements User{
         return userRating;
     }
 
-    public String getUtroid() {
-        return Utroid;
+    @Override
+    public String getStudentNumber() {
+        return studentNumber;
     }
 }

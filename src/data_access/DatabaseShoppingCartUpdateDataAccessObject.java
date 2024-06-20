@@ -3,9 +3,11 @@ package data_access;
 import entity.Product;
 import entity.ShoppingCart;
 
+import java.sql.*;
+
 public class DatabaseShoppingCartUpdateDataAccessObject implements ShoppingCartUpdateDataAccessInterface {
     @Override
-    public void save(ShoppingCart shoppingCart, Product product) {
+    public void updateShoppingCart(ShoppingCart shoppingCart, Product product) throws SQLException {
 
     }
 }

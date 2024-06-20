@@ -14,13 +14,13 @@ public interface Product{
 
     Integer getRating();
 
-    boolean isPending();
+    int getState();
 
     String geteTransferEmail();
 
-    String getBuyerUtorid();
+    ArrayList<String> getBuyerStudentNumber();
 
-    String getSellerUtorid();
+    String getSellerStudentNumber();
 
     String getAddress();
 

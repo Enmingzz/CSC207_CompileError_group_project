@@ -2,7 +2,8 @@ package data_access;
 
 import entity.Question;
 
-public interface QuestionCreateDataAccessInterface {
+import java.sql.SQLException;
 
-    void saveQuestion(Question question);
+public interface QuestionCreateDataAccessInterface {
+    void saveQuestion(Question question) throws SQLException;
 }

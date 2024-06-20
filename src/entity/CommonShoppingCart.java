@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class CommonShoppingCart implements ShoppingCart{
     private float totalPrice;
-    private CommonUser user;
+    private String studentNumber;
     private ArrayList<Product> listProducts;
 
-    public CommonShoppingCart(float totalPrice, CommonUser user, ArrayList<Product> listProducts) {
-        this.user = user;
+    public CommonShoppingCart(float totalPrice, String studentNumber, ArrayList<Product> listProducts) {
+        this.studentNumber = studentNumber;
         this.listProducts = listProducts;
         this.totalPrice = totalPrice;
     }
@@ -19,8 +19,8 @@ public class CommonShoppingCart implements ShoppingCart{
     }
 
     @Override
-    public CommonUser getUser() {
-        return user;
+    public String getStudentNumber() {
+        return studentNumber;
     }
 
     @Override

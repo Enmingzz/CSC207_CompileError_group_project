@@ -12,5 +12,5 @@ public interface User {
 
     public float getUserRating();
 
-    public String getUtroid();
+    public String getStudentNumber();
 }

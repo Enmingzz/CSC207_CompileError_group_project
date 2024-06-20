@@ -4,7 +4,7 @@ import entity.User;
 
 import java.sql.SQLException;
 
-public interface UserSignupDataAccessInterface {
+public interface UserCreateDataAccessInterface {
     boolean existsByUTorID(String identifier) throws SQLException;
 
     void saveUser(User user) throws SQLException;
