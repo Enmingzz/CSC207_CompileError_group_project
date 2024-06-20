@@ -5,8 +5,8 @@ public class
 CommonQuestion extends CommonComment implements Question{
     private Answer answer;
 
-    public CommonQuestion(String description, User commonUser, Answer answer){
-        super(description, commonUser);
+    public CommonQuestion(String description, String studentNumber, Answer answer){
+        super(description, studentNumber);
         this.answer = answer;
     }
 

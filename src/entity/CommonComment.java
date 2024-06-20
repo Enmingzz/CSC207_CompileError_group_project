@@ -7,17 +7,17 @@ package entity;
  */
 public class CommonComment implements Comment{
     private String description;
-    private User postedUser;
+    private String studentNumber;
 
-    public CommonComment(String description, User postedUser) {
+    public CommonComment(String description, String studentNumber) {
         this.description = description;
-        this.postedUser = postedUser;
+        this.studentNumber = studentNumber;
     }
     public String getDescription() {
         return description;
     }
 
-    public User getPostedUser() {
-        return postedUser;
+    public String getStudentNumber() {
+        return studentNumber;
     }
 }

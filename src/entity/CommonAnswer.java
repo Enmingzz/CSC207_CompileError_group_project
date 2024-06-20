@@ -6,7 +6,8 @@ package entity;
  */
 public class CommonAnswer extends CommonComment implements Answer{
 
-    public CommonAnswer(String description, CommonUser commonUser){
-        super(description, commonUser);
+    public CommonAnswer(String description, String studentNumber){
+        super(description, studentNumber);
     }
+
 }
