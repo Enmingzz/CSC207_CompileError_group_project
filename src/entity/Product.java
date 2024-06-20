@@ -14,11 +14,9 @@ public interface Product{
 
     Integer getRating();
 
-    boolean isPending();
+    int getState();
 
     String geteTransferEmail();
-
-    String getBuyerStudentNumber();
 
     String getSellerStudentNumber();
 
@@ -27,4 +25,6 @@ public interface Product{
     CommonSchedule getSchedule();
 
     ArrayList<String> getListTags();
+
+    String getProductID();
 }

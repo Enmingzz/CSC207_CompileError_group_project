@@ -13,28 +13,29 @@ public class CommonProduct implements Product{
     private String description;
     private float price;
     private String title;
-    private boolean isPending;
+    private int state;
     private Integer rating;
     private String eTransferEmail;
-    private String buyerStudentNumber;
     private String sellerStudentNumber;
     private String address;
     private CommonSchedule schedule;
     private ArrayList<String> listTags;
+    private String productID;
 
-    public CommonProduct(Image image, String description, String title, float price, Integer rating, boolean isPending, String eTransferEmail, String buyerStudentNumber, String sellerStudentNumber, String address, CommonSchedule schedule, ArrayList<String> listTags) {
+    public CommonProduct(Image image, String description, String title, float price, Integer rating, int state, String eTransferEmail, String sellerStudentNumber, String address, CommonSchedule schedule, ArrayList<String> listTags, String productID) {
         this.image = image;
         this.description = description;
         this.title = title;
         this.price = price;
         this.rating = rating;
-        this.isPending = isPending;
+        this.state = state;
         this.eTransferEmail = eTransferEmail;
-        this.buyerStudentNumber = buyerStudentNumber;
         this.sellerStudentNumber = sellerStudentNumber;
         this.address = address;
         this.schedule = schedule;
         this.listTags = listTags;
+        this.productID = productID;
+
     }
 
     @Override
@@ -63,18 +64,13 @@ public class CommonProduct implements Product{
     }
 
     @Override
-    public boolean isPending() {
-        return isPending;
+    public int getState() {
+        return state;
     }
 
     @Override
     public String geteTransferEmail() {
         return eTransferEmail;
-    }
-
-    @Override
-    public String getBuyerStudentNumber() {
-        return buyerStudentNumber;
     }
 
     @Override
@@ -95,5 +91,9 @@ public class CommonProduct implements Product{
     @Override
     public ArrayList<String> getListTags() {
         return listTags;
+    }
+
+    public String getProductID() {
+        return productID;
     }
 }
