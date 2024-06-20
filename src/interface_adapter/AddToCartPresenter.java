@@ -15,7 +15,7 @@ public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary{
     }
 
     @Override
-    public void prepareSuccessView(AddShoppingCartProductOutputData response{
+    public void prepareSuccessView(AddShoppingCartProductOutputData response) {
         //move to shopping_cart_View
 
     }
