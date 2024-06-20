@@ -1,5 +1,5 @@
 package entity;
 
 public interface QuestionFactory {
-    Question createQuestion(String description, User commonUser, Answer answer);
+    Question createQuestion(String description, String studentNumber, Answer answer);
 }

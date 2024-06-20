@@ -5,7 +5,7 @@ package entity;
  * @author CompileError group
  */
 public class CommonAnswerFactory {
-    Answer createCommonAnswer(String description, CommonUser commonUser){
-        return new CommonAnswer(description, commonUser);
+    Answer createCommonAnswer(String description, String studentNumber){
+        return new CommonAnswer(description, studentNumber);
     }
 }
