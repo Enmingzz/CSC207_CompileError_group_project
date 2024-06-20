@@ -1,9 +1,9 @@
 package data_access;
 
-import entity.ShoppingCart;
+import entity.Product;
 
 import java.sql.SQLException;
 
 public interface ShoppingCartDeleteDataAccessInterface {
-    void deleteShoppingCart(ShoppingCart cart) throws SQLException;
+    void deleteShoppingCart(Product product) throws SQLException;
 }
