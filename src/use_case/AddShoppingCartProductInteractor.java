@@ -3,31 +3,33 @@ package use_case;
 import entity.Product;
 import entity.ShoppingCart;
 import entity.User;
-import data_access.ShoppingCartSaveDataAccessInterface;
-import data_access.ShoppingCartLoadDataAccessInterface;
+import data_access.ShoppingCartUpdateDataAccessInterface;
+import data_access.ShoppingCartReadDataAccessInterface;
+
+import java.sql.SQLException;
 
 public class AddShoppingCartProductInteractor implements AddShoppingCartProductInputBoundary{
 
-    final ShoppingCartSaveDataAccessInterface shoppingCartAddDataAccessObject;
+    final ShoppingCartUpdateDataAccessInterface shoppingCartUpdateDataAccessInterface;
     final AddShoppingCartProductOutputBoundary addShoppingCartProductPresenter;
-    final ShoppingCartLoadDataAccessInterface shoppingCartLoadDataAccessObject;
+    final ShoppingCartReadDataAccessInterface shoppingCartReadDataAccessInterface;
 
-    public AddShoppingCartProductInteractor(ShoppingCartSaveDataAccessInterface shoppingCartAddDataAccessObject,
+    public AddShoppingCartProductInteractor(ShoppingCartUpdateDataAccessInterface shoppingCartUpdateDataAccessInterface,
                                             AddShoppingCartProductOutputBoundary addShoppingCartProductPresenter,
-                                            ShoppingCartLoadDataAccessInterface shoppingCartLoadDataAccessObject) {
-        this.shoppingCartAddDataAccessObject = shoppingCartAddDataAccessObject;
+                                            ShoppingCartReadDataAccessInterface shoppingCartReadDataAccessInterface) {
+
+        this.shoppingCartUpdateDataAccessInterface = shoppingCartUpdateDataAccessInterface;
         this.addShoppingCartProductPresenter = addShoppingCartProductPresenter;
-        this.shoppingCartLoadDataAccessObject = shoppingCartLoadDataAccessObject;
+        this.shoppingCartReadDataAccessInterface = shoppingCartReadDataAccessInterface;
     }
 
     @Override
-    public void addProductToShoppingCart(AddShoppingCartProductInputData addShoppingCartProductInputData) {
+    public void addProductToShoppingCart(AddShoppingCartProductInputData addShoppingCartProductInputData) throws SQLException {
         User user = addShoppingCartProductInputData.getUser();
         Product addProduct = addShoppingCartProductInputData.getProduct();
-        ShoppingCart shoppingCart = shoppingCartLoadDataAccessObject.load(user);
+        ShoppingCart shoppingCart = shoppingCartReadDataAccessInterface.getShoppingCart(user);
 
-        shoppingCart.getListProducts().add(addProduct);
-        shoppingCartAddDataAccessObject.save(shoppingCart, addProduct);
+        shoppingCartUpdateDataAccessInterface.updateShoppingCart(shoppingCart, addProduct);
         AddShoppingCartProductOutputData addShoppingCartProductOutputData = new AddShoppingCartProductOutputData(user);
         addShoppingCartProductPresenter.prepareSuccessView(addShoppingCartProductOutputData);
 

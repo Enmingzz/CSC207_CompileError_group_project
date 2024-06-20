@@ -5,5 +5,5 @@ import entity.Question;
 import java.sql.SQLException;
 
 public interface QuestionReadDataAccessInterface {
-    public Question loadQuestion(String question) throws SQLException;
+    Question getQuestion(String question) throws SQLException;
 }

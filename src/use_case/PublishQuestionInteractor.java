@@ -1,28 +1,30 @@
 package use_case;
 
-import data_access.QuestionSaveDataAccessInterface;//QuestionCreateDataAccessInterface;
+import data_access.QuestionCreateDataAccessInterface;//QuestionCreateDataAccessInterface;
 import entity.CommonQuestion;
 import entity.QuestionFactory;
 import entity.Question;
 
+import java.sql.SQLException;
+
 public class PublishQuestionInteractor implements PublishQuestionInputBoundary{
-    QuestionSaveDataAccessInterface questionSaveDataAccessObject;
+    QuestionCreateDataAccessInterface questionCreateDataAccessInterface;
     QuestionFactory questionFactory;
     PublishQuestionOutputBoundary publishPresenter;
 
-    public PublishQuestionInteractor(QuestionSaveDataAccessInterface questionSaveDataAccessInterface,
+    public PublishQuestionInteractor(QuestionCreateDataAccessInterface questionSaveDataAccessInterface,
                                    QuestionFactory questionFactory,
                                    PublishQuestionOutputBoundary publishQuestionOutputBoundary){
-        this.questionSaveDataAccessObject = questionSaveDataAccessInterface;
+        this.questionCreateDataAccessInterface = questionSaveDataAccessInterface;
         this.questionFactory = questionFactory;
         this.publishPresenter = publishQuestionOutputBoundary;
     }
     @Override
-    public void execute(PublishQuestionInputData publishQuestionInputData){
+    public void execute(PublishQuestionInputData publishQuestionInputData) throws SQLException {
         CommonQuestion publishQuestion = publishQuestionInputData.getCommonQuestion();
 
-    Question question = questionFactory.createQuestion(publishQuestion.getDescription(), publishQuestion.getPostedUser().,
+    Question question = questionFactory.createQuestion(publishQuestion.getDescription(), publishQuestion.getPostedUser(),
                 publishQuestion.getAnswer());
-        questionSaveDataAccessObject.saveQuestion(question);
+        questionCreateDataAccessInterface.saveQuestion(question);
     }
 }

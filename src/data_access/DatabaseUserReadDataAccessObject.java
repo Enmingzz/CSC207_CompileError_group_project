@@ -13,11 +13,11 @@ import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DatabaseUserLoginLoadDataReadAccessObject implements UserLoginDataReadAccessInterface {
+public class DatabaseUserReadDataAccessObject implements UserReadDataAccessInterface {
     private final Connection connection;
     private final Statement statement;
 
-    public DatabaseUserLoginLoadDataReadAccessObject() throws SQLException {
+    public DatabaseUserReadDataAccessObject() throws SQLException {
         this.connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/207project", "root", "Hz04.05.19");
         this.statement = connection.createStatement();
     }

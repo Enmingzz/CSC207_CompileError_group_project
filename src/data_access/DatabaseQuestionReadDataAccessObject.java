@@ -1,27 +1,35 @@
 package data_access;
 
+import entity.CommonQuestionFactory;
 import entity.Question;
+import entity.QuestionFactory;
 
 import java.sql.*;
 
 public class DatabaseQuestionReadDataAccessObject implements QuestionReadDataAccessInterface {
     private final Connection connection;
-    private final Statement statement;
+    private PreparedStatement preparedStatement;
+    private ResultSet resultSet;
+    private QuestionFactory questionFactory = (QuestionFactory) new CommonQuestionFactory();
 
     public DatabaseQuestionReadDataAccessObject() throws SQLException {
-        this.connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/207project", "root", "Hz04.05.19");
-        this.statement = connection.createStatement();
+        this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
+                "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
+                "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
     }
 
     @Override
-    public Question loadQuestion(String posterId) throws SQLException {
-        String query = "SELECT * FROM Questions WHERE PostUserID = '" + posterId + "'";
-        ResultSet resultSet = statement.executeQuery(query);
+    public Question getQuestion(String posterId) throws SQLException {
+        String query = "SELECT * FROM Comments WHERE UserID = ?";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, posterId);
+        resultSet = preparedStatement.executeQuery();
+        Question question = null;
         if (resultSet.next()) {
-            String postUserID = resultSet.getString("PostUserID");
+            String userID = resultSet.getString("UserID");
             String description = resultSet.getString("Description");
-            String answerID = resultSet.getString("AnswerID");
-
+            String answer = resultSet.getString("Answer");
+//            question = questionFactory.createQuestion(description, userID, answer);
         }
         return null;
     }

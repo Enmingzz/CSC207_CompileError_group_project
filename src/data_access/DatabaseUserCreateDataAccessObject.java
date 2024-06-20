@@ -5,13 +5,15 @@ import entity.User;
 import java.sql.*;
 
 //TODO: This is only a testing version for Signup DataAccessObject to check the connection of Database!
-public class DatabaseUserSignupSaveDataAccessObject implements UserSignupDataAccessInterface {
+public class DatabaseUserCreateDataAccessObject implements UserCreateDataAccessInterface {
     private final Connection connection;
     private PreparedStatement preparedStatement = null;
     private User user;
 
-    public DatabaseUserSignupSaveDataAccessObject() throws SQLException {
-        this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30");
+    public DatabaseUserCreateDataAccessObject() throws SQLException {
+        this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
+                "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
+                "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
 //        this.user = user;
 
     }
@@ -64,7 +66,7 @@ public class DatabaseUserSignupSaveDataAccessObject implements UserSignupDataAcc
     }
 //TODO: Delete this psvm after testing successful.
     public static void main(String[] args) throws SQLException {
-        DatabaseUserSignupSaveDataAccessObject dataAccessObject = new DatabaseUserSignupSaveDataAccessObject();
+        DatabaseUserCreateDataAccessObject dataAccessObject = new DatabaseUserCreateDataAccessObject();
         System.out.println(dataAccessObject.existsByUTorID("1"));
 //        dataAccessObject.saveUser();
     }
