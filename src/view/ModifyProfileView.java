@@ -6,10 +6,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class SearchByNameView extends JPanel implements ActionListener, PropertyChangeListener {
-
-    public final String viewName = "search by name";
-
+public class ModifyProfileView extends JPanel implements ActionListener, PropertyChangeListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 

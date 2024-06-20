@@ -101,8 +101,4 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         }
     }
 
-    public static void main(String[] args) {
-
-    }
-
 }

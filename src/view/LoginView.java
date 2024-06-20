@@ -8,6 +8,7 @@ import java.beans.PropertyChangeListener;
 
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
 
+    public final String viewName = "login in";
 
     @Override
     public void actionPerformed(ActionEvent e) {

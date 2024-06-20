@@ -1,14 +1,15 @@
 package view;
 
+import interface_adapter.ViewModel;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class SearchByNameView extends JPanel implements ActionListener, PropertyChangeListener {
-
-    public final String viewName = "search by name";
+public class AddProductView extends JPanel implements ActionListener, PropertyChangeListener{
+    public final String viewName = "Add Product";
 
     @Override
     public void actionPerformed(ActionEvent e) {
