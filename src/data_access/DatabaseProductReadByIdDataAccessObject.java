@@ -5,8 +5,12 @@ import entity.Product;
 import java.sql.*;
 
 public class DatabaseProductReadByIdDataAccessObject implements ProductReadByIdDataAccessInterface {
+
+    public DatabaseProductReadByIdDataAccessObject() {}
+
     @Override
-    public Product getProductById(String productId) throws SQLException {
+    public Product getProductById(Product product) throws SQLException {
         return null;
     }
+
 }

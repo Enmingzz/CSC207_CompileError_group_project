@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class DatabaseShoppingCartUpdateDataAccessObject implements ShoppingCartUpdateDataAccessInterface {
     @Override
-    public void updateShoppingCart(ShoppingCart shoppingCart, Product product) throws SQLException {
+    public void updateShoppingCart(String studentNumber, Product product) throws SQLException {
 
     }
 }

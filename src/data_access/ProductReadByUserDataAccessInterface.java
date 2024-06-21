@@ -8,4 +8,5 @@ import java.util.ArrayList;
 
 public interface ProductReadByUserDataAccessInterface {
     ArrayList<Product> getProductByUser(User user) throws SQLException;
+
 }

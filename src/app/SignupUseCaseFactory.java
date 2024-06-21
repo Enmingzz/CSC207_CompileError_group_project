@@ -27,7 +27,6 @@ public class SignupUseCaseFactory {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return null;
     }
 

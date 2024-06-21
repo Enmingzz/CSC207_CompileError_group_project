@@ -1,4 +1,8 @@
 package data_access;
 
-public class DataBaseProductReadByIdDataAccessObjectFactory {
+public class DataBaseProductReadByIdDataAccessObjectFactory implements DataBaseProductReadByIdDataAccessObjectFactoryInterface{
+    @Override
+    public ProductReadByIdDataAccessInterface create() {
+        return new DatabaseProductReadByIdDataAccessObject();
+    }
 }
