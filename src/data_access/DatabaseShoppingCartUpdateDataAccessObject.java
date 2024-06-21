@@ -5,7 +5,7 @@ import entity.ShoppingCart;
 
 import java.sql.*;
 
-public class DatabaseShoppingCartUpdateAddDataAccessObject implements ShoppingCartUpdateAddDataAccessInterface {
+public class DatabaseShoppingCartUpdateDataAccessObject implements ShoppingCartUpdateDataAccessInterface {
     @Override
     public void updateShoppingCart(ShoppingCart shoppingCart, Product product) throws SQLException {
 
