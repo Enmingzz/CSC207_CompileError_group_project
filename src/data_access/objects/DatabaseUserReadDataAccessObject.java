@@ -34,11 +34,10 @@ public class DatabaseUserReadDataAccessObject implements UserReadDataAccessInter
         String email = resultSet.getString("Email");
         String password = resultSet.getString("Password");
         float rating = resultSet.getFloat("Rating");
-        user = userFactory.createUser(name, password, email, rating, userID);
 
         resultSet.close();
         preparedStatement.close();
         connection.close();
-        return user;
+        return userFactory.createUser(name, password, email, rating, userID);
     }
 }
