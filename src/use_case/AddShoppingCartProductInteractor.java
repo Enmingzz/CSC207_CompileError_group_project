@@ -3,22 +3,22 @@ package use_case;
 import entity.Product;
 import entity.ShoppingCart;
 import entity.User;
-import data_access.ShoppingCartUpdateDataAccessInterface;
+import data_access.ShoppingCartUpdateAddDataAccessInterface;
 import data_access.ShoppingCartReadDataAccessInterface;
 
 import java.sql.SQLException;
 
 public class AddShoppingCartProductInteractor implements AddShoppingCartProductInputBoundary{
 
-    final ShoppingCartUpdateDataAccessInterface shoppingCartUpdateDataAccessInterface;
+    final ShoppingCartUpdateAddDataAccessInterface shoppingCartUpdateAddDataAccessInterface;
     final AddShoppingCartProductOutputBoundary addShoppingCartProductPresenter;
     final ShoppingCartReadDataAccessInterface shoppingCartReadDataAccessInterface;
 
-    public AddShoppingCartProductInteractor(ShoppingCartUpdateDataAccessInterface shoppingCartUpdateDataAccessInterface,
+    public AddShoppingCartProductInteractor(ShoppingCartUpdateAddDataAccessInterface shoppingCartUpdateAddDataAccessInterface,
                                             AddShoppingCartProductOutputBoundary addShoppingCartProductPresenter,
                                             ShoppingCartReadDataAccessInterface shoppingCartReadDataAccessInterface) {
 
-        this.shoppingCartUpdateDataAccessInterface = shoppingCartUpdateDataAccessInterface;
+        this.shoppingCartUpdateAddDataAccessInterface = shoppingCartUpdateAddDataAccessInterface;
         this.addShoppingCartProductPresenter = addShoppingCartProductPresenter;
         this.shoppingCartReadDataAccessInterface = shoppingCartReadDataAccessInterface;
     }
@@ -27,9 +27,9 @@ public class AddShoppingCartProductInteractor implements AddShoppingCartProductI
     public void addProductToShoppingCart(AddShoppingCartProductInputData addShoppingCartProductInputData) throws SQLException {
         User user = addShoppingCartProductInputData.getUser();
         Product addProduct = addShoppingCartProductInputData.getProduct();
-        ShoppingCart shoppingCart = shoppingCartReadDataAccessInterface.getShoppingCart(user);
+        String shoppingCartUser = shoppingCartReadDataAccessInterface.getShoppingCart(user.getStudentNumber());
 
-        shoppingCartUpdateDataAccessInterface.updateShoppingCart(shoppingCart, addProduct);
+        shoppingCartUpdateAddDataAccessInterface.updateShoppingCart(shoppingCartUser, addProduct.get);
         AddShoppingCartProductOutputData addShoppingCartProductOutputData = new AddShoppingCartProductOutputData(user);
         addShoppingCartProductPresenter.prepareSuccessView(addShoppingCartProductOutputData);
 

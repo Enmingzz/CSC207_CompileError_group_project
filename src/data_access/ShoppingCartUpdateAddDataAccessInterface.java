@@ -5,7 +5,7 @@ import entity.Product;
 
 import java.sql.SQLException;
 
-public interface ShoppingCartUpdateDataAccessInterface {
+public interface ShoppingCartUpdateAddDataAccessInterface {
     // To be implemented to get the UtorID in shoppingCart and ProductID in product to be written in database
-    void updateShoppingCart(ShoppingCart shoppingCart, Product product) throws SQLException;
+    void updateShoppingCart(String shoppingCartUserID, String addedProductID) throws SQLException;
 }
