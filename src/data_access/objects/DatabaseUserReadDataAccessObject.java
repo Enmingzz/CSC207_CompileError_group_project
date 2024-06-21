@@ -27,6 +27,7 @@ public class DatabaseUserReadDataAccessObject implements UserReadDataAccessInter
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, studentNumber);
         resultSet = preparedStatement.executeQuery();
+        resultSet.next();
 
         String userID = resultSet.getString("UserID");
         String name = resultSet.getString("Name");

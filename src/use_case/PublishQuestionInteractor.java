@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class PublishQuestionInteractor implements PublishQuestionInputBoundary{
     Product product;
-    QuestionCreateDataAccessInterface questionCreateDataAccessObject;
+    QuestionCreateDataAccessInterface questionCreateDataAccessInterface;
     QuestionFactory questionFactory;
     PublishQuestionOutputBoundary publishPresenter;
 
@@ -18,7 +18,7 @@ public class PublishQuestionInteractor implements PublishQuestionInputBoundary{
                                      QuestionFactory questionFactory,
                                      PublishQuestionOutputBoundary publishQuestionOutputBoundary){
         this.product = product;
-        this.questionCreateDataAccessObject = questionSaveDataAccessInterface;
+        this.questionCreateDataAccessInterface = questionSaveDataAccessInterface;
         this.questionFactory = questionFactory;
         this.publishPresenter = publishQuestionOutputBoundary;
     }
@@ -29,7 +29,7 @@ public class PublishQuestionInteractor implements PublishQuestionInputBoundary{
 
         Question question = questionFactory.createQuestion(publishQuestion.getDescription(), publishQuestion.getStudentNumber(),
                 publishQuestion.getAnswer());
-        questionCreateDataAccessObject.saveQuestion(question, questionProduct);
+        questionCreateDataAccessInterface.saveQuestion(question);
 
         PublishQuestionOutputData publishQuestionOutputData =  new PublishQuestionOutputData("question successfully published");
         publishPresenter.prepareSuccessView(publishQuestionOutputData);
