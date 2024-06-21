@@ -27,9 +27,10 @@ public class DatabaseShoppingCartReadDataAccessObject implements ShoppingCartRea
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, user.getStudentNumber());
         resultSet = preparedStatement.executeQuery();
+        resultSet.next();
 
         String totalPrice = resultSet.getString("TotalPrice");
         String listProducts = resultSet.getString("ListProductID");
-
+        return null;
     }
 }
