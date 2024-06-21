@@ -6,15 +6,15 @@ public class SignupInputData {
     final private String emailAddress;
     final private String verificationCode;
     final private String repeatPassword;
-    final private String Utorid;
+    final private String studentNumber;
 
-    public SignupInputData(String username, String password, String emailAddress, String verificationCode, String repeatPassword, String utorid) {
+    public SignupInputData(String username, String password, String emailAddress, String verificationCode, String repeatPassword, String studentNumber) {
         this.username = username;
         this.password = password;
         this.emailAddress = emailAddress;
         this.verificationCode = verificationCode;
         this.repeatPassword = repeatPassword;
-        Utorid = utorid;
+        this.studentNumber = studentNumber;
     }
 
     public String getUsername() {
@@ -37,7 +37,7 @@ public class SignupInputData {
         return repeatPassword;
     }
 
-    public String getUtorid() {
-        return Utorid;
+    public String getStudentNumber() {
+        return studentNumber;
     }
 }

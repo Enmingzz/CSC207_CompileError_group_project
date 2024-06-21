@@ -15,11 +15,11 @@ import java.util.ArrayList;
 
 public class DatabaseUserReadDataAccessObject implements UserReadDataAccessInterface {
     private final Connection connection;
-    private PreparedStatement preparedStatement = null;
-    private ResultSet resultSet = null;
-    private CommonUserFactory commonUserFactory = null;
+    private final CommonUserFactory commonUserFactory;
+    private PreparedStatement preparedStatement;
+    private ResultSet resultSet;
     private String query;
-    private User user = null;
+    private User user;
 
     public DatabaseUserReadDataAccessObject(CommonUserFactory commonUserFactory) throws SQLException {
         this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +

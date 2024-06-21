@@ -23,7 +23,7 @@ public class PublishQuestionInteractor implements PublishQuestionInputBoundary{
     public void execute(PublishQuestionInputData publishQuestionInputData) throws SQLException {
         CommonQuestion publishQuestion = publishQuestionInputData.getCommonQuestion();
 
-    Question question = questionFactory.createQuestion(publishQuestion.getDescription(), publishQuestion.getPostedUser(),
+    Question question = questionFactory.createQuestion(publishQuestion.getDescription(), publishQuestion.getStudentNumber(),
                 publishQuestion.getAnswer());
         questionCreateDataAccessInterface.saveQuestion(question);
     }
