@@ -5,6 +5,6 @@ package entity.comment;
  * @author CompileError group
  */
 public interface AnswerFactory {
-    public Answer createAnswer();
+    public Answer createAnswer(String description, String studentNumber);
 
 }
