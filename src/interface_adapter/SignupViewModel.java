@@ -15,7 +15,7 @@ public class SignupViewModel extends ViewModel {
     public final String VERIFICATION_LABEL = "Enter verification code";
 
     public final String SIGNUP_BUTTON_LABEL = "Sign up";
-    public final String CANCEL_BUTTON_LABEL = "Cancel";
+    public final String SEND_EMAIL_VERIFICATION_LABEL = "send";
 
     private SignupState state = new SignupState();
 

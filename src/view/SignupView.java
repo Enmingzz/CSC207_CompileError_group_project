@@ -28,6 +28,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final SignupController signupController;
 
     private final JButton signUp;
+    private final JButton emailVerification;
 
     public SignupView(SignupController controller, SignupViewModel signupViewModel) {
 
@@ -48,9 +49,19 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         LabelTextPanel verificationCodeInfo = new LabelTextPanel(new JLabel(signupViewModel.VERIFICATION_LABEL), verificationCodeInputField);
 
 
+
         JPanel buttons = new JPanel();
         signUp = new JButton(signupViewModel.SIGNUP_BUTTON_LABEL);
         buttons.add(signUp);
+
+        JPanel button2 = new JPanel();
+        emailVerification = new JButton(signupViewModel.SEND_EMAIL_VERIFICATION_LABEL);
+        button2.add(emailVerification);
+
+        JPanel container = new JPanel();
+        container.setLayout(new GridLayout(1,2));
+        container.add(verificationCodeInfo);
+        container.add(button2);
 
         class SignUpButtonListener implements ActionListener {
             public void actionPerformed(ActionEvent evt) {
@@ -91,6 +102,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.add(usernameInfo);
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);
+        this.add(emailInfo);
+        this.add(container);
         this.add(buttons);
     }
 
