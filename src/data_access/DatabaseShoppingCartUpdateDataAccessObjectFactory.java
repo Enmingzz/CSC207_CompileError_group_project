@@ -1,4 +1,0 @@
-package data_access;
-
-public class DatabaseShoppingCartUpdateDataAccessObjectFactory implements DatabaseShoppingCartUpdateDataAccessObjectFactoryInterface{
-}
