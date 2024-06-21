@@ -1,6 +1,5 @@
 package app;
 
-import data_access.*;
 import data_access.factories.interfaces.DatabaseUserCreateDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.DatabaseUserReadDataAccessObjectFactoryInterface;
 import data_access.factories.objects.DatabaseUserCreateDataAccessObjectFactory;
