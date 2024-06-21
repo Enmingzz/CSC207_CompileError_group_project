@@ -9,7 +9,6 @@ import java.sql.*;
 public class DatabaseShoppingCartUpdateAddDataAccessObject implements ShoppingCartUpdateAddDataAccessInterface {
     @Override
     public void updateShoppingCart(User user, Product product) throws SQLException {
-
     }
 
 }

@@ -4,7 +4,7 @@ package use_case;
 public class PublishQuestionOutputData {
     private final String outputStr;
 
-    PublishQuestionOutputData(String outputStr){
+    public PublishQuestionOutputData(String outputStr){
         this.outputStr = outputStr;
     }
 
