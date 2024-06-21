@@ -2,7 +2,9 @@ package data_access.factories.interfaces;
 
 import data_access.interfaces.ProductUpdateDescriptionDataAccessInterface;
 
+import java.sql.SQLException;
+
 public interface DatabaseProductUpdateDescriptionDataAccessObjectFactoryInterface {
 
-    ProductUpdateDescriptionDataAccessInterface create();
+    ProductUpdateDescriptionDataAccessInterface create() throws SQLException;
 }

@@ -24,7 +24,7 @@ public class CommonProduct implements Product{
     private ArrayList<String> listTags;
     private String productID;
 
-    public CommonProduct(Image image, String description, String title, float price, Integer rating, int state, String eTransferEmail, String sellerStudentNumber, String address, CommonSchedule schedule, ArrayList<String> listTags, String productID) {
+    public CommonProduct(Image image, String description, String title, float price, Integer rating, int state, String eTransferEmail, String sellerStudentNumber, String address, ArrayList<String> listTags, String productID) {
         this.image = image;
         this.description = description;
         this.title = title;
@@ -34,7 +34,6 @@ public class CommonProduct implements Product{
         this.eTransferEmail = eTransferEmail;
         this.sellerStudentNumber = sellerStudentNumber;
         this.address = address;
-        this.schedule = schedule;
         this.listTags = listTags;
         this.productID = productID;
 
@@ -83,11 +82,6 @@ public class CommonProduct implements Product{
     @Override
     public String getAddress() {
         return address;
-    }
-
-    @Override
-    public CommonSchedule getSchedule() {
-        return schedule;
     }
 
     @Override
