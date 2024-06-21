@@ -1,14 +1,21 @@
 package use_case;
-import entity.CommonQuestion;
+import entity.Product;
+import entity.Question;
 
 public class PublishQuestionInputData {
-    private final CommonQuestion commonQuestion; //
+    private final Question question;
+    private final Product product;//
 
-    public PublishQuestionInputData(CommonQuestion commonQuestion) {
-        this.commonQuestion = commonQuestion;
+    public PublishQuestionInputData(Question question, Product product) {
+        this.question = question;
+        this.product = product;
     }
 
-    public CommonQuestion getCommonQuestion() {
-        return commonQuestion;
+    public Question getQuestion() {
+        return question;
+    }
+
+    public Product getProduct(){
+        return product;
     }
 }
