@@ -1,6 +1,6 @@
 package use_case;
 
-import data_access.QuestionCreateDataAccessInterface;
+import data_access.interfaces.QuestionCreateDataAccessInterface;
 import entity.Product;
 import entity.QuestionFactory;
 import entity.Question;

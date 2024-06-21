@@ -1,10 +1,9 @@
 package use_case;
 
 import entity.Product;
-import entity.ShoppingCart;
 import entity.User;
-import data_access.ShoppingCartUpdateAddDataAccessInterface;
-import data_access.ShoppingCartReadDataAccessInterface;
+import data_access.interfaces.ShoppingCartUpdateAddDataAccessInterface;
+import data_access.interfaces.ShoppingCartReadDataAccessInterface;
 
 import java.sql.SQLException;
 
