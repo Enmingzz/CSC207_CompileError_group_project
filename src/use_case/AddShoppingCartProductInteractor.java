@@ -27,7 +27,7 @@ public class AddShoppingCartProductInteractor implements AddShoppingCartProductI
     public void addProductToShoppingCart(AddShoppingCartProductInputData addShoppingCartProductInputData) throws SQLException {
         User user = addShoppingCartProductInputData.getUser();
         Product addProduct = addShoppingCartProductInputData.getProduct();
-        String shoppingCartUser = shoppingCartReadDataAccessInterface.getShoppingCart(user.getStudentNumber());
+        String shoppingCartUser = shoppingCartReadDataAccessInterface.getShoppingCart(user.getStudentNumber(), );
 
         shoppingCartUpdateAddDataAccessInterface.updateShoppingCart(shoppingCartUser, addProduct.get);
         AddShoppingCartProductOutputData addShoppingCartProductOutputData = new AddShoppingCartProductOutputData(user);

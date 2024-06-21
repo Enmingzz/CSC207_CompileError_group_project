@@ -10,4 +10,9 @@ public class DatabaseShoppingCartUpdateAddDataAccessObject implements ShoppingCa
     public void updateShoppingCart(String studentNumber, Product product) throws SQLException {
 
     }
+
+    @Override
+    public void updateShoppingCart(String shoppingCartUserID, String addedProductID) throws SQLException {
+
+    }
 }
