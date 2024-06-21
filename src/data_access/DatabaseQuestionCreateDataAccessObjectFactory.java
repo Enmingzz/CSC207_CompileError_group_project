@@ -1,0 +1,4 @@
+package data_access;
+
+public class DatabaseQuestionCreateDataAccessObjectFactory implements DatabaseQuestionCreateDataAccessObjectFactoryInterface{
+}
