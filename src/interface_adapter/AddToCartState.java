@@ -1,8 +1,8 @@
 package interface_adapter;
 
-import entity.User;
-import entity.Product;
-import entity.ShoppingCart;
+import entity.user.User;
+import entity.product.Product;
+import entity.shopping_cart.ShoppingCart;
 
 public class AddToCartState {
     private ShoppingCart shoppingCart = null;

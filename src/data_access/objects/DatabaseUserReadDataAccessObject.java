@@ -1,7 +1,8 @@
 package data_access.objects;
 
 import data_access.interfaces.UserReadDataAccessInterface;
-import entity.*;
+import entity.user.User;
+import entity.user.UserFactory;
 
 import java.sql.*;
 

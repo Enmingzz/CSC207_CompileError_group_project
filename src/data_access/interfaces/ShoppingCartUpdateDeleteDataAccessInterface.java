@@ -1,7 +1,7 @@
 package data_access.interfaces;
 
-import entity.ShoppingCart;
-import entity.Product;
+import entity.shopping_cart.ShoppingCart;
+import entity.product.Product;
 
 import java.sql.SQLException;
 

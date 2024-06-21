@@ -1,7 +1,5 @@
 package view;
 
-import entity.CommonProduct;
-import interface_adapter.LoginState;
 import interface_adapter.LoginViewModel;
 
 import javax.swing.*;

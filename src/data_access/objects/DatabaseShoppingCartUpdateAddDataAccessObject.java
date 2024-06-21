@@ -1,8 +1,8 @@
 package data_access.objects;
 
 import data_access.interfaces.ShoppingCartUpdateAddDataAccessInterface;
-import entity.Product;
-import entity.User;
+import entity.product.Product;
+import entity.user.User;
 
 import java.sql.*;
 

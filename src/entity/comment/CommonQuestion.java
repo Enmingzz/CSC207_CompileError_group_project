@@ -1,8 +1,4 @@
-package entity;
-
-import entity.comment.Answer;
-import entity.comment.CommonComment;
-import entity.comment.Question;
+package entity.comment;
 
 public class
 

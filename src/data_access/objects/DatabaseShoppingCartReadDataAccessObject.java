@@ -1,9 +1,9 @@
 package data_access.objects;
 
 import data_access.interfaces.ShoppingCartReadDataAccessInterface;
-import entity.ShoppingCart;
-import entity.ShoppingCartFactory;
-import entity.User;
+import entity.shopping_cart.ShoppingCart;
+import entity.shopping_cart.ShoppingCartFactory;
+import entity.user.User;
 
 import java.sql.*;
 

@@ -3,7 +3,7 @@ package data_access.factories.objects;
 import data_access.interfaces.UserReadDataAccessInterface;
 import data_access.factories.interfaces.DatabaseUserReadDataAccessObjectFactoryInterface;
 import data_access.objects.DatabaseUserReadDataAccessObject;
-import entity.UserFactory;
+import entity.user.UserFactory;
 
 import java.sql.SQLException;
 

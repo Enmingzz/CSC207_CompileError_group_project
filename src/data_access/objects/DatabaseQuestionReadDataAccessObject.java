@@ -1,7 +1,7 @@
 package data_access.objects;
 
 import data_access.interfaces.QuestionReadDataAccessInterface;
-import entity.CommonQuestionFactory;
+import entity.comment.CommonQuestionFactory;
 import entity.comment.Question;
 import entity.comment.QuestionFactory;
 

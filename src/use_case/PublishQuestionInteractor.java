@@ -1,7 +1,7 @@
 package use_case;
 
 import data_access.interfaces.QuestionCreateDataAccessInterface;
-import entity.Product;
+import entity.product.Product;
 import entity.comment.QuestionFactory;
 import entity.comment.Question;
 

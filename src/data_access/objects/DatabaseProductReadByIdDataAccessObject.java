@@ -1,7 +1,7 @@
 package data_access.objects;
 
 import data_access.interfaces.ProductReadByIdDataAccessInterface;
-import entity.Product;
+import entity.product.Product;
 
 import java.sql.*;
 

@@ -1,6 +1,6 @@
 package data_access.interfaces;
 
-import entity.User;
+import entity.user.User;
 
 import java.sql.SQLException;
 

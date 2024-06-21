@@ -1,4 +1,6 @@
-package entity;
+package entity.product;
+
+import entity.schedule.CommonSchedule;
 
 import java.awt.*;
 import java.util.ArrayList;

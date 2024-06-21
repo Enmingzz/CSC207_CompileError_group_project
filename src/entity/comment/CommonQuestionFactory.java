@@ -1,7 +1,4 @@
-package entity;
-
-import entity.comment.Answer;
-import entity.comment.Question;
+package entity.comment;
 
 public class CommonQuestionFactory {
     public Question createQuestion(String description, String studentNumber, Answer answer){

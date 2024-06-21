@@ -1,6 +1,6 @@
 package data_access.interfaces;
 
-import entity.Product;
+import entity.product.Product;
 
 import java.awt.*;
 import java.sql.SQLException;

@@ -1,7 +1,7 @@
 package data_access.objects;
 
 import data_access.interfaces.ProductUpdateDescriptionDataAccessInterface;
-import entity.Product;
+import entity.product.Product;
 
 import java.sql.*;
 

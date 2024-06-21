@@ -1,4 +1,4 @@
-package entity;
+package entity.schedule;
 
 import java.sql.Time;
 import java.util.ArrayList;

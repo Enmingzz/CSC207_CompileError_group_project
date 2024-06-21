@@ -1,7 +1,7 @@
 package data_access.factories.interfaces;
 
 import data_access.interfaces.UserReadDataAccessInterface;
-import entity.UserFactory;
+import entity.user.UserFactory;
 
 import java.sql.SQLException;
 

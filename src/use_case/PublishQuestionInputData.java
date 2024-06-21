@@ -1,5 +1,5 @@
 package use_case;
-import entity.Product;
+import entity.product.Product;
 import entity.comment.Question;
 
 public class PublishQuestionInputData {

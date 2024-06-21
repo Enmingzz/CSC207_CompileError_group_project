@@ -1,8 +1,8 @@
 package use_case;
 
-import entity.Product;
-import entity.ShoppingCart;
-import entity.User;
+import entity.product.Product;
+import entity.shopping_cart.ShoppingCart;
+import entity.user.User;
 
 import data_access.interfaces.ShoppingCartUpdateAddDataAccessInterface;
 import data_access.interfaces.ShoppingCartReadDataAccessInterface;

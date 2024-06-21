@@ -1,7 +1,7 @@
 package data_access.objects;
 
 import data_access.interfaces.ShoppingCartUpdateDeleteDataAccessInterface;
-import entity.ShoppingCart;
+import entity.shopping_cart.ShoppingCart;
 
 import java.sql.*;
 

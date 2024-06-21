@@ -1,6 +1,4 @@
-package entity;
-
-import java.util.ArrayList;
+package entity.user;
 
 public class CommonUser implements User{
     String name;

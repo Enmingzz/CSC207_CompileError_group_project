@@ -1,4 +1,6 @@
-package entity;
+package entity.shopping_cart;
+
+import entity.product.Product;
 
 import java.util.ArrayList;
 
