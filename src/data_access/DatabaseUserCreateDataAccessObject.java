@@ -18,24 +18,24 @@ public class DatabaseUserCreateDataAccessObject implements UserCreateDataAccessI
                 "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
 
     }
-    @Override
-    public boolean existsByUTorID(String identifier) throws SQLException {
-        query = "SELECT UserID FROM Users WHERE UserID = ?";
-        preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, identifier);
-
-        resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
-            return true;
-        }
-        resultSet.close();
-        preparedStatement.close();
-        connection.close();
-        return false;
-    }
+//    @Override
+//    public boolean existsByUTorID(String identifier) throws SQLException {
+//        query = "SELECT UserID FROM Users WHERE UserID = ?";
+//        preparedStatement = connection.prepareStatement(query);
+//        preparedStatement.setString(1, identifier);
+//
+//        resultSet = preparedStatement.executeQuery();
+//        if (resultSet.next()) {
+//            resultSet.close();
+//            preparedStatement.close();
+//            connection.close();
+//            return true;
+//        }
+//        resultSet.close();
+//        preparedStatement.close();
+//        connection.close();
+//        return false;
+//    }
 
     @Override
     public void saveUser(User user) throws SQLException {

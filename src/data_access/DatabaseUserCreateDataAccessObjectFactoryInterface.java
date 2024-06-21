@@ -1,6 +1,8 @@
 package data_access;
 
+import java.sql.SQLException;
+
 public interface DatabaseUserCreateDataAccessObjectFactoryInterface {
 
-    UserCreateDataAccessInterface create();
+    UserCreateDataAccessInterface create() throws SQLException;
 }
