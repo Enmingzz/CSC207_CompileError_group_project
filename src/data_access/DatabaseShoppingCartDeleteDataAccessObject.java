@@ -36,6 +36,7 @@ public class DatabaseShoppingCartDeleteDataAccessObject implements ShoppingCartD
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, String.valueOf(listProductID));
             preparedStatement.setString(2, user.getStudentNumber());
+            preparedStatement.executeUpdate();
         }
         preparedStatement.close();
         resultSet.close();
