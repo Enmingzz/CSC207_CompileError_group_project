@@ -1,9 +1,9 @@
 package use_case;
 
-import entity.Answer;
-import entity.Product;
-import entity.Question;
-import entity.User;
+import entity.comment.Answer;
+import entity.product.Product;
+import entity.comment.Question;
+import entity.user.User;
 
 public class ReplyQuestionInputData {
     private final Product product;
