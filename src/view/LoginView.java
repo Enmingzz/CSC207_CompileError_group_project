@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.LoginController;
 import interface_adapter.LoginViewModel;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     public final String viewName = "login in";
     private final LoginViewModel loginViewModel;
+    private final LoginController loginController;
 
     final JTextField studentNumberField = new JTextField(15);
     private final JLabel studentNumberErrorField = new JLabel();
@@ -21,8 +23,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     final JButton logInButton;
 
-    public LoginView(LoginViewModel loginViewModel) {
+    public LoginView(LoginViewModel loginViewModel, LoginController loginController) {
         this.loginViewModel = loginViewModel;
+        this.loginController = loginController;
         this.loginViewModel.addPropertyChangeListener(this);
         this.logInButton = new JButton(loginViewModel.LOGIN_BUTTON_LABEL);
         LabelTextPanel studentNumberInfo = new LabelTextPanel(new JLabel(loginViewModel.NUMBER_LABEL), studentNumberField);
