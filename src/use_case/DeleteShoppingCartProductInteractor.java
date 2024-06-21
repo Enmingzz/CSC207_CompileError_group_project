@@ -1,10 +1,9 @@
 package use_case;
 
 import entity.product.Product;
-import entity.shopping_cart.ShoppingCart;
 import entity.user.User;
 
-import data_access.interfaces.ShoppingCartUpdateAddDataAccessInterface;
+import data_access.interfaces.ShoppingCartUpdateDeleteDataAccessInterface;
 import data_access.interfaces.ShoppingCartReadDataAccessInterface;
 
 import java.sql.SQLException;
@@ -12,24 +11,26 @@ import java.sql.SQLException;
 
 public class DeleteShoppingCartProductInteractor implements DeleteShoppingCartProductInputBoundary {
     final ShoppingCartReadDataAccessInterface shoppingCartReadDataAccessInterface;
-    final ShoppingCartUpdateAddDataAccessInterface shoppingCartUpdateAddDataAccessInterface;
+    final ShoppingCartUpdateDeleteDataAccessInterface shoppingCartUpdateDeleteDataAccessInterface;
     final DeleteShoppingCartProductOutputData deleteShoppingCartProductOutputData;
 
-    public DeleteShoppingCartProductInteractor(ShoppingCartUpdateAddDataAccessInterface
-                                                       shoppingCartUpdateAddDataAccessInterface,
+    public DeleteShoppingCartProductInteractor(ShoppingCartUpdateDeleteDataAccessInterface
+                                                       shoppingCartUpdateDeleteDataAccessInterface,
                                                ShoppingCartReadDataAccessInterface shoppingCartReadDataAccessInterface,
                                                DeleteShoppingCartProductOutputData deleteShoppingCartProductOutputData)
     {
         this.shoppingCartReadDataAccessInterface = shoppingCartReadDataAccessInterface;
-        this.shoppingCartUpdateAddDataAccessInterface = shoppingCartUpdateAddDataAccessInterface;
+        this.shoppingCartUpdateDeleteDataAccessInterface = shoppingCartUpdateDeleteDataAccessInterface;
         this.deleteShoppingCartProductOutputData = deleteShoppingCartProductOutputData;
     }
 
     @Override
     public void deleteShoppingCartProduct(DeleteShoppingCartProductInputData deleteShoppingCartProductInputData) throws SQLException{
         User user = deleteShoppingCartProductInputData.getUser();
-        Product product = deleteShoppingCartProductInputData.getProduct();
-        ShoppingCart shoppingCart = shoppingCartReadDataAccessInterface.getShoppingCart(user);
+        Product deletedProduct = deleteShoppingCartProductInputData.getProduct();
+
+        DeleteShoppingCartProductOutputData deleteShoppingCartProductOutputData = new DeleteShoppingCartProductOutputData(user);
+        shoppingCartUpdateDeleteDataAccessInterface.updateShoppingCart(user, deletedProduct);
 
     }
 }
