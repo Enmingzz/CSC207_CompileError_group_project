@@ -9,14 +9,13 @@ public class DatabaseUserCreateDataAccessObject implements UserCreateDataAccessI
     private final Connection connection;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
-    private User user;
+    //private User user;
     private String query;
 
-    public DatabaseUserCreateDataAccessObject(User user) throws SQLException {
+    public DatabaseUserCreateDataAccessObject() throws SQLException {
         this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
                 "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
                 "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
-        this.user = user;
 
     }
     @Override
