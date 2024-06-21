@@ -1,6 +1,7 @@
 package use_case;
 
 import entity.Product;
+import entity.ShoppingCart;
 import entity.User;
 import data_access.interfaces.ShoppingCartUpdateAddDataAccessInterface;
 import data_access.interfaces.ShoppingCartReadDataAccessInterface;
@@ -26,9 +27,8 @@ public class AddShoppingCartProductInteractor implements AddShoppingCartProductI
     public void addProductToShoppingCart(AddShoppingCartProductInputData addShoppingCartProductInputData) throws SQLException {
         User user = addShoppingCartProductInputData.getUser();
         Product addProduct = addShoppingCartProductInputData.getProduct();
-        String shoppingCartUser = shoppingCartReadDataAccessInterface.getShoppingCart(user.getStudentNumber(), );
 
-        shoppingCartUpdateAddDataAccessInterface.updateShoppingCart(shoppingCartUser, addProduct.get);
+        shoppingCartUpdateAddDataAccessInterface.updateShoppingCart(user, addProduct);
         AddShoppingCartProductOutputData addShoppingCartProductOutputData = new AddShoppingCartProductOutputData(user);
         addShoppingCartProductPresenter.prepareSuccessView(addShoppingCartProductOutputData);
 

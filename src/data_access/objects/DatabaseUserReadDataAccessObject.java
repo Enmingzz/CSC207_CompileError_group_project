@@ -7,17 +7,17 @@ import java.sql.*;
 
 public class DatabaseUserReadDataAccessObject implements UserReadDataAccessInterface {
     private final Connection connection;
-    private PreparedStatement preparedStatement = null;
-    private ResultSet resultSet = null;
-    private UserFactory commonUserFactory = null;
+    private final UserFactory userFactory;
+    private PreparedStatement preparedStatement;
+    private ResultSet resultSet;
     private String query;
-    private User user = null;
+    private User user;
 
-    public DatabaseUserReadDataAccessObject(UserFactory commonUserFactory) throws SQLException {
+    public DatabaseUserReadDataAccessObject(UserFactory userFactory) throws SQLException {
         this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
                 "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
                 "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
-        this.commonUserFactory = commonUserFactory;
+        this.userFactory = userFactory;
     }
 
     @Override
@@ -26,14 +26,14 @@ public class DatabaseUserReadDataAccessObject implements UserReadDataAccessInter
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, studentNumber);
         resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            String userID = resultSet.getString("UserID");
-            String name = resultSet.getString("Name");
-            String email = resultSet.getString("Email");
-            String password = resultSet.getString("Password");
-            float rating = resultSet.getFloat("Rating");
-            user = commonUserFactory.createUser(name, password, email, rating, userID);
-        }
+
+        String userID = resultSet.getString("UserID");
+        String name = resultSet.getString("Name");
+        String email = resultSet.getString("Email");
+        String password = resultSet.getString("Password");
+        float rating = resultSet.getFloat("Rating");
+        user = userFactory.createUser(name, password, email, rating, userID);
+
         resultSet.close();
         preparedStatement.close();
         connection.close();

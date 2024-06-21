@@ -2,6 +2,7 @@ package data_access.objects;
 
 import data_access.interfaces.ShoppingCartReadDataAccessInterface;
 import entity.ShoppingCart;
+import entity.ShoppingCartFactory;
 import entity.User;
 
 import java.sql.*;
@@ -11,12 +12,24 @@ public class DatabaseShoppingCartReadDataAccessObject implements ShoppingCartRea
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
     private String query;
-    public DatabaseShoppingCartReadDataAccessObject() {
-        this.connection =
+    private final ShoppingCartFactory shoppingCartFactory;
 
+    public DatabaseShoppingCartReadDataAccessObject(ShoppingCartFactory shoppingCartFactory) throws SQLException {
+        this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
+                "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
+                "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
+        this.shoppingCartFactory = shoppingCartFactory;
     }
     @Override
-    public ShoppingCart getShoppingCart(User user) {
-        return null;
+    public ShoppingCart getShoppingCart(User user) throws SQLException {
+        ShoppingCart shoppingCart = null;
+        query = "SELECT * FROM shopping_cart WHERE UserID = ?";
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, user.getStudentNumber());
+        resultSet = preparedStatement.executeQuery();
+
+        String totalPrice = resultSet.getString("TotalPrice");
+        String listProducts = resultSet.getString("ListProductID");
+
     }
 }
