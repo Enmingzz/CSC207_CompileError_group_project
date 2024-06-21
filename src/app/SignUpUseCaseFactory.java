@@ -1,6 +1,7 @@
 package app;
 
 import data_access.FileUserDataAccessObject;
+import data_access.UserCreateDataAccessInterface;
 import data_access.UserSignupDataAccessInterface;
 import entity.CommonUserFactory;
 import entity.UserFactory;
@@ -34,6 +35,7 @@ public class SignupUseCaseFactory {
 
 
         // Notice how we pass this method's parameters to the Presenter.
+        UserCreateDataAccessInterface userCreateDataAccessObject = new
         SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
 
         UserFactory userFactory = new CommonUserFactory();
