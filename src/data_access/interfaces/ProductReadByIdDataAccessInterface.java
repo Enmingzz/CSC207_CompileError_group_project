@@ -5,5 +5,5 @@ import entity.product.Product;
 import java.sql.SQLException;
 
 public interface ProductReadByIdDataAccessInterface {
-    Product getProductById(Product product) throws SQLException;
+    Product getProductById(String productId) throws SQLException;
 }
