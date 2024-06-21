@@ -12,8 +12,4 @@ public class DatabaseShoppingCartUpdateAddDataAccessObject implements ShoppingCa
 
     }
 
-    @Override
-    public void updateShoppingCart(String shoppingCartUserID, String addedProductID) throws SQLException {
-
-    }
 }

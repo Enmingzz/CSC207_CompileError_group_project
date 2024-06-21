@@ -30,6 +30,6 @@ public class DatabaseShoppingCartReadDataAccessObject implements ShoppingCartRea
 
         String totalPrice = resultSet.getString("TotalPrice");
         String listProducts = resultSet.getString("ListProductID");
-
+        return null;
     }
 }
