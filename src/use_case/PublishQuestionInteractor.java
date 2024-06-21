@@ -1,30 +1,37 @@
 package use_case;
 
-import data_access.QuestionCreateDataAccessInterface;//QuestionCreateDataAccessInterface;
-import entity.CommonQuestion;
+import data_access.QuestionCreateDataAccessInterface;
+import entity.Product;
 import entity.QuestionFactory;
 import entity.Question;
 
 import java.sql.SQLException;
 
 public class PublishQuestionInteractor implements PublishQuestionInputBoundary{
+    Product product;
     QuestionCreateDataAccessInterface questionCreateDataAccessInterface;
     QuestionFactory questionFactory;
     PublishQuestionOutputBoundary publishPresenter;
 
-    public PublishQuestionInteractor(QuestionCreateDataAccessInterface questionSaveDataAccessInterface,
-                                   QuestionFactory questionFactory,
-                                   PublishQuestionOutputBoundary publishQuestionOutputBoundary){
+    public PublishQuestionInteractor(Product product,
+                                     QuestionCreateDataAccessInterface questionSaveDataAccessInterface,
+                                     QuestionFactory questionFactory,
+                                     PublishQuestionOutputBoundary publishQuestionOutputBoundary){
+        this.product = product;
         this.questionCreateDataAccessInterface = questionSaveDataAccessInterface;
         this.questionFactory = questionFactory;
         this.publishPresenter = publishQuestionOutputBoundary;
     }
     @Override
     public void execute(PublishQuestionInputData publishQuestionInputData) throws SQLException {
-        CommonQuestion publishQuestion = publishQuestionInputData.getCommonQuestion();
+        Question publishQuestion = publishQuestionInputData.getQuestion();
+        Product questionProduct = publishQuestionInputData.getProduct();
 
-    Question question = questionFactory.createQuestion(publishQuestion.getDescription(), publishQuestion.getPostedUser(),
+        Question question = questionFactory.createQuestion(publishQuestion.getDescription(), publishQuestion.getStudentNumber(),
                 publishQuestion.getAnswer());
-        questionCreateDataAccessInterface.saveQuestion(question);
+        questionCreateDataAccessInterface.saveQuestion(question, questionProduct.getProductID());
+
+        PublishQuestionOutputData publishQuestionOutputData =  new PublishQuestionOutputData("question successfully published");
+        publishPresenter.prepareSuccessView(publishQuestionOutputData);
     }
 }
