@@ -17,7 +17,7 @@ public class DatabaseShoppingCartCreateDataAccessObject implements ShoppingCartC
     }
     @Override
     public void saveShoppingCart(User user) throws SQLException {
-        query = "INSERT INTO ShoppingCart(UserID) VALUES(?)";
+        query = "INSERT INTO ShoppingCart (UserID) VALUES (?)";
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, user.getStudentNumber());
         preparedStatement.executeUpdate();

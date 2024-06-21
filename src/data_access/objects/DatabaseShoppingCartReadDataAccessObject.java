@@ -28,7 +28,7 @@ public class DatabaseShoppingCartReadDataAccessObject implements ShoppingCartRea
         this.productFactory = productFactory;
     }
     @Override
-    public ShoppingCart getShoppingCart(User user) throws SQLException, IOException {
+    public ShoppingCart getShoppingCart(String userID) throws SQLException, IOException {
         Product product;
         ArrayList<Product> listProducts = new ArrayList<Product>();
         DatabaseProductReadByIdDataAccessObject databaseProductReadByIdDataAccessObject =
@@ -36,7 +36,7 @@ public class DatabaseShoppingCartReadDataAccessObject implements ShoppingCartRea
 
         query = "SELECT * FROM Carts WHERE UserID = ?";
         preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, user.getStudentNumber());
+        preparedStatement.setString(1, userID);
         resultSet = preparedStatement.executeQuery();
         resultSet.next();
 
@@ -53,6 +53,6 @@ public class DatabaseShoppingCartReadDataAccessObject implements ShoppingCartRea
         preparedStatement.close();
         connection.close();
 
-        return  shoppingCartFactory.createShoppingCart(totalPrice, user.getStudentNumber(), listProducts);
+        return  shoppingCartFactory.createShoppingCart(totalPrice, userID, listProducts);
     }
 }

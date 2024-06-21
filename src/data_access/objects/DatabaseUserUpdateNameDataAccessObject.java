@@ -1,4 +1,7 @@
 package data_access.objects;
 
-public class DatabaseUserUpdateNameDataAccessObject {
+import data_access.factories.interfaces.DatabaseUserUpdateNameDataAccessObjectFactoryInterface;
+
+public class DatabaseUserUpdateNameDataAccessObject implements DatabaseUserUpdateNameDataAccessObjectFactoryInterface {
+
 }
