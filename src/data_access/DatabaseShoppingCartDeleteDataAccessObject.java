@@ -5,12 +5,11 @@ import entity.User;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 public class DatabaseShoppingCartDeleteDataAccessObject implements ShoppingCartDeleteDataAccessInterface {
     private final Connection connection;
     private final User user;
-    private Product product;
     private PreparedStatement preparedStatement;
     private String query;
     private ResultSet resultSet;
@@ -23,13 +22,23 @@ public class DatabaseShoppingCartDeleteDataAccessObject implements ShoppingCartD
     }
     @Override
     public void deleteShoppingCart(Product product) throws SQLException {
-        query = "SELECT ListProductID FROM ShoppingCart WHERE ProductID = ?";
+        query = "SELECT ListProductsID FROM Carts WHERE UserID = ?";
         preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, product);
+        preparedStatement.setString(1, user.getStudentNumber());
         resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
-            String
-        }
+            String rowData = resultSet.getString("ListProductsID");
+            ArrayList<String> listProductID = new ArrayList<String>(Arrays.asList(rowData.substring(1,
+                    rowData.length() - 1).split(",")));
+            listProductID.remove(product.getProductID());
 
+            query = "UPDATE Carts SET ListProductsID = ? WHERE UserID = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, String.valueOf(listProductID));
+            preparedStatement.setString(2, user.getStudentNumber());
+        }
+        preparedStatement.close();
+        resultSet.close();
+        connection.close();
     }
 }
