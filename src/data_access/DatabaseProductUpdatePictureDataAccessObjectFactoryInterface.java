@@ -1,4 +1,6 @@
 package data_access;
 
 public interface DatabaseProductUpdatePictureDataAccessObjectFactoryInterface {
+
+    ProductUpdatePictureDataAccessInterface create();
 }
