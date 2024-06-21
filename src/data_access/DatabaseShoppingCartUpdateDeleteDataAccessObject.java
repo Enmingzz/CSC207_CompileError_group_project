@@ -4,7 +4,7 @@ import entity.ShoppingCart;
 
 import java.sql.*;
 
-public class DatabaseShoppingCartDeleteDataAccessObject implements ShoppingCartDeleteDataAccessInterface {
+public class DatabaseShoppingCartUpdateDeleteDataAccessObject implements ShoppingCartUpdateDeleteDataAccessInterface {
     @Override
     public void deleteShoppingCart(ShoppingCart cart) throws SQLException {
 
