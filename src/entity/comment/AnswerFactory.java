@@ -1,4 +1,4 @@
-package entity;
+package entity.comment;
 
 /**
  * The interface of CommonAnswerFactory which is used to create an instance of CommonAnswer.

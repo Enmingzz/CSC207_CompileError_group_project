@@ -1,4 +1,4 @@
-package entity;
+package entity.comment;
 
 /**
  * The interface of CommonAnswer Class

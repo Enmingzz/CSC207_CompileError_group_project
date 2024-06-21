@@ -2,8 +2,8 @@ package data_access.objects;
 
 import data_access.interfaces.QuestionReadDataAccessInterface;
 import entity.CommonQuestionFactory;
-import entity.Question;
-import entity.QuestionFactory;
+import entity.comment.Question;
+import entity.comment.QuestionFactory;
 
 import java.sql.*;
 

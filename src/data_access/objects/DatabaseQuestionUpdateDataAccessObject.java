@@ -1,7 +1,7 @@
 package data_access.objects;
 
 import data_access.interfaces.QuestionUpdateDataAccessInterface;
-import entity.Question;
+import entity.comment.Question;
 
 import java.sql.*;
 

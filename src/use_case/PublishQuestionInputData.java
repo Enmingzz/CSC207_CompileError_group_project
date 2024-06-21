@@ -1,6 +1,6 @@
 package use_case;
 import entity.Product;
-import entity.Question;
+import entity.comment.Question;
 
 public class PublishQuestionInputData {
     private final Question question;

@@ -1,6 +1,6 @@
 package data_access.interfaces;
 
-import entity.Question;
+import entity.comment.Question;
 
 import java.sql.SQLException;
 

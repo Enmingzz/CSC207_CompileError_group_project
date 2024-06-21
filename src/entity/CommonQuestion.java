@@ -1,8 +1,12 @@
 package entity;
 
+import entity.comment.Answer;
+import entity.comment.CommonComment;
+import entity.comment.Question;
+
 public class
 
-CommonQuestion extends CommonComment implements Question{
+CommonQuestion extends CommonComment implements Question {
     private Answer answer;
 
     public CommonQuestion(String description, String studentNumber, Answer answer){
