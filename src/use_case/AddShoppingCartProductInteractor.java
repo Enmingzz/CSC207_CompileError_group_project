@@ -1,39 +1,35 @@
 package use_case;
 
-import entity.Product;
-import entity.ShoppingCart;
-import data_access.ShoppingCartUpdateDataAccessInterface;
+import entity.product.Product;
+import entity.user.User;
+import data_access.interfaces.ShoppingCartUpdateAddDataAccessInterface;
+import data_access.interfaces.ShoppingCartReadDataAccessInterface;
+
+import java.sql.SQLException;
 
 public class AddShoppingCartProductInteractor implements AddShoppingCartProductInputBoundary{
 
-    final ShoppingCartUpdateDataAccessInterface shoppingCartAddDataAccessObject;
+    final ShoppingCartUpdateAddDataAccessInterface shoppingCartUpdateAddDataAccessInterface;
     final AddShoppingCartProductOutputBoundary addShoppingCartProductPresenter;
+    final ShoppingCartReadDataAccessInterface shoppingCartReadDataAccessInterface;
 
-    public AddShoppingCartProductInteractor(ShoppingCartUpdateDataAccessInterface shoppingCartAddDataAccessObject,
-                                            AddShoppingCartProductOutputBoundary addShoppingCartProductPresenter) {
-        this.shoppingCartAddDataAccessObject = shoppingCartAddDataAccessObject;
+    public AddShoppingCartProductInteractor(ShoppingCartUpdateAddDataAccessInterface shoppingCartUpdateAddDataAccessInterface,
+                                            AddShoppingCartProductOutputBoundary addShoppingCartProductPresenter,
+                                            ShoppingCartReadDataAccessInterface shoppingCartReadDataAccessInterface) {
+
+        this.shoppingCartUpdateAddDataAccessInterface = shoppingCartUpdateAddDataAccessInterface;
         this.addShoppingCartProductPresenter = addShoppingCartProductPresenter;
+        this.shoppingCartReadDataAccessInterface = shoppingCartReadDataAccessInterface;
     }
 
-    public void addProductToShoppingCart(AddShoppingCartProductInputData addShoppingCartProductInputData) {
-        ShoppingCart shoppingCart = addShoppingCartProductInputData.getShoppingCart();
+    @Override
+    public void addProductToShoppingCart(AddShoppingCartProductInputData addShoppingCartProductInputData) throws SQLException {
+        User user = addShoppingCartProductInputData.getUser();
         Product addProduct = addShoppingCartProductInputData.getProduct();
-        boolean isRepeated = false;
-        for (Product product: shoppingCart.getListProducts()) {
-            if (addProduct.equals(product)) {
-                isRepeated = true;
-                break;
-            }
-        }
-        if (isRepeated) {
-            addShoppingCartProductPresenter.prepareFailView("Product Already Exists In Cart");
-        }
-        else {
-            shoppingCart.getListProducts().add(addProduct);
-            shoppingCartAddDataAccessObject.save(shoppingCart, addProduct);
-            AddShoppingCartProductOutputData addShoppingCartProductOutputData = new AddShoppingCartProductOutputData(addProduct, shoppingCart, false);
-            addShoppingCartProductPresenter.prepareSuccessView(addShoppingCartProductOutputData);
-        }
+
+        shoppingCartUpdateAddDataAccessInterface.updateShoppingCart(user, addProduct);
+        AddShoppingCartProductOutputData addShoppingCartProductOutputData = new AddShoppingCartProductOutputData(user);
+        addShoppingCartProductPresenter.prepareSuccessView(addShoppingCartProductOutputData);
 
     }
 

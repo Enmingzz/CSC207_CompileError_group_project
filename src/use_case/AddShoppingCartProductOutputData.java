@@ -1,28 +1,15 @@
 package use_case;
 
-import entity.Product;
-import entity.ShoppingCart;
+import entity.user.User;
 
 public class AddShoppingCartProductOutputData {
-    private Product addedProduct;
-    private ShoppingCart shoppingCart;
-    private boolean useCaseFailed;
+    private final User user;
 
-    public AddShoppingCartProductOutputData(Product addedProduct, ShoppingCart shoppingCart, boolean useCaseFailed) {
-        this.addedProduct = addedProduct;
-        this.shoppingCart = shoppingCart;
-        this.useCaseFailed = useCaseFailed;
+    public AddShoppingCartProductOutputData(User user) {
+        this.user = user;
     }
 
-    public Product getAddedProduct() {
-        return addedProduct;
-    }
-
-    public void setAddedProduct(Product addedProduct) {
-        this.addedProduct = addedProduct;
-    }
-
-    public ShoppingCart getShoppingCart(ShoppingCart shoppingCart) {
-        return shoppingCart;
+    public User getUser() {
+        return user;
     }
 }

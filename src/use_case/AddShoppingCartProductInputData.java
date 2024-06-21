@@ -1,22 +1,22 @@
 package use_case;
 
-import entity.Product;
-import entity.ShoppingCart;
+import entity.product.Product;
+import entity.user.User;
 
 public class AddShoppingCartProductInputData {
     private Product product;
-    private ShoppingCart shoppingCart;
+    private User user;
 
-    public AddShoppingCartProductInputData(Product product, ShoppingCart shoppingCart) {
+    public AddShoppingCartProductInputData(Product product, User user) {
         this.product = product;
-        this.shoppingCart = shoppingCart;
+        this.user = user;
     }
 
     public Product getProduct() {
         return product;
     }
 
-    ShoppingCart getShoppingCart() {
-        return shoppingCart;
+    public User getUser() {
+        return user;
     }
 }

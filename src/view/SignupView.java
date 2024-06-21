@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.sql.SQLException;
 import java.util.EventListener;
 
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -54,9 +55,13 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         class SignUpButtonListener implements ActionListener {
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(signUp)) {
-                    signupController.execute(usernameInputField.getText(),
-                            String.valueOf(passwordInputField.getPassword()),
-                            String.valueOf(repeatPasswordInputField.getPassword()), String.valueOf(emailInputField.getText()), String.valueOf(verificationCodeInputField.getText()), String.valueOf(UtoridInputField.getText()));
+                    try {
+                        signupController.execute(usernameInputField.getText(),
+                                String.valueOf(passwordInputField.getPassword()),
+                                String.valueOf(repeatPasswordInputField.getPassword()), String.valueOf(emailInputField.getText()), String.valueOf(verificationCodeInputField.getText()), String.valueOf(UtoridInputField.getText()));
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         }
@@ -99,10 +104,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         if (state.getUsernameError() != null) {
             JOptionPane.showMessageDialog(this, state.getUsernameError());
         }
-    }
-
-    public static void main(String[] args) {
-
     }
 
 }
