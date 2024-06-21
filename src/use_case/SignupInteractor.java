@@ -1,9 +1,9 @@
 package use_case;
 
-import data_access.UserCreateDataAccessInterface;
-import data_access.UserReadDataAccessInterface;
-import entity.User;
-import entity.UserFactory;
+import data_access.interfaces.UserCreateDataAccessInterface;
+import data_access.interfaces.UserReadDataAccessInterface;
+import entity.user.User;
+import entity.user.UserFactory;
 
 import java.sql.SQLException;
 

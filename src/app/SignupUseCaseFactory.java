@@ -1,8 +1,14 @@
 package app;
 
 import data_access.*;
-import entity.CommonUserFactory;
-import entity.UserFactory;
+import data_access.factories.interfaces.DatabaseUserCreateDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.DatabaseUserReadDataAccessObjectFactoryInterface;
+import data_access.factories.objects.DatabaseUserCreateDataAccessObjectFactory;
+import data_access.factories.objects.DatabaseUserReadDataAccessObjectFactory;
+import data_access.interfaces.UserCreateDataAccessInterface;
+import data_access.interfaces.UserReadDataAccessInterface;
+import entity.user.CommonUserFactory;
+import entity.user.UserFactory;
 import interface_adapter.*;
 import use_case.SignupInputBoundary;
 import use_case.SignupInteractor;
@@ -27,7 +33,6 @@ public class SignupUseCaseFactory {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return null;
     }
 

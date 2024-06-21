@@ -1,7 +1,7 @@
 package use_case;
 
-import entity.Product;
-import entity.User;
+import entity.product.Product;
+import entity.user.User;
 
 
 public class DeleteShoppingCartProductInputData {

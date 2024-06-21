@@ -1,9 +1,9 @@
 package use_case;
 
-import data_access.QuestionCreateDataAccessInterface;
-import entity.Product;
-import entity.QuestionFactory;
-import entity.Question;
+import data_access.interfaces.QuestionCreateDataAccessInterface;
+import entity.product.Product;
+import entity.comment.QuestionFactory;
+import entity.comment.Question;
 
 import java.sql.SQLException;
 

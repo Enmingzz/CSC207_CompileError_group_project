@@ -1,6 +1,6 @@
 package use_case;
 
-import entity.User;
+import entity.user.User;
 
 public class AddShoppingCartProductOutputData {
     private final User user;
