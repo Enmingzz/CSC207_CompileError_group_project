@@ -1,9 +1,6 @@
 package data_access;
 
-import entity.CommonUserFactory;
-import entity.CommonShoppingCartFactory;
-import entity.CommonProductFactory;
-import entity.User;
+import entity.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -15,13 +12,13 @@ import java.util.ArrayList;
 
 public class DatabaseUserReadDataAccessObject implements UserReadDataAccessInterface {
     private final Connection connection;
-    private final CommonUserFactory commonUserFactory;
-    private PreparedStatement preparedStatement;
-    private ResultSet resultSet;
+    private PreparedStatement preparedStatement = null;
+    private ResultSet resultSet = null;
+    private UserFactory commonUserFactory = null;
     private String query;
-    private User user;
+    private User user = null;
 
-    public DatabaseUserReadDataAccessObject(CommonUserFactory commonUserFactory) throws SQLException {
+    public DatabaseUserReadDataAccessObject(UserFactory commonUserFactory) throws SQLException {
         this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
                 "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
                 "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
