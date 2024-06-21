@@ -24,7 +24,12 @@ public class DatabaseQuestionCreateDataAccessObject implements QuestionCreateDat
         preparedStatement.setString(1, product.getProductID());
         preparedStatement.setString(2, question.getStudentNumber());
         preparedStatement.setString(3, question.getDescription());
+        preparedStatement.setString(4, question.getAnswer().getDescription());
+        preparedStatement.setString(5, question.getAnswer().getStudentNumber());
+        preparedStatement.executeUpdate();
 
+        preparedStatement.close();
+        connection.close();
     }
 
 
