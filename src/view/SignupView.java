@@ -23,8 +23,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JTextField usernameInputField = new JTextField(15);
     private final JPasswordField passwordInputField = new JPasswordField(15);
     private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
+    private final JTextField studentNameInputField = new JTextField(15);
     private final JTextField emailInputField = new JTextField(15);
-    private final JTextField UtoridInputField = new JTextField(15);
     private final JTextField verificationCodeInputField = new JTextField(15);
     private final SignupController signupController;
     private final EmailVerificationController emailVerificationController;
@@ -50,6 +50,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 new JLabel(signupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
         LabelTextPanel emailInfo = new LabelTextPanel(new JLabel(signupViewModel.EMAIL_LABEL), emailInputField);
         LabelTextPanel verificationCodeInfo = new LabelTextPanel(new JLabel(signupViewModel.VERIFICATION_LABEL), verificationCodeInputField);
+        LabelTextPanel studentNumberInfo = new LabelTextPanel(new JLabel(signupViewModel.STUDENT_NUMBER_LABEL), studentNameInputField);
 
 
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -70,9 +71,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(signUp)) {
                     try {
+                        System.out.println(signupViewModel.getState().hashCode());
+                        System.out.println(signupViewModel.getState().getGeneratedVerificationCode());
                         signupController.execute(usernameInputField.getText(),
                                 String.valueOf(passwordInputField.getPassword()),
-                                String.valueOf(repeatPasswordInputField.getPassword()), String.valueOf(emailInputField.getText()), String.valueOf(verificationCodeInputField.getText()), String.valueOf(UtoridInputField.getText()));
+                                String.valueOf(repeatPasswordInputField.getPassword()), String.valueOf(emailInputField.getText()), signupViewModel.getState().getGeneratedVerificationCode(), String.valueOf(verificationCodeInputField.getText()), String.valueOf(studentNameInputField.getText()));
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
@@ -118,6 +121,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
+        this.add(studentNumberInfo);
         this.add(usernameInfo);
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);

@@ -3,9 +3,7 @@ package app;
 import interface_adapter.LoginViewModel;
 import interface_adapter.SignupViewModel;
 import interface_adapter.ViewManagerModel;
-import view.MainPageView;
-import view.SignupView;
-import view.ViewManager;
+import view.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,8 +30,10 @@ public class Main {
         SignupViewModel signupViewModel = new SignupViewModel();
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel);
+        TestView testView = new TestView();
+        views.add(signupView.viewName, signupView);
+        views.add(testView.viewName, testView);
 
-        views.add(signupView);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();
