@@ -14,7 +14,13 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailVerificationInteractor  implements EmailVerificationInputBoundary{
 
-    public void execute() throws Exception {
+    final EmailVerificationOutputBoundary emailVerificationPresenter;
+
+    public EmailVerificationInteractor(EmailVerificationOutputBoundary emailVerificationPresenter) {
+        this.emailVerificationPresenter = emailVerificationPresenter;
+    }
+
+    public void execute(String email) throws Exception {
 
         /**
          * Sending email configuration.
@@ -39,9 +45,7 @@ public class EmailVerificationInteractor  implements EmailVerificationInputBound
         int code = rand.nextInt(900000) + 100000;
         String messagetosend = Integer.toString(code);
 
-        String verifyNum = "100000";
-
-        MimeMessage message = createMimeMessage(session, "3232085039@qq.com", "hanrui.zhang@mail.utoronto.ca", "Verify", messagetosend);
+        MimeMessage message = createMimeMessage(session, "3232085039@qq.com", email, "Verify", messagetosend);
 
         Transport transport = session.getTransport();
 
@@ -50,6 +54,9 @@ public class EmailVerificationInteractor  implements EmailVerificationInputBound
         transport.sendMessage(message, message.getAllRecipients());
 
         transport.close();
+
+        EmailVerificationOutputData emailVerificationOutputData = new EmailVerificationOutputData(String.valueOf(code));
+        emailVerificationPresenter.prepareView(emailVerificationOutputData);
     }
 
     /**

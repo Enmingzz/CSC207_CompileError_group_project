@@ -7,20 +7,20 @@ public class SignupState {
     private String passwordError = null;
     private String repeatPassword = "";
     private String repeatPasswordError = null;
-    private String verificationCode = "";
-    private String verificationCodeError = null;
+    private String generatedVerificationCode = "";
+    private String inputVerificationCode = "";
     private String email = "";
 
     public SignupState(SignupState copy) {
-        username = copy.username;
-        usernameError = copy.usernameError;
-        password = copy.password;
-        passwordError = copy.passwordError;
-        repeatPassword = copy.repeatPassword;
-        repeatPasswordError = copy.repeatPasswordError;
-        verificationCode = copy.verificationCode;
-        verificationCodeError = copy.verificationCodeError;
-        email = copy.email;
+        this.username = copy.username;
+        this.usernameError = copy.usernameError;
+        this.password = copy.password;
+        this.passwordError = copy.passwordError;
+        this.repeatPassword = copy.repeatPassword;
+        this.repeatPasswordError = copy.repeatPasswordError;
+        this.generatedVerificationCode = copy.generatedVerificationCode;
+        this.inputVerificationCode = copy.inputVerificationCode;
+        this.email = copy.email;
     }
 
     public SignupState() {}
@@ -49,12 +49,12 @@ public class SignupState {
         return repeatPasswordError;
     }
 
-    public String getVerificationCode() {
-        return verificationCode;
+    public String getGeneratedVerificationCode() {
+        return generatedVerificationCode;
     }
 
-    public String getVerificationCodeError() {
-        return verificationCodeError;
+    public String getInputVerificationCode() {
+        return inputVerificationCode;
     }
 
     public String getEmail() {
@@ -85,12 +85,12 @@ public class SignupState {
         this.repeatPasswordError = repeatPasswordError;
     }
 
-    public void setVerificationCode(String verificationCode) {
-        this.verificationCode = verificationCode;
+    public void setGeneratedVerificationCode(String generatedVerificationCode) {
+        this.generatedVerificationCode = generatedVerificationCode;
     }
 
-    public void setVerificationCodeError(String verificationCodeError) {
-        this.verificationCodeError = verificationCodeError;
+    public void setInputVerificationCode(String inputVerificationCode) {
+        this.inputVerificationCode = inputVerificationCode;
     }
 
     public void setEmail(String email) {
