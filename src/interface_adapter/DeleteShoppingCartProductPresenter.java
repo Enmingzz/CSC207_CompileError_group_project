@@ -20,7 +20,8 @@ public class DeleteShoppingCartProductPresenter implements DeleteShoppingCartPro
         this.shoppingCartViewModel.setState(shoppingCartState);
         shoppingCartViewModel.firePropertyChanged();
 
-        //the code below may not be needed
+        viewManagerModel.setActiveView(shoppingCartViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 
 }
