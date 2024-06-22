@@ -19,13 +19,11 @@ public class DatabaseQuestionCreateDataAccessObject implements QuestionCreateDat
 
     @Override
     public void saveQuestion(Question question, Product product) throws SQLException {
-        query = "INSERT INTO Comments (ProductID, QuestionUserID, QuestionDescription, AnswerUserID, AnswerDescription) VALUES (?,?,?,?,?)";
+        query = "INSERT INTO Comments (ProductID, QuestionUserID, QuestionDescription) VALUES (?,?,?)";
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, product.getProductID());
         preparedStatement.setString(2, question.getStudentNumber());
         preparedStatement.setString(3, question.getDescription());
-        preparedStatement.setString(4, question.getAnswer().getDescription());
-        preparedStatement.setString(5, question.getAnswer().getStudentNumber());
         preparedStatement.executeUpdate();
 
         preparedStatement.close();
