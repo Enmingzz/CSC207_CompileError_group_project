@@ -1,7 +1,7 @@
 package data_access.interfaces;
 
-import entity.product.Product;
 import entity.user.User;
+import entity.product.Product;
 
 import java.sql.SQLException;
 

@@ -1,6 +1,5 @@
 package app;
 
-import data_access.*;
 import data_access.factories.interfaces.DatabaseUserCreateDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.DatabaseUserReadDataAccessObjectFactoryInterface;
 import data_access.factories.objects.DatabaseUserCreateDataAccessObjectFactory;
@@ -10,9 +9,7 @@ import data_access.interfaces.UserReadDataAccessInterface;
 import entity.user.CommonUserFactory;
 import entity.user.UserFactory;
 import interface_adapter.*;
-import use_case.SignupInputBoundary;
-import use_case.SignupInteractor;
-import use_case.SignupOutputBoundary;
+import use_case.*;
 import view.SignupView;
 
 import javax.swing.*;
@@ -21,13 +18,15 @@ import java.sql.SQLException;
 
 public class SignupUseCaseFactory {
 
-    private SignupUseCaseFactory() {}
+    private SignupUseCaseFactory() {
+    }
 
     public static SignupView create(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignupViewModel signupViewModel) {
 
         try {
             SignupController signupController = createUserSignupUseCase(viewManagerModel, signupViewModel, loginViewModel);
-            return new SignupView(signupController, signupViewModel);
+            EmailVerificationController emailVerificationController = SignupUseCaseFactory.createEmailVerifyUseCase(viewManagerModel, signupViewModel);
+            return new SignupView(signupController, signupViewModel, emailVerificationController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         } catch (SQLException e) {
@@ -51,4 +50,11 @@ public class SignupUseCaseFactory {
 
         return new SignupController(userSignupInteractor);
     }
+
+    private static EmailVerificationController createEmailVerifyUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel) {
+        EmailVerificationOutputBoundary emailVerificationOutputBoundary = new EmailVerificationPresenter(viewManagerModel, signupViewModel);
+        EmailVerificationInputBoundary emailVerificationInteractor = new EmailVerificationInteractor(emailVerificationOutputBoundary);
+        return new EmailVerificationController(emailVerificationInteractor);
+    }
 }
+

@@ -12,7 +12,6 @@ public class DatabaseUserReadDataAccessObject implements UserReadDataAccessInter
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
     private String query;
-    private User user;
 
     public DatabaseUserReadDataAccessObject(UserFactory userFactory) throws SQLException {
         this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
@@ -34,11 +33,10 @@ public class DatabaseUserReadDataAccessObject implements UserReadDataAccessInter
         String email = resultSet.getString("Email");
         String password = resultSet.getString("Password");
         float rating = resultSet.getFloat("Rating");
-        user = userFactory.createUser(name, password, email, rating, userID);
 
         resultSet.close();
         preparedStatement.close();
         connection.close();
-        return user;
+        return userFactory.createUser(name, password, email, rating, userID);
     }
 }

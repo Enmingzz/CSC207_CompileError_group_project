@@ -19,7 +19,7 @@ public class Main {
 
         JFrame application = new JFrame("CSC207 Project");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
+        application.setSize(800, 600);
         CardLayout cardLayout = new CardLayout();
 
         JPanel views = new JPanel(cardLayout);
@@ -31,9 +31,11 @@ public class Main {
         LoginViewModel loginViewModel = new LoginViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
 
+        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel);
 
+        views.add(signupView);
 
-        //viewManagerModel.setActiveView(MainPageView.viewName);
+        viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();

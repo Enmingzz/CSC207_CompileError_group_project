@@ -24,8 +24,6 @@ public interface Product{
 
     String getAddress();
 
-    CommonSchedule getSchedule();
-
     ArrayList<String> getListTags();
 
     String getProductID();
