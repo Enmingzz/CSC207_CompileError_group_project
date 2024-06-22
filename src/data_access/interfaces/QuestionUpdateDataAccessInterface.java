@@ -5,5 +5,5 @@ import entity.comment.Question;
 import java.sql.SQLException;
 
 public interface QuestionUpdateDataAccessInterface {
-    void updateQuestion(Question question) throws SQLException;
+    void updateQuestion(Question questionID) throws SQLException;
 }

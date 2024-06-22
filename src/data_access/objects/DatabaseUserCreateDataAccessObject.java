@@ -8,9 +8,8 @@ import java.sql.*;
 //TODO: This is only a testing version for Signup DataAccessObject to check the connection of Database!
 public class DatabaseUserCreateDataAccessObject implements UserCreateDataAccessInterface {
     private final Connection connection;
-    private PreparedStatement preparedStatement = null;
-    private ResultSet resultSet = null;
-    //private User user;
+    private PreparedStatement preparedStatement;
+    private ResultSet resultSet;
     private String query;
 
     public DatabaseUserCreateDataAccessObject() throws SQLException {
