@@ -32,4 +32,7 @@ public class PurchaseInteractor implements PurchaseInputBoundary {
         Product updated_product = productReadByIdDataAccessObject.getProductById(product.getProductID());
 
         PurchaseOutputData purchaseOutputData = new PurchaseOutputData(user, updated_product);
+
+        purchasePresenter.prepareSuccessView(purchaseOutputData);
+    }
 }
