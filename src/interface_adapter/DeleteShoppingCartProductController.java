@@ -5,6 +5,7 @@ import entity.user.User;
 import use_case.DeleteShoppingCartProductInputData;
 import use_case.DeleteShoppingCartProductInputBoundary;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class DeleteShoppingCartProductController {
@@ -13,7 +14,7 @@ public class DeleteShoppingCartProductController {
         this.deleteShoppingCartProductInteractor = deleteShoppingCartProductInteractor;
     }
 
-    public void execute(User user, Product product) throws SQLException {
+    public void execute(User user, Product product) throws SQLException, IOException {
         DeleteShoppingCartProductInputData deleteShoppingCartProductInputData = new DeleteShoppingCartProductInputData(
                 user, product);
         deleteShoppingCartProductInteractor.deleteShoppingCartProduct(deleteShoppingCartProductInputData);

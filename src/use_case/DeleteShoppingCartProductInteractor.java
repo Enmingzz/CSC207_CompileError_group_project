@@ -7,6 +7,7 @@ import entity.shopping_cart.ShoppingCart;
 import data_access.interfaces.ShoppingCartUpdateDeleteDataAccessInterface;
 import data_access.interfaces.ShoppingCartReadDataAccessInterface;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class DeleteShoppingCartProductInteractor implements DeleteShoppingCartPr
     }
 
     @Override
-    public void deleteShoppingCartProduct(DeleteShoppingCartProductInputData deleteShoppingCartProductInputData) throws SQLException{
+    public void deleteShoppingCartProduct(DeleteShoppingCartProductInputData deleteShoppingCartProductInputData) throws SQLException, IOException {
         User user = deleteShoppingCartProductInputData.getUser();
         Product deletedProduct = deleteShoppingCartProductInputData.getProduct();
         shoppingCartUpdateDeleteDataAccessObject.updateShoppingCart(user, deletedProduct);

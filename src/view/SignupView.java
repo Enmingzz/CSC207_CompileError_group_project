@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.EmailVerificationController;
 import interface_adapter.SignupController;
 import interface_adapter.SignupState;
 import interface_adapter.SignupViewModel;
@@ -26,14 +27,16 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JTextField UtoridInputField = new JTextField(15);
     private final JTextField verificationCodeInputField = new JTextField(15);
     private final SignupController signupController;
+    private final EmailVerificationController emailVerificationController;
 
     private final JButton signUp;
     private final JButton emailVerification;
 
-    public SignupView(SignupController controller, SignupViewModel signupViewModel) {
+    public SignupView(SignupController controller, SignupViewModel signupViewModel, EmailVerificationController emailVerificationController) {
 
         this.signupController = controller;
         this.signupViewModel = signupViewModel;
+        this.emailVerificationController = emailVerificationController;
         signupViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(signupViewModel.TITLE_LABEL);
@@ -49,7 +52,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         LabelTextPanel verificationCodeInfo = new LabelTextPanel(new JLabel(signupViewModel.VERIFICATION_LABEL), verificationCodeInputField);
 
 
-
+        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         JPanel buttons = new JPanel();
         signUp = new JButton(signupViewModel.SIGNUP_BUTTON_LABEL);
         buttons.add(signUp);
@@ -94,7 +97,23 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
             }
         }
 
+        class VerificationCodeButtonListener implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(emailVerification)) {
+                    try {
+                        emailVerificationController.execute(emailInputField.getText());
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+
         signUp.addActionListener(new SignUpButtonListener());
+        emailVerification.addActionListener(new VerificationCodeButtonListener());
         usernameInputField.addKeyListener(new UsernameKeyListener());
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
