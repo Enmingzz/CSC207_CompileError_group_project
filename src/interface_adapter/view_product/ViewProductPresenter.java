@@ -5,26 +5,26 @@ import use_case.view_product.ViewProductOutputBoundary;
 import use_case.view_product.ViewProductOutputData;
 
 public class ViewProductPresenter implements ViewProductOutputBoundary {
-    private final ViewProductViewModel viewProductViewModel;
+    private final BuyerViewProductViewModel buyerViewProductViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    public ViewProductPresenter(ViewProductViewModel viewProductViewModel,
+    public ViewProductPresenter(BuyerViewProductViewModel buyerViewProductViewModel,
                                 ViewManagerModel viewManagerModel){
-        this.viewProductViewModel = viewProductViewModel;
+        this.buyerViewProductViewModel = buyerViewProductViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
     @Override
     public void prepareViewSucceed(ViewProductOutputData viewProductOutputData) {
-        ViewProductState viewProductState = viewProductViewModel.getState();
+        BuyerViewProductState buyerViewProductState = buyerViewProductViewModel.getState();
 
-        viewProductState.setProduct(viewProductState.getProduct());
-        viewProductState.setLst_question(viewProductOutputData.getList_of_question());
+        buyerViewProductState.setProduct(viewProductOutputData.getProduct());
+        buyerViewProductState.setLst_question(viewProductOutputData.getList_of_question());
 
-        this.viewProductViewModel.setState(viewProductState);
+        this.buyerViewProductViewModel.setState(buyerViewProductState);
 
-        viewProductViewModel.firePropertyChanged();
-        viewManagerModel.setActiveView(viewProductViewModel.getViewName());
+        buyerViewProductViewModel.firePropertyChanged();
+        viewManagerModel.setActiveView(buyerViewProductViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }

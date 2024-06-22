@@ -5,11 +5,11 @@ import entity.product.Product;
 
 import java.util.ArrayList;
 
-public class ViewProductState {
+public class BuyerViewProductState {
     Product product;
     ArrayList<Question> lst_question;
 
-    public ViewProductState(Product product, ArrayList<Question> lst_question){
+    public BuyerViewProductState(Product product, ArrayList<Question> lst_question){
         this.product = product;
         this.lst_question = lst_question;
     }
@@ -30,5 +30,5 @@ public class ViewProductState {
         this.lst_question = lst_question;
     }
 
-    public ViewProductState(){}
+    public BuyerViewProductState(){}
 }
