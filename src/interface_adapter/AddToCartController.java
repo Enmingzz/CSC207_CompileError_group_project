@@ -5,6 +5,7 @@ import entity.user.User;
 import use_case.AddShoppingCartProductInputBoundary;
 import use_case.AddShoppingCartProductInputData;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class AddToCartController {
@@ -14,7 +15,7 @@ public class AddToCartController {
         this.addShoppingCartProductInteractor = addShoppingCartProductInteractor;
     }
 
-    public void execute(User user, Product product) throws SQLException {
+    public void execute(User user, Product product) throws SQLException, IOException {
         AddShoppingCartProductInputData addShoppingCartProductInputData = new AddShoppingCartProductInputData(product,
                 user);
 

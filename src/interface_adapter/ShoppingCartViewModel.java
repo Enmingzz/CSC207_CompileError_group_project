@@ -4,11 +4,15 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class ShoppingCartViewModel extends ViewModel {
-    private final String TITLE_LABEL = "Shopping Cart";
-    private final String PRODUCTS_LABEL = "Products";
+    public final String TITLE_LABEL = "Shopping Cart";
+    public final String PRODUCTS_LABEL = "Products";
+    public final String PENDING_SELLER_SCHEDULE_LABEL = "Waiting for Buyer to Choose Schedule";
+    public final String TOTAL_PRICE_LABEL = "Total Price";
+    public String TOTAL_PRICE_VARIABLE = "";
 
-    private final String CHECKOUT_BUTTON_LABEL = "Buy Product";
-    private final String DELETE_BUTTON_LABEL = "Remove From Cart";
+    public final String CHECKOUT_BUTTON_LABEL = "Buy Product";
+    public final String DELETE_BUTTON_LABEL = "Remove From Cart";
+    public final String BUYER_SCHEDULES_BUTTON_LABEL = "Choose Schedule";
 
     private ShoppingCartState state = new ShoppingCartState();
 

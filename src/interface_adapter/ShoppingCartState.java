@@ -9,10 +9,12 @@ import java.util.ArrayList;
 public class ShoppingCartState {
     private ArrayList<Product> listProducts;
     private User user;
+    private float totalPrice;
 
     public ShoppingCartState(ShoppingCartState copy) {
         listProducts = copy.listProducts;
         user = copy.user;
+        totalPrice = copy.totalPrice;
     }
 
     public ShoppingCartState() {}
@@ -31,5 +33,13 @@ public class ShoppingCartState {
 
     public void setListProducts(ArrayList<Product> listProducts) {
         this.listProducts = listProducts;
+    }
+
+    public float getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(float totalPrice){
+        this.totalPrice = totalPrice;
     }
 }
