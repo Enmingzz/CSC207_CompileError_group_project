@@ -3,7 +3,8 @@ package data_access.interfaces;
 import entity.comment.Question;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public interface QuestionReadDataAccessInterface {
-    Question getQuestion(String question) throws SQLException;
+    ArrayList<Question> getQuestion(String productId) throws SQLException;
 }
