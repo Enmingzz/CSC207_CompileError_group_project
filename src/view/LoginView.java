@@ -1,7 +1,7 @@
 package view;
 
-import interface_adapter.LoginController;
-import interface_adapter.LoginViewModel;
+import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginViewModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

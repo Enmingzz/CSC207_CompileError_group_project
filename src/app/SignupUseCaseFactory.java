@@ -9,7 +9,9 @@ import data_access.interfaces.UserReadDataAccessInterface;
 import entity.user.CommonUserFactory;
 import entity.user.UserFactory;
 import interface_adapter.*;
-import use_case.*;
+import interface_adapter.login.LoginViewModel;
+import interface_adapter.signup.*;
+import use_case.Signup.*;
 import view.SignupView;
 
 import javax.swing.*;

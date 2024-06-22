@@ -6,8 +6,8 @@ import entity.product.Product;
 import java.sql.*;
 
 /**
- * Update specific product description
- * Input is product and String description
+ * Update specific modify_product description
+ * Input is modify_product and String description
  * No return Value
  * @author CompileError group
  */
