@@ -11,7 +11,7 @@ public class SignupViewModel extends ViewModel {
     public final String PASSWORD_LABEL = "Choose password";
     public final String REPEAT_PASSWORD_LABEL = "Enter password again";
     public final String EMAIL_LABEL = "Enter email";
-    public final String UTORID_LABEL = "Enter UTORID";
+    public final String STUDENT_NUMBER_LABEL = "Enter student number";
     public final String VERIFICATION_LABEL = "Enter verification code";
 
     public final String SIGNUP_BUTTON_LABEL = "Sign up";

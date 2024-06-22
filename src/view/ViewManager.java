@@ -11,6 +11,12 @@ import java.beans.PropertyChangeListener;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * Responsible for jumping page by listening the property changes.
+ * It is initialized in the main class.
+ * @author CompileError group
+ */
+
 public class ViewManager implements PropertyChangeListener {
     private final CardLayout cardLayout;
     private final JPanel views;

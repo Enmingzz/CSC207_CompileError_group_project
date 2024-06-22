@@ -33,11 +33,17 @@ public class SignupInteractor implements SignupInputBoundary{
 
     @Override
     public void execute(SignupInputData signupInputData) throws SQLException {
+        //System.out.println(signupInputData.getGeneratedVerificationCode());
         if (existsByStudentNumber(signupInputData)) {
             userPresenter.presentFailedView("User already exists.");
         } else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
             userPresenter.presentFailedView("Passwords don't match.");
-        } else {
+        }else if(signupInputData.getGeneratedVerificationCode() == ""){
+            userPresenter.presentFailedView("Need to send verification code fist.");
+        }
+        else if (!signupInputData.getInputVerificationCode().equals(signupInputData.getGeneratedVerificationCode())){
+            userPresenter.presentFailedView("Wrong verification code.");
+        }else {
             User user = userFactory.createUser(signupInputData.getUsername(), signupInputData.getPassword(), signupInputData.getEmailAddress(), 0, signupInputData.getStudentNumber());
             userCreateDataAccessObject.saveUser(user);
             SignupOutputData signupOutputData = new SignupOutputData(user.getName(), user.getStudentNumber(), false);

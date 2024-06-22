@@ -3,15 +3,16 @@ package app;
 import interface_adapter.LoginViewModel;
 import interface_adapter.SignupViewModel;
 import interface_adapter.ViewManagerModel;
-import view.MainPageView;
-import view.SignupView;
-import view.ViewManager;
+import view.*;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
  * The entrance for the whole program. Run this to start using.
+ * Should initialize all view pages and all view models.
+ * Use viewCreateFactory to produce view pages.
+ * At final stage, set the initial active viewModel to the MainPageViewModel
  */
 
 public class Main {
@@ -32,8 +33,10 @@ public class Main {
         SignupViewModel signupViewModel = new SignupViewModel();
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel);
+        TestView testView = new TestView();
+        views.add(signupView.viewName, signupView);
+        views.add(testView.viewName, testView);
 
-        views.add(signupView);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();

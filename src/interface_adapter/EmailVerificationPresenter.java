@@ -16,5 +16,8 @@ public class EmailVerificationPresenter implements EmailVerificationOutputBounda
     public void prepareView(EmailVerificationOutputData emailVerificationOutputData){
         SignupState signupState = signupViewModel.getState();
         signupState.setGeneratedVerificationCode(emailVerificationOutputData.getVerificationCode());
+        signupViewModel.setState(signupState);
+        //System.out.println(signupViewModel.getState().hashCode());
+        //System.out.println(signupViewModel.getState().getGeneratedVerificationCode());
     }
 }

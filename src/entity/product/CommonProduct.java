@@ -10,6 +10,7 @@ import java.util.ArrayList;
  * Has some important attributes; ArrayList<Question> questions and CommonUser Buyer, Seller.
  * @author CompileError group
  */
+
 public class CommonProduct implements Product{
     private Image image;
     private String description;

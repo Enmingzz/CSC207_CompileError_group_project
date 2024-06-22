@@ -11,8 +11,8 @@ public class SignupController {
         this.SignupUseCaseInteractor = userSignupUseCaseInteractor;
     }
 
-    public void execute(String username, String password, String repeatPassword, String emailAddress, String verificationCode, String studentNumber) throws SQLException {
-        SignupInputData signupInputData = new SignupInputData(username, password, repeatPassword, emailAddress, verificationCode, studentNumber);
+    public void execute(String username, String password, String repeatPassword, String emailAddress, String inputVerificationCode, String generatedVerificationCode, String studentNumber) throws SQLException {
+        SignupInputData signupInputData = new SignupInputData(username, password, repeatPassword, emailAddress, inputVerificationCode, generatedVerificationCode, studentNumber);
         SignupUseCaseInteractor.execute(signupInputData);
     }
 }
