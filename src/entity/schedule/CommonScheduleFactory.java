@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * Implements createSchedule()
- * Return an instance of CommonSchedule with upcasting to the Schedule
+ * Return an instance of CommonSchedule with upcasting to the schedule
  * @author CompileError group
  */
 

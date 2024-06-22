@@ -1,5 +1,0 @@
-package use_case;
-
-public interface AddShoppingCartProductOutputBoundary {
-    void prepareSuccessView(AddShoppingCartProductOutputData addShoppingCartProductOutputData);
-}

@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.sql.*;
 
 /**
- * DatabaseProductCreateDataAccessObject receives product from CreateProductUseCaseInteractor
+ * DatabaseProductCreateDataAccessObject receives modify_product from CreateProductUseCaseInteractor
  * no return value
  */
 public class DatabaseProductCreateDataAccessObject implements ProductCreateDataAccessInterface {

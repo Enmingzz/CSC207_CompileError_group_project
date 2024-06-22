@@ -1,9 +1,9 @@
 package view;
 
-import interface_adapter.EmailVerificationController;
-import interface_adapter.SignupController;
-import interface_adapter.SignupState;
-import interface_adapter.SignupViewModel;
+import interface_adapter.signup.EmailVerificationController;
+import interface_adapter.signup.SignupController;
+import interface_adapter.signup.SignupState;
+import interface_adapter.signup.SignupViewModel;
 
 import javax.swing.*;
 import java.awt.*;

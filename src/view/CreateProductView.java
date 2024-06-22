@@ -10,7 +10,7 @@ import java.beans.PropertyChangeListener;
 
 public class CreateProductView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    public final String viewName = "create product";
+    public final String viewName = "create modify_product";
 
     @Override
     public void actionPerformed(ActionEvent e) {
