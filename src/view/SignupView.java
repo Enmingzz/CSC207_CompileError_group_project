@@ -14,23 +14,41 @@ import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
-import java.util.EventListener;
+
+/**
+ * The SignupView class for the signup pages.
+ * Two controller:
+ *      SignupController which is used to check if student number does exist, password is same as the repeat password and email verification code is correct.
+ *      EmailVerificationController, which is responsible for sending email verification code and return generated email verification code.
+ * Use the Java email API in this view page model, which is exactly in EmailVerification controller.
+ */
 
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
+
     public final String viewName = "sign up";
 
     private final SignupViewModel signupViewModel;
+
     private final JTextField usernameInputField = new JTextField(15);
-    private final JPasswordField passwordInputField = new JPasswordField(15);
-    private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
     private final JTextField studentNameInputField = new JTextField(15);
     private final JTextField emailInputField = new JTextField(15);
     private final JTextField verificationCodeInputField = new JTextField(15);
+
+    private final JPasswordField passwordInputField = new JPasswordField(15);
+    private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
+
     private final SignupController signupController;
     private final EmailVerificationController emailVerificationController;
 
     private final JButton signUp;
     private final JButton emailVerification;
+
+    /**
+     * Initialized this in SignupUsecaseFactory
+     * @param controller SignUpController
+     * @param signupViewModel SignupViewModel
+     * @param emailVerificationController EmailVerificationController
+     */
 
     public SignupView(SignupController controller, SignupViewModel signupViewModel, EmailVerificationController emailVerificationController) {
 
@@ -52,14 +70,13 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         LabelTextPanel verificationCodeInfo = new LabelTextPanel(new JLabel(signupViewModel.VERIFICATION_LABEL), verificationCodeInputField);
         LabelTextPanel studentNumberInfo = new LabelTextPanel(new JLabel(signupViewModel.STUDENT_NUMBER_LABEL), studentNameInputField);
 
-
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         JPanel buttons = new JPanel();
         signUp = new JButton(signupViewModel.SIGNUP_BUTTON_LABEL);
         buttons.add(signUp);
 
         JPanel button2 = new JPanel();
-        emailVerification = new JButton(signupViewModel.SEND_EMAIL_VERIFICATION_LABEL);
+        this.emailVerification = new JButton(signupViewModel.SEND_EMAIL_VERIFICATION_LABEL);
         button2.add(emailVerification);
 
         JPanel container = new JPanel();
@@ -106,8 +123,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 if (evt.getSource().equals(emailVerification)) {
                     try {
                         emailVerificationController.execute(emailInputField.getText());
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -118,6 +133,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         signUp.addActionListener(new SignUpButtonListener());
         emailVerification.addActionListener(new VerificationCodeButtonListener());
         usernameInputField.addKeyListener(new UsernameKeyListener());
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
@@ -133,6 +149,12 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     public void actionPerformed(ActionEvent evt) {
 
     }
+
+    /**
+     * Alert error when detect state changes in SignupViewPresenter, especially in FailedPresenter.
+     * @param evt A PropertyChangeEvent object describing the event source
+     *          and the property that has changed.
+     */
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {

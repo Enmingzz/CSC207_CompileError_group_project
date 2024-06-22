@@ -5,6 +5,13 @@ import entity.product.Product;
 
 import java.sql.*;
 
+/**
+ * Update specific product description
+ * Input is product and String description
+ * No return Value
+ * @author CompileError group
+ */
+
 public class DatabaseProductUpdateDescriptionDataAccessObject implements ProductUpdateDescriptionDataAccessInterface {
     private final Connection connection;
     private PreparedStatement preparedStatement;

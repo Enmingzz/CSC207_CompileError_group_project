@@ -10,6 +10,9 @@ import java.awt.*;
 
 /**
  * The entrance for the whole program. Run this to start using.
+ * Should initialize all view pages and all view models.
+ * Use viewCreateFactory to produce view pages.
+ * At final stage, set the initial active viewModel to the MainPageViewModel
  */
 
 public class Main {

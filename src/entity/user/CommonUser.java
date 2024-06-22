@@ -1,5 +1,13 @@
 package entity.user;
 
+/**
+ * The core business rule.
+ * studentNumber is the key to access all product belonging to the user.
+ * studentNumber should be unique, and we can use this to check if a user does exist.
+ * Provide all getter method
+ * @author CompileError group
+ */
+
 public class CommonUser implements User{
     String name;
     String password;

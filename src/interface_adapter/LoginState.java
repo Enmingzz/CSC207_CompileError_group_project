@@ -1,6 +1,12 @@
 package interface_adapter;
 
+/**
+ * Recording information for LoginViewPage. It is initialized in LoginViewModel, and stage common information for login view.
+ * @author CompileError group
+ */
+
 public class LoginState {
+
     private String username = "";
     private String usernameError = null;
     private String password = "";

@@ -5,6 +5,11 @@ import entity.schedule.CommonSchedule;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Provide the interface of CommonProduct
+ * @author CompileError group
+ */
+
 public interface Product{
     Image getImage();
 
