@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.sql.SQLException;
 
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -15,13 +16,13 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final LoginViewModel loginViewModel;
     private final LoginController loginController;
 
-    final JTextField studentNumberField = new JTextField(15);
+    private final JTextField studentNumberField = new JTextField(15);
     private final JLabel studentNumberErrorField = new JLabel();
 
-    final JTextField passwordField = new JTextField(15);
+    private final JPasswordField passwordField = new JPasswordField(15);
     private final JLabel passwordErrorField = new JLabel();
 
-    final JButton logInButton;
+    private final JButton logInButton;
 
     public LoginView(LoginViewModel loginViewModel, LoginController loginController) {
         this.loginViewModel = loginViewModel;
@@ -34,6 +35,23 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         JLabel title = new JLabel(loginViewModel.TITLE_LABEL);
         title.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 
+        JPanel buttons = new JPanel();
+        buttons.add(logInButton);
+
+        class LoginButtonListener implements ActionListener {
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(logInButton)) {
+                    try {
+                        loginController.execute(studentNumberField.getText(),
+                                String.valueOf(passwordField.getPassword()));
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+
+        //this.logInButton.addActionListener(LoginButtonListener);
         
 
     }
