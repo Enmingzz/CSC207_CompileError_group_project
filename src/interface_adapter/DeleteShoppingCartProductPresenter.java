@@ -17,6 +17,8 @@ public class DeleteShoppingCartProductPresenter implements DeleteShoppingCartPro
     public void prepareSuccessView(DeleteShoppingCartProductOutputData response) {
         ShoppingCartState shoppingCartState = shoppingCartViewModel.getState();
         shoppingCartState.setListProducts(response.getListProducts());
+        shoppingCartState.setTotalPrice(response.getTotalPrice());
+
         this.shoppingCartViewModel.setState(shoppingCartState);
         shoppingCartViewModel.firePropertyChanged();
 

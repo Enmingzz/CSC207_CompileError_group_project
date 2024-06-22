@@ -17,6 +17,8 @@ public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary{
         //move to shopping_cart_View
         ShoppingCartState shoppingCartState = shoppingCartViewModel.getState();
         shoppingCartState.setListProducts(response.getListProducts());
+        shoppingCartState.setTotalPrice(response.getTotalPrice());
+
         this.shoppingCartViewModel.setState(shoppingCartState);
         shoppingCartViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(shoppingCartViewModel.getViewName());
