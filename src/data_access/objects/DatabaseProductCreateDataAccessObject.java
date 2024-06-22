@@ -26,20 +26,19 @@ public class DatabaseProductCreateDataAccessObject implements ProductCreateDataA
 
     @Override
     public void saveProduct(Product product) throws SQLException, IOException {
-        query = "INSERT INTO Products (ProductID, Description, Title, Price, State, Rating, TransferEmail, SellerID, " +
-                "Address, ListTags, Image) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        query = "INSERT INTO Products (Description, Title, Price, State, Rating, TransferEmail, SellerID, " +
+                "Address, ListTags, Image) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
         preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, product.getProductID());
-        preparedStatement.setString(2, product.getDescription());
-        preparedStatement.setString(3, product.getTitle());
-        preparedStatement.setFloat(4, product.getPrice());
-        preparedStatement.setInt(5, product.getState());
-        preparedStatement.setFloat(6, product.getRating());
-        preparedStatement.setString(7, product.geteTransferEmail());
-        preparedStatement.setString(8, product.getSellerStudentNumber());
-        preparedStatement.setString(9, product.getAddress());
-        preparedStatement.setString(10, String.valueOf(product.getListTags()));
+        preparedStatement.setString(1, product.getDescription());
+        preparedStatement.setString(2, product.getTitle());
+        preparedStatement.setFloat(3, product.getPrice());
+        preparedStatement.setInt(4, product.getState());
+        preparedStatement.setFloat(5, product.getRating());
+        preparedStatement.setString(6, product.geteTransferEmail());
+        preparedStatement.setString(7, product.getSellerStudentNumber());
+        preparedStatement.setString(8, product.getAddress());
+        preparedStatement.setString(9, String.valueOf(product.getListTags()));
 
         BufferedImage bufferedImage = (BufferedImage) product.getImage();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
