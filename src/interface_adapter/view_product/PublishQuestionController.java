@@ -1,4 +1,4 @@
-package interface_adapter;
+package interface_adapter.view_product;
 
 import entity.comment.Question;
 import entity.product.Product;
