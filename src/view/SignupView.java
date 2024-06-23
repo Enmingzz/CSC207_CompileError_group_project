@@ -55,7 +55,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.signupController = controller;
         this.signupViewModel = signupViewModel;
         this.emailVerificationController = emailVerificationController;
-        signupViewModel.addPropertyChangeListener(this);
+        this.signupViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(signupViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);

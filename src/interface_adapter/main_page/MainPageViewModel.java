@@ -1,10 +1,32 @@
 package interface_adapter.main_page;
 
-public class MainPageViewModel {
+import interface_adapter.ViewModel;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+public class MainPageViewModel extends ViewModel {
 
     private final MainPageState state = new MainPageState();
+
+    public MainPageViewModel() {
+        super("main page");
+    }
 
     public MainPageState getState() {
         return state;
     }
+
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+
+    @Override
+    public void firePropertyChanged() {
+        support.firePropertyChange("state", null, this.state);
+    }
+
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
+
 }
