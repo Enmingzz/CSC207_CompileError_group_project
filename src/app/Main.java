@@ -1,6 +1,7 @@
 package app;
 
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
 import view.*;
@@ -31,8 +32,10 @@ public class Main {
 
         LoginViewModel loginViewModel = new LoginViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
+        MainPageViewModel mainPageViewModel = new MainPageViewModel();
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, mainPageViewModel);
         TestView testView = new TestView();
         views.add(signupView.viewName, signupView);
         views.add(testView.viewName, testView);
