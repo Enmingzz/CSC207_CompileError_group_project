@@ -2,11 +2,15 @@ package use_case.logout;
 
 import interface_adapter.main_page.MainPageViewModel;
 
-public class LogOutInteractor {
+public class LogOutInteractor implements LogOutInputBoundary{
 
-    private final LogOutInteractor logOutPresenter;
+    private final LogOutOutputBoundary logOutPresenter;
 
-    public LogOutInteractor(LogOutInteractor logOutPresenter) {
+    public LogOutInteractor(LogOutOutputBoundary logOutPresenter) {
         this.logOutPresenter = logOutPresenter;
+    }
+
+    public void execute(){
+
     }
 }
