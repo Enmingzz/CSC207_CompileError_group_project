@@ -1,6 +1,8 @@
-package interface_adapter.shopping_cart;
+package interface_adapter.view_product;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.shopping_cart.ShoppingCartState;
+import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import use_case.shopping_cart.AddShoppingCartProductOutputData;
 import use_case.shopping_cart.AddShoppingCartProductOutputBoundary;
 

@@ -1,4 +1,4 @@
-package interface_adapter.shopping_cart;
+package interface_adapter.view_product;
 
 import entity.product.Product;
 import entity.user.User;
