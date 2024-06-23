@@ -1,8 +1,11 @@
 package interface_adapter.login;
 
+import interface_adapter.main_page.MainPageState;
 import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.signup.SignupState;
 import use_case.login.LoginOutputBoundary;
+import use_case.login.LoginOutputData;
 
 public class LoginPresenter implements LoginOutputBoundary {
 
@@ -17,12 +20,20 @@ public class LoginPresenter implements LoginOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessfulView() {
-
+    public void prepareSuccessfulView(LoginOutputData response) {
+        LoginState loginState = loginViewModel.getState();
+        MainPageState mainPageState = mainPageViewModel.getState();
+        mainPageState.setStudentNumber(response.getUser().getStudentNumber());
+        this.loginViewModel.setState(loginState);
+        loginViewModel.firePropertyChanged();
+        viewManagerModel.setActiveView("test view");
+        viewManagerModel.firePropertyChanged();
     }
 
     @Override
-    public void prepareFailedView() {
-
+    public void prepareFailedView(String error) {
+        LoginState loginState = loginViewModel.getState();
+        loginState.setStudentNumberError("error");
+        loginViewModel.firePropertyChanged();
     }
 }

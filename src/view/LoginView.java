@@ -1,7 +1,9 @@
 package view;
 
 import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.signup.SignupState;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -51,9 +53,12 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
             }
         }
 
-        //this.logInButton.addActionListener(LoginButtonListener);
-        
+        logInButton.addActionListener(new LoginButtonListener());
 
+        this.add(title);
+        this.add(studentNumberInfo);
+        this.add(passwordInfo);
+        this.add(logInButton);
     }
 
     @Override
@@ -63,6 +68,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        LoginState state = (LoginState) evt.getNewValue();
+        if (state.getStudentNumberError() != null) {
+            JOptionPane.showMessageDialog(this, state.getStudentNumberError());
+        }
     }
 }

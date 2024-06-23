@@ -6,6 +6,11 @@ import entity.user.UserFactory;
 
 import java.sql.SQLException;
 
+/**
+ * Read user from database by studentNumber and check if user does exist by studentNumber does exist and password match.
+ * @author CompileError group
+ */
+
 public class LoginInteractor implements LoginInputBoundary{
 
     final UserReadDataAccessInterface userReadDataAccessObject;
@@ -20,15 +25,15 @@ public class LoginInteractor implements LoginInputBoundary{
 
     @Override
     public void execute(LoginInputData loginInputData) throws SQLException {
-        User user = userReadDataAccessObject.getUser(loginInputData.getUsername());
+        User user = userReadDataAccessObject.getUser(loginInputData.getStudentNumber());
         if (user == null){
-            loginPresenter.prepareFailedView();
+            loginPresenter.prepareFailedView("Can not find user");
         }
         else if(user.getPassword().equals(loginInputData.getPassword())) {
-            loginPresenter.prepareSuccessfulView();
+            loginPresenter.prepareSuccessfulView(new LoginOutputData(user));
         }
         else if(!user.getPassword().equals(loginInputData.getPassword())){
-            loginPresenter.prepareFailedView();
+            loginPresenter.prepareFailedView("Passwords do not match");
         }
     }
 }

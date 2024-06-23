@@ -7,26 +7,26 @@ package interface_adapter.login;
 
 public class LoginState {
 
-    private String username = "";
-    private String usernameError = null;
+    private String studentNumber = "";
+    private String studentNumberError = null;
     private String password = "";
     private String passwordError = null;
 
     public LoginState(LoginState copy) {
-        username = copy.username;
-        usernameError = copy.usernameError;
+        studentNumber = copy.studentNumber;
+        studentNumberError = copy.studentNumberError;
         password = copy.password;
         passwordError = copy.passwordError;
     }
     
     public LoginState() {}
 
-    public String getUsername() {
-        return username;
+    public String getStudentNumber() {
+        return studentNumber;
     }
 
-    public String getUsernameError() {
-        return usernameError;
+    public String getStudentNumberError() {
+        return studentNumberError;
     }
 
     public String getPassword() {
@@ -37,12 +37,12 @@ public class LoginState {
         return passwordError;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setStudentNumber(String studentNumber) {
+        this.studentNumber = studentNumber;
     }
 
-    public void setUsernameError(String usernameError) {
-        this.usernameError = usernameError;
+    public void setStudentNumberError(String studentNumber) {
+        this.studentNumber = studentNumber;
     }
 
     public void setPassword(String password) {
@@ -52,4 +52,5 @@ public class LoginState {
     public void setPasswordError(String passwordError) {
         this.passwordError = passwordError;
     }
+
 }
