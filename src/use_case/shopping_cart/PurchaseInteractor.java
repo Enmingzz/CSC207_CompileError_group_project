@@ -14,7 +14,9 @@ public class PurchaseInteractor implements PurchaseInputBoundary {
     final ProductReadByIdDataAccessInterface productReadByIdDataAccessObject;
     final PurchaseOutputBoundary purchasePresenter;
 
-    public PurchaseInteractor() {
+    public PurchaseInteractor(ProductUpdateStateDataAccessInterface productUpdateStateDataAccessObject,
+                              ProductReadByIdDataAccessInterface productReadByIdDataAccessObject,
+                              PurchaseOutputBoundary purchasePresenter) {
         this.productUpdateStateDataAccessObject = productUpdateStateDataAccessObject;
         this.productReadByIdDataAccessObject = productReadByIdDataAccessObject;
         this.purchasePresenter = purchasePresenter;
