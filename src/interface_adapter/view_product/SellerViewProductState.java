@@ -5,15 +5,13 @@ import entity.product.Product;
 
 import java.util.ArrayList;
 
-public class BuyerViewProductState {
+public class SellerViewProductState {
     Product product;
     ArrayList<Question> lst_question;
-    String prompt_words;
 
-    public BuyerViewProductState(Product product, ArrayList<Question> lst_question, String prompt_words){
+    public SellerViewProductState(Product product, ArrayList<Question> lst_question){
         this.product = product;
         this.lst_question = lst_question;
-        this.prompt_words = prompt_words;
     }
 
     public Product getProduct(){
@@ -24,8 +22,6 @@ public class BuyerViewProductState {
         return lst_question;
     }
 
-    public String getPrompt_words(){return prompt_words;}
-
     public void setProduct(Product product){
         this.product = product;
     }
@@ -34,7 +30,5 @@ public class BuyerViewProductState {
         this.lst_question = lst_question;
     }
 
-    public void setPrompt_words(String prompt_words){this.prompt_words = prompt_words;}
-
-    public BuyerViewProductState(){}
+    public SellerViewProductState(){}
 }
