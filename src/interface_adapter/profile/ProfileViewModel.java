@@ -11,7 +11,7 @@ public class ProfileViewModel extends ViewModel {
 
     private final UserFactory commonUserFactory = new CommonUserFactory();
 
-    private final ProfileState state = new ProfileState(commonUserFactory);
+    private ProfileState state = new ProfileState(commonUserFactory);
 
     public ProfileViewModel() {
         super("profile view");
@@ -20,6 +20,14 @@ public class ProfileViewModel extends ViewModel {
     @Override
     public void firePropertyChanged() {
 
+    }
+
+    public ProfileState getState() {
+        return state;
+    }
+
+    public void setState(ProfileState state) {
+        this.state = state;
     }
 
     @Override

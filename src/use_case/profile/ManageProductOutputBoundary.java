@@ -5,5 +5,7 @@ import entity.product.Product;
 import java.util.ArrayList;
 
 public interface ManageProductOutputBoundary {
-    void prepareSuccessfulView(ArrayList<Product> products);
+
+    void prepareSuccessfulView(ManageProductOutputData manageProductOutputData);
+
 }
