@@ -2,11 +2,11 @@ package use_case.profile;
 
 import entity.user.User;
 
-public class ManageProductInputData {
+public class ViewProfileOutputData {
 
     private User user;
 
-    public ManageProductInputData(User user) {
+    public ViewProfileOutputData(User user) {
         this.user = user;
     }
 

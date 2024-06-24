@@ -13,26 +13,39 @@ public class ModifyProfileInteractor implements ModifyProfileInputBoundary {
     private final ModifyProfilePasswordInteractor modifyProfilePasswordInteractor;
     private final ModifyProfileOutputBoundary modifyProfilePresenter;
 
-    public ModifyProfileInteractor(UserUpdateNameDataAccessInterface userUpdateNameDataAccessInterface, UserUpdatePasswordDataAccessInterface userUpdatePasswordDataAccessInterface, UserReadDataAccessInterface userReadDataAccessInterface, ModifyProfileOutputBoundary modifyProfilePresenter) {
-        this.modifyProfileNameInteractor = new ModifyProfileNameInteractor(userUpdateNameDataAccessInterface, userReadDataAccessInterface);
-        this.modifyProfilePasswordInteractor = new ModifyProfilePasswordInteractor(userReadDataAccessInterface, userUpdatePasswordDataAccessInterface);
+    public ModifyProfileInteractor(UserUpdateNameDataAccessInterface userUpdateNameDataAccessInterface,
+                                   UserUpdatePasswordDataAccessInterface userUpdatePasswordDataAccessInterface,
+                                   UserReadDataAccessInterface userReadDataAccessInterface,
+                                   ModifyProfileOutputBoundary modifyProfilePresenter) {
+        this.modifyProfileNameInteractor = new ModifyProfileNameInteractor(userUpdateNameDataAccessInterface,
+                userReadDataAccessInterface);
+        this.modifyProfilePasswordInteractor = new ModifyProfilePasswordInteractor(userReadDataAccessInterface,
+                userUpdatePasswordDataAccessInterface);
         this.modifyProfilePresenter = modifyProfilePresenter;
     }
 
-    public void execute(User user) throws SQLException {
-        boolean passwordFlag = modifyProfilePasswordInteractor.execute(user);
-        boolean userNameFlag = modifyProfileNameInteractor.execute(user);
+    public void execute(ModifyProfileInputData modifyProfileInputData) throws SQLException {
+        boolean passwordFlag = modifyProfilePasswordInteractor.execute(modifyProfileInputData.getUser());
+        boolean userNameFlag = modifyProfileNameInteractor.execute(modifyProfileInputData.getUser());
         if(passwordFlag && userNameFlag){
-            modifyProfilePresenter.prepareSuccessfulView("Have successfully changed username and password");
+            ModifyProfileOutputData modifyProfileOutputData = new ModifyProfileOutputData("Have " +
+                    "successfully changed username and password");
+            modifyProfilePresenter.prepareSuccessfulView(modifyProfileOutputData);
         }
         else if(!passwordFlag && userNameFlag){
-            modifyProfilePresenter.prepareSuccessfulView("Have successfully changed username");
+            ModifyProfileOutputData modifyProfileOutputData = new ModifyProfileOutputData("Have " +
+                    "successfully changed username");
+            modifyProfilePresenter.prepareSuccessfulView(modifyProfileOutputData);
         }
         else if(passwordFlag && !userNameFlag){
-            modifyProfilePresenter.prepareSuccessfulView("Have successfully changed password");
+            ModifyProfileOutputData modifyProfileOutputData = new ModifyProfileOutputData("Have " +
+                    "successfully changed password");
+            modifyProfilePresenter.prepareSuccessfulView(modifyProfileOutputData);
         }
         else{
-            modifyProfilePresenter.prepareFailedView("Did not change anything");
+            ModifyProfileOutputData modifyProfileOutputData = new ModifyProfileOutputData("Did " +
+                    "not change anything");
+            modifyProfilePresenter.prepareFailedView(modifyProfileOutputData);
         }
     }
 }
