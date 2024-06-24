@@ -15,4 +15,6 @@ public class ViewLoginPageInteractor implements ViewLoginPageInputBoundary{
         presenter.prepareSuccessfulView(viewLoginPageOutputData);
     }
 
+
+
 }

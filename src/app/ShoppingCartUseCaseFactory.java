@@ -99,12 +99,12 @@ public class ShoppingCartUseCaseFactory {
     }
 
     private static PurchaseController createPurchaseController(){
-        PurchaseInputBoundary purchaseInteractor =
+        PurchaseInputBoundary purchaseInteractor = new PurchaseInteractor();
         return new PurchaseController();
     }
 
-    private static ShoppingCartController cretaShoppingCartController(){
-        return new ShoppingCartController();
-    }
+
+
+
 
 }
