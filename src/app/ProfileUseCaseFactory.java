@@ -8,8 +8,7 @@ import interface_adapter.profile.ProfileController;
 import interface_adapter.profile.ProfileViewModel;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import interface_adapter.signup.SignupViewModel;
-import view.ManageProductView;
-import view.ProfileView;
+import view.profile.ProfileView;
 
 import java.io.IOException;
 

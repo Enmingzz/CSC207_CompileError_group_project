@@ -1,6 +1,6 @@
 package app;
 
-import view.SellerScheduleView;
+import view.schedule.SellerScheduleView;
 
 public class SellerScheduleUseCaseFactory {
 

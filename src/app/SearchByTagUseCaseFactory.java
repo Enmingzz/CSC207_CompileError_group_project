@@ -1,6 +1,6 @@
 package app;
 
-import view.SearchByTagView;
+import view.product_search.SearchByTagView;
 
 public class SearchByTagUseCaseFactory {
 
