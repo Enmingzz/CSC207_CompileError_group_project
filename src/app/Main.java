@@ -16,11 +16,13 @@ import interface_adapter.view_product.SellerViewProductViewModel;
 
 import view.*;
 import view.login.LoginView;
+import view.main_page.MainPageView;
 import view.profile.ModifyProfileView;
 import view.profile.ProfileView;
 import view.schedule.BuyerScheduleView;
 import view.schedule.SellerScheduleView;
 import view.signup.SignupView;
+import view.view_product.BuyerViewProductView;
 import view.view_product.ProductView;
 import view.view_product.SellerViewProductView;
 
@@ -70,20 +72,24 @@ public class Main {
                 , loginViewModel, mainPageViewModel, profileViewModel,
                 shoppingCartViewModel, manageProductViewModel);
         ModifyProfileView modifyProfileView = ModifyProfileUseCaseFactory.create();
-        ProductView productView = SellerViewProductUseCaseFactory.create();
+        BuyerViewProductView buyerViewProductView = BuyerViewProductUseCaseFactory.create();
         SellerScheduleView sellerScheduleView = SellerScheduleUseCaseFactory.create();
         BuyerScheduleView buyerScheduleView = BuyerScheduleUseCaseFactory.create();
-        SellerViewProductView sellerViewProductView =
+        SellerViewProductView sellerViewProductView = SellerViewProductUseCaseFactory.create();
+        MainPageView mainPageView = MainPageUseCaseFactory.Create();
 
 
         TestView testView = new TestView();
         views.add(signupView.viewName, signupView);
         views.add(testView.viewName, testView);
-        views.add(productView.viewName, productView);
+        views.add(buyerViewProductView.viewName, buyerViewProductView);
         views.add(modifyProfileView.viewName, modifyProfileView);
         views.add(sellerScheduleView.viewName, sellerScheduleView);
         views.add(buyerScheduleView.viewName, buyerScheduleView);
         views.add(loginView.viewName, loginView);
+        views.add(profileView.viewName, profileView);
+        views.add(sellerViewProductView.viewName, sellerViewProductView);
+        views.add(mainPageView.viewName, mainPageView);
 
 
         viewManagerModel.setActiveView(signupView.viewName);
