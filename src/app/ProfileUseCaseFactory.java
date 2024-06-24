@@ -15,7 +15,8 @@ import java.io.IOException;
 
 public class ProfileUseCaseFactory {
 
-    private ProfileUseCaseFactory() {}
+    private ProfileUseCaseFactory() {
+    }
 
     public static ProfileView create(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel, MainPageViewModel mainPageViewModel, ProfileViewModel profileViewModel, ShoppingCartViewModel shoppingCartViewModel, ManageProductViewModel manageProductViewModel) throws IOException {
         //TODO implements this
