@@ -7,8 +7,15 @@ import entity.product.CommonProductFactory;
 import entity.product.ProductFactory;
 import entity.shopping_cart.CommonShoppingCartFactory;
 import entity.shopping_cart.ShoppingCartFactory;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.main_page.MainPageController;
+import interface_adapter.main_page.MainPagePresenter;
+import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
+import use_case.main_page.ShowMainPageInputBoundary;
+import use_case.main_page.ShowMainPageInteractor;
+import use_case.main_page.ShowMainPageOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
 import view.product_search.SearchByNameView;
@@ -35,4 +42,12 @@ public class SearchByNameUseCaseFactory {
                 new ShowShoppingCartInteractor(presenter, shoppingCartReadDataAccess);
         return new ShoppingCartController(showShoppingCartInteractor);
     }
+
+    private static MainPageController createMainPageController(MainPageViewModel mainPageViewModel, ViewManagerModel viewManagerModel){
+        ShowMainPageOutputBoundary showMainPagePresenter = new MainPagePresenter(mainPageViewModel, viewManagerModel);
+        ShowMainPageInputBoundary showMainPageInteractor =
+                new ShowMainPageInteractor(showMainPagePresenter);
+        return new MainPageController(showMainPageInteractor);
+    }
+
 }

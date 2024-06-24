@@ -25,6 +25,9 @@ import entity.product.ProductFactory;
 import entity.shopping_cart.CommonShoppingCartFactory;
 import entity.shopping_cart.ShoppingCartFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.main_page.MainPageController;
+import interface_adapter.main_page.MainPagePresenter;
+import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.rating.RateProductController;
 import interface_adapter.schedule.BuyerSelectScheduleController;
 import interface_adapter.shopping_cart.*;
@@ -32,6 +35,9 @@ import interface_adapter.view_product.BuyerViewProductViewModel;
 import interface_adapter.view_product.SellerViewProductViewModel;
 import interface_adapter.view_product.ViewProductController;
 import interface_adapter.view_product.ViewProductPresenter;
+import use_case.main_page.ShowMainPageInputBoundary;
+import use_case.main_page.ShowMainPageInteractor;
+import use_case.main_page.ShowMainPageOutputBoundary;
 import use_case.shopping_cart.*;
 import use_case.view_product.ViewProductInputBoundary;
 import use_case.view_product.ViewProductInteractor;
@@ -60,7 +66,6 @@ public class ShoppingCartUseCaseFactory {
     }
 
     private static ShoppingCartController createShoppingCartController() throws SQLException {
-        //TODO need to implement this method
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
         ShoppingCartPresenter presenter = new ShoppingCartPresenter();
@@ -138,8 +143,11 @@ public class ShoppingCartUseCaseFactory {
         return new PurchaseController(purchaseInteractor);
     }
 
-
-
-
+    private static MainPageController createMainPageController(MainPageViewModel mainPageViewModel, ViewManagerModel viewManagerModel){
+        ShowMainPageOutputBoundary showMainPagePresenter = new MainPagePresenter(mainPageViewModel, viewManagerModel);
+        ShowMainPageInputBoundary showMainPageInteractor =
+                new ShowMainPageInteractor(showMainPagePresenter);
+        return new MainPageController(showMainPageInteractor);
+    }
 
 }

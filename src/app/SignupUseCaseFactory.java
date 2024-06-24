@@ -17,10 +17,16 @@ import entity.user.CommonUserFactory;
 import entity.user.UserFactory;
 import interface_adapter.*;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.main_page.MainPageController;
+import interface_adapter.main_page.MainPagePresenter;
+import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.signup.*;
 import use_case.Signup.*;
+import use_case.main_page.ShowMainPageInputBoundary;
+import use_case.main_page.ShowMainPageInteractor;
+import use_case.main_page.ShowMainPageOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
 import view.signup.SignupView;
@@ -82,6 +88,13 @@ public class SignupUseCaseFactory {
         ShowShoppingCartInputBoundary showShoppingCartInteractor =
                 new ShowShoppingCartInteractor(presenter, shoppingCartReadDataAccess);
         return new ShoppingCartController(showShoppingCartInteractor);
+    }
+
+    private static MainPageController createMainPageController(MainPageViewModel mainPageViewModel, ViewManagerModel viewManagerModel){
+        ShowMainPageOutputBoundary showMainPagePresenter = new MainPagePresenter(mainPageViewModel, viewManagerModel);
+        ShowMainPageInputBoundary showMainPageInteractor =
+                new ShowMainPageInteractor(showMainPagePresenter);
+        return new MainPageController(showMainPageInteractor);
     }
 
 }
