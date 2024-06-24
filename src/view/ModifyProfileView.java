@@ -7,6 +7,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class ModifyProfileView extends JPanel implements ActionListener, PropertyChangeListener {
+
+    public final String viewName = "modify profile";
     @Override
     public void actionPerformed(ActionEvent e) {
 

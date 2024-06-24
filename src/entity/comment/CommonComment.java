@@ -5,6 +5,7 @@ package entity.comment;
  * Two attributes private String description and private CommonUser postUser
  * @author CompileError group
  */
+
 public class CommonComment implements Comment{
     private String description;
     private String studentNumber;

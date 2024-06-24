@@ -2,6 +2,7 @@ package interface_adapter.profile;
 
 import entity.user.User;
 import use_case.profile.ManageProductInputBoundary;
+import use_case.profile.ManageProductInputData;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,6 +16,8 @@ public class ManageProductController {
     }
 
     public void execute(User user) throws SQLException, IOException {
-        manageProductInteractor.execute(user);
+        ManageProductInputData manageProductInputData = new ManageProductInputData(user);
+        manageProductInteractor.execute(manageProductInputData);
     }
+
 }

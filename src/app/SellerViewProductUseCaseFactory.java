@@ -2,7 +2,7 @@ package app;
 
 import view.ProductView;
 
-public class ViewProductUseCaseFactory {
+public class SellerViewProductUseCaseFactory {
 
     public static ProductView create(){
         //TODO need to implement this method

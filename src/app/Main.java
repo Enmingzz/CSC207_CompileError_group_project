@@ -13,7 +13,7 @@ import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.view_product.BuyerViewProductViewModel;
 import interface_adapter.view_product.SellerViewProductViewModel;
-import interface_adapter.view_product.ViewProductViewModel;
+
 import view.*;
 
 import javax.swing.*;
@@ -62,15 +62,20 @@ public class Main {
                 , loginViewModel, mainPageViewModel, profileViewModel,
                 shoppingCartViewModel, manageProductViewModel);
         ModifyProfileView modifyProfileView = ModifyProfileUseCaseFactory.create();
-        ProductView productView = ViewProductUseCaseFactory.create();
+        ProductView productView = SellerViewProductUseCaseFactory.create();
         SellerScheduleView sellerScheduleView = SellerScheduleUseCaseFactory.create();
         BuyerScheduleView buyerScheduleView = BuyerScheduleUseCaseFactory.create();
+        SellerViewProductView sellerViewProductView =
 
 
         TestView testView = new TestView();
         views.add(signupView.viewName, signupView);
         views.add(testView.viewName, testView);
-        views.add(loginView);
+        views.add(productView.viewName, productView);
+        views.add(modifyProfileView.viewName, modifyProfileView);
+        views.add(sellerScheduleView.viewName, sellerScheduleView);
+        views.add(buyerScheduleView.viewName, buyerScheduleView);
+        views.add(loginView.viewName, loginView);
 
 
         viewManagerModel.setActiveView(signupView.viewName);
