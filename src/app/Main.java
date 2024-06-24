@@ -15,6 +15,7 @@ import interface_adapter.view_product.BuyerViewProductViewModel;
 import interface_adapter.view_product.SellerViewProductViewModel;
 
 import view.*;
+import view.shopping_cart.ShoppingCartView;
 import view.login.LoginView;
 import view.main_page.MainPageView;
 import view.profile.ModifyProfileView;
@@ -77,6 +78,7 @@ public class Main {
         BuyerScheduleView buyerScheduleView = BuyerScheduleUseCaseFactory.create();
         SellerViewProductView sellerViewProductView = SellerViewProductUseCaseFactory.create();
         MainPageView mainPageView = MainPageUseCaseFactory.Create();
+        ShoppingCartView shoppingCartView = ShoppingCartUseCaseFactory.create();
 
 
         TestView testView = new TestView();

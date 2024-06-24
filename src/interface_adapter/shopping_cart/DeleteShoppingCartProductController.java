@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class DeleteShoppingCartProductController {
+
     final DeleteShoppingCartProductInputBoundary deleteShoppingCartProductInteractor;
+
     public DeleteShoppingCartProductController(DeleteShoppingCartProductInputBoundary deleteShoppingCartProductInteractor) {
         this.deleteShoppingCartProductInteractor = deleteShoppingCartProductInteractor;
     }

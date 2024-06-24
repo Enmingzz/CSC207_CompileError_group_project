@@ -1,4 +1,4 @@
-package view;
+package view.shopping_cart;
 
 import entity.product.Product;
 import entity.user.User;

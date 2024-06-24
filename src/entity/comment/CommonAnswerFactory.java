@@ -5,8 +5,10 @@ package entity.comment;
  * @author CompileError group
  */
 
-public class CommonAnswerFactory {
-    Answer createCommonAnswer(String description, String studentNumber){
+public class CommonAnswerFactory implements AnswerFactory{
+
+    public Answer createAnswer(String description, String studentNumber){
         return new CommonAnswer(description, studentNumber);
     }
+
 }
