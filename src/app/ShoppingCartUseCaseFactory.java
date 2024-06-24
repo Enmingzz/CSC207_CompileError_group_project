@@ -1,14 +1,22 @@
 package app;
 
+import data_access.factories.interfaces.Product.DataBaseProductReadByIdDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.Product.DatabaseProductUpdateStateDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.Question.DatabaseQuestionReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.ShoppingCart.DatabaseShoppingCartUpdateDeleteDataAccessObjectFactoryInterface;
+import data_access.factories.objects.Product.DataBaseProductReadByIdDataAccessObjectFactory;
+import data_access.factories.objects.Product.DatabaseProductUpdateStateDataAccessObjectFactory;
 import data_access.factories.objects.Question.DatabaseQuestionReadDataAccessObjectFactory;
 import data_access.factories.objects.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactory;
 import data_access.factories.objects.ShoppingCart.DatabaseShoppingCartUpdateDeleteDataAccessObjectFactory;
+import data_access.interfaces.Prouct.ProductReadByIdDataAccessInterface;
+import data_access.interfaces.Prouct.ProductUpdateStateDataAccessInterface;
 import data_access.interfaces.Question.QuestionReadDataAccessInterface;
 import data_access.interfaces.ShoppingCart.ShoppingCartReadDataAccessInterface;
 import data_access.interfaces.ShoppingCart.ShoppingCartUpdateDeleteDataAccessInterface;
+import data_access.objects.Product.DatabaseProductReadByIdDataAccessObject;
+import data_access.objects.Product.DatabaseProductUpdateStateDataAccessObject;
 import entity.comment.AnswerFactory;
 import entity.comment.CommonAnswerFactory;
 import entity.comment.CommonQuestionFactory;
@@ -106,9 +114,8 @@ public class ShoppingCartUseCaseFactory {
         return new DeleteShoppingCartProductController(deleteShoppingCartProductInteractor);
     }
 
-    private static PurchaseController createPurchaseController(){
-        PurchaseInputBoundary purchaseInteractor = new PurchaseInteractor();
-        return new PurchaseController();
+    private static PurchaseController createPurchaseController() throws SQLException {
+
     }
 
 
