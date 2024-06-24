@@ -1,16 +1,21 @@
 package use_case.login;
 
+/**
+ * Use student number and password to be the input data and check if the user does exist.
+ * @author CompileError group
+ */
+
 public class LoginInputData {
-    private String username;
+    private String studentNumber;
     private String password;
 
-    public LoginInputData(String username, String password) {
-        this.username = username;
+    public LoginInputData(String studentNumber, String password) {
+        this.studentNumber = studentNumber;
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getStudentNumber() {
+        return studentNumber;
     }
 
     public String getPassword() {

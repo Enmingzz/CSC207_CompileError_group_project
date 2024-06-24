@@ -2,7 +2,7 @@ package use_case.login;
 
 public interface LoginOutputBoundary {
 
-    void prepareSuccessfulView();
+    void prepareSuccessfulView(LoginOutputData response);
 
-    void prepareFailedView();
+    void prepareFailedView(String error);
 }
