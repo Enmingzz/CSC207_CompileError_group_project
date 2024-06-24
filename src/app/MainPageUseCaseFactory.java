@@ -1,6 +1,6 @@
 package app;
 
-import view.MainPageView;
+import view.main_page.MainPageView;
 
 public class MainPageUseCaseFactory {
 

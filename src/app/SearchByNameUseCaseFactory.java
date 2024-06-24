@@ -1,6 +1,6 @@
 package app;
 
-import view.SearchByNameView;
+import view.product_search.SearchByNameView;
 
 public class SearchByNameUseCaseFactory {
 

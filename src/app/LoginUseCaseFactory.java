@@ -13,7 +13,7 @@ import interface_adapter.main_page.MainPageViewModel;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
-import view.LoginView;
+import view.login.LoginView;
 
 import javax.swing.*;
 import java.io.IOException;
