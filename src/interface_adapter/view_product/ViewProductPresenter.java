@@ -5,26 +5,42 @@ import use_case.view_product.ViewProductOutputBoundary;
 import use_case.view_product.ViewProductOutputData;
 
 public class ViewProductPresenter implements ViewProductOutputBoundary {
-    private final ViewProductViewModel viewProductViewModel;
+    private final BuyerViewProductViewModel buyerViewProductViewModel;
+    private final SellerViewProductViewModel sellerViewProductViewModel;
+
     private final ViewManagerModel viewManagerModel;
 
-    public ViewProductPresenter(ViewProductViewModel viewProductViewModel,
+    public ViewProductPresenter(BuyerViewProductViewModel buyerViewProductViewModel, SellerViewProductViewModel sellerViewProductViewModel,
                                 ViewManagerModel viewManagerModel){
-        this.viewProductViewModel = viewProductViewModel;
+        this.buyerViewProductViewModel = buyerViewProductViewModel;
+        this.sellerViewProductViewModel = sellerViewProductViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
     @Override
     public void prepareViewSucceed(ViewProductOutputData viewProductOutputData) {
-        ViewProductState viewProductState = viewProductViewModel.getState();
+        BuyerViewProductState buyerViewProductState = buyerViewProductViewModel.getState();
+        SellerViewProductState sellerViewProductState = sellerViewProductViewModel.getState();
 
-        viewProductState.setProduct(viewProductState.getProduct());
-        viewProductState.setLst_question(viewProductOutputData.getList_of_question());
 
-        this.viewProductViewModel.setState(viewProductState);
+        if(viewProductOutputData.getUser_type().equals("buyer")) {
+            buyerViewProductState.setProduct(viewProductOutputData.getProduct());
+            buyerViewProductState.setLst_question(viewProductOutputData.getList_of_question());
 
-        viewProductViewModel.firePropertyChanged();
-        viewManagerModel.setActiveView(viewProductViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
+            this.buyerViewProductViewModel.setState(buyerViewProductState);
+
+            buyerViewProductViewModel.firePropertyChanged();
+            viewManagerModel.setActiveView(buyerViewProductViewModel.getViewName());
+            viewManagerModel.firePropertyChanged();
+        }else{
+            sellerViewProductState.setProduct(viewProductOutputData.getProduct());
+            sellerViewProductState.setLst_question(viewProductOutputData.getList_of_question());
+
+            this.sellerViewProductViewModel.setState(sellerViewProductState);
+
+            sellerViewProductViewModel.firePropertyChanged();
+            viewManagerModel.setActiveView(sellerViewProductViewModel.getViewName());
+            viewManagerModel.firePropertyChanged();
+        }
     }
 }

@@ -2,8 +2,12 @@ package interface_adapter.view_product;
 
 import entity.comment.Question;
 import entity.product.Product;
-import use_case.PublishQuestionInputBoundary;
-import use_case.PublishQuestionInputData;
+
+import use_case.view_product.PublishQuestionInputBoundary;
+import use_case.view_product.PublishQuestionInputData;
+
+
+
 
 import java.sql.SQLException;
 

@@ -1,5 +1,6 @@
 package interface_adapter.view_product;
 
+import entity.user.User;
 import use_case.view_product.ViewProductInputBoundary;
 import use_case.view_product.ViewProductInputData;
 import entity.product.Product;
@@ -13,8 +14,8 @@ public class ViewProductController {
         this.viewProductInteractor = viewProductInteractor;
     }
 
-    public void execute(Product product) throws SQLException {
-        ViewProductInputData viewProductInputData = new ViewProductInputData(product);
+    public void execute(Product product, User user) throws SQLException {
+        ViewProductInputData viewProductInputData = new ViewProductInputData(product, user);
         viewProductInteractor.execute(viewProductInputData);
     }
 }
