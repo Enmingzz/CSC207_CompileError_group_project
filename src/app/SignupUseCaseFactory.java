@@ -12,7 +12,7 @@ import interface_adapter.*;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.*;
 import use_case.Signup.*;
-import view.SignupView;
+import view.signup.SignupView;
 
 import javax.swing.*;
 import java.io.IOException;

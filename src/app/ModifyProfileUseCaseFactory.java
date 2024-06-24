@@ -1,6 +1,6 @@
 package app;
 
-import view.ModifyProfileView;
+import view.profile.ModifyProfileView;
 
 public class ModifyProfileUseCaseFactory {
 
