@@ -20,7 +20,7 @@ public class MainPagePresenter implements ShowMainPageOutputBoundary {
         MainPageState mainPageState = mainPageViewModel.getState();
         User user = response.getUser();
 
-        mainPageState.setUser(user);
+        mainPageState.setStudentNumber(user.getStudentNumber());
 
         mainPageViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(mainPageViewModel.getViewName());
