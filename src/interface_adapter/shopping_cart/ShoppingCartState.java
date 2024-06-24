@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 
 public class ShoppingCartState {
-    private ArrayList<Product> listProducts;
-    private User user;
-    private float totalPrice;
+    private ArrayList<Product> listProducts = new ArrayList<>();
+    private User user = null;
+    private float totalPrice = 0;
 
     public ShoppingCartState(ShoppingCartState copy) {
         listProducts = copy.listProducts;
