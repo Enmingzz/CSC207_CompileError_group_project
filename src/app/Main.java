@@ -11,6 +11,8 @@ import interface_adapter.schedule.SellerSelectScheduleViewModel;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.view_product.BuyerViewProductViewModel;
+import interface_adapter.view_product.SellerViewProductViewModel;
 import interface_adapter.view_product.ViewProductViewModel;
 import view.*;
 
@@ -46,7 +48,8 @@ public class Main {
         ShoppingCartViewModel shoppingCartViewModel = new ShoppingCartViewModel();
         ManageProductViewModel manageProductViewModel = new ManageProductViewModel();
         ModifyProfileViewModel modifyProfileViewModel = new ModifyProfileViewModel();
-        ViewProductViewModel viewProductViewModel = new ViewProductViewModel();
+        SellerViewProductViewModel sellerViewProductViewModel = new SellerViewProductViewModel();
+        BuyerViewProductViewModel buyerViewProductViewModel = new BuyerViewProductViewModel();
         ModifyProductViewModel modifyProductViewModel = new ModifyProductViewModel();
         SellerSelectScheduleViewModel sellerSelectScheduleViewModel = new SellerSelectScheduleViewModel();
         BuyerSelectScheduleViewModel buyerSelectScheduleViewModel = new BuyerSelectScheduleViewModel();
