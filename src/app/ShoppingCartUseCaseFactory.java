@@ -18,6 +18,8 @@ import entity.product.ProductFactory;
 import entity.shopping_cart.CommonShoppingCartFactory;
 import entity.shopping_cart.ShoppingCartFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.rating.RateProductController;
+import interface_adapter.schedule.BuyerSelectScheduleController;
 import interface_adapter.shopping_cart.*;
 import interface_adapter.view_product.BuyerViewProductViewModel;
 import interface_adapter.view_product.SellerViewProductViewModel;
@@ -34,14 +36,20 @@ import java.sql.SQLException;
 public class ShoppingCartUseCaseFactory {
 
     public static ShoppingCartView create(ShoppingCartViewModel shoppingCartViewModel,
-                                          ViewProductController viewProductController,
-                                          PurchaseController purchaseController,
-                                          DeleteShoppingCartProductController deleteShoppingCartProductController){
+                                                          ViewProductController viewProductController,
+                                                          PurchaseController purchaseController,
+                                                          DeleteShoppingCartProductController deleteShoppingCartProductController,
+                                                          BuyerSelectScheduleController buyerSelectScheduleController,
+                                                          ConfirmController confirmController,
+                                                          RateProductController rateProductController){
         //TODO need to implement this method
         return new ShoppingCartView(shoppingCartViewModel,
                 viewProductController,
                 purchaseController,
-                deleteShoppingCartProductController);
+                deleteShoppingCartProductController,
+                buyerSelectScheduleController,
+                confirmController,
+                rateProductController);
     }
 
     private static ShoppingCartController createShoppingCartController() throws SQLException {
