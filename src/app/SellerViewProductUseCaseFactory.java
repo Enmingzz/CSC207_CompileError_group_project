@@ -1,11 +1,12 @@
 package app;
 
 import view.view_product.ProductView;
+import view.view_product.SellerViewProductView;
 
 public class SellerViewProductUseCaseFactory {
 
-    public static ProductView create(){
+    public static SellerViewProductView create(){
         //TODO need to implement this method
-        return new ProductView();
+        return new SellerViewProductView();
     }
 }
