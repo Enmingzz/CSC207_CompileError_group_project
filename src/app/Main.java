@@ -15,6 +15,14 @@ import interface_adapter.view_product.BuyerViewProductViewModel;
 import interface_adapter.view_product.SellerViewProductViewModel;
 
 import view.*;
+import view.login.LoginView;
+import view.profile.ModifyProfileView;
+import view.profile.ProfileView;
+import view.schedule.BuyerScheduleView;
+import view.schedule.SellerScheduleView;
+import view.signup.SignupView;
+import view.view_product.ProductView;
+import view.view_product.SellerViewProductView;
 
 import javax.swing.*;
 import java.awt.*;
