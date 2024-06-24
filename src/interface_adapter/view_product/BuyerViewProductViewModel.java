@@ -8,6 +8,7 @@ import java.beans.PropertyChangeSupport;
 public class BuyerViewProductViewModel extends ViewModel {
     public final String TITLE_LABEL = "Buyer Product View";
     public final String ADD_QUESTION = "Publish question";
+    public final String ADD_TO_CART = "Add to shopping cart";
 
     public final String CANCEL_BUTTON_LABEL = "Cancel";
 
