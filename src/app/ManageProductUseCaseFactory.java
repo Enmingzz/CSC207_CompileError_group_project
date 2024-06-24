@@ -8,6 +8,7 @@ import entity.comment.CommonAnswerFactory;
 import entity.comment.CommonQuestionFactory;
 import entity.comment.QuestionFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.main_page.MainPageController;
 import interface_adapter.view_product.BuyerViewProductViewModel;
 import interface_adapter.view_product.SellerViewProductViewModel;
 import interface_adapter.view_product.ViewProductController;
@@ -43,4 +44,7 @@ public class ManageProductUseCaseFactory {
         return new ViewProductController(viewProductInteractor);
     }
 
+    private static final MainPageController createMainPageController(){
+        return new MainPageController();
+    }
 }

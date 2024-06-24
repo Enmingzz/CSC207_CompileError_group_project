@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseShoppingCartUpdateDeleteDataAccessObject implements ShoppingCartUpdateDeleteDataAccessInterface {
-    private final Connection connection;
+    private Connection connection;
     private ResultSet resultSet;
     private PreparedStatement preparedStatement;
     private String query;
@@ -22,6 +22,9 @@ public class DatabaseShoppingCartUpdateDeleteDataAccessObject implements Shoppin
 
     @Override
     public void updateShoppingCart(User user, Product product) throws SQLException {
+        this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
+                "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
+                "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
         query = "SELECT ListProductsID FROM Carts WHERE UserID = ?";
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, user.getStudentNumber());

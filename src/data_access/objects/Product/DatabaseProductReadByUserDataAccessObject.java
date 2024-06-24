@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseProductReadByUserDataAccessObject implements ProductReadByUserDataAccessInterface {
-    private final Connection connection;
+    private Connection connection;
     private final ProductFactory productFactory;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
@@ -28,6 +28,9 @@ public class DatabaseProductReadByUserDataAccessObject implements ProductReadByU
 
     @Override
     public ArrayList<Product> getProductByUser(String userID) throws SQLException, IOException {
+        this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
+                "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
+                "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
         String productsID;
         String description;
         String title;

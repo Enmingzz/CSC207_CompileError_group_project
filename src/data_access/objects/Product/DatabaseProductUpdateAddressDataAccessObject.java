@@ -5,7 +5,7 @@ import entity.product.Product;
 import java.sql.*;
 
 public class DatabaseProductUpdateAddressDataAccessObject implements ProductUpdateAddressDataAccessInterface {
-    private final Connection connection;
+    private Connection connection;
     private PreparedStatement preparedStatement;
     private String query;
 
@@ -17,6 +17,9 @@ public class DatabaseProductUpdateAddressDataAccessObject implements ProductUpda
 
     @Override
     public void updateProductAddress(Product product, String address) throws SQLException {
+        this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
+                "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
+                "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
         query = "UPDATE Prodcuts SET Address = ? WHERE ProductID = ?";
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, address);

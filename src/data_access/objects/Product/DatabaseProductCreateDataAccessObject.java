@@ -14,7 +14,7 @@ import java.sql.*;
  * no return value
  */
 public class DatabaseProductCreateDataAccessObject implements ProductCreateDataAccessInterface {
-    private final Connection connection;
+    private Connection connection;
     private PreparedStatement preparedStatement;
     private String query;
 
@@ -26,6 +26,9 @@ public class DatabaseProductCreateDataAccessObject implements ProductCreateDataA
 
     @Override
     public void saveProduct(Product product) throws SQLException, IOException {
+        this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
+                "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
+                "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
         query = "INSERT INTO Products (Description, Title, Price, State, Rating, TransferEmail, SellerID, " +
                 "Address, ListTags, Image) VALUES (?,?,?,?,?,?,?,?,?,?)";
 

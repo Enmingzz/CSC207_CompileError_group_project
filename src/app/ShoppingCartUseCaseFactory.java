@@ -26,6 +26,7 @@ import interface_adapter.view_product.ViewProductPresenter;
 import use_case.shopping_cart.DeleteShoppingCartProductInputBoundary;
 import use_case.shopping_cart.DeleteShoppingCartProductInteractor;
 import use_case.shopping_cart.DeleteShoppingCartProductOutputBoundary;
+import use_case.shopping_cart.PurchaseInputBoundary;
 import use_case.view_product.ViewProductInputBoundary;
 import use_case.view_product.ViewProductInteractor;
 import use_case.view_product.ViewProductOutputBoundary;
@@ -91,7 +92,12 @@ public class ShoppingCartUseCaseFactory {
     }
 
     private static PurchaseController createPurchaseController(){
+        PurchaseInputBoundary purchaseInteractor =
+        return new PurchaseController();
+    }
 
+    private static ShoppingCartController cretaShoppingCartController(){
+        return new ShoppingCartController();
     }
 
 }

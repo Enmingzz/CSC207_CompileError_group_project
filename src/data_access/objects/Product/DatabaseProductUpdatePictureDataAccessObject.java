@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.sql.*;
 
 public class DatabaseProductUpdatePictureDataAccessObject implements ProductUpdatePictureDataAccessInterface {
-    private final Connection connection;
+    private Connection connection;
     private PreparedStatement preparedStatement;
     private String query;
 
@@ -23,6 +23,9 @@ public class DatabaseProductUpdatePictureDataAccessObject implements ProductUpda
 
     @Override
     public void updateProductPicture(Product product, Image image) throws SQLException, IOException {
+        this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
+                "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
+                "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
         query = "UPDATE Products SET Image = ? WHERE ProductID = ?";
         preparedStatement = connection.prepareStatement(query);
 

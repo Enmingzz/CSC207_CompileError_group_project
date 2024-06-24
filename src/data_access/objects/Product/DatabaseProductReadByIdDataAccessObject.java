@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseProductReadByIdDataAccessObject implements ProductReadByIdDataAccessInterface {
-    private final Connection connection;
+    private Connection connection;
     private final ProductFactory productFactory;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
@@ -28,6 +28,9 @@ public class DatabaseProductReadByIdDataAccessObject implements ProductReadByIdD
 
     @Override
     public Product getProductById(String productID) throws SQLException, IOException {
+        this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
+                "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
+                "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
         query = "SELECT * FROM Products WHERE ProductsID = ?";
         preparedStatement.setString(1, productID);
         preparedStatement = connection.prepareStatement(query);

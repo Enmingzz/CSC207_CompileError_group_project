@@ -36,7 +36,7 @@ public class MainPageUseCaseFactory {
         QuestionFactory commonQuestionFactory = new CommonQuestionFactory();
         AnswerFactory commonAnswerFactory = new CommonAnswerFactory();
         QuestionReadDataAccessInterface questionReadDataAccess =
-                new DatabaseQuestionReadDataAccessObjectFactory().create(commonQuestionFactory,
+                databaseQuestionReadDataAccessObjectFactory.create(commonQuestionFactory,
                         commonAnswerFactory);
         ViewProductInputBoundary viewProductInteractor =
                 new ViewProductInteractor(viewProductPresenter, questionReadDataAccess);
