@@ -11,6 +11,8 @@ import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.schedule.BuyerSelectScheduleController;
 import interface_adapter.view_product.ViewProductController;
 import interface_adapter.shopping_cart.DeleteShoppingCartProductController;
+import interface_adapter.shopping_cart.ConfirmController;
+import interface_adapter.rating.RateProductController;
 
 // Import all Controllers related to the top bar
 
@@ -28,6 +30,10 @@ import java.sql.SQLException;
 
 public class ShoppingCartView extends JPanel implements ActionListener, PropertyChangeListener {
 
+    /**
+     * The ShoppingCartView class is responsible for the layout of the shopping cart of each user.
+     */
+
     public final String viewName = "shopping cart";
     private final ShoppingCartViewModel shoppingCartViewModel;
 
@@ -40,15 +46,36 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
     private final ViewProductController viewProductController;
     private final PurchaseController purchaseController;
     private final DeleteShoppingCartProductController deleteShoppingCartProductController;
+    private final BuyerSelectScheduleController buyerSelectScheduleController;
+    private final ConfirmController confirmController;
+    private final RateProductController rateProductController;
+
+    /**
+     *
+     * @param shoppingCartViewModel the view model that shoppingCartView uses
+     * @param viewProductController the controller responsible for the viewProduct use case
+     * @param purchaseController the controller responsible for the purchaseProduct use case
+     * @param deleteShoppingCartProductController the controller responsible for the deleteShoppingCart use case
+     * @param buyerSelectScheduleController the controller responsible for the buyerSelectSchedule use case
+     * @param confirmController the controller responsible for the confirmProductReceived use case
+     * @param rateProductController the controller responsible for the rateProduct use case
+     */
 
     public ShoppingCartView(ShoppingCartViewModel shoppingCartViewModel,
                             ViewProductController viewProductController,
                             PurchaseController purchaseController,
-                            DeleteShoppingCartProductController deleteShoppingCartProductController) {
+                            DeleteShoppingCartProductController deleteShoppingCartProductController,
+                            BuyerSelectScheduleController buyerSelectScheduleController,
+                            ConfirmController confirmController,
+                            RateProductController rateProductController) {
+
         // Initialize all controllers here
         this.viewProductController = viewProductController;
         this.purchaseController = purchaseController;
         this.deleteShoppingCartProductController = deleteShoppingCartProductController;
+        this.buyerSelectScheduleController = buyerSelectScheduleController;
+        this.confirmController = confirmController;
+        this.rateProductController = rateProductController;
 
         this.shoppingCartViewModel = shoppingCartViewModel;
         shoppingCartViewModel.addPropertyChangeListener(this);
@@ -138,7 +165,99 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
 
             }
 
-            //TODO: FINISH IMPLEMENTING REST OF CASES
+            else if (product.getState() == 2) {
+                JButton scheduleButton = new JButton(shoppingCartViewModel.BUYER_SCHEDULES_BUTTON_LABEL);
+                // dimension set as this for now but will likely get changed later
+                scheduleButton.setPreferredSize(new Dimension(200, 50));
+                scheduleButton.addActionListener(
+                        new ActionListener() {
+                            public void actionPerformed(ActionEvent event) {
+                                if (event.getSource().equals(scheduleButton)) {
+                                    User user = shoppingCartViewModel.getState().getUser();
+
+                                    // TODO: IMPLEMENT THIS METHOD FOR BUYER SELECT SCHEDULE USE CASE
+                                    System.out.println("BuyerSelectSchedule to be executed; not implemented yet");
+//                                    try {
+//                                        buyerSelectScheduleController.execute(user, product);
+//                                    } catch (SQLException | IOException e) {
+//                                        throw new RuntimeException(e); //Revisit this in case of bug in viewing a product
+//                                    }
+
+                                }
+                            }
+                        }
+                );
+                primaryActionButtons.add(scheduleButton);
+
+                ShoppingCartBuyerSelectPanel buyerSelectPanel = new ShoppingCartBuyerSelectPanel(
+                        viewButton, scheduleButton
+                );
+                this.add(buyerSelectPanel);
+
+            }
+
+            else if (product.getState() == 3) {
+                JButton confirmButton = new JButton(shoppingCartViewModel.RECEIVED_PRODUCT_BUTTON_LABEL);
+                // dimension set as this for now but will likely get changed later
+                confirmButton.setPreferredSize(new Dimension(200, 50));
+                confirmButton.addActionListener(
+                        new ActionListener() {
+                            public void actionPerformed(ActionEvent event) {
+                                if (event.getSource().equals(confirmButton)) {
+                                    User user = shoppingCartViewModel.getState().getUser();
+
+                                    // TODO: IMPLEMENT THIS METHOD FOR CONFIRMATION USE CASE
+                                    System.out.println("Confirmation to be executed; not implemented yet");
+//                                    try {
+//                                        confirmController.execute(user, product);
+//                                    } catch (SQLException | IOException e) {
+//                                        throw new RuntimeException(e); //Revisit this in case of bug in viewing a product
+//                                    }
+
+                                }
+                            }
+                        }
+                );
+                primaryActionButtons.add(confirmButton);
+
+
+                ShoppingCartConfirmationPanel confirmationPanel = new ShoppingCartConfirmationPanel(
+                        viewButton, confirmButton
+                );
+                this.add(confirmationPanel);
+            }
+
+            else if (product.getState() == 4) {
+
+                JButton ratingButton = new JButton(shoppingCartViewModel.RATE_PRODUCT_BUTTON_LABEL);
+                // dimension set as this for now but will likely get changed later
+                ratingButton.setPreferredSize(new Dimension(200, 50));
+                ratingButton.addActionListener(
+                        new ActionListener() {
+                            public void actionPerformed(ActionEvent event) {
+                                if (event.getSource().equals(ratingButton)) {
+                                    User user = shoppingCartViewModel.getState().getUser();
+
+                                    // TODO: IMPLEMENT THIS METHOD FOR RATE PRODUCT SCHEDULE USE CASE
+                                    System.out.println("RateProduct to be executed; not implemented yet");
+//                                    try {
+//                                        ratingController.execute(user, product);
+//                                    } catch (SQLException | IOException e) {
+//                                        throw new RuntimeException(e); //Revisit this in case of bug in viewing a product
+//                                    }
+
+                                }
+                            }
+                        }
+                );
+                primaryActionButtons.add(ratingButton);
+
+                ShoppingCartRatingPanel ratingPanel = new ShoppingCartRatingPanel(
+                        viewButton, ratingButton
+                );
+                this.add(ratingPanel);
+            }
+
         }
 
 
@@ -146,7 +265,7 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evt) {
 
     }
 
