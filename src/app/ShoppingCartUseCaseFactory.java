@@ -15,7 +15,6 @@ import data_access.interfaces.Prouct.ProductUpdateStateDataAccessInterface;
 import data_access.interfaces.Question.QuestionReadDataAccessInterface;
 import data_access.interfaces.ShoppingCart.ShoppingCartReadDataAccessInterface;
 import data_access.interfaces.ShoppingCart.ShoppingCartUpdateDeleteDataAccessInterface;
-import data_access.objects.Product.DatabaseProductReadByIdDataAccessObject;
 import data_access.objects.Product.DatabaseProductUpdateStateDataAccessObject;
 import entity.comment.AnswerFactory;
 import entity.comment.CommonAnswerFactory;
@@ -114,8 +113,29 @@ public class ShoppingCartUseCaseFactory {
         return new DeleteShoppingCartProductController(deleteShoppingCartProductInteractor);
     }
 
-    private static PurchaseController createPurchaseController() throws SQLException {
+    private static PurchaseController createPurchaseController(ShoppingCartViewModel shoppingCartViewModel,
+                                                               ViewManagerModel viewManagerModel) throws SQLException {
 
+        DatabaseProductUpdateStateDataAccessObjectFactoryInterface databaseProductUpdateStateDataAccessObjectFactory =
+                new DatabaseProductUpdateStateDataAccessObjectFactory();
+
+        ProductUpdateStateDataAccessInterface productUpdateStateDataAccessObject =
+                databaseProductUpdateStateDataAccessObjectFactory.create();
+
+        DataBaseProductReadByIdDataAccessObjectFactoryInterface databaseProductReadByIdDataAccessObjectFactory =
+                new DataBaseProductReadByIdDataAccessObjectFactory();
+
+        ProductFactory commonProductFactory = new CommonProductFactory();
+
+        ProductReadByIdDataAccessInterface productReadByIdDataAccessObject =
+                databaseProductReadByIdDataAccessObjectFactory.create(commonProductFactory);
+
+        PurchaseOutputBoundary purchaseOutputBoundary = new PurchasePresenter(shoppingCartViewModel, viewManagerModel);
+
+        PurchaseInputBoundary purchaseInteractor = new PurchaseInteractor(productUpdateStateDataAccessObject,
+                productReadByIdDataAccessObject,
+                purchaseOutputBoundary);
+        return new PurchaseController(purchaseInteractor);
     }
 
 
