@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseShoppingCartReadDataAccessObject implements ShoppingCartReadDataAccessInterface {
-    private final Connection connection;
+    private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
     private String query;
@@ -29,6 +29,9 @@ public class DatabaseShoppingCartReadDataAccessObject implements ShoppingCartRea
     }
     @Override
     public ShoppingCart getShoppingCart(String userID) throws SQLException, IOException {
+        this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
+                "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
+                "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
         Product product;
         ArrayList<Product> listProducts = new ArrayList<Product>();
         DatabaseProductReadByIdDataAccessObject databaseProductReadByIdDataAccessObject =

@@ -1,5 +1,12 @@
 package interface_adapter.shopping_cart;
 
-public class ShoppingCartPresenter {
+import use_case.shopping_cart.ShowShoppingCartOutputBoundary;
+import use_case.shopping_cart.ShowShoppingCartOutputData;
+
+public class ShoppingCartPresenter implements ShowShoppingCartOutputBoundary {
+
+    public void prepareSuccessfulView(ShowShoppingCartOutputData showShoppingCartOutputData) {
+
+    }
 
 }

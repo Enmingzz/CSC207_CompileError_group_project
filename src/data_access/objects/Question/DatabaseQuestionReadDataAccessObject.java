@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class DatabaseQuestionReadDataAccessObject implements QuestionReadDataAccessInterface {
-    private final Connection connection;
+    private Connection connection;
     private final QuestionFactory questionFactory;
     private final AnswerFactory answerFactory;
     private PreparedStatement preparedStatement;
@@ -25,6 +25,9 @@ public class DatabaseQuestionReadDataAccessObject implements QuestionReadDataAcc
 
     @Override
     public ArrayList<Question> getQuestion(String productID) throws SQLException {
+        this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
+                "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
+                "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
         String questionUserID;
         String answerUserID;
         String questionDescription;
