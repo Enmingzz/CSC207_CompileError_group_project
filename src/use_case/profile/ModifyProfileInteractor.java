@@ -1,9 +1,8 @@
 package use_case.profile;
 
-import data_access.interfaces.UserReadDataAccessInterface;
-import data_access.interfaces.UserUpdateNameDataAccessInterface;
-import data_access.interfaces.UserUpdatePasswordDataAccessInterface;
-import entity.user.User;
+import data_access.interfaces.User.UserReadDataAccessInterface;
+import data_access.interfaces.User.UserUpdateNameDataAccessInterface;
+import data_access.interfaces.User.UserUpdatePasswordDataAccessInterface;
 
 import java.sql.SQLException;
 

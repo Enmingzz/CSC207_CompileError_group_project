@@ -1,7 +1,7 @@
 package use_case.Signup;
 
-import data_access.interfaces.UserCreateDataAccessInterface;
-import data_access.interfaces.UserReadDataAccessInterface;
+import data_access.interfaces.User.UserCreateDataAccessInterface;
+import data_access.interfaces.User.UserReadDataAccessInterface;
 import entity.user.User;
 import entity.user.UserFactory;
 

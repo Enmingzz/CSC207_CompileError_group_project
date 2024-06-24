@@ -1,11 +1,11 @@
 package app;
 
-import data_access.factories.interfaces.DatabaseUserCreateDataAccessObjectFactoryInterface;
-import data_access.factories.interfaces.DatabaseUserReadDataAccessObjectFactoryInterface;
-import data_access.factories.objects.DatabaseUserCreateDataAccessObjectFactory;
-import data_access.factories.objects.DatabaseUserReadDataAccessObjectFactory;
-import data_access.interfaces.UserCreateDataAccessInterface;
-import data_access.interfaces.UserReadDataAccessInterface;
+import data_access.factories.interfaces.User.DatabaseUserCreateDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.User.DatabaseUserReadDataAccessObjectFactoryInterface;
+import data_access.factories.objects.User.DatabaseUserCreateDataAccessObjectFactory;
+import data_access.factories.objects.User.DatabaseUserReadDataAccessObjectFactory;
+import data_access.interfaces.User.UserCreateDataAccessInterface;
+import data_access.interfaces.User.UserReadDataAccessInterface;
 import entity.user.CommonUserFactory;
 import entity.user.UserFactory;
 import interface_adapter.*;

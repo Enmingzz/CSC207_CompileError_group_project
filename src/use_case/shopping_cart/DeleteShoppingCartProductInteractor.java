@@ -4,8 +4,8 @@ import entity.product.Product;
 import entity.user.User;
 import entity.shopping_cart.ShoppingCart;
 
-import data_access.interfaces.ShoppingCartUpdateDeleteDataAccessInterface;
-import data_access.interfaces.ShoppingCartReadDataAccessInterface;
+import data_access.interfaces.ShoppingCart.ShoppingCartUpdateDeleteDataAccessInterface;
+import data_access.interfaces.ShoppingCart.ShoppingCartReadDataAccessInterface;
 
 import java.io.IOException;
 import java.sql.SQLException;
