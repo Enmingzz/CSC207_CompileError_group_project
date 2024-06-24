@@ -5,19 +5,20 @@ import interface_adapter.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class BuyerViewProductViewModel extends ViewModel {
-    public final String TITLE_LABEL = "Buyer Product View";
-    public final String ADD_QUESTION = "Publish question";
+public class SellerViewProductViewModel extends ViewModel {
+    public final String TITLE_LABEL = "Seller Product View";
+    public final String QUESTION_LABEL = "Questions";
 
+    public final String ADD_ANSWER = "Reply question";
     public final String CANCEL_BUTTON_LABEL = "Cancel";
 
-    private BuyerViewProductState state = new BuyerViewProductState();
+    private SellerViewProductState state = new SellerViewProductState();
 
-    public BuyerViewProductViewModel(){
+    public SellerViewProductViewModel(){
         super("modify_product view");
     }
 
-    public  void setState(BuyerViewProductState state){
+    public  void setState(SellerViewProductState state){
         this.state = state;
     }
 
@@ -31,7 +32,7 @@ public class BuyerViewProductViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
 
-    public BuyerViewProductState getState(){
+    public SellerViewProductState getState(){
         return state;
     }
 
