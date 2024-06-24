@@ -1,6 +1,6 @@
 package use_case.view_product;
 
-import data_access.interfaces.QuestionReadDataAccessInterface;
+import data_access.interfaces.Question.QuestionReadDataAccessInterface;
 import entity.comment.Question;
 import entity.product.Product;
 import entity.user.User;

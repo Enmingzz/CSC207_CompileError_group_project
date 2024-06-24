@@ -1,8 +1,8 @@
 package app;
 
-import data_access.factories.interfaces.DatabaseQuestionReadDataAccessObjectFactoryInterface;
-import data_access.factories.objects.DatabaseQuestionReadDataAccessObjectFactory;
-import data_access.interfaces.QuestionReadDataAccessInterface;
+import data_access.factories.interfaces.Question.DatabaseQuestionReadDataAccessObjectFactoryInterface;
+import data_access.factories.objects.Question.DatabaseQuestionReadDataAccessObjectFactory;
+import data_access.interfaces.Question.QuestionReadDataAccessInterface;
 import entity.comment.AnswerFactory;
 import entity.comment.CommonAnswerFactory;
 import entity.comment.CommonQuestionFactory;
