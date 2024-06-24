@@ -24,4 +24,5 @@ public class PublishQuestionPresenter implements PublishQuestionOutputBoundary {
         viewManagerModel.setActiveView(buyerViewProductViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
+
 }
