@@ -23,10 +23,7 @@ import interface_adapter.view_product.BuyerViewProductViewModel;
 import interface_adapter.view_product.SellerViewProductViewModel;
 import interface_adapter.view_product.ViewProductController;
 import interface_adapter.view_product.ViewProductPresenter;
-import use_case.shopping_cart.DeleteShoppingCartProductInputBoundary;
-import use_case.shopping_cart.DeleteShoppingCartProductInteractor;
-import use_case.shopping_cart.DeleteShoppingCartProductOutputBoundary;
-import use_case.shopping_cart.PurchaseInputBoundary;
+import use_case.shopping_cart.*;
 import use_case.view_product.ViewProductInputBoundary;
 import use_case.view_product.ViewProductInteractor;
 import use_case.view_product.ViewProductOutputBoundary;
@@ -47,9 +44,19 @@ public class ShoppingCartUseCaseFactory {
                 deleteShoppingCartProductController);
     }
 
-    private static ShoppingCartController createShoppingCartController(){
-        //TODO TODO need to implement this method
-        return new ShoppingCartController();
+    private static ShoppingCartController createShoppingCartController() throws SQLException {
+        //TODO need to implement this method
+        ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
+        ProductFactory productFactory = new CommonProductFactory();
+        ShoppingCartPresenter presenter = new ShoppingCartPresenter();
+        DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
+                = new DatabaseShoppingCartReadDataAccessObjectFactory();
+        ShoppingCartReadDataAccessInterface shoppingCartReadDataAccess =
+                databaseShoppingCartReadDataAccessObjectFactory.create(shoppingCartFactory,
+                        productFactory);
+        ShowShoppingCartInputBoundary showShoppingCartInteractor =
+                new ShowShoppingCartInteractor(presenter, shoppingCartReadDataAccess);
+        return new ShoppingCartController(showShoppingCartInteractor);
     }
 
     private static ViewProductController createViewProductController
