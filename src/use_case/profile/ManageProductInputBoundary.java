@@ -7,5 +7,5 @@ import java.sql.SQLException;
 
 public interface ManageProductInputBoundary {
 
-    public void execute(User user) throws SQLException, IOException;
+    public void execute(ManageProductInputData manageProductInputData) throws SQLException, IOException;
 }
