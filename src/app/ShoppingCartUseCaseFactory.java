@@ -1,6 +1,6 @@
 package app;
 
-import view.ShoppingCartView;
+import view.shopping_cart.ShoppingCartView;
 
 public class ShoppingCartUseCaseFactory {
 

@@ -1,6 +1,6 @@
 package app;
 
-import view.ProductView;
+import view.view_product.ProductView;
 
 public class SellerViewProductUseCaseFactory {
 

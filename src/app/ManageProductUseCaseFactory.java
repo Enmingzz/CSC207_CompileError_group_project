@@ -1,6 +1,6 @@
 package app;
 
-import view.ManageProductView;
+import view.profile.ManageProductView;
 
 public class ManageProductUseCaseFactory {
 

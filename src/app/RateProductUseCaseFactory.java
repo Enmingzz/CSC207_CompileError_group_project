@@ -1,6 +1,6 @@
 package app;
 
-import view.RateProductView;
+import view.rate_product.RateProductView;
 
 public class RateProductUseCaseFactory {
 
