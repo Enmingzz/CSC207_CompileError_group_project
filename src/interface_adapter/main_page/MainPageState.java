@@ -4,15 +4,15 @@ import entity.user.User;
 
 public class MainPageState {
 
-    private User user = null;
+    private String studentNumber = "";
 
     public MainPageState() {}
 
-    public User getUser() {
-        return user;
+    public String getStudentNumber() {
+        return studentNumber;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setStudentNumber(String studentNumber) {
+        this.studentNumber = studentNumber;
     }
 }

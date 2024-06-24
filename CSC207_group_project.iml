@@ -52,5 +52,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="jakarta.activation-1.2.2" level="application" />
   </component>
 </module>
