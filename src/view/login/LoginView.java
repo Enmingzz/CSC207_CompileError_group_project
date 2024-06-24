@@ -3,7 +3,7 @@ package view.login;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
-import view.signup.LabelTextPanel;
+import view.signup.SignupLabelTextPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -31,8 +31,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.loginController = loginController;
         this.loginViewModel.addPropertyChangeListener(this);
         this.logInButton = new JButton(loginViewModel.LOGIN_BUTTON_LABEL);
-        LabelTextPanel studentNumberInfo = new LabelTextPanel(new JLabel(loginViewModel.NUMBER_LABEL), studentNumberField);
-        LabelTextPanel passwordInfo = new LabelTextPanel(new JLabel(loginViewModel.PASSWORD_LABEL), passwordField);
+        LoginLabelTextPanel studentNumberInfo =
+                new LoginLabelTextPanel(new JLabel(loginViewModel.NUMBER_LABEL), studentNumberField);
+        LoginLabelTextPanel passwordInfo =
+                new LoginLabelTextPanel(new JLabel(loginViewModel.PASSWORD_LABEL), passwordField);
 
         JLabel title = new JLabel(loginViewModel.TITLE_LABEL);
         title.setAlignmentX(JComponent.CENTER_ALIGNMENT);

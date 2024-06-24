@@ -1,17 +1,28 @@
 package app;
 
-import data_access.factories.interfaces.DatabaseUserCreateDataAccessObjectFactoryInterface;
-import data_access.factories.interfaces.DatabaseUserReadDataAccessObjectFactoryInterface;
-import data_access.factories.objects.DatabaseUserCreateDataAccessObjectFactory;
-import data_access.factories.objects.DatabaseUserReadDataAccessObjectFactory;
-import data_access.interfaces.UserCreateDataAccessInterface;
-import data_access.interfaces.UserReadDataAccessInterface;
+import data_access.factories.interfaces.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.User.DatabaseUserCreateDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.User.DatabaseUserReadDataAccessObjectFactoryInterface;
+import data_access.factories.objects.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactory;
+import data_access.factories.objects.User.DatabaseUserCreateDataAccessObjectFactory;
+import data_access.factories.objects.User.DatabaseUserReadDataAccessObjectFactory;
+import data_access.interfaces.ShoppingCart.ShoppingCartReadDataAccessInterface;
+import data_access.interfaces.User.UserCreateDataAccessInterface;
+import data_access.interfaces.User.UserReadDataAccessInterface;
+import entity.product.CommonProductFactory;
+import entity.product.ProductFactory;
+import entity.shopping_cart.CommonShoppingCartFactory;
+import entity.shopping_cart.ShoppingCartFactory;
 import entity.user.CommonUserFactory;
 import entity.user.UserFactory;
 import interface_adapter.*;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.shopping_cart.ShoppingCartController;
+import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.signup.*;
 import use_case.Signup.*;
+import use_case.shopping_cart.ShowShoppingCartInputBoundary;
+import use_case.shopping_cart.ShowShoppingCartInteractor;
 import view.signup.SignupView;
 
 import javax.swing.*;
@@ -58,5 +69,20 @@ public class SignupUseCaseFactory {
         EmailVerificationInputBoundary emailVerificationInteractor = new EmailVerificationInteractor(emailVerificationOutputBoundary);
         return new EmailVerificationController(emailVerificationInteractor);
     }
+
+    private static ShoppingCartController createShoppingCartController() throws SQLException {
+        ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
+        ProductFactory productFactory = new CommonProductFactory();
+        ShoppingCartPresenter presenter = new ShoppingCartPresenter();
+        DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
+                = new DatabaseShoppingCartReadDataAccessObjectFactory();
+        ShoppingCartReadDataAccessInterface shoppingCartReadDataAccess =
+                databaseShoppingCartReadDataAccessObjectFactory.create(shoppingCartFactory,
+                        productFactory);
+        ShowShoppingCartInputBoundary showShoppingCartInteractor =
+                new ShowShoppingCartInteractor(presenter, shoppingCartReadDataAccess);
+        return new ShoppingCartController(showShoppingCartInteractor);
+    }
+
 }
 

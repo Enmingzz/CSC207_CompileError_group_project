@@ -1,8 +1,7 @@
 package use_case.profile;
 
-import data_access.interfaces.ProductReadByUserDataAccessInterface;
+import data_access.interfaces.Prouct.ProductReadByUserDataAccessInterface;
 import entity.product.Product;
-import entity.user.User;
 
 import java.io.IOException;
 import java.sql.SQLException;

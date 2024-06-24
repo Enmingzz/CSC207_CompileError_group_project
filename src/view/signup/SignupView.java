@@ -60,15 +60,15 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         JLabel title = new JLabel(signupViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        LabelTextPanel usernameInfo = new LabelTextPanel(
+        SignupLabelTextPanel usernameInfo = new SignupLabelTextPanel(
                 new JLabel(signupViewModel.USERNAME_LABEL), usernameInputField);
-        LabelTextPanel passwordInfo = new LabelTextPanel(
+        SignupLabelTextPanel passwordInfo = new SignupLabelTextPanel(
                 new JLabel(signupViewModel.PASSWORD_LABEL), passwordInputField);
-        LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
+        SignupLabelTextPanel repeatPasswordInfo = new SignupLabelTextPanel(
                 new JLabel(signupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
-        LabelTextPanel emailInfo = new LabelTextPanel(new JLabel(signupViewModel.EMAIL_LABEL), emailInputField);
-        LabelTextPanel verificationCodeInfo = new LabelTextPanel(new JLabel(signupViewModel.VERIFICATION_LABEL), verificationCodeInputField);
-        LabelTextPanel studentNumberInfo = new LabelTextPanel(new JLabel(signupViewModel.STUDENT_NUMBER_LABEL), studentNameInputField);
+        SignupLabelTextPanel emailInfo = new SignupLabelTextPanel(new JLabel(signupViewModel.EMAIL_LABEL), emailInputField);
+        SignupLabelTextPanel verificationCodeInfo = new SignupLabelTextPanel(new JLabel(signupViewModel.VERIFICATION_LABEL), verificationCodeInputField);
+        SignupLabelTextPanel studentNumberInfo = new SignupLabelTextPanel(new JLabel(signupViewModel.STUDENT_NUMBER_LABEL), studentNameInputField);
 
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         JPanel buttons = new JPanel();

@@ -16,6 +16,7 @@ public class ShoppingCartViewModel extends ViewModel {
     public final String DELETE_BUTTON_LABEL = "Remove From Cart";
     public final String BUYER_SCHEDULES_BUTTON_LABEL = "Choose Schedule";
     public final String RECEIVED_PRODUCT_BUTTON_LABEL = "I Have Received Product";
+    public final String RATE_PRODUCT_BUTTON_LABEL = "Rate Product";
 
     //TODO: Need extra attributes for the top bar view model.
 
