@@ -1,14 +1,21 @@
 package app;
 
+import data_access.factories.interfaces.Product.DataBaseProductReadByIdDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.Product.DatabaseProductUpdateStateDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.Question.DatabaseQuestionReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.ShoppingCart.DatabaseShoppingCartUpdateDeleteDataAccessObjectFactoryInterface;
+import data_access.factories.objects.Product.DataBaseProductReadByIdDataAccessObjectFactory;
+import data_access.factories.objects.Product.DatabaseProductUpdateStateDataAccessObjectFactory;
 import data_access.factories.objects.Question.DatabaseQuestionReadDataAccessObjectFactory;
 import data_access.factories.objects.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactory;
 import data_access.factories.objects.ShoppingCart.DatabaseShoppingCartUpdateDeleteDataAccessObjectFactory;
+import data_access.interfaces.Prouct.ProductReadByIdDataAccessInterface;
+import data_access.interfaces.Prouct.ProductUpdateStateDataAccessInterface;
 import data_access.interfaces.Question.QuestionReadDataAccessInterface;
 import data_access.interfaces.ShoppingCart.ShoppingCartReadDataAccessInterface;
 import data_access.interfaces.ShoppingCart.ShoppingCartUpdateDeleteDataAccessInterface;
+import data_access.objects.Product.DatabaseProductUpdateStateDataAccessObject;
 import entity.comment.AnswerFactory;
 import entity.comment.CommonAnswerFactory;
 import entity.comment.CommonQuestionFactory;
@@ -18,6 +25,8 @@ import entity.product.ProductFactory;
 import entity.shopping_cart.CommonShoppingCartFactory;
 import entity.shopping_cart.ShoppingCartFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.rating.RateProductController;
+import interface_adapter.schedule.BuyerSelectScheduleController;
 import interface_adapter.shopping_cart.*;
 import interface_adapter.view_product.BuyerViewProductViewModel;
 import interface_adapter.view_product.SellerViewProductViewModel;
@@ -34,14 +43,20 @@ import java.sql.SQLException;
 public class ShoppingCartUseCaseFactory {
 
     public static ShoppingCartView create(ShoppingCartViewModel shoppingCartViewModel,
-                                          ViewProductController viewProductController,
-                                          PurchaseController purchaseController,
-                                          DeleteShoppingCartProductController deleteShoppingCartProductController){
+                                                          ViewProductController viewProductController,
+                                                          PurchaseController purchaseController,
+                                                          DeleteShoppingCartProductController deleteShoppingCartProductController,
+                                                          BuyerSelectScheduleController buyerSelectScheduleController,
+                                                          ConfirmController confirmController,
+                                                          RateProductController rateProductController){
         //TODO need to implement this method
         return new ShoppingCartView(shoppingCartViewModel,
                 viewProductController,
                 purchaseController,
-                deleteShoppingCartProductController);
+                deleteShoppingCartProductController,
+                buyerSelectScheduleController,
+                confirmController,
+                rateProductController);
     }
 
     private static ShoppingCartController createShoppingCartController() throws SQLException {
@@ -98,9 +113,29 @@ public class ShoppingCartUseCaseFactory {
         return new DeleteShoppingCartProductController(deleteShoppingCartProductInteractor);
     }
 
-    private static PurchaseController createPurchaseController(){
-        PurchaseInputBoundary purchaseInteractor = new PurchaseInteractor();
-        return new PurchaseController();
+    private static PurchaseController createPurchaseController(ShoppingCartViewModel shoppingCartViewModel,
+                                                               ViewManagerModel viewManagerModel) throws SQLException {
+
+        DatabaseProductUpdateStateDataAccessObjectFactoryInterface databaseProductUpdateStateDataAccessObjectFactory =
+                new DatabaseProductUpdateStateDataAccessObjectFactory();
+
+        ProductUpdateStateDataAccessInterface productUpdateStateDataAccessObject =
+                databaseProductUpdateStateDataAccessObjectFactory.create();
+
+        DataBaseProductReadByIdDataAccessObjectFactoryInterface databaseProductReadByIdDataAccessObjectFactory =
+                new DataBaseProductReadByIdDataAccessObjectFactory();
+
+        ProductFactory commonProductFactory = new CommonProductFactory();
+
+        ProductReadByIdDataAccessInterface productReadByIdDataAccessObject =
+                databaseProductReadByIdDataAccessObjectFactory.create(commonProductFactory);
+
+        PurchaseOutputBoundary purchaseOutputBoundary = new PurchasePresenter(shoppingCartViewModel, viewManagerModel);
+
+        PurchaseInputBoundary purchaseInteractor = new PurchaseInteractor(productUpdateStateDataAccessObject,
+                productReadByIdDataAccessObject,
+                purchaseOutputBoundary);
+        return new PurchaseController(purchaseInteractor);
     }
 
 
