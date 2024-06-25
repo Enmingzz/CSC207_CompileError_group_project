@@ -11,7 +11,8 @@ public class ViewProfileInteractor implements ViewProfileInputBoundary {
     }
 
     public void execute(ViewProfileInputData viewProfileInputData){
-        ViewProfileOutputData viewProfileOutputData = new ViewProfileOutputData(viewProfileInputData.user);
+        ViewProfileOutputData viewProfileOutputData =
+                new ViewProfileOutputData(viewProfileInputData.getUser());
         viewProfilePresenter.prepareSuccessfulView(viewProfileOutputData);
     }
 

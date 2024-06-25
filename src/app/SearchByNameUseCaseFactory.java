@@ -1,11 +1,14 @@
 package app;
 
+import data_access.factories.interfaces.Product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.User.DatabaseUserCreateDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.User.DatabaseUserReadDataAccessObjectFactoryInterface;
+import data_access.factories.objects.Product.DatabaseProductReadByNameDataAccessObjectFactory;
 import data_access.factories.objects.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactory;
 import data_access.factories.objects.User.DatabaseUserCreateDataAccessObjectFactory;
 import data_access.factories.objects.User.DatabaseUserReadDataAccessObjectFactory;
+import data_access.interfaces.Prouct.ProductReadByNameDataAccessInterface;
 import data_access.interfaces.ShoppingCart.ShoppingCartReadDataAccessInterface;
 import data_access.interfaces.User.UserCreateDataAccessInterface;
 import data_access.interfaces.User.UserReadDataAccessInterface;
@@ -27,6 +30,8 @@ import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.profile.ProfileController;
 import interface_adapter.profile.ProfilePresenter;
 import interface_adapter.profile.ProfileViewModel;
+import interface_adapter.search_product.SearchProductByNameController;
+import interface_adapter.search_product.SearchProductByNamePresenter;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.signup.SignupController;
@@ -44,6 +49,9 @@ import use_case.logout.LogOutOutputBoundary;
 import use_case.main_page.ShowMainPageInputBoundary;
 import use_case.main_page.ShowMainPageInteractor;
 import use_case.main_page.ShowMainPageOutputBoundary;
+import use_case.product_search.SearchProductByNameInputBoundary;
+import use_case.product_search.SearchProductByNameInteractor;
+import use_case.product_search.SearchProductByNameOutputBoundary;
 import use_case.profile.ViewProfileInputBoundary;
 import use_case.profile.ViewProfileInteractor;
 import use_case.profile.ViewProfileOutputBoundary;
@@ -61,6 +69,20 @@ public class SearchByNameUseCaseFactory {
         return new SearchByNameView();
     }
 
+    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchByNameView searchByNameView){
+        SearchProductByNameOutputBoundary searchProductByNamePresenter =
+                new SearchProductByNamePresenter(viewManagerModel, searchByNameView);
+        DatabaseProductReadByNameDataAccessObjectFactoryInterface databaseProductReadByNameDataAccessObjectFactory
+                = new DatabaseProductReadByNameDataAccessObjectFactory();
+        ProductFactory productFactory = new CommonProductFactory();
+        ProductReadByNameDataAccessInterface productReadByNameDataAccessObject =
+                databaseProductReadByNameDataAccessObjectFactory.create(productFactory);
+        SearchProductByNameInputBoundary searchProductByNameInteractor =
+                new SearchProductByNameInteractor(productReadByNameDataAccessObject,
+                        searchProductByNamePresenter);
+        return new SearchProductByNameController(searchProductByNameInteractor);
+    }
+
     private static ShoppingCartController createShoppingCartController() throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
@@ -75,7 +97,8 @@ public class SearchByNameUseCaseFactory {
         return new ShoppingCartController(showShoppingCartInteractor);
     }
 
-    private static MainPageController createMainPageController(MainPageViewModel mainPageViewModel, ViewManagerModel viewManagerModel){
+    private static MainPageController createMainPageController(MainPageViewModel mainPageViewModel,
+                                                               ViewManagerModel viewManagerModel){
         ShowMainPageOutputBoundary showMainPagePresenter = new MainPagePresenter(mainPageViewModel, viewManagerModel);
         ShowMainPageInputBoundary showMainPageInteractor =
                 new ShowMainPageInteractor(showMainPagePresenter);
@@ -84,11 +107,16 @@ public class SearchByNameUseCaseFactory {
 
     private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel) throws IOException, SQLException {
 
-        DatabaseUserCreateDataAccessObjectFactoryInterface databaseUserCreateDataAccessObjectFactory = new DatabaseUserCreateDataAccessObjectFactory();
-        UserCreateDataAccessInterface userCreateDataAccessObject = databaseUserCreateDataAccessObjectFactory.create();
-        SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
-        DatabaseUserReadDataAccessObjectFactoryInterface databaseUserReadDataAccessObjectFactory = new DatabaseUserReadDataAccessObjectFactory();
-        UserReadDataAccessInterface userReadDataAccessInterface = databaseUserReadDataAccessObjectFactory.create(new CommonUserFactory());
+        DatabaseUserCreateDataAccessObjectFactoryInterface databaseUserCreateDataAccessObjectFactory
+                = new DatabaseUserCreateDataAccessObjectFactory();
+        UserCreateDataAccessInterface userCreateDataAccessObject =
+                databaseUserCreateDataAccessObjectFactory.create();
+        SignupOutputBoundary signupOutputBoundary = new
+                SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
+        DatabaseUserReadDataAccessObjectFactoryInterface databaseUserReadDataAccessObjectFactory =
+                new DatabaseUserReadDataAccessObjectFactory();
+        UserReadDataAccessInterface userReadDataAccessInterface =
+                databaseUserReadDataAccessObjectFactory.create(new CommonUserFactory());
 
         UserFactory userFactory = new CommonUserFactory();
 
@@ -126,5 +154,7 @@ public class SearchByNameUseCaseFactory {
         ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfileOutputBoundary);
         return new ProfileController(viewProfileInteractor);
     }
+
+
 
 }

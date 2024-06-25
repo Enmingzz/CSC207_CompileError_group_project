@@ -1,16 +1,19 @@
 package app;
 
 import data_access.factories.interfaces.Product.DataBaseProductReadByIdDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.Product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.Product.DatabaseProductUpdateStateDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.Question.DatabaseQuestionReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.ShoppingCart.DatabaseShoppingCartUpdateDeleteDataAccessObjectFactoryInterface;
 import data_access.factories.objects.Product.DataBaseProductReadByIdDataAccessObjectFactory;
+import data_access.factories.objects.Product.DatabaseProductReadByNameDataAccessObjectFactory;
 import data_access.factories.objects.Product.DatabaseProductUpdateStateDataAccessObjectFactory;
 import data_access.factories.objects.Question.DatabaseQuestionReadDataAccessObjectFactory;
 import data_access.factories.objects.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactory;
 import data_access.factories.objects.ShoppingCart.DatabaseShoppingCartUpdateDeleteDataAccessObjectFactory;
 import data_access.interfaces.Prouct.ProductReadByIdDataAccessInterface;
+import data_access.interfaces.Prouct.ProductReadByNameDataAccessInterface;
 import data_access.interfaces.Prouct.ProductUpdateStateDataAccessInterface;
 import data_access.interfaces.Question.QuestionReadDataAccessInterface;
 import data_access.interfaces.ShoppingCart.ShoppingCartReadDataAccessInterface;
@@ -35,6 +38,8 @@ import interface_adapter.profile.ProfilePresenter;
 import interface_adapter.profile.ProfileViewModel;
 import interface_adapter.rating.RateProductController;
 import interface_adapter.schedule.BuyerSelectScheduleController;
+import interface_adapter.search_product.SearchProductByNameController;
+import interface_adapter.search_product.SearchProductByNamePresenter;
 import interface_adapter.shopping_cart.*;
 import interface_adapter.view_product.BuyerViewProductViewModel;
 import interface_adapter.view_product.SellerViewProductViewModel;
@@ -46,6 +51,9 @@ import use_case.logout.LogOutOutputBoundary;
 import use_case.main_page.ShowMainPageInputBoundary;
 import use_case.main_page.ShowMainPageInteractor;
 import use_case.main_page.ShowMainPageOutputBoundary;
+import use_case.product_search.SearchProductByNameInputBoundary;
+import use_case.product_search.SearchProductByNameInteractor;
+import use_case.product_search.SearchProductByNameOutputBoundary;
 import use_case.profile.ViewProfileInputBoundary;
 import use_case.profile.ViewProfileInteractor;
 import use_case.profile.ViewProfileOutputBoundary;
@@ -53,6 +61,7 @@ import use_case.shopping_cart.*;
 import use_case.view_product.ViewProductInputBoundary;
 import use_case.view_product.ViewProductInteractor;
 import use_case.view_product.ViewProductOutputBoundary;
+import view.product_search.SearchByNameView;
 import view.shopping_cart.ShoppingCartView;
 import view.view_product.BuyerViewProductView;
 
@@ -202,6 +211,20 @@ public class ShoppingCartUseCaseFactory {
                 new ProfilePresenter(profileViewModel);
         ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfileOutputBoundary);
         return new ProfileController(viewProfileInteractor);
+    }
+
+    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchByNameView searchByNameView){
+        SearchProductByNameOutputBoundary searchProductByNamePresenter =
+                new SearchProductByNamePresenter(viewManagerModel, searchByNameView);
+        DatabaseProductReadByNameDataAccessObjectFactoryInterface databaseProductReadByNameDataAccessObjectFactory
+                = new DatabaseProductReadByNameDataAccessObjectFactory();
+        ProductFactory productFactory = new CommonProductFactory();
+        ProductReadByNameDataAccessInterface productReadByNameDataAccessObject =
+                databaseProductReadByNameDataAccessObjectFactory.create(productFactory);
+        SearchProductByNameInputBoundary searchProductByNameInteractor =
+                new SearchProductByNameInteractor(productReadByNameDataAccessObject,
+                        searchProductByNamePresenter);
+        return new SearchProductByNameController(searchProductByNameInteractor);
     }
 
 }
