@@ -4,7 +4,7 @@ import entity.user.User;
 
 public class ViewProfileOutputData {
 
-    private User user;
+    private final User user;
 
     public ViewProfileOutputData(User user) {
         this.user = user;

@@ -1,11 +1,14 @@
 package app;
 
+import data_access.factories.interfaces.Product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.Question.DatabaseQuestionReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.User.DatabaseUserCreateDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.User.DatabaseUserReadDataAccessObjectFactoryInterface;
+import data_access.factories.objects.Product.DatabaseProductReadByNameDataAccessObjectFactory;
 import data_access.factories.objects.Question.DatabaseQuestionReadDataAccessObjectFactory;
 import data_access.factories.objects.User.DatabaseUserCreateDataAccessObjectFactory;
 import data_access.factories.objects.User.DatabaseUserReadDataAccessObjectFactory;
+import data_access.interfaces.Prouct.ProductReadByNameDataAccessInterface;
 import data_access.interfaces.Question.QuestionReadDataAccessInterface;
 import data_access.interfaces.User.UserCreateDataAccessInterface;
 import data_access.interfaces.User.UserReadDataAccessInterface;
@@ -13,6 +16,8 @@ import entity.comment.AnswerFactory;
 import entity.comment.CommonAnswerFactory;
 import entity.comment.CommonQuestionFactory;
 import entity.comment.QuestionFactory;
+import entity.product.CommonProductFactory;
+import entity.product.ProductFactory;
 import entity.user.CommonUserFactory;
 import entity.user.UserFactory;
 import interface_adapter.ViewManagerModel;
@@ -25,6 +30,8 @@ import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.profile.ProfileController;
 import interface_adapter.profile.ProfilePresenter;
 import interface_adapter.profile.ProfileViewModel;
+import interface_adapter.search_product.SearchProductByNameController;
+import interface_adapter.search_product.SearchProductByNamePresenter;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
@@ -41,12 +48,16 @@ import use_case.logout.LogOutOutputBoundary;
 import use_case.main_page.ShowMainPageInputBoundary;
 import use_case.main_page.ShowMainPageInteractor;
 import use_case.main_page.ShowMainPageOutputBoundary;
+import use_case.product_search.SearchProductByNameInputBoundary;
+import use_case.product_search.SearchProductByNameInteractor;
+import use_case.product_search.SearchProductByNameOutputBoundary;
 import use_case.profile.ViewProfileInputBoundary;
 import use_case.profile.ViewProfileInteractor;
 import use_case.profile.ViewProfileOutputBoundary;
 import use_case.view_product.ViewProductInputBoundary;
 import use_case.view_product.ViewProductInteractor;
 import use_case.view_product.ViewProductOutputBoundary;
+import view.product_search.SearchByNameView;
 import view.schedule.BuyerScheduleView;
 
 import java.io.IOException;
@@ -82,6 +93,20 @@ public class BuyerScheduleUseCaseFactory {
                 new ProfilePresenter(profileViewModel);
         ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfileOutputBoundary);
         return new ProfileController(viewProfileInteractor);
+    }
+
+    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchByNameView searchByNameView){
+        SearchProductByNameOutputBoundary searchProductByNamePresenter =
+                new SearchProductByNamePresenter(viewManagerModel, searchByNameView);
+        DatabaseProductReadByNameDataAccessObjectFactoryInterface databaseProductReadByNameDataAccessObjectFactory
+                = new DatabaseProductReadByNameDataAccessObjectFactory();
+        ProductFactory productFactory = new CommonProductFactory();
+        ProductReadByNameDataAccessInterface productReadByNameDataAccessObject =
+                databaseProductReadByNameDataAccessObjectFactory.create(productFactory);
+        SearchProductByNameInputBoundary searchProductByNameInteractor =
+                new SearchProductByNameInteractor(productReadByNameDataAccessObject,
+                        searchProductByNamePresenter);
+        return new SearchProductByNameController(searchProductByNameInteractor);
     }
 
 }

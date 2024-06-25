@@ -15,6 +15,8 @@ import interface_adapter.view_product.BuyerViewProductViewModel;
 import interface_adapter.view_product.SellerViewProductViewModel;
 
 import view.*;
+import view.product_search.SearchByNameView;
+import view.product_search.SearchByTagView;
 import view.shopping_cart.ShoppingCartView;
 import view.login.LoginView;
 import view.main_page.MainPageView;
@@ -82,20 +84,26 @@ public class Main {
         ShoppingCartView shoppingCartView =
                 ShoppingCartUseCaseFactory.create(shoppingCartViewModel,
                         buyerViewProductViewModel, sellerViewProductViewModel, viewManagerModel);
+        ProductView productView = ViewProductUseFactory.create();
+        SearchByNameView searchByNameView = SearchByNameUseCaseFactory.create();
+        SearchByTagView searchByTagView = SearchByTagUseCaseFactory.create();
 
 
         TestView testView = new TestView();
         views.add(signupView.viewName, signupView);
+        views.add(loginView.viewName, loginView);
         views.add(testView.viewName, testView);
         views.add(buyerViewProductView.viewName, buyerViewProductView);
         views.add(modifyProfileView.viewName, modifyProfileView);
         views.add(sellerScheduleView.viewName, sellerScheduleView);
         views.add(buyerScheduleView.viewName, buyerScheduleView);
-        views.add(loginView.viewName, loginView);
         views.add(profileView.viewName, profileView);
         views.add(sellerViewProductView.viewName, sellerViewProductView);
         views.add(mainPageView.viewName, mainPageView);
         views.add(shoppingCartView.viewName, shoppingCartView);
+        views.add(productView.viewName, productView);
+        views.add(searchByNameView.viewName, searchByNameView);
+        views.add(searchByTagView.viewName, searchByTagView);
 
 
         viewManagerModel.setActiveView(signupView.viewName);
