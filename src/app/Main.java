@@ -30,6 +30,7 @@ import view.view_product.SellerViewProductView;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * The entrance for the whole program. Run this to start using.
@@ -39,7 +40,7 @@ import java.io.IOException;
  */
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
 
         JFrame application = new JFrame("CSC207 Project");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -78,7 +79,9 @@ public class Main {
         BuyerScheduleView buyerScheduleView = BuyerScheduleUseCaseFactory.create();
         SellerViewProductView sellerViewProductView = SellerViewProductUseCaseFactory.create();
         MainPageView mainPageView = MainPageUseCaseFactory.Create();
-        ShoppingCartView shoppingCartView = ShoppingCartUseCaseFactory.create();
+        ShoppingCartView shoppingCartView =
+                ShoppingCartUseCaseFactory.create(shoppingCartViewModel,
+                        buyerViewProductViewModel, sellerViewProductViewModel, viewManagerModel);
 
 
         TestView testView = new TestView();
@@ -92,6 +95,7 @@ public class Main {
         views.add(profileView.viewName, profileView);
         views.add(sellerViewProductView.viewName, sellerViewProductView);
         views.add(mainPageView.viewName, mainPageView);
+        views.add(shoppingCartView.viewName, shoppingCartView);
 
 
         viewManagerModel.setActiveView(signupView.viewName);
