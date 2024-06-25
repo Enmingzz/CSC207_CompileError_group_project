@@ -24,9 +24,14 @@ import entity.user.CommonUserFactory;
 import entity.user.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.logout.LogOutController;
+import interface_adapter.logout.LogOutPresenter;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.main_page.MainPagePresenter;
 import interface_adapter.main_page.MainPageViewModel;
+import interface_adapter.profile.ProfileController;
+import interface_adapter.profile.ProfilePresenter;
+import interface_adapter.profile.ProfileViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.signup.SignupController;
@@ -39,9 +44,15 @@ import interface_adapter.view_product.ViewProductPresenter;
 import use_case.Signup.SignupInputBoundary;
 import use_case.Signup.SignupInteractor;
 import use_case.Signup.SignupOutputBoundary;
+import use_case.logout.LogOutInputBoundary;
+import use_case.logout.LogOutInteractor;
+import use_case.logout.LogOutOutputBoundary;
 import use_case.main_page.ShowMainPageInputBoundary;
 import use_case.main_page.ShowMainPageInteractor;
 import use_case.main_page.ShowMainPageOutputBoundary;
+import use_case.profile.ViewProfileInputBoundary;
+import use_case.profile.ViewProfileInteractor;
+import use_case.profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
 import use_case.view_product.ViewProductInputBoundary;
@@ -97,20 +108,20 @@ public class ManageProductUseCaseFactory {
         return new ShoppingCartController(showShoppingCartInteractor);
     }
 
-    private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel) throws IOException, SQLException {
+    private static LogOutController createLogOutController(ViewManagerModel viewManagerModel,
+                                                           MainPageViewModel mainPageViewModel) throws SQLException {
+        LogOutOutputBoundary LogOutPresenter = new LogOutPresenter(mainPageViewModel,
+                viewManagerModel);
+        LogOutInputBoundary logOutInteractor = new LogOutInteractor(LogOutPresenter);
+        return new LogOutController(logOutInteractor);
+    }
 
-        DatabaseUserCreateDataAccessObjectFactoryInterface databaseUserCreateDataAccessObjectFactory = new DatabaseUserCreateDataAccessObjectFactory();
-        UserCreateDataAccessInterface userCreateDataAccessObject = databaseUserCreateDataAccessObjectFactory.create();
-        SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
-        DatabaseUserReadDataAccessObjectFactoryInterface databaseUserReadDataAccessObjectFactory = new DatabaseUserReadDataAccessObjectFactory();
-        UserReadDataAccessInterface userReadDataAccessInterface = databaseUserReadDataAccessObjectFactory.create(new CommonUserFactory());
-
-        UserFactory userFactory = new CommonUserFactory();
-
-        SignupInputBoundary userSignupInteractor = new SignupInteractor(
-                userCreateDataAccessObject, userReadDataAccessInterface, signupOutputBoundary, userFactory);
-
-        return new SignupController(userSignupInteractor);
+    private static ProfileController createProfileController(ViewManagerModel viewManagerModel,
+                                                             ProfileViewModel profileViewModel){
+        ViewProfileOutputBoundary viewProfileOutputBoundary =
+                new ProfilePresenter(profileViewModel);
+        ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfileOutputBoundary);
+        return new ProfileController(viewProfileInteractor);
     }
 
 }
