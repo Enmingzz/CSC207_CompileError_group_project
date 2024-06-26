@@ -41,6 +41,7 @@ import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
 import view.product_search.SearchByNameView;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class CreateProductUseCaseFactory {
@@ -75,10 +76,10 @@ public class CreateProductUseCaseFactory {
     }
 
     private static ProfileController createProfileController(ViewManagerModel viewManagerModel,
-                                                             ProfileViewModel profileViewModel){
-        ViewProfileOutputBoundary viewProfileOutputBoundary =
-                new ProfilePresenter(profileViewModel);
-        ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfileOutputBoundary);
+                                                             ProfileViewModel profileViewModel) throws IOException {
+        ViewProfileOutputBoundary viewProfilePresenter = new ProfilePresenter(profileViewModel,
+                viewManagerModel);
+        ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfilePresenter);
         return new ProfileController(viewProfileInteractor);
     }
 

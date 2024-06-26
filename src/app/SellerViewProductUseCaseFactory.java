@@ -43,6 +43,7 @@ import view.product_search.SearchByNameView;
 import view.view_product.ProductView;
 import view.view_product.SellerViewProductView;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class SellerViewProductUseCaseFactory {
@@ -82,10 +83,10 @@ public class SellerViewProductUseCaseFactory {
     }
 
     private static ProfileController createProfileController(ViewManagerModel viewManagerModel,
-                                                             ProfileViewModel profileViewModel){
-        ViewProfileOutputBoundary viewProfileOutputBoundary =
-                new ProfilePresenter(profileViewModel);
-        ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfileOutputBoundary);
+                                                             ProfileViewModel profileViewModel) throws IOException {
+        ViewProfileOutputBoundary viewProfilePresenter = new ProfilePresenter(profileViewModel,
+                viewManagerModel);
+        ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfilePresenter);
         return new ProfileController(viewProfileInteractor);
     }
 

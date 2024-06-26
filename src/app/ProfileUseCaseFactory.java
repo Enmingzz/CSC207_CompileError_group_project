@@ -53,6 +53,7 @@ import use_case.product_search.SearchProductByNameOutputBoundary;
 import use_case.profile.ViewProfileInputBoundary;
 import use_case.profile.ViewProfileInteractor;
 import use_case.profile.ViewProfileOutputBoundary;
+import use_case.profile.ViewProfileOutputData;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
 import view.product_search.SearchByNameView;
@@ -72,9 +73,11 @@ public class ProfileUseCaseFactory {
     }
 
     private static ProfileController createProfileController(ViewManagerModel viewManagerModel,
-                                             SignupViewModel signupViewModel, LoginViewModel loginViewModel) throws IOException {
-
-        return null;
+                                                             ProfileViewModel profileViewModel) throws IOException {
+        ViewProfileOutputBoundary viewProfilePresenter = new ProfilePresenter(profileViewModel,
+                viewManagerModel);
+        ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfilePresenter);
+        return new ProfileController(viewProfileInteractor);
     }
 
     private static ShoppingCartController createShoppingCartController(ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
@@ -104,14 +107,6 @@ public class ProfileUseCaseFactory {
                 viewManagerModel);
         LogOutInputBoundary logOutInteractor = new LogOutInteractor(LogOutPresenter);
         return new LogOutController(logOutInteractor);
-    }
-
-    private static ProfileController createProfileController(ViewManagerModel viewManagerModel,
-                                                             ProfileViewModel profileViewModel){
-        ViewProfileOutputBoundary viewProfileOutputBoundary =
-                new ProfilePresenter(profileViewModel);
-        ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfileOutputBoundary);
-        return new ProfileController(viewProfileInteractor);
     }
 
     private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductByNameViewModel searchProductByNameViewModel){
