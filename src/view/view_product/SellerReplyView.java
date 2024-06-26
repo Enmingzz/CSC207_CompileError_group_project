@@ -6,9 +6,15 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class ProductView extends JPanel implements ActionListener, PropertyChangeListener {
+public class SellerReplyView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    public final String viewName = "non_login_product view";
+    public final String viewName = "seller reply page";
+
+
+
+
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {

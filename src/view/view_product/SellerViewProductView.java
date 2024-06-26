@@ -10,6 +10,8 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
 
     public final String viewName = "seller_view_product view";
 
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
