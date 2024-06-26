@@ -125,6 +125,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
             }
         }
 
+
         class QuestionInputKeyListener implements KeyListener{
             @Override
             public void keyTyped(KeyEvent event){
@@ -177,7 +178,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
                        // System.out.println(buyerViewProductViewModel.getState().getPrompt_words());
                         //jump to the main page? or the former page( can be shopping_cart or the main page,
                         // whichever gives us the nearest page?)
-                    }catch (SQLException e){
+                    }catch (Exception e){
                         throw new RuntimeException(e);
                     }
                 }
