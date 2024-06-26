@@ -1,5 +1,8 @@
 package view.main_page;
 
+import interface_adapter.main_page.MainPageViewModel;
+import interface_adapter.main_page.MainPageState;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
