@@ -8,11 +8,12 @@ import view.product_search.SearchByNameView;
 public class SearchProductByNamePresenter implements SearchProductByNameOutputBoundary{
 
     final private ViewManagerModel viewManagerModel;
-    final private SearchByNameView searchByNameView;
+    final private SearchProductByNameViewModel searchProductByNameViewModel;
 
-    public SearchProductByNamePresenter(ViewManagerModel viewManagerModel, SearchByNameView searchByNameView) {
+    public SearchProductByNamePresenter(ViewManagerModel viewManagerModel,
+                                        SearchProductByNameViewModel searchProductByNameViewModel) {
         this.viewManagerModel = viewManagerModel;
-        this.searchByNameView = searchByNameView;
+        this.searchProductByNameViewModel = searchProductByNameViewModel;
     }
 
 

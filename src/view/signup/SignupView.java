@@ -1,9 +1,19 @@
 package view.signup;
 
+import entity.user.CommonUserFactory;
+import entity.user.User;
+import entity.user.UserFactory;
+import interface_adapter.login.LoginController;
+import interface_adapter.login.ViewLoginPageController;
+import interface_adapter.main_page.MainPageController;
+import interface_adapter.search_product.SearchProductByNameController;
+import interface_adapter.search_product.SearchProductByTagController;
+import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.EmailVerificationController;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
+import view.shopping_cart.ShoppingCartView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,15 +43,26 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JTextField studentNameInputField = new JTextField(15);
     private final JTextField emailInputField = new JTextField(15);
     private final JTextField verificationCodeInputField = new JTextField(15);
+    private final JTextField productSearchByNameInputField = new JTextField(15);
 
     private final JPasswordField passwordInputField = new JPasswordField(15);
     private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
 
     private final SignupController signupController;
     private final EmailVerificationController emailVerificationController;
+    private final MainPageController mainPageController;
+    private final ShoppingCartController shoppingCartController;
+    private final SearchProductByNameController searchProductByNameController;
+    private final SearchProductByTagController searchProductByTagController;
+    private final ViewLoginPageController viewLoginPageController;
 
     private final JButton signUp;
     private final JButton emailVerification;
+    private final JButton viewLoginButton;
+    private final JButton mainPageButton;
+    private final JButton shoppingCartButton;
+    private final JButton searchProductByNameButton;
+    private final JButton searchProductByTagButton;
 
     /**
      * Initialized this in SignupUsecaseFactory
@@ -50,11 +71,21 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
      * @param emailVerificationController EmailVerificationController
      */
 
-    public SignupView(SignupController controller, SignupViewModel signupViewModel, EmailVerificationController emailVerificationController) {
+    public SignupView(SignupController controller, SignupViewModel signupViewModel,
+                      EmailVerificationController emailVerificationController, MainPageController
+                              mainPageController, ShoppingCartController shoppingCartController,
+                      SearchProductByNameController searchProductByNameController,
+                      SearchProductByTagController searchProductByTagController,
+                      ViewLoginPageController viewLoginPageController) {
 
         this.signupController = controller;
         this.signupViewModel = signupViewModel;
         this.emailVerificationController = emailVerificationController;
+        this.mainPageController = mainPageController;
+        this.shoppingCartController = shoppingCartController;
+        this.searchProductByNameController = searchProductByNameController;
+        this.searchProductByTagController = searchProductByTagController;
+        this.viewLoginPageController = viewLoginPageController;
         this.signupViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(signupViewModel.TITLE_LABEL);
@@ -100,6 +131,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
             }
         }
 
+        signUp.addActionListener(new SignUpButtonListener());
+
         class UsernameKeyListener implements KeyListener{
             @Override
             public void keyTyped(KeyEvent e) {
@@ -117,6 +150,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
             }
         }
 
+        usernameInputField.addKeyListener(new UsernameKeyListener());
+
         class VerificationCodeButtonListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -129,10 +164,105 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 }
             }
         }
-
-        signUp.addActionListener(new SignUpButtonListener());
         emailVerification.addActionListener(new VerificationCodeButtonListener());
-        usernameInputField.addKeyListener(new UsernameKeyListener());
+
+        JPanel viewLoginButtonPanel = new JPanel();
+        this.viewLoginButton = new JButton("log in");
+        viewLoginButtonPanel.add(viewLoginButton);
+
+        class LoginButtonListener implements ActionListener {
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(viewLoginButton)) {
+                    try {
+                        viewLoginPageController.execute();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+        viewLoginButton.addActionListener(new LoginButtonListener());
+
+        JPanel mainPageButtonPanel = new JPanel();
+        this.mainPageButton = new JButton("main page");
+        mainPageButtonPanel.add(mainPageButton);
+
+        class MainPageButtonListener implements ActionListener {
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(mainPageButton)) {
+                    try {
+                        UserFactory commonUserFactory = new CommonUserFactory();
+                        User user = commonUserFactory.createUser("", "", "", 0, "");
+                        mainPageController.execute(user);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+        mainPageButton.addActionListener(new MainPageButtonListener());
+
+        JPanel shoppingCartButtonPanel = new JPanel();
+        this.shoppingCartButton = new JButton("shopping cart");
+        shoppingCartButtonPanel.add(shoppingCartButton);
+
+        class ShoppingCartButtonListener implements ActionListener {
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(shoppingCartButton)) {
+                    try {
+                        UserFactory commonUserFactory = new CommonUserFactory();
+                        User user = commonUserFactory.createUser("", "", "", 0, "");
+                        shoppingCartController.execute(user);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+        shoppingCartButton.addActionListener(new ShoppingCartButtonListener());
+
+        JPanel searchProductByNameButtonPanel = new JPanel();
+        this.searchProductByNameButton = new JButton("search product");
+        searchProductByNameButtonPanel.add(searchProductByNameButton);
+
+        class SearchProductByNameButtonListener implements ActionListener {
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(searchProductByNameButtonPanel)) {
+                    try {
+                        UserFactory commonUserFactory = new CommonUserFactory();
+                        User user = commonUserFactory.createUser("", "", "", 0, "");
+                        searchProductByNameController.execute(user,
+                                String.valueOf(productSearchByNameInputField.getText()));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+
+        searchProductByNameButton.addActionListener(new SearchProductByNameButtonListener());
+
+        JPanel searchProductByTagButtonPanel = new JPanel();
+        this.searchProductByTagButton = new JButton("search product");
+        searchProductByTagButtonPanel.add(searchProductByTagButton);
+
+        class SearchProductByTagButtonListener implements ActionListener {
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(searchProductByTagButtonPanel)) {
+                    try {
+                        UserFactory commonUserFactory = new CommonUserFactory();
+                        User user = commonUserFactory.createUser("", "", "", 0, "");
+                        //TODO need to implement this method
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+
+        searchProductByTagButton.addActionListener(new SearchProductByTagButtonListener());
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
