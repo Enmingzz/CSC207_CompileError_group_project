@@ -31,6 +31,7 @@ import interface_adapter.profile.ProfilePresenter;
 import interface_adapter.profile.ProfileViewModel;
 import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.search_product.SearchProductByNamePresenter;
+import interface_adapter.search_product.SearchProductByNameViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
@@ -113,9 +114,9 @@ public class ProfileUseCaseFactory {
         return new ProfileController(viewProfileInteractor);
     }
 
-    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchByNameView searchByNameView){
+    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductByNameViewModel searchProductByNameViewModel){
         SearchProductByNameOutputBoundary searchProductByNamePresenter =
-                new SearchProductByNamePresenter(viewManagerModel, searchByNameView);
+                new SearchProductByNamePresenter(viewManagerModel, searchProductByNameViewModel);
         DatabaseProductReadByNameDataAccessObjectFactoryInterface databaseProductReadByNameDataAccessObjectFactory
                 = new DatabaseProductReadByNameDataAccessObjectFactory();
         ProductFactory productFactory = new CommonProductFactory();

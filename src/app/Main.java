@@ -8,6 +8,8 @@ import interface_adapter.profile.ModifyProfileViewModel;
 import interface_adapter.profile.ProfileViewModel;
 import interface_adapter.schedule.BuyerSelectScheduleViewModel;
 import interface_adapter.schedule.SellerSelectScheduleViewModel;
+import interface_adapter.search_product.SearchProductByNameViewModel;
+import interface_adapter.search_product.SearchProductByTagViewModel;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
@@ -67,10 +69,13 @@ public class Main {
         ModifyProductViewModel modifyProductViewModel = new ModifyProductViewModel();
         SellerSelectScheduleViewModel sellerSelectScheduleViewModel = new SellerSelectScheduleViewModel();
         BuyerSelectScheduleViewModel buyerSelectScheduleViewModel = new BuyerSelectScheduleViewModel();
+        SearchProductByNameViewModel searchProductByNameViewModel = new SearchProductByNameViewModel();
+        SearchProductByTagViewModel searchProductByTagViewModel = new SearchProductByTagViewModel();
 
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel,
-                signupViewModel);
+                signupViewModel, mainPageViewModel, shoppingCartViewModel,
+                searchProductByNameViewModel, searchProductByTagViewModel, loginViewModel);
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, mainPageViewModel);
         ProfileView profileView = ProfileUseCaseFactory.create(viewManagerModel, signupViewModel
                 , loginViewModel, mainPageViewModel, profileViewModel,
@@ -86,7 +91,7 @@ public class Main {
                         buyerViewProductViewModel, sellerViewProductViewModel, viewManagerModel);
         ProductView productView = ViewProductUseFactory.create();
         SearchByNameView searchByNameView = SearchByNameUseCaseFactory.create();
-        SearchByTagView searchByTagView = SearchByTagUseCaseFactory.create();
+        SearchByTagView searchByTagView = SearchByTagUseCaseFactory.create(viewManagerModel, mainPageViewModel);
 
 
         TestView testView = new TestView();

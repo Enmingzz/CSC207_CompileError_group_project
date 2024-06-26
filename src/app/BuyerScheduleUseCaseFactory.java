@@ -32,6 +32,7 @@ import interface_adapter.profile.ProfilePresenter;
 import interface_adapter.profile.ProfileViewModel;
 import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.search_product.SearchProductByNamePresenter;
+import interface_adapter.search_product.SearchProductByNameViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
@@ -95,9 +96,9 @@ public class BuyerScheduleUseCaseFactory {
         return new ProfileController(viewProfileInteractor);
     }
 
-    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchByNameView searchByNameView){
+    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductByNameViewModel searchProductByNameViewModel){
         SearchProductByNameOutputBoundary searchProductByNamePresenter =
-                new SearchProductByNamePresenter(viewManagerModel, searchByNameView);
+                new SearchProductByNamePresenter(viewManagerModel, searchProductByNameViewModel);
         DatabaseProductReadByNameDataAccessObjectFactoryInterface databaseProductReadByNameDataAccessObjectFactory
                 = new DatabaseProductReadByNameDataAccessObjectFactory();
         ProductFactory productFactory = new CommonProductFactory();

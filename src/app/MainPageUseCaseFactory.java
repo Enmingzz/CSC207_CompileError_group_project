@@ -27,6 +27,8 @@ import entity.user.CommonUserFactory;
 import entity.user.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.login.ViewLoginPageController;
+import interface_adapter.login.ViewLoginPagePresenter;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.logout.LogOutPresenter;
 import interface_adapter.main_page.MainPageController;
@@ -37,6 +39,7 @@ import interface_adapter.profile.ProfilePresenter;
 import interface_adapter.profile.ProfileViewModel;
 import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.search_product.SearchProductByNamePresenter;
+import interface_adapter.search_product.SearchProductByNameViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.signup.SignupController;
@@ -49,6 +52,9 @@ import interface_adapter.view_product.ViewProductPresenter;
 import use_case.Signup.SignupInputBoundary;
 import use_case.Signup.SignupInteractor;
 import use_case.Signup.SignupOutputBoundary;
+import use_case.login.ViewLoginPageInputBoundary;
+import use_case.login.ViewLoginPageInteractor;
+import use_case.login.ViewLoginPageOutputBoundary;
 import use_case.logout.LogOutInputBoundary;
 import use_case.logout.LogOutInteractor;
 import use_case.logout.LogOutOutputBoundary;
@@ -149,9 +155,9 @@ public class MainPageUseCaseFactory {
         return new ProfileController(viewProfileInteractor);
     }
 
-    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchByNameView searchByNameView){
+    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductByNameViewModel searchProductByNameViewModel){
         SearchProductByNameOutputBoundary searchProductByNamePresenter =
-                new SearchProductByNamePresenter(viewManagerModel, searchByNameView);
+                new SearchProductByNamePresenter(viewManagerModel, searchProductByNameViewModel);
         DatabaseProductReadByNameDataAccessObjectFactoryInterface databaseProductReadByNameDataAccessObjectFactory
                 = new DatabaseProductReadByNameDataAccessObjectFactory();
         ProductFactory productFactory = new CommonProductFactory();
@@ -162,5 +168,14 @@ public class MainPageUseCaseFactory {
                         searchProductByNamePresenter);
         return new SearchProductByNameController(searchProductByNameInteractor);
     }
+
+    private static ViewLoginPageController createViewLoginPageController(){
+
+        ViewLoginPageOutputBoundary viewLoginPagePresenter = new ViewLoginPagePresenter();
+        ViewLoginPageInputBoundary viewLoginPageInteractor =
+                new ViewLoginPageInteractor(viewLoginPagePresenter);
+        return new ViewLoginPageController(viewLoginPageInteractor);
+    }
+
 
 }
