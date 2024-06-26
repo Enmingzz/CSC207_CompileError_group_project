@@ -1,6 +1,7 @@
 package entity.product;
 
 import entity.schedule.CommonSchedule;
+import entity.schedule.Schedule;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class CommonProduct implements Product{
     private String eTransferEmail;
     private String sellerStudentNumber;
     private String address;
-    private CommonSchedule schedule;
+    private CommonSchedule schedule = null;
     private ArrayList<String> listTags;
     private String productID;
 
@@ -92,5 +93,9 @@ public class CommonProduct implements Product{
 
     public String getProductID() {
         return productID;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
     }
 }
