@@ -87,6 +87,8 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        this.add(title);
+
         for (Product product : listProducts) {
 
             JButton viewButton = new JButton(product.getTitle());
@@ -279,7 +281,7 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
 
 
     @Override
-    public void actionPerformed(ActionEvent evt) {
+    public void actionPerformed(ActionEvent e) {
 
     }
 
