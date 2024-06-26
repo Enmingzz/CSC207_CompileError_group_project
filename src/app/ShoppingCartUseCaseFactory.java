@@ -103,10 +103,10 @@ public class ShoppingCartUseCaseFactory {
                 rateProductController);
     }
 
-    private static ShoppingCartController createShoppingCartController() throws SQLException {
+    private static ShoppingCartController createShoppingCartController(ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
-        ShoppingCartPresenter presenter = new ShoppingCartPresenter();
+        ShoppingCartPresenter presenter = new ShoppingCartPresenter(shoppingCartViewModel);
         DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
                 = new DatabaseShoppingCartReadDataAccessObjectFactory();
         ShoppingCartReadDataAccessInterface shoppingCartReadDataAccess =
