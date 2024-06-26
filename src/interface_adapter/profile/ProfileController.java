@@ -6,14 +6,14 @@ import use_case.profile.ViewProfileInputData;
 
 public class ProfileController {
 
-    private final ViewProfileInputBoundary viewProfilePresenter;
+    private final ViewProfileInputBoundary viewProfileInteractor;
 
-    public ProfileController(ViewProfileInputBoundary viewProfilePresenter) {
-        this.viewProfilePresenter = viewProfilePresenter;
+    public ProfileController(ViewProfileInputBoundary viewProfileInteractor) {
+        this.viewProfileInteractor = viewProfileInteractor;
     }
 
     public void execute(User user){
         ViewProfileInputData viewProfileInputData = new ViewProfileInputData(user);
-        viewProfilePresenter.execute(viewProfileInputData);
+        viewProfileInteractor.execute(viewProfileInputData);
     }
 }

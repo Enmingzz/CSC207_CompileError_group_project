@@ -1,6 +1,6 @@
-package interface_adapter.profile;
+package interface_adapter.profile.ModifyProfile;
 
-import use_case.profile.ModifyProfileOutputData;
+import use_case.profile.ModifyProfile.ModifyProfileOutputData;
 
 public class ModifyProfilePresenter {
 
