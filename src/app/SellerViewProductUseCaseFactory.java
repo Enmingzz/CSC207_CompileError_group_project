@@ -24,6 +24,7 @@ import interface_adapter.search_product.SearchProductByNamePresenter;
 import interface_adapter.search_product.SearchProductByNameViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
+import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import use_case.logout.LogOutInputBoundary;
 import use_case.logout.LogOutInteractor;
 import use_case.logout.LogOutOutputBoundary;
@@ -51,10 +52,10 @@ public class SellerViewProductUseCaseFactory {
         return new SellerViewProductView();
     }
 
-    private static ShoppingCartController createShoppingCartController() throws SQLException {
+    private static ShoppingCartController createShoppingCartController(ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
-        ShoppingCartPresenter presenter = new ShoppingCartPresenter();
+        ShoppingCartPresenter presenter = new ShoppingCartPresenter(shoppingCartViewModel);
         DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
                 = new DatabaseShoppingCartReadDataAccessObjectFactory();
         ShoppingCartReadDataAccessInterface shoppingCartReadDataAccess =

@@ -33,6 +33,7 @@ import interface_adapter.search_product.SearchProductByNamePresenter;
 import interface_adapter.search_product.SearchProductByNameViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
+import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
@@ -66,10 +67,10 @@ public class ViewProductUseFactory {
         //TODO implements this method
         return new ProductView();
     }
-    private static ShoppingCartController createShoppingCartController() throws SQLException {
+    private static ShoppingCartController createShoppingCartController(ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
-        ShoppingCartPresenter presenter = new ShoppingCartPresenter();
+        ShoppingCartPresenter presenter = new ShoppingCartPresenter(shoppingCartViewModel);
         DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
                 = new DatabaseShoppingCartReadDataAccessObjectFactory();
         ShoppingCartReadDataAccessInterface shoppingCartReadDataAccess =

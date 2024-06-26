@@ -2,14 +2,17 @@ package app;
 
 import data_access.factories.interfaces.Product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.Question.DatabaseQuestionReadDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.User.DatabaseUserCreateDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.User.DatabaseUserReadDataAccessObjectFactoryInterface;
 import data_access.factories.objects.Product.DatabaseProductReadByNameDataAccessObjectFactory;
 import data_access.factories.objects.Question.DatabaseQuestionReadDataAccessObjectFactory;
+import data_access.factories.objects.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactory;
 import data_access.factories.objects.User.DatabaseUserCreateDataAccessObjectFactory;
 import data_access.factories.objects.User.DatabaseUserReadDataAccessObjectFactory;
 import data_access.interfaces.Prouct.ProductReadByNameDataAccessInterface;
 import data_access.interfaces.Question.QuestionReadDataAccessInterface;
+import data_access.interfaces.ShoppingCart.ShoppingCartReadDataAccessInterface;
 import data_access.interfaces.User.UserCreateDataAccessInterface;
 import data_access.interfaces.User.UserReadDataAccessInterface;
 import entity.comment.AnswerFactory;
@@ -18,6 +21,8 @@ import entity.comment.CommonQuestionFactory;
 import entity.comment.QuestionFactory;
 import entity.product.CommonProductFactory;
 import entity.product.ProductFactory;
+import entity.shopping_cart.CommonShoppingCartFactory;
+import entity.shopping_cart.ShoppingCartFactory;
 import entity.user.CommonUserFactory;
 import entity.user.UserFactory;
 import interface_adapter.ViewManagerModel;
@@ -33,6 +38,9 @@ import interface_adapter.profile.ProfileViewModel;
 import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.search_product.SearchProductByNamePresenter;
 import interface_adapter.search_product.SearchProductByNameViewModel;
+import interface_adapter.shopping_cart.ShoppingCartController;
+import interface_adapter.shopping_cart.ShoppingCartPresenter;
+import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
@@ -55,6 +63,8 @@ import use_case.product_search.SearchProductByNameOutputBoundary;
 import use_case.profile.ViewProfileInputBoundary;
 import use_case.profile.ViewProfileInteractor;
 import use_case.profile.ViewProfileOutputBoundary;
+import use_case.shopping_cart.ShowShoppingCartInputBoundary;
+import use_case.shopping_cart.ShowShoppingCartInteractor;
 import use_case.view_product.ViewProductInputBoundary;
 import use_case.view_product.ViewProductInteractor;
 import use_case.view_product.ViewProductOutputBoundary;
@@ -108,6 +118,20 @@ public class BuyerScheduleUseCaseFactory {
                 new SearchProductByNameInteractor(productReadByNameDataAccessObject,
                         searchProductByNamePresenter);
         return new SearchProductByNameController(searchProductByNameInteractor);
+    }
+
+    private static ShoppingCartController createShoppingCartController(ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
+        ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
+        ProductFactory productFactory = new CommonProductFactory();
+        ShoppingCartPresenter presenter = new ShoppingCartPresenter(shoppingCartViewModel);
+        DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
+                = new DatabaseShoppingCartReadDataAccessObjectFactory();
+        ShoppingCartReadDataAccessInterface shoppingCartReadDataAccess =
+                databaseShoppingCartReadDataAccessObjectFactory.create(shoppingCartFactory,
+                        productFactory);
+        ShowShoppingCartInputBoundary showShoppingCartInteractor =
+                new ShowShoppingCartInteractor(presenter, shoppingCartReadDataAccess);
+        return new ShoppingCartController(showShoppingCartInteractor);
     }
 
 }
