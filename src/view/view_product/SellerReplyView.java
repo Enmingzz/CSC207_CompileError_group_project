@@ -68,15 +68,16 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
             public void actionPerformed(ActionEvent evt) {
                 if(evt.getSource().equals(publishAnswer)){
                     try{
-                        Product que_product = replyQuestionViewModel.getState().getProduct();
+                        Question question_to_be_replied = replyQuestionViewModel.getState().getSpecificQuestion();
+                        //need to renew the state file to create the specific question
 
-                        String question_content = questionInputField.getText();
+                        String question_content = answerInputField.getText();
                         CommonQuestionFactory questionFactory = new CommonQuestionFactory();
                         Question new_question = questionFactory.createQuestion(question_content,
                                 buyerViewProductViewModel.getState().getProduct().getSellerStudentNumber(), null);
 
-                        publishQuestionController.execute(new_question, que_product);
-                    }catch (SQLException e){
+                        replyQuestionController.execute();
+                    }catch (Exception e){
                         throw new RuntimeException(e);
                     }
                 }

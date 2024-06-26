@@ -2,7 +2,13 @@ package view.view_product;
 
 import entity.comment.Question;
 import entity.product.Product;
+import entity.user.CommonUserFactory;
+import entity.user.User;
+import entity.user.UserFactory;
+import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginController;
+import interface_adapter.login.ViewLoginPageController;
+import interface_adapter.main_page.MainPageController;
 import interface_adapter.view_product.AddToCartController;
 import interface_adapter.view_product.BuyerViewProductViewModel;
 
@@ -24,14 +30,18 @@ public class Non_logged_in_ProductView extends JPanel implements ActionListener,
     private final JButton addToCart;
 
     private final AddToCartController addToCartController;//好像应该跳login而不是addToCart？？
-    private final LoginController loginController;
+    private final ViewLoginPageController viewLoginPageController;
+    private final MainPageController mainPageController;
 
 
     public Non_logged_in_ProductView(BuyerViewProductViewModel buyerViewProductViewModel,
-                                     AddToCartController addToCartController, LoginController loginController) {
+                                     AddToCartController addToCartController,
+                                     ViewLoginPageController viewLoginPageController,
+                                     MainPageController mainPageController) {
         this.buyerViewProductViewModel = buyerViewProductViewModel;
         this.addToCartController = addToCartController;
-        this.loginController = loginController;
+        this.viewLoginPageController = viewLoginPageController;
+        this.mainPageController = mainPageController;
 
         this.buyerViewProductViewModel.addPropertyChangeListener(this);
 
@@ -94,8 +104,7 @@ public class Non_logged_in_ProductView extends JPanel implements ActionListener,
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(addToCart)) {
                     try {
-                        addToCartController.execute(buyerViewProductViewModel.getState().getUser(),
-                                buyerViewProductViewModel.getState().getProduct());
+                        viewLoginPageController.execute();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -109,10 +118,10 @@ public class Non_logged_in_ProductView extends JPanel implements ActionListener,
             public void actionPerformed(ActionEvent evt) {
                 if(evt.getSource().equals(cancel)){
                     try{
-                        // System.out.println(buyerViewProductViewModel.getState().getPrompt_words());
-                        //jump to the main page? or the former page( can be shopping_cart or the main page,
-                        // whichever gives us the nearest page?)
-                    }catch (SQLException e){
+                        UserFactory userFactory = new CommonUserFactory();
+                        User emptyuser = userFactory.createUser("","","",0, "");
+                        mainPageController.execute(emptyuser);
+                    }catch (Exception e){
                         throw new RuntimeException(e);
                     }
                 }
