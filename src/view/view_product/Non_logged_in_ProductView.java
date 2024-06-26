@@ -1,54 +1,43 @@
 package view.view_product;
 
-import entity.comment.CommonQuestionFactory;
 import entity.comment.Question;
 import entity.product.Product;
+import interface_adapter.login.LoginController;
 import interface_adapter.view_product.AddToCartController;
-import interface_adapter.view_product.BuyerViewProductState;
 import interface_adapter.view_product.BuyerViewProductViewModel;
-import interface_adapter.view_product.PublishQuestionController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class BuyerViewProductView extends JPanel implements ActionListener, PropertyChangeListener {
-
-    public final String viewName = "buyer_view_product view";// useless??
-
+public class Non_logged_in_ProductView extends JPanel implements ActionListener, PropertyChangeListener {
+    public final String viewName = "non_login_view_product view";// useless??
     private final BuyerViewProductViewModel buyerViewProductViewModel;
 
-    final JTextField questionInputField = new JTextField(15);
-
-    private final JLabel questionPublishSucceedField = new JLabel();// how to pop up the prompt words?
 
     private final JButton cancel;
     private final JButton addToCart;
-    private final JButton publishQuestion;
 
-    private final AddToCartController addToCartController;
-    private final PublishQuestionController publishQuestionController;
-
+    private final AddToCartController addToCartController;//好像应该跳login而不是addToCart？？
+    private final LoginController loginController;
 
 
-    public BuyerViewProductView(BuyerViewProductViewModel buyerViewProductViewModel,
-                                AddToCartController addToCartController, PublishQuestionController publishQuestionController){
+    public Non_logged_in_ProductView(BuyerViewProductViewModel buyerViewProductViewModel,
+                                     AddToCartController addToCartController, LoginController loginController) {
         this.buyerViewProductViewModel = buyerViewProductViewModel;
         this.addToCartController = addToCartController;
-        this.publishQuestionController = publishQuestionController;
+        this.loginController = loginController;
 
         this.buyerViewProductViewModel.addPropertyChangeListener(this);
 
 
-        JLabel title = new JLabel(buyerViewProductViewModel.TITLE_LABEL);
+
+        JLabel title = new JLabel(buyerViewProductViewModel.TITLE_LABEL+", but you are not logged in yet :(");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //(1)product_info
@@ -90,78 +79,24 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         qAInfo.add(qA_TextPanel);
 
 
-        //(3)add_question
-        JPanel addQuestionInfo = new JPanel();
-
-        JLabel input_question_title = new JLabel(buyerViewProductViewModel.INPUT_QUESTION_TITLE);
-        addQuestionInfo.add(input_question_title);
-
-        addQuestionInfo.add(questionInputField);
-
-        publishQuestion = new JButton(buyerViewProductViewModel.ADD_QUESTION);
-        addQuestionInfo.add(publishQuestion);
-
-
-        //(4)some_discrete_buttons
+        //(3)buttons
         JPanel buttons = new JPanel();
         cancel = new JButton(buyerViewProductViewModel.CANCEL_BUTTON_LABEL);
         addToCart = new JButton(buyerViewProductViewModel.ADD_TO_CART);
+
 
         buttons.add(cancel);
         buttons.add(addToCart);
 
 
-        class AddTtoCartButtonListener implements ActionListener{
+        class AddTtoCartButtonListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                if(evt.getSource().equals(addToCart)){
+                if (evt.getSource().equals(addToCart)) {
                     try {
                         addToCartController.execute(buyerViewProductViewModel.getState().getUser(),
                                 buyerViewProductViewModel.getState().getProduct());
                     } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        }
-
-        class QuestionInputKeyListener implements KeyListener{
-            @Override
-            public void keyTyped(KeyEvent event){
-                BuyerViewProductState buyerViewProductState = buyerViewProductViewModel.getState();
-                String question_content = questionInputField.getText() + event.getKeyChar();
-
-                CommonQuestionFactory questionFactory = new CommonQuestionFactory();
-                Question newquestion = questionFactory.createQuestion(question_content,
-                        buyerViewProductViewModel.getState().getProduct().getSellerStudentNumber(), null);
-                ArrayList<Question> lst_question = buyerViewProductViewModel.getState().getQuestion();
-                lst_question.add(newquestion);
-
-                buyerViewProductState.setLst_question(lst_question);
-                buyerViewProductViewModel.setState(buyerViewProductState);
-            }
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        }
-
-        class QuestionPublishButtonListener implements ActionListener{
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                if(evt.getSource().equals(publishQuestion)){
-                    try{
-                        Product que_product = buyerViewProductViewModel.getState().getProduct();
-
-                        String question_content = questionInputField.getText();
-                        CommonQuestionFactory questionFactory = new CommonQuestionFactory();
-                        Question new_question = questionFactory.createQuestion(question_content,
-                                buyerViewProductViewModel.getState().getProduct().getSellerStudentNumber(), null);
-
-                        publishQuestionController.execute(new_question, que_product);
-                    }catch (SQLException e){
                         throw new RuntimeException(e);
                     }
                 }
@@ -174,7 +109,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
             public void actionPerformed(ActionEvent evt) {
                 if(evt.getSource().equals(cancel)){
                     try{
-                       // System.out.println(buyerViewProductViewModel.getState().getPrompt_words());
+                        // System.out.println(buyerViewProductViewModel.getState().getPrompt_words());
                         //jump to the main page? or the former page( can be shopping_cart or the main page,
                         // whichever gives us the nearest page?)
                     }catch (SQLException e){
@@ -184,20 +119,15 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
             }
         }
 
-
         addToCart.addActionListener(new AddTtoCartButtonListener());
-        questionInputField.addKeyListener(new QuestionInputKeyListener());
-        publishQuestion.addActionListener(new QuestionPublishButtonListener());
         cancel.addActionListener(new CancelButtonListener());
 
-        // needs adjustments x,y axis?????
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
         this.add(productInfo);
         this.add(qAInfo);
-        this.add(addQuestionInfo);
         this.add(buttons);
 
     }
@@ -206,9 +136,9 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
     public void actionPerformed(ActionEvent e) {
 
     }
-    
+
     @Override
     public void propertyChange(PropertyChangeEvent evt){
-        
+
     }
 }
