@@ -7,6 +7,9 @@ import java.beans.PropertyChangeSupport;
 
 public class MainPageViewModel extends ViewModel {
 
+    // Add all necessary constant labels for view as attributes here
+    public final String TITLE_LABEL = "Products Page";
+
     private final MainPageState state = new MainPageState();
 
     public MainPageViewModel() {
