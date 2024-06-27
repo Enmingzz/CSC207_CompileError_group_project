@@ -60,6 +60,9 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
         ArrayList<Product> allProducts = mainPageViewModel.getState().getAllProducts();
 
+        int _i = 0;
+        ArrayList<JPanel> listProductPanels = new ArrayList<>();
+
         for (Product product: allProducts) {
             if (product.getState() == 0){
 
@@ -94,10 +97,35 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
                 // Above created one panel for image
 
-                //TODO: CREATE THE REST OF THE PANEL
+                if (_i % 3 == 0){
+                    listProductPanels = new ArrayList<>();
+
+                }
+                listProductPanels.add(productPanel);
+
+                if (_i % 3 == 2){
+                    HorizontalLayoutPanel horizontalLayoutPanel = new HorizontalLayoutPanel(
+                            listProductPanels
+                    );
+                    this.add(horizontalLayoutPanel);
+                }
+                else if (_i + 1 == allProducts.size()){
+                    HorizontalLayoutPanel horizontalLayoutPanel = new HorizontalLayoutPanel(
+                            listProductPanels
+                    );
+                    this.add(horizontalLayoutPanel);
+                }
+
+                _i++;
 
             }
+
+
+
+
         }
+
+        //TODO: FINISH TOP BAR
 
 
     }
