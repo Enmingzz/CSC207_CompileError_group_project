@@ -9,6 +9,5 @@ import entity.schedule.ScheduleFactory;
 import java.sql.SQLException;
 
 public interface DatabaseProductReadByTagDataAccessObjectFactoryInterface {
-
-    public ProductReadByTagDataAccessInterface create(ProductFactory productFactory, ScheduleFactory scheduleFactory) throws SQLException;
+    ProductReadByTagDataAccessInterface create(ProductFactory productFactory, ScheduleFactory scheduleFactory) throws SQLException;
 }

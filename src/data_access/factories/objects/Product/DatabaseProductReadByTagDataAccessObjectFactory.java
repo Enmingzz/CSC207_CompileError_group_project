@@ -11,7 +11,7 @@ import entity.schedule.ScheduleFactory;
 import java.sql.SQLException;
 
 public class DatabaseProductReadByTagDataAccessObjectFactory implements DatabaseProductReadByTagDataAccessObjectFactoryInterface {
-
+    @Override
     public ProductReadByTagDataAccessInterface create(ProductFactory productFactory, ScheduleFactory scheduleFactory) throws SQLException {
         return new DatabaseProductReadByTagDataAccessObject(productFactory, scheduleFactory);
     }

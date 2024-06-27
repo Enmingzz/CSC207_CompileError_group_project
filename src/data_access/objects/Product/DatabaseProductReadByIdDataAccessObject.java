@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DatabaseProductReadByIdDataAccessObject implements ProductReadByIdDataAccessInterface {
     private final ProductFactory productFactory;
@@ -35,6 +36,8 @@ public class DatabaseProductReadByIdDataAccessObject implements ProductReadByIdD
     @Override
     public Product getProductById(String productID) throws SQLException, IOException {
         ArrayList<LocalDateTime> listSellerTimes = new ArrayList<LocalDateTime>();
+        ArrayList<String> rowTime;
+        LocalDateTime buyerTime = null;
 
         this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
                 "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
@@ -58,14 +61,19 @@ public class DatabaseProductReadByIdDataAccessObject implements ProductReadByIdD
                 , resultSet.getString("ListTags").length() - 1).split(",")));
         Image image = ImageIO.read(new ByteArrayInputStream(resultSet.getBytes("Image")));
 
-        ArrayList<String> rowTime = new ArrayList<String>(List.of(resultSet.getString("ListSellerTimes").substring(1
-                , resultSet.getString("ListTags").length() - 1).split(",")));
-        for(String time: rowTime){
-            listSellerTimes.add(LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        if (!Objects.equals(resultSet.getString("ListSellerTimes").toLowerCase(), "null")){
+            rowTime = new ArrayList<String>(List.of(resultSet.getString("ListSellerTimes").substring(1
+                    , resultSet.getString("ListTags").length() - 1).split(",")));
+            for(String time: rowTime){
+                listSellerTimes.add(LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")));
+            }
         }
 
-        LocalDateTime buyerTime = LocalDateTime.parse(resultSet.getString("BuyerTime"),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        if (!Objects.equals(resultSet.getString("BuyerTime").toLowerCase(), "null")){
+            buyerTime = LocalDateTime.parse(resultSet.getString("BuyerTime"),
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+        }
+
         Schedule schedule = scheduleFactory.createSchedule(buyerTime, listSellerTimes);
 
         resultSet.close();
