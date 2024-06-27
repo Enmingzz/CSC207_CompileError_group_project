@@ -79,11 +79,11 @@ public class DatabaseProductReadByTagDataAccessObject implements ProductReadByTa
             rowTime = new ArrayList<String>(List.of(resultSet.getString("ListSellerTimes").substring(1
                     , resultSet.getString("ListTags").length() - 1).split(",")));
             for(String time: rowTime){
-                listSellerTimes.add(LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+                listSellerTimes.add(LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")));
             }
 
             buyerTime = LocalDateTime.parse(resultSet.getString("BuyerTime"),
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
             schedule = scheduleFactory.createSchedule(buyerTime, listSellerTimes);
 
             product = productFactory.createProduct(image, description, title, price, rating, state,

@@ -79,7 +79,7 @@ public class DatabaseProductReadByUserDataAccessObject implements ProductReadByU
             }
 
             buyerTime = LocalDateTime.parse(resultSet.getString("BuyerTime"),
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
             schedule = scheduleFactory.createSchedule(buyerTime, listSellerTimes);
 
             product = productFactory.createProduct(image, description, title, price, rating, state,

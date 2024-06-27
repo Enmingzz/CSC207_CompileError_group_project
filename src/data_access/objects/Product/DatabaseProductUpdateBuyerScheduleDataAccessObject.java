@@ -24,7 +24,7 @@ public class DatabaseProductUpdateBuyerScheduleDataAccessObject implements Produ
                 "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
         query = "UPDATE Products SET BuyerTime = ? WHERE ProductID = ?";
         preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, buyerScheduleTime.toString());
+        preparedStatement.setString(1, String.valueOf(buyerScheduleTime));
         preparedStatement.setString(2, product.getProductID());
         preparedStatement.executeUpdate();
 
