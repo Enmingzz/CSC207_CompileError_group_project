@@ -276,8 +276,9 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
 
         this.add(totalPricePanel);
 
-    }
+        //TODO: FINISH TOP BAR
 
+    }
 
 
     @Override
