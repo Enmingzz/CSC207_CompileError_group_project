@@ -58,7 +58,46 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         this.add(title);
 
-        ArrayList<Product> listProducts =
+        ArrayList<Product> allProducts = mainPageViewModel.getState().getAllProducts();
+
+        for (Product product: allProducts) {
+            if (product.getState() == 0){
+
+                Image image = product.getImage();
+                JLabel paneledImage = new JLabel(new ImageIcon(image));
+                JLabel productTitle = new JLabel(product.getTitle());
+
+                JLabel productPrice = new JLabel(String.valueOf(product.getPrice()));
+
+                JButton viewButton = new JButton(product.getTitle());
+                // dimension set as this for now but will likely get changed later
+                viewButton.setPreferredSize(new Dimension(100, 50));
+                viewButton.addActionListener(
+                        new ActionListener() {
+                            public void actionPerformed(ActionEvent event) {
+                                if (event.getSource().equals(viewButton)) {
+                                    User user = mainPageViewModel.getState().getUser();
+                                    try {
+                                        viewProductController.execute(product, user) ;
+                                    } catch (SQLException e) {
+                                        throw new RuntimeException(e); //Revisit this in case of bug in viewing a product
+                                    }
+
+                                }
+                            }
+                        }
+                );
+
+                ProductPanel productPanel = new ProductPanel(
+                        paneledImage, productTitle, productPrice, viewButton
+                );
+
+                // Above created one panel for image
+
+                //TODO: CREATE THE REST OF THE PANEL
+
+            }
+        }
 
 
     }
