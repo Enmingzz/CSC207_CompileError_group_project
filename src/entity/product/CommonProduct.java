@@ -51,6 +51,7 @@ public class CommonProduct implements Product{
      * @param address: address on UofT for meetup
      * @param listTags: tags that the product is searchable by searchByTag function
      * @param productID: unique ID of product; primarily for database use
+     * @param schedule: associated schedule of product; defaulted as null
      */
 
     public CommonProduct(Image image, String description, String title, float price, Integer rating, int state, String eTransferEmail, String sellerStudentNumber, String address, ArrayList<String> listTags, String productID, Schedule schedule) {
