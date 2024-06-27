@@ -23,7 +23,7 @@ public class MainPagePresenter implements ShowMainPageOutputBoundary {
         User user = response.getUser();
         ArrayList<Product> allProducts = response.getAllProducts();
 
-        mainPageState.setStudentNumber(user.getStudentNumber());
+        mainPageState.setUser(user);
         mainPageState.setAllProducts(allProducts);
 
         mainPageViewModel.firePropertyChanged();

@@ -6,13 +6,18 @@ import entity.user.User;
 
 public class MainPageState {
 
-    private String studentNumber = "";
-    private ArrayList<Product> allProducts = new ArrayList<>()
-;
-    public MainPageState() {}
+    private User user = null;
+    private ArrayList<Product> allProducts = new ArrayList<>();
 
-    public String getStudentNumber() {
-        return studentNumber;
+    public MainPageState() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public ArrayList<Product> getAllProducts() {
@@ -21,9 +26,5 @@ public class MainPageState {
 
     public void setAllProducts(ArrayList<Product> allProducts) {
         this.allProducts = allProducts;
-    }
-
-    public void setStudentNumber(String studentNumber) {
-        this.studentNumber = studentNumber;
     }
 }
