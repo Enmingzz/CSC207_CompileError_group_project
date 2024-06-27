@@ -3,31 +3,39 @@ package data_access.objects.Product;
 import data_access.interfaces.Prouct.ProductReadByIdDataAccessInterface;
 import entity.product.Product;
 import entity.product.ProductFactory;
+import entity.schedule.Schedule;
+import entity.schedule.ScheduleFactory;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseProductReadByIdDataAccessObject implements ProductReadByIdDataAccessInterface {
-    private Connection connection;
     private final ProductFactory productFactory;
+    private final ScheduleFactory scheduleFactory;
+    private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
     private String query;
 
-    public DatabaseProductReadByIdDataAccessObject(ProductFactory productFactory) throws SQLException {
+    public DatabaseProductReadByIdDataAccessObject(ProductFactory productFactory, ScheduleFactory scheduleFactory) throws SQLException {
         this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
                 "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
                 "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
         this.productFactory = productFactory;
+        this.scheduleFactory = scheduleFactory;
     }
 
     @Override
     public Product getProductById(String productID) throws SQLException, IOException {
+        ArrayList<LocalDateTime> listSellerTimes = new ArrayList<LocalDateTime>();
+
         this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
                 "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
                 "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
@@ -50,12 +58,22 @@ public class DatabaseProductReadByIdDataAccessObject implements ProductReadByIdD
                 , resultSet.getString("ListTags").length() - 1).split(",")));
         Image image = ImageIO.read(new ByteArrayInputStream(resultSet.getBytes("Image")));
 
+        ArrayList<String> rowTime = new ArrayList<String>(List.of(resultSet.getString("ListSellerTimes").substring(1
+                , resultSet.getString("ListTags").length() - 1).split(",")));
+        for(String time: rowTime){
+            listSellerTimes.add(LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        }
+
+        LocalDateTime buyerTime = LocalDateTime.parse(resultSet.getString("BuyerTime"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        Schedule schedule = scheduleFactory.createSchedule(buyerTime, listSellerTimes);
+
         resultSet.close();
         preparedStatement.close();
         connection.close();
 
         return productFactory.createProduct(image, description, title, price, rating, state,
-                transferEmail, sellerID, address, listTags, productsID);
+                transferEmail, sellerID, address, listTags, productsID, schedule);
     }
 
 }

@@ -1,4 +1,6 @@
 package data_access.objects.Product;
 
-public class DatabaseProductUpdateBuyerScheduleDataAccessObject {
+import data_access.interfaces.Prouct.ProductUpdateBuyerScheduleDataAccessInterface;
+
+public class DatabaseProductUpdateBuyerScheduleDataAccessObject implements ProductUpdateBuyerScheduleDataAccessInterface {
 }
