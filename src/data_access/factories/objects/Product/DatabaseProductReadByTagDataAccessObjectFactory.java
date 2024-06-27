@@ -6,10 +6,13 @@ import data_access.interfaces.Prouct.ProductReadByTagDataAccessInterface;
 import data_access.objects.Product.DatabaseProductReadByNameDataAccessObject;
 import data_access.objects.Product.DatabaseProductReadByTagDataAccessObject;
 import entity.product.ProductFactory;
+import entity.schedule.ScheduleFactory;
+
+import java.sql.SQLException;
 
 public class DatabaseProductReadByTagDataAccessObjectFactory implements DatabaseProductReadByTagDataAccessObjectFactoryInterface {
-
-    public ProductReadByTagDataAccessInterface create(ProductFactory productFactory){
-        return new DatabaseProductReadByTagDataAccessObject(productFactory);
+    @Override
+    public ProductReadByTagDataAccessInterface create(ProductFactory productFactory, ScheduleFactory scheduleFactory) throws SQLException {
+        return new DatabaseProductReadByTagDataAccessObject(productFactory, scheduleFactory);
     }
 }

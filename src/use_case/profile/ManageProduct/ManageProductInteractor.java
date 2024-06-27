@@ -1,4 +1,4 @@
-package use_case.profile;
+package use_case.profile.ManageProduct;
 
 import data_access.interfaces.Prouct.ProductReadByUserDataAccessInterface;
 import entity.product.Product;

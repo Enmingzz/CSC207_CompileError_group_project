@@ -139,8 +139,9 @@ public class LoginUseCaseFactory {
 
     private static ProfileController createProfileController(ViewManagerModel viewManagerModel,
                                                              ProfileViewModel profileViewModel){
-        ViewProfileOutputBoundary viewProfileOutputBoundary =
-                new ProfilePresenter(profileViewModel);
+
+        ViewProfileOutputBoundary viewProfileOutputBoundary = new ProfilePresenter(profileViewModel);
+
         ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfileOutputBoundary);
         return new ProfileController(viewProfileInteractor);
     }

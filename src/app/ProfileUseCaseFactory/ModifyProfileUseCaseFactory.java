@@ -1,31 +1,21 @@
-package app;
+package app.ProfileUseCaseFactory;
 
 import data_access.factories.interfaces.Product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
-import data_access.factories.interfaces.User.DatabaseUserCreateDataAccessObjectFactoryInterface;
-import data_access.factories.interfaces.User.DatabaseUserReadDataAccessObjectFactoryInterface;
 import data_access.factories.objects.Product.DatabaseProductReadByNameDataAccessObjectFactory;
 import data_access.factories.objects.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactory;
-import data_access.factories.objects.User.DatabaseUserCreateDataAccessObjectFactory;
-import data_access.factories.objects.User.DatabaseUserReadDataAccessObjectFactory;
 import data_access.interfaces.Prouct.ProductReadByNameDataAccessInterface;
 import data_access.interfaces.ShoppingCart.ShoppingCartReadDataAccessInterface;
-import data_access.interfaces.User.UserCreateDataAccessInterface;
-import data_access.interfaces.User.UserReadDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.ProductFactory;
 import entity.shopping_cart.CommonShoppingCartFactory;
 import entity.shopping_cart.ShoppingCartFactory;
-import entity.user.CommonUserFactory;
-import entity.user.UserFactory;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.logout.LogOutPresenter;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.main_page.MainPagePresenter;
 import interface_adapter.main_page.MainPageViewModel;
-import interface_adapter.profile.ManageProductViewModel;
 import interface_adapter.profile.ProfileController;
 import interface_adapter.profile.ProfilePresenter;
 import interface_adapter.profile.ProfileViewModel;
@@ -35,12 +25,6 @@ import interface_adapter.search_product.SearchProductByNameViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
-import interface_adapter.signup.SignupController;
-import interface_adapter.signup.SignupPresenter;
-import interface_adapter.signup.SignupViewModel;
-import use_case.Signup.SignupInputBoundary;
-import use_case.Signup.SignupInteractor;
-import use_case.Signup.SignupOutputBoundary;
 import use_case.logout.LogOutInputBoundary;
 import use_case.logout.LogOutInteractor;
 import use_case.logout.LogOutOutputBoundary;
@@ -55,26 +39,14 @@ import use_case.profile.ViewProfileInteractor;
 import use_case.profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
-import view.product_search.SearchByNameView;
-import view.profile.ProfileView;
+import view.profile.ModifyProfileView;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
-public class ProfileUseCaseFactory {
+public class ModifyProfileUseCaseFactory {
 
-    private ProfileUseCaseFactory() {
-    }
-
-    public static ProfileView create(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel, MainPageViewModel mainPageViewModel, ProfileViewModel profileViewModel, ShoppingCartViewModel shoppingCartViewModel, ManageProductViewModel manageProductViewModel) throws IOException {
-        //TODO implements this
-        return null;
-    }
-
-    private static ProfileController createProfileController(ViewManagerModel viewManagerModel,
-                                             SignupViewModel signupViewModel, LoginViewModel loginViewModel) throws IOException {
-
-        return null;
+    public static ModifyProfileView create(){
+        return new ModifyProfileView();
     }
 
     private static ShoppingCartController createShoppingCartController(ShoppingCartViewModel shoppingCartViewModel) throws SQLException {

@@ -22,7 +22,7 @@ public class CommonProduct implements Product{
     private String eTransferEmail;
     private String sellerStudentNumber;
     private String address;
-    private CommonSchedule schedule = null;
+    private Schedule schedule;
     private ArrayList<String> listTags;
     private String productID;
 
@@ -53,7 +53,7 @@ public class CommonProduct implements Product{
      * @param productID: unique ID of product; primarily for database use
      */
 
-    public CommonProduct(Image image, String description, String title, float price, Integer rating, int state, String eTransferEmail, String sellerStudentNumber, String address, ArrayList<String> listTags, String productID) {
+    public CommonProduct(Image image, String description, String title, float price, Integer rating, int state, String eTransferEmail, String sellerStudentNumber, String address, ArrayList<String> listTags, String productID, Schedule schedule) {
         this.image = image;
         this.description = description;
         this.title = title;
@@ -65,6 +65,7 @@ public class CommonProduct implements Product{
         this.address = address;
         this.listTags = listTags;
         this.productID = productID;
+        this.schedule = schedule;
 
     }
 
