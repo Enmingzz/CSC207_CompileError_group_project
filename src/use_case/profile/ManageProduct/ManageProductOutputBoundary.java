@@ -1,8 +1,4 @@
-package use_case.profile;
-
-import entity.product.Product;
-
-import java.util.ArrayList;
+package use_case.profile.ManageProduct;
 
 public interface ManageProductOutputBoundary {
 

@@ -1,8 +1,8 @@
-package interface_adapter.profile;
+package interface_adapter.profile.ManageProduct;
 
 import entity.user.User;
-import use_case.profile.ManageProductInputBoundary;
-import use_case.profile.ManageProductInputData;
+import use_case.profile.ManageProduct.ManageProductInputBoundary;
+import use_case.profile.ManageProduct.ManageProductInputData;
 
 import java.io.IOException;
 import java.sql.SQLException;

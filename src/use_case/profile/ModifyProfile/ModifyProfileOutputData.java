@@ -1,4 +1,4 @@
-package use_case.profile;
+package use_case.profile.ModifyProfile;
 
 public class ModifyProfileOutputData {
 

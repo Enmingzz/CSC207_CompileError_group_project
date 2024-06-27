@@ -1,4 +1,4 @@
-package use_case.profile;
+package use_case.profile.ModifyProfile;
 
 import data_access.interfaces.User.UserReadDataAccessInterface;
 import data_access.interfaces.User.UserUpdateNameDataAccessInterface;

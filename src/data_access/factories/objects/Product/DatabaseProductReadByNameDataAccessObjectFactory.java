@@ -4,10 +4,14 @@ import data_access.factories.interfaces.Product.DatabaseProductReadByNameDataAcc
 import data_access.interfaces.Prouct.ProductReadByNameDataAccessInterface;
 import data_access.objects.Product.DatabaseProductReadByNameDataAccessObject;
 import entity.product.ProductFactory;
+import entity.schedule.ScheduleFactory;
+
+import java.sql.SQLException;
 
 public class DatabaseProductReadByNameDataAccessObjectFactory implements DatabaseProductReadByNameDataAccessObjectFactoryInterface {
 
-    public ProductReadByNameDataAccessInterface create(ProductFactory productFactory){
-        return new DatabaseProductReadByNameDataAccessObject(productFactory);
+    @Override
+    public ProductReadByNameDataAccessInterface create(ProductFactory productFactory, ScheduleFactory scheduleFactory) throws SQLException {
+        return new DatabaseProductReadByNameDataAccessObject(productFactory, scheduleFactory);
     }
 }

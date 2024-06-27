@@ -1,6 +1,4 @@
-package use_case.profile;
-
-import entity.user.User;
+package use_case.profile.ManageProduct;
 
 import java.io.IOException;
 import java.sql.SQLException;
