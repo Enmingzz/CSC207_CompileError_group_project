@@ -8,11 +8,15 @@ import use_case.shopping_cart.AddShoppingCartProductOutputBoundary;
 
 public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary{
     private final ShoppingCartViewModel shoppingCartViewModel;
+    private final BuyerViewProductViewModel buyerViewProductViewModel;
     private ViewManagerModel viewManagerModel;
 
-    public AddToCartPresenter(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) {
+    public AddToCartPresenter(ViewManagerModel viewManagerModel,
+                              ShoppingCartViewModel shoppingCartViewModel,
+                              BuyerViewProductViewModel buyerViewProductViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.shoppingCartViewModel = shoppingCartViewModel;
+        this.buyerViewProductViewModel = buyerViewProductViewModel;
     }
 
     @Override
@@ -22,9 +26,20 @@ public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary{
         shoppingCartState.setListProducts(response.getListProducts());
         shoppingCartState.setTotalPrice(response.getTotalPrice());
 
+        //change the state in buyerViewProduct because View needs User's info
+        BuyerViewProductState buyerViewProductState = buyerViewProductViewModel.getState();
+        buyerViewProductState.setUser(response.getUser());
+
         this.shoppingCartViewModel.setState(shoppingCartState);
+        this.buyerViewProductViewModel.setState(buyerViewProductState);
+
         shoppingCartViewModel.firePropertyChanged();
+        buyerViewProductViewModel.firePropertyChanged();
+
         viewManagerModel.setActiveView(shoppingCartViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
+
+
+
     }
 }

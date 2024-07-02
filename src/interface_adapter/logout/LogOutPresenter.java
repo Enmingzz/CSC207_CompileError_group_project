@@ -1,5 +1,8 @@
 package interface_adapter.logout;
 
+import entity.user.CommonUserFactory;
+import entity.user.User;
+import entity.user.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.main_page.MainPageState;
 import interface_adapter.main_page.MainPageViewModel;
@@ -17,7 +20,9 @@ public class LogOutPresenter implements LogOutOutputBoundary {
     @Override
     public void prepareSuccessfulView() {
         MainPageState state = mainPageViewModel.getState();
-        state.setStudentNumber("");
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User user = commonUserFactory.createUser("", "", "", 0, "");
+        state.setUser(user);
         mainPageViewModel.firePropertyChanged();
     }
 }

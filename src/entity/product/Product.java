@@ -1,6 +1,7 @@
 package entity.product;
 
 import entity.schedule.CommonSchedule;
+import entity.schedule.Schedule;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -32,4 +33,6 @@ public interface Product{
     ArrayList<String> getListTags();
 
     String getProductID();
+
+    Schedule getSchedule();
 }

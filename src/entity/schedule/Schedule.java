@@ -1,6 +1,7 @@
 package entity.schedule;
 
 import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  */
 
 public interface Schedule {
-    Time getBuyerTime();
+    LocalDateTime getBuyerTime();
 
-    ArrayList<Time> getSellerTime();
+    ArrayList<LocalDateTime> getSellerTime();
 }

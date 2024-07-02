@@ -6,12 +6,12 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class ReplyQuestionViewModel extends ViewModel {
-    private final String TITLE_LABEL = "Reply This Question page";
-    private final String QUESTION_LABEL = "Question";
-    private final String ANSWER_LABEL = "Enter your answer";
+    public final String TITLE_LABEL = "My answers are as follows:";
+    public final String QUESTION_LABEL = "Question to be answered:";
+    public final String ANSWER_LABEL = "Enter your answer here:";
 
-    private final String REPLY_BUTTON_LABEL = "Reply";
-    private final String CANCEL_BUTTON_LABEL = "Cancel";
+    public final String REPLY_BUTTON_LABEL = "Reply";
+    public final String CANCEL_BUTTON_LABEL = "Cancel";
 
     public ReplyQuestionViewModel(){
         super("reply question");

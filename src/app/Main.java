@@ -1,13 +1,17 @@
 package app;
 
+import app.ProfileUseCaseFactory.ModifyProfileUseCaseFactory;
+import app.ProfileUseCaseFactory.ProfileUseCaseFactory;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.modify_product.ModifyProductViewModel;
-import interface_adapter.profile.ManageProductViewModel;
-import interface_adapter.profile.ModifyProfileViewModel;
+import interface_adapter.profile.ManageProduct.ManageProductViewModel;
+import interface_adapter.profile.ModifyProfile.ModifyProfileViewModel;
 import interface_adapter.profile.ProfileViewModel;
 import interface_adapter.schedule.BuyerSelectScheduleViewModel;
 import interface_adapter.schedule.SellerSelectScheduleViewModel;
+import interface_adapter.search_product.SearchProductByNameViewModel;
+import interface_adapter.search_product.SearchProductByTagViewModel;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
@@ -15,6 +19,8 @@ import interface_adapter.view_product.BuyerViewProductViewModel;
 import interface_adapter.view_product.SellerViewProductViewModel;
 
 import view.*;
+import view.product_search.SearchByNameView;
+import view.product_search.SearchByTagView;
 import view.shopping_cart.ShoppingCartView;
 import view.login.LoginView;
 import view.main_page.MainPageView;
@@ -30,6 +36,7 @@ import view.view_product.SellerViewProductView;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * The entrance for the whole program. Run this to start using.
@@ -39,7 +46,7 @@ import java.io.IOException;
  */
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
 
         JFrame application = new JFrame("CSC207 Project");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -64,10 +71,13 @@ public class Main {
         ModifyProductViewModel modifyProductViewModel = new ModifyProductViewModel();
         SellerSelectScheduleViewModel sellerSelectScheduleViewModel = new SellerSelectScheduleViewModel();
         BuyerSelectScheduleViewModel buyerSelectScheduleViewModel = new BuyerSelectScheduleViewModel();
+        SearchProductByNameViewModel searchProductByNameViewModel = new SearchProductByNameViewModel();
+        SearchProductByTagViewModel searchProductByTagViewModel = new SearchProductByTagViewModel();
 
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel,
-                signupViewModel);
+                signupViewModel, mainPageViewModel, shoppingCartViewModel,
+                searchProductByNameViewModel, searchProductByTagViewModel, loginViewModel);
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, mainPageViewModel);
         ProfileView profileView = ProfileUseCaseFactory.create(viewManagerModel, signupViewModel
                 , loginViewModel, mainPageViewModel, profileViewModel,
@@ -78,20 +88,29 @@ public class Main {
         BuyerScheduleView buyerScheduleView = BuyerScheduleUseCaseFactory.create();
         SellerViewProductView sellerViewProductView = SellerViewProductUseCaseFactory.create();
         MainPageView mainPageView = MainPageUseCaseFactory.Create();
-        ShoppingCartView shoppingCartView = ShoppingCartUseCaseFactory.create();
+        ShoppingCartView shoppingCartView =
+                ShoppingCartUseCaseFactory.create(shoppingCartViewModel,
+                        buyerViewProductViewModel, sellerViewProductViewModel, viewManagerModel);
+        ProductView productView = ViewProductUseFactory.create();
+        SearchByNameView searchByNameView = SearchByNameUseCaseFactory.create();
+        SearchByTagView searchByTagView = SearchByTagUseCaseFactory.create(viewManagerModel, mainPageViewModel);
 
 
         TestView testView = new TestView();
         views.add(signupView.viewName, signupView);
+        views.add(loginView.viewName, loginView);
         views.add(testView.viewName, testView);
         views.add(buyerViewProductView.viewName, buyerViewProductView);
         views.add(modifyProfileView.viewName, modifyProfileView);
         views.add(sellerScheduleView.viewName, sellerScheduleView);
         views.add(buyerScheduleView.viewName, buyerScheduleView);
-        views.add(loginView.viewName, loginView);
         views.add(profileView.viewName, profileView);
         views.add(sellerViewProductView.viewName, sellerViewProductView);
         views.add(mainPageView.viewName, mainPageView);
+        views.add(shoppingCartView.viewName, shoppingCartView);
+        views.add(productView.viewName, productView);
+        views.add(searchByNameView.viewName, searchByNameView);
+        views.add(searchByTagView.viewName, searchByTagView);
 
 
         viewManagerModel.setActiveView(signupView.viewName);

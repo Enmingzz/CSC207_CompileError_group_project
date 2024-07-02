@@ -4,9 +4,9 @@ import interface_adapter.login.ViewLoginPagePresenter;
 
 public class ViewLoginPageInteractor implements ViewLoginPageInputBoundary{
 
-    private final ViewLoginPagePresenter presenter;
+    private final ViewLoginPageOutputBoundary presenter;
 
-    public ViewLoginPageInteractor(ViewLoginPagePresenter presenter) {
+    public ViewLoginPageInteractor(ViewLoginPageOutputBoundary presenter) {
         this.presenter = presenter;
     }
 

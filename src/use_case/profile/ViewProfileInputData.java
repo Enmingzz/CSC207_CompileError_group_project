@@ -4,10 +4,13 @@ import entity.user.User;
 
 public class ViewProfileInputData {
 
-    User user;
+    private final User user;
 
     public ViewProfileInputData(User user) {
         this.user = user;
     }
 
+    public User getUser() {
+        return user;
+    }
 }
