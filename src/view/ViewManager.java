@@ -32,4 +32,16 @@ public class ViewManager implements PropertyChangeListener {
             cardLayout.show(views, viewModelName);
         }
     }
+
+    public void navigateToSchedule(String productId, String userName, boolean isBuyer) {
+        viewManagerModel.setProductId(productId);
+        if (isBuyer) {
+            viewManagerModel.setBuyerName(userName);
+            viewManagerModel.setActiveView("BuyerSelectScheduleViewModel");
+        } else {
+            viewManagerModel.setSellerName(userName);
+            viewManagerModel.setActiveView("SellerSelectScheduleViewModel");
+        }
+        viewManagerModel.firePropertyChanged();
+    }
 }

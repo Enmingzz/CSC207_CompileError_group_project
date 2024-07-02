@@ -51,9 +51,32 @@ import java.sql.SQLException;
 
 public class BuyerScheduleUseCaseFactory {
 
-    public static BuyerScheduleView create(){
-        //TODO implements this method
-        return new BuyerScheduleView();
+    public static BuyerScheduleView create(ViewManagerModel viewManagerModel) throws SQLException {
+        BuyerSelectScheduleViewModel viewModel = new BuyerSelectScheduleViewModel();
+        BuyerSelectSchedulePresenter presenter = new BuyerSelectSchedulePresenter(viewModel);
+
+        DataBaseProductReadByIdDataAccessObjectFactoryInterface readByIdFactory =
+                new DataBaseProductReadByIdDataAccessObjectFactory();
+        DataBaseProductUpdateBuyerScheduleDataAccessObjectFactoryInterface updateBuyerScheduleFactory =
+                new DatabaseProductUpdateBuyerScheduleDataAccessObjectFactory();
+        DatabaseProductUpdateStateDataAccessObjectFactoryInterface updateProductStateFactory =
+                new DatabaseProductUpdateStateDataAccessObjectFactory();
+
+        ProductFactory productFactory = new CommonProductFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+
+        ProductReadByIdDataAccessInterface readById = readByIdFactory.create(productFactory, scheduleFactory);
+        ProductUpdateBuyerScheduleDataAccessInterface updateBuyerSchedule = updateBuyerScheduleFactory.create();
+        ProductUpdateStateDataAccessInterface updateState = updateProductStateFactory.create();
+
+
+        BuyerSelectScheduleInputBoundary interactor = new BuyerSelectScheduleInteractor(presenter, readById, updateBuyerSchedule, updateState);
+        BuyerSelectScheduleController controller = new BuyerSelectScheduleController(interactor, viewManagerModel);
+
+        BuyerScheduleView view = new BuyerScheduleView(viewModel, controller);
+        viewModel.addPropertyChangeListener(view);
+
+        return view;
     }
 
 

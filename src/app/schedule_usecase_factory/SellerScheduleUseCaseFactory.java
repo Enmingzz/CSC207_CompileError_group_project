@@ -44,6 +44,7 @@ import use_case.profile.view_profile.ViewProfileInteractor;
 import use_case.profile.view_profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
+import view.product_search.SearchByNameView;
 import view.schedule.SellerScheduleView;
 
 import java.io.IOException;
@@ -51,9 +52,33 @@ import java.sql.SQLException;
 
 public class SellerScheduleUseCaseFactory {
 
-    public static SellerScheduleView create(){
-        //TODO implements this method
-        return new SellerScheduleView();
+    public static SellerScheduleView create(ViewManagerModel viewManagerModel) throws SQLException {
+        SellerSelectScheduleViewModel viewModel = new SellerSelectScheduleViewModel();
+        SellerSelectSchedulePresenter presenter = new SellerSelectSchedulePresenter(viewModel);
+
+        DataBaseProductReadByIdDataAccessObjectFactoryInterface readByIdFactory =
+                new DataBaseProductReadByIdDataAccessObjectFactory();
+        DataBaseProductUpdateSellerScheduleDataAccessObjectFactoryInterface updateSellerScheduleFactory =
+                new DatabaseProductUpdateSellerScheduleDataAccessObjectFactory();
+        DatabaseProductUpdateStateDataAccessObjectFactoryInterface updateProductStateFactory =
+                new DatabaseProductUpdateStateDataAccessObjectFactory();
+
+        ProductFactory productFactory = new CommonProductFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+
+        ProductReadByIdDataAccessInterface readById = readByIdFactory.create(productFactory, scheduleFactory);
+        ProductUpdateSellerScheduleDataAccessInterface updateSellerSchedule = updateSellerScheduleFactory.create();
+        ProductUpdateStateDataAccessInterface updateState = updateProductStateFactory.create();
+
+
+        SellerSelectScheduleInputBoundary interactor = new SellerSelectScheduleInteractor(presenter, readById, updateSellerSchedule, updateState);
+        SellerSelectScheduleController controller = new SellerSelectScheduleController(interactor, viewManagerModel);
+
+        SellerScheduleView view = new SellerScheduleView(viewModel, controller);
+        viewModel.addPropertyChangeListener(view);
+
+        return view;
+
     }
 
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
