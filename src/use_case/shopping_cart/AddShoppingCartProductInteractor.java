@@ -8,7 +8,7 @@ import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 public class AddShoppingCartProductInteractor implements AddShoppingCartProductInputBoundary{
 
@@ -30,7 +30,7 @@ public class AddShoppingCartProductInteractor implements AddShoppingCartProductI
         User user = addShoppingCartProductInputData.getUser();
         Product addProduct = addShoppingCartProductInputData.getProduct();
         ShoppingCart shoppingCart = shoppingCartReadDataAccessObject.getShoppingCart(user.getStudentNumber());
-        ArrayList<Product> listProducts = shoppingCart.getListProducts();
+        List<Product> listProducts = shoppingCart.getListProducts();
 
         shoppingCartUpdateAddDataAccessObject.updateShoppingCart(user, addProduct);
         float totalPrice = shoppingCart.getTotalPrice() + addProduct.getPrice();

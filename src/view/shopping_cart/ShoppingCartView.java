@@ -26,6 +26,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.sql.SQLException;
 
 public class ShoppingCartView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -38,9 +39,9 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
     private final ShoppingCartViewModel shoppingCartViewModel;
 
     // Check necessity of this part of initialization
-    private ArrayList<JButton> viewButtons = new ArrayList<>();
-    private ArrayList<JButton> primaryActionButtons = new ArrayList<>();
-    private ArrayList<JButton> secondaryActionButtons = new ArrayList<>();
+    private List<JButton> viewButtons = new ArrayList<>();
+    private List<JButton> primaryActionButtons = new ArrayList<>();
+    private List<JButton> secondaryActionButtons = new ArrayList<>();
 
     // List and initialize all controllers as `private final`
     private final ViewProductController viewProductController;
@@ -83,7 +84,7 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
         JLabel title = new JLabel(shoppingCartViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        ArrayList<Product> listProducts = shoppingCartViewModel.getState().getListProducts();
+        List<Product> listProducts = shoppingCartViewModel.getState().getListProducts();
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

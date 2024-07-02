@@ -1,10 +1,10 @@
 package view.main_page;
 
 import javax.swing.*;
-import java.util.ArrayList;
+import java.util.List;
 
 public class HorizontalLayoutPanel extends JPanel{
-    HorizontalLayoutPanel(ArrayList<JPanel> listProductPanels){
+    HorizontalLayoutPanel(List<JPanel> listProductPanels){
         for (JPanel panel : listProductPanels){
             this.add(panel);
         }

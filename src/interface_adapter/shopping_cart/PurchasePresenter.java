@@ -8,6 +8,7 @@ import use_case.shopping_cart.PurchaseOutputBoundary;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PurchasePresenter implements PurchaseOutputBoundary {
 
@@ -26,8 +27,8 @@ public class PurchasePresenter implements PurchaseOutputBoundary {
         Product purchasedProduct = response.getProduct();
         String purchasedProductId = purchasedProduct.getProductID();
 
-        ArrayList<Product> listProducts = shoppingCartState.getListProducts();
-        ArrayList<Product> newListProducts = new ArrayList<>();
+        List<Product> listProducts = shoppingCartState.getListProducts();
+        List<Product> newListProducts = new ArrayList<>();
 
         for (Product product: listProducts) {
             if (product.getProductID().equals(purchasedProductId)) {
