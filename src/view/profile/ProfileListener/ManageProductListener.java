@@ -1,6 +1,6 @@
 package view.profile.ProfileListener;
 
-import interface_adapter.profile.ManageProduct.ManageProductController;
+import interface_adapter.profile.manage_product.ManageProductController;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
 
 import java.awt.event.ActionEvent;

@@ -1,7 +1,7 @@
 package entity.comment;
 
 /**
- * The superclass of CommonAnswer and CommonQuestion. Two getter method override the methods in two interfaces Answer and Question.
+ * The superclass of CommonAnswer and CommonQuestion. Two getter method override the methods in two interfaces Answer and question.
  * Two attributes private String description and private CommonUser postUser
  * @author CompileError group
  */

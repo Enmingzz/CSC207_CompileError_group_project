@@ -26,7 +26,7 @@ public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary{
         shoppingCartState.setListProducts(response.getListProducts());
         shoppingCartState.setTotalPrice(response.getTotalPrice());
 
-        //change the state in buyerViewProduct because View needs User's info
+        //change the state in buyerViewProduct because View needs user's info
         BuyerViewProductState buyerViewProductState = buyerViewProductViewModel.getState();
         buyerViewProductState.setUser(response.getUser());
 

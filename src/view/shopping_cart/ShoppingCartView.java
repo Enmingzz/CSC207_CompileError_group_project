@@ -5,7 +5,7 @@ import entity.user.User;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import interface_adapter.shopping_cart.ShoppingCartState;
 
-// Import all controllers related to ShoppingCart
+// Import all controllers related to shopping_cart
 import interface_adapter.shopping_cart.PurchaseController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.schedule.BuyerSelectScheduleController;

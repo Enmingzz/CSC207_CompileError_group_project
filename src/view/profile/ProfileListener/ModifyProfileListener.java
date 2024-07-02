@@ -1,6 +1,6 @@
 package view.profile.ProfileListener;
 
-import interface_adapter.profile.ModifyProfile.ModifyProfileController;
+import interface_adapter.profile.modify_profile.ModifyProfileController;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
 
 import java.awt.event.ActionEvent;

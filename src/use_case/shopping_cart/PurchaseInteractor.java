@@ -1,7 +1,7 @@
 package use_case.shopping_cart;
 
-import data_access.interfaces.Prouct.ProductUpdateStateDataAccessInterface;
-import data_access.interfaces.Prouct.ProductReadByIdDataAccessInterface;
+import data_access.interfaces.product.ProductUpdateStateDataAccessInterface;
+import data_access.interfaces.product.ProductReadByIdDataAccessInterface;
 import entity.user.User;
 import entity.product.Product;
 

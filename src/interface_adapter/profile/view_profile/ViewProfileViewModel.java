@@ -16,7 +16,7 @@ public class ViewProfileViewModel extends ViewModel {
     public final String USEREMAIL_LABEL = "UofT Email";
     public final String USERRATING_LABLE = "Rating";
 
-    public final String MANAGEPRODUCT_BUTTONLABEL = "Manage Product";
+    public final String MANAGEPRODUCT_BUTTONLABEL = "Manage product";
     public final String MODIFYPASSWORD_BUTTON_LABEL = "Modify Password";
     public final String MODIFYNAME_BUTTON_LABEL = "Modify Name";
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);

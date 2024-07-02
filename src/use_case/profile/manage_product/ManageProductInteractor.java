@@ -1,6 +1,6 @@
 package use_case.profile.manage_product;
 
-import data_access.interfaces.Prouct.ProductReadByUserDataAccessInterface;
+import data_access.interfaces.product.ProductReadByUserDataAccessInterface;
 import entity.product.Product;
 
 import java.io.IOException;

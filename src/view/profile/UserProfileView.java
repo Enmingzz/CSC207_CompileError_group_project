@@ -1,10 +1,7 @@
 package view.profile;
 
 import interface_adapter.login.LoginController;
-import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
-import interface_adapter.profile.ManageProduct.ManageProductController;
-import interface_adapter.profile.ModifyProfile.ModifyProfileController;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.profile.view_profile.ViewProfileState;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;

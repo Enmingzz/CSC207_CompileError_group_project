@@ -1,6 +1,6 @@
 package use_case.view_product;
 
-import data_access.interfaces.Question.QuestionUpdateDataAccessInterface;
+import data_access.interfaces.question.QuestionUpdateDataAccessInterface;
 import entity.comment.AnswerFactory;
 import entity.comment.Question;
 import entity.comment.Answer;
@@ -38,7 +38,7 @@ public class ReplyQuestionInteractor implements ReplyQuestionInputBoundary{
         Question completeQuestion = questionFactory.createQuestion(questionContent, product.getSellerStudentNumber(), sellerAnswer);
         questionUpdateDataAccessObject.updateQuestion(completeQuestion);
 
-        ReplyQuestionOutputData replyQuestionOutputData = new ReplyQuestionOutputData("Question successfully answered", replyQuestionInputData.getQuestion());
+        ReplyQuestionOutputData replyQuestionOutputData = new ReplyQuestionOutputData("question successfully answered", replyQuestionInputData.getQuestion());
         replyPresenter.prepareSuccessView(replyQuestionOutputData);
     }
 }
