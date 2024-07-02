@@ -3,12 +3,15 @@ package app.ProductUseCaseFactory;
 import data_access.factories.interfaces.Product.DataBaseProductReadAllDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.Product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.ShoppingCart.DatabaseShoppingCartUpdateAddDataAccessObjectFactoryInterface;
 import data_access.factories.objects.Product.DatabaseProductReadAllDataAccessObjectFactory;
 import data_access.factories.objects.Product.DatabaseProductReadByNameDataAccessObjectFactory;
 import data_access.factories.objects.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactory;
+import data_access.factories.objects.ShoppingCart.DatabaseShoppingCartUpdateAddDataAccessObjectFactory;
 import data_access.interfaces.Prouct.ProductReadAllDataAccessInterface;
 import data_access.interfaces.Prouct.ProductReadByNameDataAccessInterface;
 import data_access.interfaces.ShoppingCart.ShoppingCartReadDataAccessInterface;
+import data_access.interfaces.ShoppingCart.ShoppingCartUpdateAddDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.ProductFactory;
 import entity.schedule.CommonScheduleFactory;
@@ -30,6 +33,10 @@ import interface_adapter.search_product.SearchProductByNameViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
+import interface_adapter.view_product.AddToCartController;
+import interface_adapter.view_product.AddToCartPresenter;
+import interface_adapter.view_product.BuyerViewProductViewModel;
+import interface_adapter.view_product.PublishQuestionController;
 import use_case.logout.LogOutInputBoundary;
 import use_case.logout.LogOutInteractor;
 import use_case.logout.LogOutOutputBoundary;
@@ -42,8 +49,9 @@ import use_case.product_search.SearchProductByNameOutputBoundary;
 import use_case.profile.ViewProfileInputBoundary;
 import use_case.profile.ViewProfileInteractor;
 import use_case.profile.ViewProfileOutputBoundary;
-import use_case.shopping_cart.ShowShoppingCartInputBoundary;
-import use_case.shopping_cart.ShowShoppingCartInteractor;
+import use_case.shopping_cart.*;
+import use_case.view_product.PublishQuestionInputBoundary;
+import use_case.view_product.PublishQuestionInteractor;
 import view.view_product.BuyerViewProductView;
 
 import java.io.IOException;
@@ -51,9 +59,49 @@ import java.sql.SQLException;
 
 public class BuyerViewProductUseCaseFactory {
 
-    public static BuyerViewProductView create(){
-        //TODO need to implement this method
-        return new BuyerViewProductView();
+    public static BuyerViewProductView create(ViewManagerModel viewManagerModel,
+                                              MainPageViewModel mainPageViewModel,
+                                              ShoppingCartViewModel shoppingCartViewModel,
+                                              ProfileViewModel profileViewModel,
+                                              BuyerViewProductViewModel buyerViewProductViewModel) throws SQLException {
+        //TODO implements this method
+        MainPageController mainPageController =
+                BuyerViewProductUseCaseFactory.createMainPageController(mainPageViewModel,
+                        viewManagerModel);
+        AddToCartController addToCartController =
+                BuyerViewProductUseCaseFactory.createAddToCartController(viewManagerModel,
+                        shoppingCartViewModel, buyerViewProductViewModel);
+        PublishQuestionController publishQuestionController =
+                BuyerViewProductUseCaseFactory.createPublishQuestionController();
+        return new BuyerViewProductView(buyerViewProductViewModel, addToCartController, publishQuestionController);
+    }
+
+    private static PublishQuestionController createPublishQuestionController(){
+        PublishQuestionInputBoundary publishQuestionInteractor = new PublishQuestionInteractor();
+        return new PublishQuestionController(publishQuestionInteractor);
+    }
+
+    private static AddToCartController createAddToCartController(ViewManagerModel viewManagerModel,
+                                                                 ShoppingCartViewModel shoppingCartViewModel,
+                                                                 BuyerViewProductViewModel buyerViewProductViewModel) throws SQLException {
+        AddShoppingCartProductOutputBoundary addShoppingCartProductOutputPresenter =
+                new AddToCartPresenter(viewManagerModel, shoppingCartViewModel, buyerViewProductViewModel);
+        DatabaseShoppingCartReadDataAccessObjectFactoryInterface shoppingCartReadDataAccessObjectFactoryInterface
+                = new DatabaseShoppingCartReadDataAccessObjectFactory();
+        ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
+        ProductFactory productFactory = new CommonProductFactory();
+        ShoppingCartReadDataAccessInterface shoppingCartReadDataAccessObject =
+                shoppingCartReadDataAccessObjectFactoryInterface.create(shoppingCartFactory,
+                        productFactory);
+        DatabaseShoppingCartUpdateAddDataAccessObjectFactoryInterface shoppingCartUpdateAddDataAccessObjectFactory
+                = new DatabaseShoppingCartUpdateAddDataAccessObjectFactory();
+        ShoppingCartUpdateAddDataAccessInterface shoppingCartUpdateDeleteDataAccessObject =
+                shoppingCartUpdateAddDataAccessObjectFactory.create();
+        AddShoppingCartProductInputBoundary addShoppingCartProductInteractor =
+                new AddShoppingCartProductInteractor(shoppingCartUpdateDeleteDataAccessObject,
+                        addShoppingCartProductOutputPresenter, shoppingCartReadDataAccessObject);
+
+        return new AddToCartController(addShoppingCartProductInteractor);
     }
 
     private static ShoppingCartController createShoppingCartController(ShoppingCartViewModel shoppingCartViewModel) throws SQLException {

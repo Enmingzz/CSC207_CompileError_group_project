@@ -1,6 +1,6 @@
 package app;
 
-import app.ProductUseCaseFactory.ViewProductUseFactory;
+import app.ProductUseCaseFactory.NonLoggedInViewProductUseFactory;
 import app.ShoppingCartAndMainPageUseCaseFactory.MainPageUseCaseFactory;
 import app.ShoppingCartAndMainPageUseCaseFactory.ShoppingCartUseCaseFactory;
 import app.UserUseCaseFactory.LoginUseCaseFactory;
@@ -41,6 +41,7 @@ import view.schedule.BuyerScheduleView;
 import view.schedule.SellerScheduleView;
 import view.signup.SignupView;
 import view.view_product.BuyerViewProductView;
+import view.view_product.NonloggedInProductView;
 import view.view_product.SellerViewProductView;
 
 import javax.swing.*;
@@ -92,8 +93,11 @@ public class Main {
         ProfileView profileView = ProfileUseCaseFactory.create(viewManagerModel, signupViewModel
                 , loginViewModel, mainPageViewModel, profileViewModel,
                 shoppingCartViewModel, manageProductViewModel);
-        ModifyProfileView modifyProfileView = ModifyProfileUseCaseFactory.create();
-        BuyerViewProductView buyerViewProductView = BuyerViewProductUseCaseFactory.create();
+        ModifyProfileView modifyProfileView = ModifyProfileUseCaseFactory.create(viewManagerModel
+                , mainPageViewModel,shoppingCartViewModel, searchProductByNameViewModel);
+        BuyerViewProductView buyerViewProductView =
+                BuyerViewProductUseCaseFactory.create(viewManagerModel, mainPageViewModel,
+                        shoppingCartViewModel, profileViewModel, buyerViewProductViewModel);
         SellerScheduleView sellerScheduleView = SellerScheduleUseCaseFactory.create();
         BuyerScheduleView buyerScheduleView = BuyerScheduleUseCaseFactory.create();
         SellerViewProductView sellerViewProductView = SellerViewProductUseCaseFactory.create();
@@ -101,7 +105,7 @@ public class Main {
         ShoppingCartView shoppingCartView =
                 ShoppingCartUseCaseFactory.create(shoppingCartViewModel,
                         buyerViewProductViewModel, sellerViewProductViewModel, viewManagerModel);
-        ProductView productView = ViewProductUseFactory.create();
+        NonloggedInProductView productView = NonLoggedInViewProductUseFactory.create(viewManagerModel);
         SearchByNameView searchByNameView = SearchByNameUseCaseFactory.create();
         SearchByTagView searchByTagView = SearchByTagUseCaseFactory.create(viewManagerModel, mainPageViewModel);
 

@@ -3,24 +3,37 @@ package app.UserUseCaseFactory;
 import data_access.factories.interfaces.Product.DataBaseProductReadAllDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.Product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.User.DatabaseUserReadDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.User.DatabaseUserUpdateNameDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.User.DatabaseUserUpdatePasswordDataAccessObjectFactoryInterface;
 import data_access.factories.objects.Product.DatabaseProductReadAllDataAccessObjectFactory;
 import data_access.factories.objects.Product.DatabaseProductReadByNameDataAccessObjectFactory;
 import data_access.factories.objects.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactory;
+import data_access.factories.objects.User.DatabaseUserReadDataAccessObjectFactory;
+import data_access.factories.objects.User.DatabaseUserUpdateNameDataAccessObjectFactory;
+import data_access.factories.objects.User.DatabaseUserUpdatePasswordDataAccessObjectFactory;
 import data_access.interfaces.Prouct.ProductReadAllDataAccessInterface;
 import data_access.interfaces.Prouct.ProductReadByNameDataAccessInterface;
 import data_access.interfaces.ShoppingCart.ShoppingCartReadDataAccessInterface;
+import data_access.interfaces.User.UserReadDataAccessInterface;
+import data_access.interfaces.User.UserUpdateNameDataAccessInterface;
+import data_access.interfaces.User.UserUpdatePasswordDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.ProductFactory;
 import entity.schedule.CommonScheduleFactory;
 import entity.schedule.ScheduleFactory;
 import entity.shopping_cart.CommonShoppingCartFactory;
 import entity.shopping_cart.ShoppingCartFactory;
+import entity.user.CommonUserFactory;
+import entity.user.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.logout.LogOutPresenter;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.main_page.MainPagePresenter;
 import interface_adapter.main_page.MainPageViewModel;
+import interface_adapter.profile.ModifyProfile.ModifyProfileController;
+import interface_adapter.profile.ModifyProfile.ModifyProfilePresenter;
 import interface_adapter.profile.ProfileController;
 import interface_adapter.profile.ProfilePresenter;
 import interface_adapter.profile.ProfileViewModel;
@@ -39,6 +52,9 @@ import use_case.main_page.ShowMainPageOutputBoundary;
 import use_case.product_search.SearchProductByNameInputBoundary;
 import use_case.product_search.SearchProductByNameInteractor;
 import use_case.product_search.SearchProductByNameOutputBoundary;
+import use_case.profile.ModifyProfile.ModifyProfileInputBoundary;
+import use_case.profile.ModifyProfile.ModifyProfileInteractor;
+import use_case.profile.ModifyProfile.ModifyProfileOutputBoundary;
 import use_case.profile.ViewProfileInputBoundary;
 import use_case.profile.ViewProfileInteractor;
 import use_case.profile.ViewProfileOutputBoundary;
@@ -50,8 +66,22 @@ import java.sql.SQLException;
 
 public class ModifyProfileUseCaseFactory {
 
-    public static ModifyProfileView create(){
-        return new ModifyProfileView();
+    public static ModifyProfileView create(ViewManagerModel viewManagerModel,
+                                           MainPageViewModel mainPageViewModel,
+                                           ShoppingCartViewModel shoppingCartViewModel,
+                                           SearchProductByNameViewModel searchProductByNameViewModel) throws SQLException {
+        MainPageController mainPageController =
+                ModifyProfileUseCaseFactory.createMainPageController(mainPageViewModel,
+                        viewManagerModel);
+        ModifyProfileController modifyProfileController =
+                ModifyProfileUseCaseFactory.createModifyProfileController();
+        ShoppingCartController shoppingCartController =
+                ModifyProfileUseCaseFactory.createShoppingCartController(shoppingCartViewModel);
+        SearchProductByNameController searchProductByNameVController =
+                ModifyProfileUseCaseFactory.createSearchProductByNameController(viewManagerModel,
+                        searchProductByNameViewModel);
+        return new ModifyProfileView(modifyProfileController, mainPageController,
+                        shoppingCartController, searchProductByNameVController);
     }
 
     private static ShoppingCartController createShoppingCartController(ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
@@ -109,6 +139,28 @@ public class ModifyProfileUseCaseFactory {
                 new SearchProductByNameInteractor(productReadByNameDataAccessObject,
                         searchProductByNamePresenter);
         return new SearchProductByNameController(searchProductByNameInteractor);
+    }
+
+    private static ModifyProfileController createModifyProfileController() throws SQLException {
+        DatabaseUserUpdateNameDataAccessObjectFactoryInterface databaseUserUpdateNameDataAccessObjectFactoryInterface
+                = new DatabaseUserUpdateNameDataAccessObjectFactory();
+        UserUpdateNameDataAccessInterface userUpdateNameDataAccessObject =
+                databaseUserUpdateNameDataAccessObjectFactoryInterface.create();
+        DatabaseUserUpdatePasswordDataAccessObjectFactoryInterface databaseUserUpdatePasswordDataAccessObjectFactoryInterface = new
+                DatabaseUserUpdatePasswordDataAccessObjectFactory();
+        UserFactory userFactory = new CommonUserFactory();
+        DatabaseUserReadDataAccessObjectFactoryInterface userReadDataAccessObjectFactoryInterface = new DatabaseUserReadDataAccessObjectFactory();
+        UserReadDataAccessInterface userReadDataAccessObject =
+                userReadDataAccessObjectFactoryInterface.create(userFactory);
+        UserUpdatePasswordDataAccessInterface userUpdatePasswordDataAccessObject =
+                databaseUserUpdatePasswordDataAccessObjectFactoryInterface.create();
+        ModifyProfileOutputBoundary modifyProfilePresenter = new ModifyProfilePresenter();
+        ModifyProfileInputBoundary modifyProfileInteractor =
+                new ModifyProfileInteractor(userUpdateNameDataAccessObject,
+                                        userUpdatePasswordDataAccessObject, userReadDataAccessObject,
+                                        modifyProfilePresenter);
+
+        return new ModifyProfileController(modifyProfileInteractor);
     }
 
 }

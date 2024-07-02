@@ -5,8 +5,6 @@ import entity.product.Product;
 import entity.user.CommonUserFactory;
 import entity.user.User;
 import entity.user.UserFactory;
-import interface_adapter.ViewManagerModel;
-import interface_adapter.login.LoginController;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.view_product.AddToCartController;
@@ -18,10 +16,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Non_logged_in_ProductView extends JPanel implements ActionListener, PropertyChangeListener {
+public class NonloggedInProductView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "non_login_view_product view";// useless??
     private final BuyerViewProductViewModel buyerViewProductViewModel;
 
@@ -34,10 +31,10 @@ public class Non_logged_in_ProductView extends JPanel implements ActionListener,
     private final MainPageController mainPageController;
 
 
-    public Non_logged_in_ProductView(BuyerViewProductViewModel buyerViewProductViewModel,
-                                     AddToCartController addToCartController,
-                                     ViewLoginPageController viewLoginPageController,
-                                     MainPageController mainPageController) {
+    public NonloggedInProductView(BuyerViewProductViewModel buyerViewProductViewModel,
+                                  AddToCartController addToCartController,
+                                  ViewLoginPageController viewLoginPageController,
+                                  MainPageController mainPageController) {
         this.buyerViewProductViewModel = buyerViewProductViewModel;
         this.addToCartController = addToCartController;
         this.viewLoginPageController = viewLoginPageController;
