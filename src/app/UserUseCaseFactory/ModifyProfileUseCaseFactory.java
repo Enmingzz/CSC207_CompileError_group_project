@@ -74,6 +74,7 @@ import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
 import view.profile.ModifyProfileView;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class ModifyProfileUseCaseFactory {
@@ -82,29 +83,37 @@ public class ModifyProfileUseCaseFactory {
                                            MainPageViewModel mainPageViewModel,
                                            ShoppingCartViewModel shoppingCartViewModel,
                                            SearchProductByNameViewModel searchProductByNameViewModel) throws SQLException {
-        MainPageController mainPageController =
-                ModifyProfileUseCaseFactory.createMainPageController(mainPageViewModel,
-                        viewManagerModel);
-        ModifyProfileController modifyProfileController =
-                ModifyProfileUseCaseFactory.createModifyProfileController();
-        ShoppingCartController shoppingCartController =
-                ModifyProfileUseCaseFactory.createShoppingCartController(shoppingCartViewModel);
-        SearchProductByNameController searchProductByNameVController =
-                ModifyProfileUseCaseFactory.createSearchProductByNameController(viewManagerModel,
-                        searchProductByNameViewModel);
-        return new ModifyProfileView(modifyProfileController, mainPageController,
-                        shoppingCartController, searchProductByNameVController);
+        try {
+            MainPageController mainPageController =
+                    ModifyProfileUseCaseFactory.createMainPageController(mainPageViewModel,
+                            viewManagerModel);
+            ModifyProfileController modifyProfileController =
+                    ModifyProfileUseCaseFactory.createModifyProfileController();
+            ShoppingCartController shoppingCartController =
+                    ModifyProfileUseCaseFactory.createShoppingCartController(viewManagerModel,
+                            shoppingCartViewModel);
+            SearchProductByNameController searchProductByNameVController =
+                    ModifyProfileUseCaseFactory.createSearchProductByNameController(viewManagerModel,
+                            searchProductByNameViewModel);
+            return new ModifyProfileView(modifyProfileController, mainPageController,
+                    shoppingCartController, searchProductByNameVController);
+        } catch (SQLException e){
+            //TODO write some message here
+        }
+        return null;
     }
 
-    private static ShoppingCartController createShoppingCartController(ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
+    private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
-        ShoppingCartPresenter presenter = new ShoppingCartPresenter(shoppingCartViewModel);
+        ShoppingCartPresenter presenter = new ShoppingCartPresenter(viewManagerModel,
+                shoppingCartViewModel);
         DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
                 = new DatabaseShoppingCartReadDataAccessObjectFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
         ShoppingCartReadDataAccessInterface shoppingCartReadDataAccess =
                 databaseShoppingCartReadDataAccessObjectFactory.create(shoppingCartFactory,
-                        productFactory);
+                        productFactory, scheduleFactory);
         ShowShoppingCartInputBoundary showShoppingCartInteractor =
                 new ShowShoppingCartInteractor(presenter, shoppingCartReadDataAccess);
         return new ShoppingCartController(showShoppingCartInteractor);

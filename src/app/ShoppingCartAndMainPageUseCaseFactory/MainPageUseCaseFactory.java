@@ -31,6 +31,7 @@ import entity.shopping_cart.ShoppingCartFactory;
 import entity.user.CommonUserFactory;
 import entity.user.UserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.login.ViewLoginPagePresenter;
@@ -85,9 +86,40 @@ import java.sql.SQLException;
 
 public class MainPageUseCaseFactory {
 
-    public static MainPageView Create(){
+    public static MainPageView Create(ViewManagerModel viewManagerModel,
+                                      MainPageViewModel mainPageViewModel,
+                                      ShoppingCartViewModel shoppingCartViewModel,
+                                      SignupViewModel signupViewModel,
+                                      LoginViewModel loginViewModel,
+                                      ViewProfileViewModel viewProfileViewModel,
+                                      SearchProductByNameViewModel searchProductByNameViewModel,
+                                      BuyerViewProductViewModel buyerViewProductViewModel,
+                                      SellerViewProductViewModel sellerViewProductViewModel
+                                      ) throws SQLException, IOException {
         //TODO implements this method.
-        return new MainPageView();
+        ViewProductController viewProductController =
+                MainPageUseCaseFactory.createViewProductController(buyerViewProductViewModel,
+                        sellerViewProductViewModel,
+                        viewManagerModel);
+        MainPageController mainPageController =
+                MainPageUseCaseFactory.createMainPageController(mainPageViewModel,
+                        viewManagerModel);
+        ShoppingCartController shoppingCartController =
+                MainPageUseCaseFactory.createShoppingCartController(viewManagerModel,
+                        shoppingCartViewModel);
+        SignupController signupController =
+                MainPageUseCaseFactory.createUserSignupUseCase(viewManagerModel, signupViewModel,
+                        loginViewModel);
+        LogOutController logOutController =
+                MainPageUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
+        ViewLoginPageController loginController = MainPageUseCaseFactory.createViewLoginPageController();
+        ViewProfileController viewProfileController =
+                MainPageUseCaseFactory.createProfileController(viewManagerModel,
+                        viewProfileViewModel);
+        SearchProductByNameController searchProductByNameController =
+                MainPageUseCaseFactory.createSearchProductByNameController(viewManagerModel,
+                        searchProductByNameViewModel);
+        return new MainPageView(mainPageViewModel, viewProductController);
     }
 
     private static ViewProductController createViewProductController
@@ -135,15 +167,17 @@ public class MainPageUseCaseFactory {
         return new MainPageController(showMainPageInteractor);
     }
 
-    private static ShoppingCartController createShoppingCartController(ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
+    private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
-        ShoppingCartPresenter presenter = new ShoppingCartPresenter(shoppingCartViewModel);
+        ShoppingCartPresenter presenter = new ShoppingCartPresenter(viewManagerModel,
+                shoppingCartViewModel);
         DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
                 = new DatabaseShoppingCartReadDataAccessObjectFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
         ShoppingCartReadDataAccessInterface shoppingCartReadDataAccess =
                 databaseShoppingCartReadDataAccessObjectFactory.create(shoppingCartFactory,
-                        productFactory);
+                        productFactory, scheduleFactory);
         ShowShoppingCartInputBoundary showShoppingCartInteractor =
                 new ShowShoppingCartInteractor(presenter, shoppingCartReadDataAccess);
         return new ShoppingCartController(showShoppingCartInteractor);

@@ -4,6 +4,7 @@ import data_access.interfaces.ShoppingCart.ShoppingCartReadDataAccessInterface;
 import data_access.objects.Product.DatabaseProductReadByIdDataAccessObject;
 import entity.product.Product;
 import entity.product.ProductFactory;
+import entity.schedule.ScheduleFactory;
 import entity.shopping_cart.ShoppingCart;
 import entity.shopping_cart.ShoppingCartFactory;
 
@@ -19,8 +20,10 @@ public class DatabaseShoppingCartReadDataAccessObject implements ShoppingCartRea
     private String query;
     private final ShoppingCartFactory shoppingCartFactory;
     private final ProductFactory productFactory;
+    private final ScheduleFactory scheduleFactory;
 
-    public DatabaseShoppingCartReadDataAccessObject(ShoppingCartFactory shoppingCartFactory, ProductFactory productFactory) throws SQLException {
+    public DatabaseShoppingCartReadDataAccessObject(ShoppingCartFactory shoppingCartFactory, ProductFactory productFactory, ScheduleFactory scheduleFactory) throws SQLException {
+        this.scheduleFactory = scheduleFactory;
         this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
                 "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
                 "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
@@ -35,7 +38,7 @@ public class DatabaseShoppingCartReadDataAccessObject implements ShoppingCartRea
         Product product;
         ArrayList<Product> listProducts = new ArrayList<Product>();
         DatabaseProductReadByIdDataAccessObject databaseProductReadByIdDataAccessObject =
-                new DatabaseProductReadByIdDataAccessObject(productFactory);
+                new DatabaseProductReadByIdDataAccessObject(productFactory, scheduleFactory);
 
         query = "SELECT * FROM Carts WHERE UserID = ?";
         preparedStatement = connection.prepareStatement(query);
