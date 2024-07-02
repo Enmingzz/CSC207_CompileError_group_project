@@ -1,23 +1,26 @@
-package app.ProfileUseCaseFactory;
+package app.ScheduleUseCaseFactory;
 
+import data_access.factories.interfaces.Product.DataBaseProductReadAllDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.Product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
+import data_access.factories.objects.Product.DatabaseProductReadAllDataAccessObjectFactory;
 import data_access.factories.objects.Product.DatabaseProductReadByNameDataAccessObjectFactory;
 import data_access.factories.objects.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactory;
+import data_access.interfaces.Prouct.ProductReadAllDataAccessInterface;
 import data_access.interfaces.Prouct.ProductReadByNameDataAccessInterface;
 import data_access.interfaces.ShoppingCart.ShoppingCartReadDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.ProductFactory;
+import entity.schedule.CommonScheduleFactory;
+import entity.schedule.ScheduleFactory;
 import entity.shopping_cart.CommonShoppingCartFactory;
 import entity.shopping_cart.ShoppingCartFactory;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.logout.LogOutPresenter;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.main_page.MainPagePresenter;
 import interface_adapter.main_page.MainPageViewModel;
-import interface_adapter.profile.ManageProduct.ManageProductViewModel;
 import interface_adapter.profile.ProfileController;
 import interface_adapter.profile.ProfilePresenter;
 import interface_adapter.profile.ProfileViewModel;
@@ -27,7 +30,6 @@ import interface_adapter.search_product.SearchProductByNameViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
-import interface_adapter.signup.SignupViewModel;
 import use_case.logout.LogOutInputBoundary;
 import use_case.logout.LogOutInteractor;
 import use_case.logout.LogOutOutputBoundary;
@@ -42,25 +44,16 @@ import use_case.profile.ViewProfileInteractor;
 import use_case.profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
-import view.profile.ProfileView;
+import view.schedule.SellerScheduleView;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class ProfileUseCaseFactory {
+public class SellerScheduleUseCaseFactory {
 
-    private ProfileUseCaseFactory() {
-    }
-
-    public static ProfileView create(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel, MainPageViewModel mainPageViewModel, ProfileViewModel profileViewModel, ShoppingCartViewModel shoppingCartViewModel, ManageProductViewModel manageProductViewModel) throws IOException {
-        //TODO implements this
-        return null;
-    }
-
-    private static ProfileController createProfileController(ViewManagerModel viewManagerModel,
-                                             SignupViewModel signupViewModel, LoginViewModel loginViewModel) throws IOException {
-
-        return null;
+    public static SellerScheduleView create(){
+        //TODO implements this method
+        return new SellerScheduleView();
     }
 
     private static ShoppingCartController createShoppingCartController(ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
@@ -77,10 +70,15 @@ public class ProfileUseCaseFactory {
         return new ShoppingCartController(showShoppingCartInteractor);
     }
 
-    private static MainPageController createMainPageController(MainPageViewModel mainPageViewModel, ViewManagerModel viewManagerModel){
+    private static MainPageController createMainPageController(MainPageViewModel mainPageViewModel, ViewManagerModel viewManagerModel) throws SQLException {
         ShowMainPageOutputBoundary showMainPagePresenter = new MainPagePresenter(mainPageViewModel, viewManagerModel);
+        DataBaseProductReadAllDataAccessObjectFactoryInterface dataBaseProductReadAllDataAccessObjectFactoryInterface = new DatabaseProductReadAllDataAccessObjectFactory();
+        ProductFactory productFactory = new CommonProductFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+        ProductReadAllDataAccessInterface productReadAllDataAccessObeject =
+                dataBaseProductReadAllDataAccessObjectFactoryInterface.create(productFactory, scheduleFactory);
         ShowMainPageInputBoundary showMainPageInteractor =
-                new ShowMainPageInteractor(showMainPagePresenter);
+                new ShowMainPageInteractor(showMainPagePresenter, productReadAllDataAccessObeject);
         return new MainPageController(showMainPageInteractor);
     }
 
@@ -93,21 +91,22 @@ public class ProfileUseCaseFactory {
     }
 
     private static ProfileController createProfileController(ViewManagerModel viewManagerModel,
-                                                             ProfileViewModel profileViewModel){
-        ViewProfileOutputBoundary viewProfileOutputBoundary =
-                new ProfilePresenter(profileViewModel);
-        ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfileOutputBoundary);
+                                                             ProfileViewModel profileViewModel) throws IOException {
+        ViewProfileOutputBoundary viewProfilePresenter = new ProfilePresenter(profileViewModel,
+                viewManagerModel);
+        ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfilePresenter);
         return new ProfileController(viewProfileInteractor);
     }
 
-    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductByNameViewModel searchProductByNameViewModel){
+    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductByNameViewModel searchProductByNameViewModel) throws SQLException {
         SearchProductByNameOutputBoundary searchProductByNamePresenter =
                 new SearchProductByNamePresenter(viewManagerModel, searchProductByNameViewModel);
         DatabaseProductReadByNameDataAccessObjectFactoryInterface databaseProductReadByNameDataAccessObjectFactory
                 = new DatabaseProductReadByNameDataAccessObjectFactory();
         ProductFactory productFactory = new CommonProductFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
         ProductReadByNameDataAccessInterface productReadByNameDataAccessObject =
-                databaseProductReadByNameDataAccessObjectFactory.create(productFactory);
+                databaseProductReadByNameDataAccessObjectFactory.create(productFactory, scheduleFactory);
         SearchProductByNameInputBoundary searchProductByNameInteractor =
                 new SearchProductByNameInteractor(productReadByNameDataAccessObject,
                         searchProductByNamePresenter);
