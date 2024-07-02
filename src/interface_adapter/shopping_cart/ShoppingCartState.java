@@ -3,11 +3,12 @@ package interface_adapter.shopping_cart;
 import entity.user.User;
 import entity.product.Product;
 import java.util.ArrayList;
+import java.util.List;
 
 
 
 public class ShoppingCartState {
-    private ArrayList<Product> listProducts = new ArrayList<>();
+    private List<Product> listProducts = new ArrayList<>();
     private User user = null;
     private float totalPrice = 0;
 
@@ -27,11 +28,11 @@ public class ShoppingCartState {
         this.user = user;
     }
 
-    public ArrayList<Product> getListProducts() {
+    public List<Product> getListProducts() {
         return listProducts;
     }
 
-    public void setListProducts(ArrayList<Product> listProducts) {
+    public void setListProducts(List<Product> listProducts) {
         this.listProducts = listProducts;
     }
 

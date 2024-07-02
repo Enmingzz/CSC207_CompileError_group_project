@@ -1,7 +1,12 @@
 package view.profile;
 
-import interface_adapter.profile.ProfileState;
-import interface_adapter.profile.ProfileViewModel;
+import interface_adapter.login.LoginController;
+import interface_adapter.main_page.MainPageController;
+import interface_adapter.profile.view_profile.ViewProfileController;
+import interface_adapter.profile.view_profile.ViewProfileState;
+import interface_adapter.profile.view_profile.ViewProfileViewModel;
+import interface_adapter.shopping_cart.ShoppingCartController;
+import interface_adapter.signup.SignupController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,15 +17,31 @@ import java.beans.PropertyChangeListener;
 
 public class UserProfileView extends JFrame implements ActionListener, PropertyChangeListener {
     public final String viewName = "profile view";
-    private final ProfileViewModel viewModel;
+    private final ViewProfileViewModel viewModel;
+    private final ViewProfileController viewProfileController;
+    private final MainPageController mainPageController;
+    private final ShoppingCartController shoppingCartController;
+    private final LoginController loginController;
+    private final SignupController signupController;
+
+
 
     private JTextField studentNumberViewField = new JTextField(20);
     private JTextField studentNameViewField = new JTextField(20);
     private JTextField studentEmailViewField = new JTextField(20);
     private JTextField studentRatingViewField = new JTextField(20);
 
-    public UserProfileView(ProfileViewModel profileViewModel){
+    public UserProfileView(MainPageController mainPageController,
+                           ShoppingCartController shoppingCartController,
+                           ViewProfileViewModel profileViewModel, ViewProfileController
+                                   viewProfileController,  LoginController loginController,
+                           SignupController signupController){
         this.viewModel = profileViewModel;
+        this.viewProfileController = viewProfileController;
+        this.mainPageController = mainPageController;
+        this.shoppingCartController = shoppingCartController;
+        this.loginController = loginController;
+        this.signupController = signupController;
         viewModel.addPropertyChangeListener(this);
         JLabel title = new JLabel(profileViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -46,7 +67,7 @@ public class UserProfileView extends JFrame implements ActionListener, PropertyC
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        ProfileState state = (ProfileState) evt.getNewValue();
+        ViewProfileState state = (ViewProfileState) evt.getNewValue();
     }
 }
 

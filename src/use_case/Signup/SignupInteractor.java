@@ -1,7 +1,7 @@
 package use_case.Signup;
 
-import data_access.interfaces.User.UserCreateDataAccessInterface;
-import data_access.interfaces.User.UserReadDataAccessInterface;
+import data_access.interfaces.user.UserCreateDataAccessInterface;
+import data_access.interfaces.user.UserReadDataAccessInterface;
 import entity.user.User;
 import entity.user.UserFactory;
 
@@ -35,7 +35,7 @@ public class SignupInteractor implements SignupInputBoundary{
     public void execute(SignupInputData signupInputData) throws SQLException {
         //System.out.println(signupInputData.getGeneratedVerificationCode());
         if (existsByStudentNumber(signupInputData)) {
-            userPresenter.presentFailedView("User already exists.");
+            userPresenter.presentFailedView("user already exists.");
         } else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
             userPresenter.presentFailedView("Passwords don't match.");
         }else if(signupInputData.getGeneratedVerificationCode() == ""){

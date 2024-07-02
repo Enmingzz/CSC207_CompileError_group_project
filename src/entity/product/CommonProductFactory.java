@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Return an instance of CommonProduct but with upcasting to Product.
+ * Return an instance of CommonProduct but with upcasting to product.
  * @author CompileError group
  */
 

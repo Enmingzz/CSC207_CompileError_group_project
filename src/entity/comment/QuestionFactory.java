@@ -2,7 +2,7 @@ package entity.comment;
 
 /**
  * The interface of CommonQuestionFactory to generate an instance of CommonQuestion with upcasting
- * to Question
+ * to question
  * @author CompileError group
  */
 

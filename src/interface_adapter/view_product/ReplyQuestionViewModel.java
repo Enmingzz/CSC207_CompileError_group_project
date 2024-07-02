@@ -7,7 +7,7 @@ import java.beans.PropertyChangeSupport;
 
 public class ReplyQuestionViewModel extends ViewModel {
     public final String TITLE_LABEL = "My answers are as follows:";
-    public final String QUESTION_LABEL = "Question to be answered:";
+    public final String QUESTION_LABEL = "question to be answered:";
     public final String ANSWER_LABEL = "Enter your answer here:";
 
     public final String REPLY_BUTTON_LABEL = "Reply";

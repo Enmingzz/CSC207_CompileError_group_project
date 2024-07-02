@@ -1,6 +1,6 @@
 package use_case.login;
 
-import data_access.interfaces.User.UserReadDataAccessInterface;
+import data_access.interfaces.user.UserReadDataAccessInterface;
 import entity.user.User;
 import entity.user.UserFactory;
 

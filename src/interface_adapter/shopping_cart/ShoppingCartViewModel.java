@@ -12,11 +12,11 @@ public class ShoppingCartViewModel extends ViewModel {
     public final String TOTAL_PRICE_LABEL = "Total Price";
     public String TOTAL_PRICE_VARIABLE = "";
 
-    public final String CHECKOUT_BUTTON_LABEL = "Buy Product";
+    public final String CHECKOUT_BUTTON_LABEL = "Buy product";
     public final String DELETE_BUTTON_LABEL = "Remove From Cart";
     public final String BUYER_SCHEDULES_BUTTON_LABEL = "Choose Schedule";
-    public final String RECEIVED_PRODUCT_BUTTON_LABEL = "I Have Received Product";
-    public final String RATE_PRODUCT_BUTTON_LABEL = "Rate Product";
+    public final String RECEIVED_PRODUCT_BUTTON_LABEL = "I Have Received product";
+    public final String RATE_PRODUCT_BUTTON_LABEL = "Rate product";
 
     //TODO: Need extra attributes for the top bar view model.
 
