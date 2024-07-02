@@ -48,7 +48,7 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
 
                 CommonQuestionFactory questionFactory = new CommonQuestionFactory();
                 Question newquestion = questionFactory.createQuestion(question_content,
-                        replyQuestionViewModel.getState().getQuestion();
+                        replyQuestionViewModel.getState().getQuestion());
                 ArrayList<Question> lst_question = buyerViewProductViewModel.getState().getQuestion();
                 lst_question.add(newquestion);
 

@@ -31,6 +31,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.sql.SQLException;
 
 public class MainPageView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -39,7 +40,7 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
     private final MainPageViewModel mainPageViewModel;
 
     // Check necessity of this initialization
-    private ArrayList<JButton> viewProductButtons = new ArrayList<>();
+    private List<JButton> viewProductButtons = new ArrayList<>();
 
     // List and initialize all controllers as `private final`
     private final ViewProductController viewProductController;
@@ -58,10 +59,10 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         this.add(title);
 
-        ArrayList<Product> allProducts = mainPageViewModel.getState().getAllProducts();
+        List<Product> allProducts = mainPageViewModel.getState().getAllProducts();
 
         int _i = 0;
-        ArrayList<JPanel> listProductPanels = new ArrayList<>();
+        List<JPanel> listProductPanels = new ArrayList<>();
 
         for (Product product: allProducts) {
             if (product.getState() == 0){
