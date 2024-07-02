@@ -2,8 +2,8 @@ package view.profile;
 
 import interface_adapter.profile.ManageProduct.ManageProductController;
 import interface_adapter.profile.ModifyProfile.ModifyProfileController;
-import interface_adapter.profile.ProfileState;
-import interface_adapter.profile.ProfileViewModel;
+import interface_adapter.profile.view_profile.ViewProfileState;
+import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import view.profile.ProfileListener.ManageProductListener;
 import view.profile.ProfileListener.ModifyProfileListener;
 
@@ -18,7 +18,7 @@ public class ProfileView extends JFrame implements ActionListener, PropertyChang
     public final String viewName = "profile view";
     private final ManageProductController manageProductController;
     private final ModifyProfileController modifyProfileController;
-    private final ProfileViewModel viewModel;
+    private final ViewProfileViewModel viewModel;
     private final JButton manageProduct;
     private final JButton modifyName;
     private final JButton modifyPassword;
@@ -28,7 +28,7 @@ public class ProfileView extends JFrame implements ActionListener, PropertyChang
     private JTextField studentEmailViewField = new JTextField(20);
     private JTextField studentRatingViewField = new JTextField(20);
 
-    public ProfileView (ManageProductController manageProductController, ModifyProfileController modifyProfileController, ProfileViewModel profileViewModel){
+    public ProfileView (ManageProductController manageProductController, ModifyProfileController modifyProfileController, ViewProfileViewModel profileViewModel){
         this.manageProductController = manageProductController;
         this.modifyProfileController = modifyProfileController;
         this.viewModel = profileViewModel;
@@ -71,6 +71,6 @@ public class ProfileView extends JFrame implements ActionListener, PropertyChang
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        ProfileState state = (ProfileState) evt.getNewValue();
+        ViewProfileState state = (ViewProfileState) evt.getNewValue();
     }
 }

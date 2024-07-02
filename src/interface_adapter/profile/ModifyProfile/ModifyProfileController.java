@@ -1,8 +1,8 @@
 package interface_adapter.profile.ModifyProfile;
 
 import entity.user.User;
-import use_case.profile.ModifyProfile.ModifyProfileInputBoundary;
-import use_case.profile.ModifyProfile.ModifyProfileInputData;
+import use_case.profile.modify_profile.ModifyProfileInputBoundary;
+import use_case.profile.modify_profile.ModifyProfileInputData;
 
 import java.io.IOException;
 import java.sql.SQLException;
