@@ -2,12 +2,15 @@ package app.UserUseCaseFactory;
 
 import data_access.factories.interfaces.Product.DataBaseProductReadAllDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.Product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.Product.DatabaseProductReadByUserDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
 import data_access.factories.objects.Product.DatabaseProductReadAllDataAccessObjectFactory;
 import data_access.factories.objects.Product.DatabaseProductReadByNameDataAccessObjectFactory;
+import data_access.factories.objects.Product.DatabaseProductReadByUserDataAccessObjectFactory;
 import data_access.factories.objects.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactory;
 import data_access.interfaces.Prouct.ProductReadAllDataAccessInterface;
 import data_access.interfaces.Prouct.ProductReadByNameDataAccessInterface;
+import data_access.interfaces.Prouct.ProductReadByUserDataAccessInterface;
 import data_access.interfaces.ShoppingCart.ShoppingCartReadDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.ProductFactory;
@@ -22,10 +25,13 @@ import interface_adapter.logout.LogOutPresenter;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.main_page.MainPagePresenter;
 import interface_adapter.main_page.MainPageViewModel;
+import interface_adapter.modify_product.ViewModifyProductViewModel;
+import interface_adapter.profile.ManageProduct.ManageProductController;
+import interface_adapter.profile.ManageProduct.ManageProductPresenter;
 import interface_adapter.profile.ManageProduct.ManageProductViewModel;
-import interface_adapter.profile.ProfileController;
-import interface_adapter.profile.ProfilePresenter;
-import interface_adapter.profile.ProfileViewModel;
+import interface_adapter.profile.view_profile.ViewProfileController;
+import interface_adapter.profile.view_profile.ViewProfilePresenter;
+import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.search_product.SearchProductByNamePresenter;
 import interface_adapter.search_product.SearchProductByNameViewModel;
@@ -42,9 +48,12 @@ import use_case.main_page.ShowMainPageOutputBoundary;
 import use_case.product_search.SearchProductByNameInputBoundary;
 import use_case.product_search.SearchProductByNameInteractor;
 import use_case.product_search.SearchProductByNameOutputBoundary;
-import use_case.profile.ViewProfileInputBoundary;
-import use_case.profile.ViewProfileInteractor;
-import use_case.profile.ViewProfileOutputBoundary;
+import use_case.profile.manage_product.ManageProductInputBoundary;
+import use_case.profile.manage_product.ManageProductInteractor;
+import use_case.profile.manage_product.ManageProductOutputBoundary;
+import use_case.profile.view_profile.ViewProfileInputBoundary;
+import use_case.profile.view_profile.ViewProfileInteractor;
+import use_case.profile.view_profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
 import view.profile.ProfileView;
@@ -54,20 +63,20 @@ import java.sql.SQLException;
 
 public class ProfileUseCaseFactory {
 
-    private ProfileUseCaseFactory() {
-    }
-
-    public static ProfileView create(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel, MainPageViewModel mainPageViewModel, ProfileViewModel profileViewModel, ShoppingCartViewModel shoppingCartViewModel, ManageProductViewModel manageProductViewModel) throws IOException {
+    public static ProfileView create(ViewManagerModel viewManagerModel, SignupViewModel
+            signupViewModel, LoginViewModel loginViewModel, MainPageViewModel mainPageViewModel,
+                                     ViewProfileViewModel profileViewModel, ShoppingCartViewModel shoppingCartViewModel,
+                                     ManageProductViewModel manageProductViewModel) throws IOException {
         //TODO implements this
         return null;
     }
 
-    private static ProfileController createProfileController(ViewManagerModel viewManagerModel,
-                                                             ProfileViewModel profileViewModel) throws IOException {
-        ViewProfileOutputBoundary viewProfilePresenter = new ProfilePresenter(profileViewModel,
+    private static ViewProfileController createProfileController(ViewManagerModel viewManagerModel,
+                                                                 ViewProfileViewModel profileViewModel) throws IOException {
+        ViewProfileOutputBoundary viewProfilePresenter = new ViewProfilePresenter(profileViewModel,
                 viewManagerModel);
         ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfilePresenter);
-        return new ProfileController(viewProfileInteractor);
+        return new ViewProfileController(viewProfileInteractor);
     }
 
     private static ShoppingCartController createShoppingCartController(ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
@@ -117,6 +126,22 @@ public class ProfileUseCaseFactory {
                 new SearchProductByNameInteractor(productReadByNameDataAccessObject,
                         searchProductByNamePresenter);
         return new SearchProductByNameController(searchProductByNameInteractor);
+    }
+
+    private static ManageProductController createManageProductController(
+            ViewManagerModel viewManagerModel, ViewModifyProductViewModel modifyProductViewModel) throws SQLException {
+        ManageProductOutputBoundary manageProductPresenter =
+                new ManageProductPresenter(viewManagerModel, modifyProductViewModel);
+        DatabaseProductReadByUserDataAccessObjectFactoryInterface databaseProductReadByUserDataAccessObjectFactoryInterface
+                = new DatabaseProductReadByUserDataAccessObjectFactory();
+        ProductFactory productFactory = new CommonProductFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+        ProductReadByUserDataAccessInterface productReadByUserDataAccessObject =
+                databaseProductReadByUserDataAccessObjectFactoryInterface.create(productFactory,
+                        scheduleFactory);
+        ManageProductInputBoundary manageProductInteractor =
+                new ManageProductInteractor(manageProductPresenter, productReadByUserDataAccessObject);
+        return new ManageProductController(manageProductInteractor);
     }
 
 }

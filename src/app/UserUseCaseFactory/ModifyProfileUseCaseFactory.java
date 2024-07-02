@@ -2,18 +2,21 @@ package app.UserUseCaseFactory;
 
 import data_access.factories.interfaces.Product.DataBaseProductReadAllDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.Product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.Product.DatabaseProductReadByUserDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.User.DatabaseUserReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.User.DatabaseUserUpdateNameDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.User.DatabaseUserUpdatePasswordDataAccessObjectFactoryInterface;
 import data_access.factories.objects.Product.DatabaseProductReadAllDataAccessObjectFactory;
 import data_access.factories.objects.Product.DatabaseProductReadByNameDataAccessObjectFactory;
+import data_access.factories.objects.Product.DatabaseProductReadByUserDataAccessObjectFactory;
 import data_access.factories.objects.ShoppingCart.DatabaseShoppingCartReadDataAccessObjectFactory;
 import data_access.factories.objects.User.DatabaseUserReadDataAccessObjectFactory;
 import data_access.factories.objects.User.DatabaseUserUpdateNameDataAccessObjectFactory;
 import data_access.factories.objects.User.DatabaseUserUpdatePasswordDataAccessObjectFactory;
 import data_access.interfaces.Prouct.ProductReadAllDataAccessInterface;
 import data_access.interfaces.Prouct.ProductReadByNameDataAccessInterface;
+import data_access.interfaces.Prouct.ProductReadByUserDataAccessInterface;
 import data_access.interfaces.ShoppingCart.ShoppingCartReadDataAccessInterface;
 import data_access.interfaces.User.UserReadDataAccessInterface;
 import data_access.interfaces.User.UserUpdateNameDataAccessInterface;
@@ -32,11 +35,15 @@ import interface_adapter.logout.LogOutPresenter;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.main_page.MainPagePresenter;
 import interface_adapter.main_page.MainPageViewModel;
+import interface_adapter.modify_product.ViewModifyProductController;
+import interface_adapter.modify_product.ViewModifyProductViewModel;
+import interface_adapter.profile.ManageProduct.ManageProductController;
+import interface_adapter.profile.ManageProduct.ManageProductPresenter;
 import interface_adapter.profile.ModifyProfile.ModifyProfileController;
 import interface_adapter.profile.ModifyProfile.ModifyProfilePresenter;
-import interface_adapter.profile.ProfileController;
-import interface_adapter.profile.ProfilePresenter;
-import interface_adapter.profile.ProfileViewModel;
+import interface_adapter.profile.view_profile.ViewProfileController;
+import interface_adapter.profile.view_profile.ViewProfilePresenter;
+import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.search_product.SearchProductByNamePresenter;
 import interface_adapter.search_product.SearchProductByNameViewModel;
@@ -49,15 +56,20 @@ import use_case.logout.LogOutOutputBoundary;
 import use_case.main_page.ShowMainPageInputBoundary;
 import use_case.main_page.ShowMainPageInteractor;
 import use_case.main_page.ShowMainPageOutputBoundary;
+import use_case.modify_product.ViewModifyProductInputBoundary;
+import use_case.modify_product.ViewModifyProductInteractor;
 import use_case.product_search.SearchProductByNameInputBoundary;
 import use_case.product_search.SearchProductByNameInteractor;
 import use_case.product_search.SearchProductByNameOutputBoundary;
-import use_case.profile.ModifyProfile.ModifyProfileInputBoundary;
-import use_case.profile.ModifyProfile.ModifyProfileInteractor;
-import use_case.profile.ModifyProfile.ModifyProfileOutputBoundary;
-import use_case.profile.ViewProfileInputBoundary;
-import use_case.profile.ViewProfileInteractor;
-import use_case.profile.ViewProfileOutputBoundary;
+import use_case.profile.manage_product.ManageProductInputBoundary;
+import use_case.profile.manage_product.ManageProductInteractor;
+import use_case.profile.manage_product.ManageProductOutputBoundary;
+import use_case.profile.modify_profile.ModifyProfileInputBoundary;
+import use_case.profile.modify_profile.ModifyProfileInteractor;
+import use_case.profile.modify_profile.ModifyProfileOutputBoundary;
+import use_case.profile.view_profile.ViewProfileInputBoundary;
+import use_case.profile.view_profile.ViewProfileInteractor;
+import use_case.profile.view_profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
 import view.profile.ModifyProfileView;
@@ -118,12 +130,12 @@ public class ModifyProfileUseCaseFactory {
         return new LogOutController(logOutInteractor);
     }
 
-    private static ProfileController createProfileController(ViewManagerModel viewManagerModel,
-                                                             ProfileViewModel profileViewModel) {
-        ViewProfileOutputBoundary viewProfilePresenter = new ProfilePresenter(profileViewModel,
+    private static ViewProfileController createProfileController(ViewManagerModel viewManagerModel,
+                                                                 ViewProfileViewModel profileViewModel) {
+        ViewProfileOutputBoundary viewProfilePresenter = new ViewProfilePresenter(profileViewModel,
                 viewManagerModel);
         ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfilePresenter);
-        return new ProfileController(viewProfileInteractor);
+        return new ViewProfileController(viewProfileInteractor);
     }
 
     private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductByNameViewModel searchProductByNameViewModel) throws SQLException {
@@ -161,6 +173,27 @@ public class ModifyProfileUseCaseFactory {
                                         modifyProfilePresenter);
 
         return new ModifyProfileController(modifyProfileInteractor);
+    }
+
+    private static ManageProductController createManageProductController(
+            ViewManagerModel viewManagerModel, ViewModifyProductViewModel modifyProductViewModel) throws SQLException {
+        ManageProductOutputBoundary manageProductPresenter =
+                new ManageProductPresenter(viewManagerModel, modifyProductViewModel);
+        DatabaseProductReadByUserDataAccessObjectFactoryInterface databaseProductReadByUserDataAccessObjectFactoryInterface
+                = new DatabaseProductReadByUserDataAccessObjectFactory();
+        ProductFactory productFactory = new CommonProductFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+        ProductReadByUserDataAccessInterface productReadByUserDataAccessObject =
+                databaseProductReadByUserDataAccessObjectFactoryInterface.create(productFactory,
+                        scheduleFactory);
+        ManageProductInputBoundary manageProductInteractor =
+                new ManageProductInteractor(manageProductPresenter, productReadByUserDataAccessObject);
+        return new ManageProductController(manageProductInteractor);
+    }
+
+    private static ViewModifyProductController createModifyProductController(){
+        ViewModifyProductInputBoundary modifyProductInteractor = new ViewModifyProductInteractor();
+        return new ViewModifyProductController(modifyProductInteractor);
     }
 
 }

@@ -24,9 +24,9 @@ import interface_adapter.logout.LogOutPresenter;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.main_page.MainPagePresenter;
 import interface_adapter.main_page.MainPageViewModel;
-import interface_adapter.profile.ProfileController;
-import interface_adapter.profile.ProfilePresenter;
-import interface_adapter.profile.ProfileViewModel;
+import interface_adapter.profile.view_profile.ViewProfileController;
+import interface_adapter.profile.view_profile.ViewProfilePresenter;
+import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.search_product.SearchProductByNamePresenter;
 import interface_adapter.search_product.SearchProductByNameViewModel;
@@ -46,9 +46,9 @@ import use_case.main_page.ShowMainPageOutputBoundary;
 import use_case.product_search.SearchProductByNameInputBoundary;
 import use_case.product_search.SearchProductByNameInteractor;
 import use_case.product_search.SearchProductByNameOutputBoundary;
-import use_case.profile.ViewProfileInputBoundary;
-import use_case.profile.ViewProfileInteractor;
-import use_case.profile.ViewProfileOutputBoundary;
+import use_case.profile.view_profile.ViewProfileInputBoundary;
+import use_case.profile.view_profile.ViewProfileInteractor;
+import use_case.profile.view_profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.*;
 import use_case.view_product.PublishQuestionInputBoundary;
 import use_case.view_product.PublishQuestionInteractor;
@@ -62,7 +62,7 @@ public class BuyerViewProductUseCaseFactory {
     public static BuyerViewProductView create(ViewManagerModel viewManagerModel,
                                               MainPageViewModel mainPageViewModel,
                                               ShoppingCartViewModel shoppingCartViewModel,
-                                              ProfileViewModel profileViewModel,
+                                              ViewProfileViewModel profileViewModel,
                                               BuyerViewProductViewModel buyerViewProductViewModel) throws SQLException {
         //TODO implements this method
         MainPageController mainPageController =
@@ -138,12 +138,12 @@ public class BuyerViewProductUseCaseFactory {
         return new LogOutController(logOutInteractor);
     }
 
-    private static ProfileController createProfileController(ViewManagerModel viewManagerModel,
-                                                             ProfileViewModel profileViewModel) throws IOException {
-        ViewProfileOutputBoundary viewProfilePresenter = new ProfilePresenter(profileViewModel,
+    private static ViewProfileController createProfileController(ViewManagerModel viewManagerModel,
+                                                                 ViewProfileViewModel profileViewModel) throws IOException {
+        ViewProfileOutputBoundary viewProfilePresenter = new ViewProfilePresenter(profileViewModel,
                 viewManagerModel);
         ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfilePresenter);
-        return new ProfileController(viewProfileInteractor);
+        return new ViewProfileController(viewProfileInteractor);
     }
 
     private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductByNameViewModel searchProductByNameViewModel) throws SQLException {
