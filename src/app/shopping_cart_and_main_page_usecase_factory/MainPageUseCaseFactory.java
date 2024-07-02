@@ -45,6 +45,7 @@ import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.search_product.SearchProductByNamePresenter;
 import interface_adapter.search_product.SearchProductByNameViewModel;
+import interface_adapter.search_product.SearchProductByTagController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
@@ -118,7 +119,12 @@ public class MainPageUseCaseFactory {
         SearchProductByNameController searchProductByNameController =
                 MainPageUseCaseFactory.createSearchProductByNameController(viewManagerModel,
                         searchProductByNameViewModel);
-        return new MainPageView(mainPageViewModel, viewProductController);
+        return new MainPageView(mainPageViewModel, viewProductController, shoppingCartController,
+                viewProfileController,
+                searchProductByTagController,
+                searchProductByNameController,
+                logOutController,
+                mainPageController);
     }
 
     private static ViewProductController createViewProductController
