@@ -84,6 +84,7 @@ public class Main {
         BuyerSelectScheduleViewModel buyerSelectScheduleViewModel = new BuyerSelectScheduleViewModel();
         SearchProductByNameViewModel searchProductByNameViewModel = new SearchProductByNameViewModel();
         SearchProductByTagViewModel searchProductByTagViewModel = new SearchProductByTagViewModel();
+        ViewProfileViewModel viewProfileViewModel = new ViewProfileViewModel();
 
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel,
@@ -101,7 +102,10 @@ public class Main {
         SellerScheduleView sellerScheduleView = SellerScheduleUseCaseFactory.create();
         BuyerScheduleView buyerScheduleView = BuyerScheduleUseCaseFactory.create();
         SellerViewProductView sellerViewProductView = SellerViewProductUseCaseFactory.create();
-        MainPageView mainPageView = MainPageUseCaseFactory.Create();
+        MainPageView mainPageView = MainPageUseCaseFactory.Create(viewManagerModel,
+                        mainPageViewModel, shoppingCartViewModel, signupViewModel, loginViewModel,
+                viewProfileViewModel, searchProductByNameViewModel, buyerViewProductViewModel,
+                sellerViewProductViewModel);
         ShoppingCartView shoppingCartView =
                 ShoppingCartUseCaseFactory.create(shoppingCartViewModel,
                         buyerViewProductViewModel, sellerViewProductViewModel, viewManagerModel);

@@ -81,7 +81,8 @@ public class SignupUseCaseFactory {
                     SignupUseCaseFactory.createMainPageController(mainPageViewModel,
                     viewManagerModel);
             ShoppingCartController shoppingCartController =
-                    SignupUseCaseFactory.createShoppingCartController(shoppingCartViewModel);
+                    SignupUseCaseFactory.createShoppingCartController(viewManagerModel,
+                            shoppingCartViewModel);
             SearchProductByNameController searchProductByNameController =
                     SignupUseCaseFactory.createSearchProductByNameController(viewManagerModel,
                             searchProductByNameViewModel);
@@ -129,15 +130,17 @@ public class SignupUseCaseFactory {
         return new EmailVerificationController(emailVerificationInteractor);
     }
 
-    private static ShoppingCartController createShoppingCartController(ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
+    private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
-        ShoppingCartPresenter presenter = new ShoppingCartPresenter(shoppingCartViewModel);
+        ShoppingCartPresenter presenter = new ShoppingCartPresenter(viewManagerModel,
+                shoppingCartViewModel);
         DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
                 = new DatabaseShoppingCartReadDataAccessObjectFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
         ShoppingCartReadDataAccessInterface shoppingCartReadDataAccess =
                 databaseShoppingCartReadDataAccessObjectFactory.create(shoppingCartFactory,
-                        productFactory);
+                        productFactory, scheduleFactory);
         ShowShoppingCartInputBoundary showShoppingCartInteractor =
                 new ShowShoppingCartInteractor(presenter, shoppingCartReadDataAccess);
         return new ShoppingCartController(showShoppingCartInteractor);

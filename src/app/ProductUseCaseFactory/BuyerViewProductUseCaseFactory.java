@@ -90,9 +90,10 @@ public class BuyerViewProductUseCaseFactory {
                 = new DatabaseShoppingCartReadDataAccessObjectFactory();
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
         ShoppingCartReadDataAccessInterface shoppingCartReadDataAccessObject =
                 shoppingCartReadDataAccessObjectFactoryInterface.create(shoppingCartFactory,
-                        productFactory);
+                        productFactory, scheduleFactory);
         DatabaseShoppingCartUpdateAddDataAccessObjectFactoryInterface shoppingCartUpdateAddDataAccessObjectFactory
                 = new DatabaseShoppingCartUpdateAddDataAccessObjectFactory();
         ShoppingCartUpdateAddDataAccessInterface shoppingCartUpdateDeleteDataAccessObject =

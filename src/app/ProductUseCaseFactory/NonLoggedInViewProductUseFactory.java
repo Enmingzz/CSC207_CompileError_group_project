@@ -42,6 +42,7 @@ import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.view_product.AddToCartController;
 import use_case.Signup.SignupInputBoundary;
 import use_case.Signup.SignupInteractor;
 import use_case.Signup.SignupOutputBoundary;
@@ -59,6 +60,7 @@ import use_case.profile.view_profile.ViewProfileInputBoundary;
 import use_case.profile.view_profile.ViewProfileInteractor;
 import use_case.profile.view_profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.*;
+import view.shopping_cart.ShoppingCartView;
 import view.view_product.NonloggedInProductView;
 
 import java.io.IOException;
@@ -66,19 +68,40 @@ import java.sql.SQLException;
 
 public class NonLoggedInViewProductUseFactory {
 
-    public static NonloggedInProductView create(ViewManagerModel viewManagerModel) {
-        return new NonloggedInProductView();
+    public static NonloggedInProductView create(ViewManagerModel viewManagerModel,
+                                                MainPageViewModel mainPageViewModel,
+                                                ShoppingCartViewModel shoppingCartViewModel,
+                                                SearchProductByNameViewModel searchProductByNameViewModel,
+                                                LoginViewModel loginViewModel,
+                                                SignupViewModel signupViewModel) throws SQLException, IOException {
+        try {
+            LoginController loginController =
+                    NonLoggedInViewProductUseFactory.createUserLoginUseCase(viewManagerModel,
+                            loginViewModel, mainPageViewModel);
+            MainPageController mainPageController =
+                    NonLoggedInViewProductUseFactory.createMainPageController(mainPageViewModel,
+                            viewManagerModel);
+            ShoppingCartController shoppingCartController =
+                    NonLoggedInViewProductUseFactory.createShoppingCartController(viewManagerModel, shoppingCartViewModel);
+            return new NonloggedInProductView();
+        }catch(IOException e){
+            //TODO write some message here
+        }catch(SQLException e){
+            //TODO write some message here
+        }
     }
 
-    private static ShoppingCartController createShoppingCartController(ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
+    private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
-        ShoppingCartPresenter presenter = new ShoppingCartPresenter(shoppingCartViewModel);
+        ShoppingCartPresenter presenter = new ShoppingCartPresenter(viewManagerModel,
+                shoppingCartViewModel);
         DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
                 = new DatabaseShoppingCartReadDataAccessObjectFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
         ShoppingCartReadDataAccessInterface shoppingCartReadDataAccess =
                 databaseShoppingCartReadDataAccessObjectFactory.create(shoppingCartFactory,
-                        productFactory);
+                        productFactory, scheduleFactory);
         ShowShoppingCartInputBoundary showShoppingCartInteractor =
                 new ShowShoppingCartInteractor(presenter, shoppingCartReadDataAccess);
         return new ShoppingCartController(showShoppingCartInteractor);
@@ -149,6 +172,19 @@ public class NonLoggedInViewProductUseFactory {
                 new SearchProductByNameInteractor(productReadByNameDataAccessObject,
                         searchProductByNamePresenter);
         return new SearchProductByNameController(searchProductByNameInteractor);
+    }
+
+    private static LoginController createUserLoginUseCase(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, MainPageViewModel mainPageViewModel) throws IOException, SQLException {
+
+        LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel, loginViewModel, mainPageViewModel);
+        DatabaseUserReadDataAccessObjectFactoryInterface databaseUserReadDataAccessObjectFactory = new DatabaseUserReadDataAccessObjectFactory();
+        UserReadDataAccessInterface userReadDataAccessInterface = databaseUserReadDataAccessObjectFactory.create(new CommonUserFactory());
+
+        UserFactory userFactory = new CommonUserFactory();
+
+        LoginInputBoundary userLoginInteractor = new LoginInteractor(userReadDataAccessInterface, loginOutputBoundary, userFactory);
+
+        return new LoginController(userLoginInteractor);
     }
 
 }
