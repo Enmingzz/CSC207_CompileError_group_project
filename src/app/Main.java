@@ -1,10 +1,23 @@
 package app;
 
+import app.ProductUseCaseFactory.ViewProductUseFactory;
+import app.ShoppingCartAndMainPageUseCaseFactory.MainPageUseCaseFactory;
+import app.ShoppingCartAndMainPageUseCaseFactory.ShoppingCartUseCaseFactory;
+import app.UserUseCaseFactory.LoginUseCaseFactory;
+import app.UserUseCaseFactory.SignupUseCaseFactory;
+import app.SearchUseCaseFactory.SearchByNameUseCaseFactory;
+import app.SearchUseCaseFactory.SearchByTagUseCaseFactory;
+import app.ProductUseCaseFactory.BuyerViewProductUseCaseFactory;
+import app.ProductUseCaseFactory.SellerViewProductUseCaseFactory;
+import app.UserUseCaseFactory.ModifyProfileUseCaseFactory;
+import app.UserUseCaseFactory.ProfileUseCaseFactory;
+import app.ScheduleUseCaseFactory.BuyerScheduleUseCaseFactory;
+import app.ScheduleUseCaseFactory.SellerScheduleUseCaseFactory;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.modify_product.ModifyProductViewModel;
-import interface_adapter.profile.ManageProductViewModel;
-import interface_adapter.profile.ModifyProfileViewModel;
+import interface_adapter.profile.ManageProduct.ManageProductViewModel;
+import interface_adapter.profile.ModifyProfile.ModifyProfileViewModel;
 import interface_adapter.profile.ProfileViewModel;
 import interface_adapter.schedule.BuyerSelectScheduleViewModel;
 import interface_adapter.schedule.SellerSelectScheduleViewModel;
@@ -28,7 +41,6 @@ import view.schedule.BuyerScheduleView;
 import view.schedule.SellerScheduleView;
 import view.signup.SignupView;
 import view.view_product.BuyerViewProductView;
-import view.view_product.ProductView;
 import view.view_product.SellerViewProductView;
 
 import javax.swing.*;

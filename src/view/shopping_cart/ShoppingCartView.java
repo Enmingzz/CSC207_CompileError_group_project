@@ -87,6 +87,8 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        this.add(title);
+
         for (Product product : listProducts) {
 
             JButton viewButton = new JButton(product.getTitle());
@@ -108,6 +110,10 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
                     }
             );
             viewButtons.add(viewButton);
+
+            String priceAsString = String.valueOf(product.getPrice());
+
+            JLabel priceLabel = new JLabel("$" + priceAsString);
 
             if (product.getState() == 0) {
                 JButton checkoutButton = new JButton(shoppingCartViewModel.CHECKOUT_BUTTON_LABEL);
@@ -151,7 +157,7 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
                 secondaryActionButtons.add(deleteButton);
 
                 ShoppingCartSellingPanel productSellingPanel = new ShoppingCartSellingPanel(
-                        viewButton, checkoutButton, deleteButton
+                        viewButton, priceLabel, checkoutButton, deleteButton
                 );
                 this.add(productSellingPanel);
 
@@ -159,7 +165,7 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
             else if (product.getState() == 1) {
                 JLabel pendingScheduleLabel = new JLabel(shoppingCartViewModel.PENDING_SELLER_SCHEDULE_LABEL);
                 ShoppingCartSellerSelectPanel sellerSelectPanel = new ShoppingCartSellerSelectPanel(
-                        viewButton, pendingScheduleLabel
+                        viewButton, priceLabel, pendingScheduleLabel
                 );
                 this.add(sellerSelectPanel);
 
@@ -190,7 +196,7 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
                 primaryActionButtons.add(scheduleButton);
 
                 ShoppingCartBuyerSelectPanel buyerSelectPanel = new ShoppingCartBuyerSelectPanel(
-                        viewButton, scheduleButton
+                        viewButton, priceLabel, scheduleButton
                 );
                 this.add(buyerSelectPanel);
 
@@ -222,7 +228,7 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
 
 
                 ShoppingCartConfirmationPanel confirmationPanel = new ShoppingCartConfirmationPanel(
-                        viewButton, confirmButton
+                        viewButton, priceLabel, confirmButton
                 );
                 this.add(confirmationPanel);
             }
@@ -253,19 +259,30 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
                 primaryActionButtons.add(ratingButton);
 
                 ShoppingCartRatingPanel ratingPanel = new ShoppingCartRatingPanel(
-                        viewButton, ratingButton
+                        viewButton, priceLabel, ratingButton
                 );
                 this.add(ratingPanel);
             }
 
         }
 
+        String totalPriceAsString = String.valueOf(shoppingCartViewModel.getState().getTotalPrice());
 
+        JLabel totalPriceLabel = new JLabel("$" + totalPriceAsString);
+
+        TotalPricePanel totalPricePanel = new TotalPricePanel(
+            totalPriceLabel
+        );
+
+        this.add(totalPricePanel);
+
+        //TODO: FINISH TOP BAR
 
     }
 
+
     @Override
-    public void actionPerformed(ActionEvent evt) {
+    public void actionPerformed(ActionEvent e) {
 
     }
 

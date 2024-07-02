@@ -13,5 +13,4 @@ public class ViewProfileInputData {
     public User getUser() {
         return user;
     }
-
 }

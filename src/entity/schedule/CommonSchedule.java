@@ -1,6 +1,7 @@
 package entity.schedule;
 
 import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -11,18 +12,18 @@ import java.util.ArrayList;
  */
 
 public class CommonSchedule implements Schedule{
-    private Time buyerTime;
-    private ArrayList<Time> sellerTime;
+    private LocalDateTime buyerTime;
+    private ArrayList<LocalDateTime> sellerTime;
 
-    public CommonSchedule(Time buyerTime, ArrayList<Time> sellerTime) {
+    public CommonSchedule(LocalDateTime buyerTime, ArrayList<LocalDateTime> sellerTime) {
         this.buyerTime = buyerTime;
         this.sellerTime = sellerTime;
     }
-    public Time getBuyerTime() {
+    public LocalDateTime getBuyerTime() {
         return buyerTime;
     }
 
-    public ArrayList<Time> getSellerTime() {
+    public ArrayList<LocalDateTime> getSellerTime() {
         return sellerTime;
     }
 }
