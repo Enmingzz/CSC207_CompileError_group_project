@@ -2,7 +2,7 @@ package use_case.main_page;
 
 import entity.product.Product;
 import entity.user.User;
-import data_access.interfaces.Prouct.ProductReadAllDataAccessInterface;
+import data_access.interfaces.product.ProductReadAllDataAccessInterface;
 
 import java.io.IOException;
 import java.sql.SQLException;

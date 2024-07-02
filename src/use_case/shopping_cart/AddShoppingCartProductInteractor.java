@@ -3,8 +3,8 @@ package use_case.shopping_cart;
 import entity.product.Product;
 import entity.shopping_cart.ShoppingCart;
 import entity.user.User;
-import data_access.interfaces.ShoppingCart.ShoppingCartUpdateAddDataAccessInterface;
-import data_access.interfaces.ShoppingCart.ShoppingCartReadDataAccessInterface;
+import data_access.interfaces.shopping_cart.ShoppingCartUpdateAddDataAccessInterface;
+import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
 
 import java.io.IOException;
 import java.sql.SQLException;

@@ -21,7 +21,7 @@ public class PurchasePresenter implements PurchaseOutputBoundary {
 
     @Override
     public void prepareSuccessView(PurchaseOutputData response) throws SQLException, IOException {
-        // refreshes the view model of ShoppingCart
+        // refreshes the view model of shopping_cart
         ShoppingCartState shoppingCartState = shoppingCartViewModel.getState();
         Product purchasedProduct = response.getProduct();
         String purchasedProductId = purchasedProduct.getProductID();

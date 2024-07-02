@@ -1,7 +1,6 @@
 package use_case.product_search;
 
-import data_access.factories.interfaces.Product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
-import data_access.interfaces.Prouct.ProductReadByNameDataAccessInterface;
+import data_access.interfaces.product.ProductReadByNameDataAccessInterface;
 
 public class SearchProductByNameInteractor implements SearchProductByNameInputBoundary{
 

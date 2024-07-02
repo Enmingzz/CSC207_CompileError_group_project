@@ -1,7 +1,7 @@
 package view.profile;
 
-import interface_adapter.profile.ManageProduct.ManageProductController;
-import interface_adapter.profile.ModifyProfile.ModifyProfileController;
+import interface_adapter.profile.manage_product.ManageProductController;
+import interface_adapter.profile.modify_profile.ModifyProfileController;
 import interface_adapter.profile.view_profile.ViewProfileState;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import view.profile.ProfileListener.ManageProductListener;

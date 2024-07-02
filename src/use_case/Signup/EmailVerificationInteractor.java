@@ -74,7 +74,7 @@ public class EmailVerificationInteractor  implements EmailVerificationInputBound
 
         message.setFrom(new InternetAddress(sendMail, "email_verification", "UTF-8"));
 
-        message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, "XX User", "UTF-8"));
+        message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, "XX user", "UTF-8"));
 
         message.setSubject(subject, "UTF-8");
 

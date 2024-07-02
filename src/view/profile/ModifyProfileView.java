@@ -1,8 +1,8 @@
 package view.profile;
 
 import interface_adapter.main_page.MainPageController;
-import interface_adapter.profile.ModifyProfile.ModifyProfileController;
-import interface_adapter.profile.ModifyProfile.ModifyProfileViewModel;
+import interface_adapter.profile.modify_profile.ModifyProfileController;
+import interface_adapter.profile.modify_profile.ModifyProfileViewModel;
 import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 

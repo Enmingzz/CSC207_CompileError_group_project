@@ -7,8 +7,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * One of core entities. Override all getter method in the interface Product.
- * Has some important attributes; ArrayList<Question> questions and CommonUser Buyer, Seller.
+ * One of core entities. Override all getter method in the interface product.
+ * Has some important attributes; ArrayList<question> questions and CommonUser Buyer, Seller.
  * @author CompileError group
  */
 
@@ -35,9 +35,9 @@ public class CommonProduct implements Product{
      * @param rating: rating of product if it is sold
      * @param state: the current state of the product, determining whether it is being sold, pending schedule, pending
      *             rating, sold etc. Integer representation of each state is as follows:
-     *             - 0: Product is being sold, searchable using searchByTag or searchByName; a newly created product has
+     *             - 0: product is being sold, searchable using searchByTag or searchByName; a newly created product has
      *                  state 0
-     *             - 1: Product has been checked out by a buyer and the seller is prompted to choose a list of times
+     *             - 1: product has been checked out by a buyer and the seller is prompted to choose a list of times
      *                  for scheduling meeting time
      *             - 2: Seller has chosen a list of times for scheduling meeting time, and the buyer is prompted to
      *                  choose a meeting time from the seller's chosen list
