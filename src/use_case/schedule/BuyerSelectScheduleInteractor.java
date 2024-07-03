@@ -1,8 +1,8 @@
 package use_case.schedule;
 
-import data_access.interfaces.Prouct.ProductReadByIdDataAccessInterface;
-import data_access.interfaces.Prouct.ProductUpdateBuyerScheduleDataAccessInterface;
-import data_access.interfaces.Prouct.ProductUpdateStateDataAccessInterface;
+import data_access.interfaces.product.ProductReadByIdDataAccessInterface;
+import data_access.interfaces.product.ProductUpdateBuyerScheduleDataAccessInterface;
+import data_access.interfaces.product.ProductUpdateStateDataAccessInterface;
 import entity.product.Product;
 
 import java.time.LocalDateTime;
