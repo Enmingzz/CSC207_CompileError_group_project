@@ -1,8 +1,12 @@
 package interface_adapter.shopping_cart;
 
+import entity.product.Product;
+import entity.user.User;
 import interface_adapter.ViewManagerModel;
 import use_case.shopping_cart.ShowShoppingCartOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartOutputData;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShoppingCartPresenter implements ShowShoppingCartOutputBoundary {
 
@@ -15,8 +19,18 @@ public class ShoppingCartPresenter implements ShowShoppingCartOutputBoundary {
         this.viewManagerModel = viewManagerModel;
     }
 
-    public void prepareSuccessfulView(ShowShoppingCartOutputData showShoppingCartOutputData) {
-        //TODO need to implement this
+    public void prepareSuccessView(ShowShoppingCartOutputData response) {
+        ShoppingCartState shoppingCartState = shoppingCartViewModel.getState();
+        List<Product> listProducts = response.getShoppingCart().getListProducts();
+        User user = response.getUser();
+
+        shoppingCartState.setListProducts(listProducts);
+        shoppingCartState.setUser(user);
+
+        shoppingCartViewModel.setState(shoppingCartState);
+        shoppingCartViewModel.firePropertyChanged();
+        viewManagerModel.setActiveView(shoppingCartViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 
 }

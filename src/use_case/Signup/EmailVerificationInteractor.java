@@ -11,7 +11,7 @@ import javax.mail.internet.MimeMessage;
  * Use the Java Mail API to implement email verification.
  */
 
-public class EmailVerificationInteractor  implements EmailVerificationInputBoundary{
+public class EmailVerificationInteractor implements EmailVerificationInputBoundary{
 
     final EmailVerificationOutputBoundary emailVerificationPresenter;
 
@@ -19,7 +19,7 @@ public class EmailVerificationInteractor  implements EmailVerificationInputBound
         this.emailVerificationPresenter = emailVerificationPresenter;
     }
 
-    public void execute(String email) throws Exception {
+    public void execute(EmailVerificationInputData email) throws Exception {
 
         /**
          * Sending email configuration.
@@ -44,7 +44,8 @@ public class EmailVerificationInteractor  implements EmailVerificationInputBound
         int code = rand.nextInt(900000) + 100000;
         String messagetosend = Integer.toString(code);
 
-        MimeMessage message = createMimeMessage(session, "3232085039@qq.com", email, "Verify", messagetosend);
+        MimeMessage message = createMimeMessage(session, "3232085039@qq.com", email.getEmail(), "Verify",
+                messagetosend);
 
         Transport transport = session.getTransport();
 

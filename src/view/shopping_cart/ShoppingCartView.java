@@ -2,12 +2,12 @@ package view.shopping_cart;
 
 import entity.product.Product;
 import entity.user.User;
-import interface_adapter.shopping_cart.ShoppingCartViewModel;
+
 import interface_adapter.shopping_cart.ShoppingCartState;
+import interface_adapter.shopping_cart.ShoppingCartViewModel;
 
 // Import all controllers related to shopping_cart
 import interface_adapter.shopping_cart.PurchaseController;
-import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.schedule.BuyerSelectScheduleController;
 import interface_adapter.view_product.ViewProductController;
 import interface_adapter.shopping_cart.DeleteShoppingCartProductController;
@@ -15,6 +15,13 @@ import interface_adapter.shopping_cart.ConfirmController;
 import interface_adapter.rating.RateProductController;
 
 // Import all Controllers related to the top bar
+import interface_adapter.logout.LogOutController;
+import interface_adapter.profile.view_profile.ViewProfileController;
+import interface_adapter.search_product.SearchProductByNameController;
+import interface_adapter.search_product.SearchProductByTagController;
+import interface_adapter.shopping_cart.ShoppingCartController;
+import interface_adapter.main_page.MainPageController;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,6 +33,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.sql.SQLException;
 
 public class ShoppingCartView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -38,9 +46,9 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
     private final ShoppingCartViewModel shoppingCartViewModel;
 
     // Check necessity of this part of initialization
-    private ArrayList<JButton> viewButtons = new ArrayList<>();
-    private ArrayList<JButton> primaryActionButtons = new ArrayList<>();
-    private ArrayList<JButton> secondaryActionButtons = new ArrayList<>();
+    private List<JButton> viewButtons = new ArrayList<>();
+    private List<JButton> primaryActionButtons = new ArrayList<>();
+    private List<JButton> secondaryActionButtons = new ArrayList<>();
 
     // List and initialize all controllers as `private final`
     private final ViewProductController viewProductController;
@@ -49,6 +57,13 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
     private final BuyerSelectScheduleController buyerSelectScheduleController;
     private final ConfirmController confirmController;
     private final RateProductController rateProductController;
+
+    private final ShoppingCartController shoppingCartController;
+    private final ViewProfileController viewProfileController;
+    private final SearchProductByTagController searchProductByTagController;
+    private final SearchProductByNameController searchProductByNameController;
+    private final LogOutController logOutController;
+    private final MainPageController mainPageController;
 
     /**
      *
@@ -67,7 +82,13 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
                             DeleteShoppingCartProductController deleteShoppingCartProductController,
                             BuyerSelectScheduleController buyerSelectScheduleController,
                             ConfirmController confirmController,
-                            RateProductController rateProductController) {
+                            RateProductController rateProductController,
+                            ShoppingCartController shoppingCartController,
+                            ViewProfileController viewProfileController,
+                            SearchProductByTagController searchProductByTagController,
+                            SearchProductByNameController searchProductByNameController,
+                            LogOutController logOutController,
+                            MainPageController mainPageController) {
 
         // Initialize all controllers here
         this.viewProductController = viewProductController;
@@ -77,17 +98,27 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
         this.confirmController = confirmController;
         this.rateProductController = rateProductController;
 
+        this.viewProfileController = viewProfileController;
+        this.shoppingCartController = shoppingCartController;
+        this.searchProductByNameController = searchProductByNameController;
+        this.searchProductByTagController = searchProductByTagController;
+        this.logOutController = logOutController;
+        this.mainPageController = mainPageController;
+
+
         this.shoppingCartViewModel = shoppingCartViewModel;
         shoppingCartViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(shoppingCartViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        ArrayList<Product> listProducts = shoppingCartViewModel.getState().getListProducts();
+        List<Product> listProducts = shoppingCartViewModel.getState().getListProducts();
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
+
+        //TODO: FINISH TOP BAR
 
         for (Product product : listProducts) {
 
@@ -276,7 +307,6 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
 
         this.add(totalPricePanel);
 
-        //TODO: FINISH TOP BAR
 
     }
 
