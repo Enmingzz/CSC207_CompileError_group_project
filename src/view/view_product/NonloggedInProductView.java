@@ -8,7 +8,8 @@ import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.view_product.AddToCartController;
-import interface_adapter.view_product.BuyerViewProductViewModel;
+import interface_adapter.view_product.Non_loggedInViewModel;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,36 +20,36 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 public class NonloggedInProductView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "non_login_view_product view";// useless??
-    private final BuyerViewProductViewModel buyerViewProductViewModel;
+    public final String viewName = "non login view product view";// useless??
+    private final Non_loggedInViewModel nonLoggedInViewModel;
 
 
     private final JButton cancel;
     private final JButton addToCart;
 
-    private final AddToCartController addToCartController;//好像应该跳login而不是addToCart？？
+    private final AddToCartController addToCartController; //好像应该跳login而不是addToCart？？
     private final ViewLoginPageController viewLoginPageController;
     private final MainPageController mainPageController;
 
 
-    public NonloggedInProductView(BuyerViewProductViewModel buyerViewProductViewModel,
+    public NonloggedInProductView(Non_loggedInViewModel nonLoggedInViewModel,
                                   AddToCartController addToCartController,
                                   ViewLoginPageController viewLoginPageController,
                                   MainPageController mainPageController) {
-        this.buyerViewProductViewModel = buyerViewProductViewModel;
+        this.nonLoggedInViewModel = nonLoggedInViewModel;
         this.addToCartController = addToCartController;
         this.viewLoginPageController = viewLoginPageController;
         this.mainPageController = mainPageController;
 
-        this.buyerViewProductViewModel.addPropertyChangeListener(this);
+        this.nonLoggedInViewModel.addPropertyChangeListener(this);
 
 
 
-        JLabel title = new JLabel(buyerViewProductViewModel.TITLE_LABEL+", but you are not logged in yet :(");
+        JLabel title = new JLabel(nonLoggedInViewModel.TITLE_LABEL+", but you are not logged in yet :(");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //(1)product_info
-        Product wtv_product = buyerViewProductViewModel.getState().getProduct();
+        Product wtv_product = nonLoggedInViewModel.getState().getProduct();
         final JLabel image = new JLabel(String.valueOf(wtv_product.getImage()));//image???
         final JLabel description = new JLabel(wtv_product.getDescription());
         final JLabel price = new JLabel(String.valueOf(wtv_product.getPrice()));
@@ -68,7 +69,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
 
         final JLabel qA_title = new JLabel("Q&A:");
 
-        ArrayList<Question> lst_question = buyerViewProductViewModel.getState().getQuestion();
+        ArrayList<Question> lst_question = nonLoggedInViewModel.getState().getQuestion();
         final JPanel qA_TextPanel = new JPanel();
         for (Question question : lst_question) {
 
@@ -88,8 +89,8 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
 
         //(3)buttons
         JPanel buttons = new JPanel();
-        cancel = new JButton(buyerViewProductViewModel.CANCEL_BUTTON_LABEL);
-        addToCart = new JButton(buyerViewProductViewModel.ADD_TO_CART);
+        cancel = new JButton(nonLoggedInViewModel.CANCEL_BUTTON_LABEL);
+        addToCart = new JButton(nonLoggedInViewModel.ADD_TO_CART);
 
 
         buttons.add(cancel);
