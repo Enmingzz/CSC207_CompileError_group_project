@@ -1,6 +1,7 @@
 package interface_adapter.signup;
 
 import use_case.Signup.EmailVerificationInputBoundary;
+import use_case.Signup.EmailVerificationInputData;
 
 public class EmailVerificationController {
 
@@ -11,6 +12,7 @@ public class EmailVerificationController {
     }
 
     public void execute(String email) throws Exception {
-        emailVerificationUsecaseInteractor.execute(email);
+        EmailVerificationInputData emailVerificationInputData = new EmailVerificationInputData(email);
+        emailVerificationUsecaseInteractor.execute(emailVerificationInputData);
     }
 }
