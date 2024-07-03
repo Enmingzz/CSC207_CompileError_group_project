@@ -12,9 +12,9 @@ public class SearchProductByNameController {
         this.searchProductByNameInteractor = searchProductByNameInteractor;
     }
 
-    public void execute(User user, String name){
+    public void execute(User user, String productName){
         SearchProductByNameInputData searchProductByNameInputData =
-                new SearchProductByNameInputData(user, name);
+                new SearchProductByNameInputData(user, productName);
         searchProductByNameInteractor.execute(searchProductByNameInputData);
     }
 
