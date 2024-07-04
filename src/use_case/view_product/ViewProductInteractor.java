@@ -33,7 +33,7 @@ public class ViewProductInteractor implements ViewProductInputBoundary{
             user_type = "seller";
         }
 
-        ViewProductOutputData outputProductQues = new ViewProductOutputData(product, lst_ques, user_type);
+        ViewProductOutputData outputProductQues = new ViewProductOutputData(product, lst_ques, user_type, user);
         viewPresenter.prepareViewSucceed(outputProductQues);
     }
 }

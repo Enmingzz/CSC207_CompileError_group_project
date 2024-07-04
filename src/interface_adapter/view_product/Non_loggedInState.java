@@ -7,15 +7,13 @@ import entity.user.User;
 import java.util.ArrayList;
 
 public class Non_loggedInState {
-    Product product;
-    ArrayList<Question> lst_question;
-    String prompt_words;
-    User user;
+    Product product = null;
+    ArrayList<Question> lst_question = new ArrayList<>();
+    User user = null;
 
-    public Non_loggedInState(Product product, ArrayList<Question> lst_question, String prompt_words, User user){
+    public Non_loggedInState(Product product, ArrayList<Question> lst_question, User user){
         this.product = product;
         this.lst_question = lst_question;
-        this.prompt_words = prompt_words;
         this.user = user;
     }
     //getter methods
@@ -26,8 +24,6 @@ public class Non_loggedInState {
     public ArrayList<Question> getQuestion(){
         return lst_question;
     }
-
-    public String getPrompt_words(){return prompt_words;}
 
     public User getUser() {
         return user;
@@ -41,8 +37,6 @@ public class Non_loggedInState {
     public void setLst_question(ArrayList<Question> lst_question){
         this.lst_question = lst_question;
     }
-
-    public void setPrompt_words(String prompt_words){this.prompt_words = prompt_words;}
 
     public void setUser(User user){this.user = user;}
 

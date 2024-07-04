@@ -29,6 +29,7 @@ public class ViewProductPresenter implements ViewProductOutputBoundary {
         if(viewProductOutputData.getUser_type().equals("seller")) {
             sellerViewProductState.setProduct(viewProductOutputData.getProduct());
             sellerViewProductState.setLst_question(viewProductOutputData.getList_of_question());
+            sellerViewProductState.setUser(viewProductOutputData.getUser());
 
             this.sellerViewProductViewModel.setState(sellerViewProductState);
 
@@ -39,6 +40,7 @@ public class ViewProductPresenter implements ViewProductOutputBoundary {
         else if (viewProductOutputData.getUser_type().equals("buyer")) {
             buyerViewProductState.setProduct(viewProductOutputData.getProduct());
             buyerViewProductState.setLst_question(viewProductOutputData.getList_of_question());
+            buyerViewProductState.setUser(viewProductOutputData.getUser());
 
             this.buyerViewProductViewModel.setState(buyerViewProductState);
 
