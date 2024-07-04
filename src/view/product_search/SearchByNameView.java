@@ -1,22 +1,30 @@
 package view.product_search;
 
+import interface_adapter.search_product.SearchProductByNameController;
+import entity.user.User;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
-public class SearchByNameView extends JPanel implements ActionListener, PropertyChangeListener {
+public class SearchByNameView extends JPanel {
+    private final JTextField searchBox;
+    private final JButton searchButton;
 
-    public final String viewName = "search by name";
+    public SearchByNameView(SearchProductByNameController searchByNameController) {
+        searchBox = new JTextField(20);
+        searchButton = new JButton("Search");
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        add(searchBox);
+        add(searchButton);
 
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String productName = searchBox.getText();
+                searchByNameController.execute(new User(), productName);
+            }
+        });
     }
 }

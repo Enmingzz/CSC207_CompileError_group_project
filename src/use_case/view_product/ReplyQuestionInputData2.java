@@ -4,13 +4,13 @@ import entity.product.Product;
 import entity.comment.Question;
 import entity.user.User;
 
-public class ReplyQuestionInputData {
+public class ReplyQuestionInputData2 {
     private final Product product;
     private final User seller;
     private final Question question;
     private final String answerDescription;
 
-    public ReplyQuestionInputData(Product product, User user, Question question, String answerDescription){
+    public ReplyQuestionInputData2(Product product, User user, Question question, String answerDescription){
         this.product = product;
         this.seller = user;
         this.question = question;
