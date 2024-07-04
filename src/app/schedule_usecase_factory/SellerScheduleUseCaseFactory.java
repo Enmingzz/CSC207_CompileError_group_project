@@ -1,13 +1,10 @@
 package app.schedule_usecase_factory;
 
-import data_access.factories.interfaces.product.DataBaseProductReadAllDataAccessObjectFactoryInterface;
-import data_access.factories.interfaces.product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.product.*;
 import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
-import data_access.factories.objects.product.DatabaseProductReadAllDataAccessObjectFactory;
-import data_access.factories.objects.product.DatabaseProductReadByNameDataAccessObjectFactory;
+import data_access.factories.objects.product.*;
 import data_access.factories.objects.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactory;
-import data_access.interfaces.product.ProductReadAllDataAccessInterface;
-import data_access.interfaces.product.ProductReadByNameDataAccessInterface;
+import data_access.interfaces.product.*;
 import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.ProductFactory;
@@ -24,6 +21,9 @@ import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.profile.view_profile.ViewProfilePresenter;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
+import interface_adapter.schedule.SellerSelectScheduleController;
+import interface_adapter.schedule.SellerSelectSchedulePresenter;
+import interface_adapter.schedule.SellerSelectScheduleViewModel;
 import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.search_product.SearchProductByNamePresenter;
 import interface_adapter.search_product.SearchProductByNameViewModel;
@@ -42,6 +42,8 @@ import use_case.product_search.SearchProductByNameOutputBoundary;
 import use_case.profile.view_profile.ViewProfileInputBoundary;
 import use_case.profile.view_profile.ViewProfileInteractor;
 import use_case.profile.view_profile.ViewProfileOutputBoundary;
+import use_case.schedule.SellerSelectScheduleInputBoundary;
+import use_case.schedule.SellerSelectScheduleInteractor;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
 import view.product_search.SearchByNameView;
@@ -74,7 +76,7 @@ public class SellerScheduleUseCaseFactory {
         SellerSelectScheduleInputBoundary interactor = new SellerSelectScheduleInteractor(presenter, readById, updateSellerSchedule, updateState);
         SellerSelectScheduleController controller = new SellerSelectScheduleController(interactor, viewManagerModel);
 
-        SellerScheduleView view = new SellerScheduleView(viewModel, controller);
+        SellerScheduleView view = new SellerScheduleView(controller, viewModel);
         viewModel.addPropertyChangeListener(view);
 
         return view;

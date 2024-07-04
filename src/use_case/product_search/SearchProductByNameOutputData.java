@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class SearchProductByNameOutputData {
 
-    ArrayList<Product> products;
+    private final ArrayList<Product> products;
 
     public SearchProductByNameOutputData(ArrayList<Product> products) {
         this.products = products;
