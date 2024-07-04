@@ -3,6 +3,8 @@ package view.view_product;
 import entity.comment.CommonQuestionFactory;
 import entity.comment.Question;
 import entity.product.Product;
+import entity.user.User;
+import interface_adapter.main_page.MainPageController;
 import interface_adapter.view_product.AddToCartController;
 import interface_adapter.view_product.BuyerViewProductState;
 import interface_adapter.view_product.BuyerViewProductViewModel;
@@ -19,6 +21,7 @@ import java.beans.PropertyChangeListener;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class BuyerViewProductView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -36,14 +39,17 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
 
     private final AddToCartController addToCartController;
     private final PublishQuestionController publishQuestionController;
+    private final MainPageController mainPageController;
 
 
 
     public BuyerViewProductView(BuyerViewProductViewModel buyerViewProductViewModel,
-                                AddToCartController addToCartController, PublishQuestionController publishQuestionController){
+                                AddToCartController addToCartController, PublishQuestionController publishQuestionController,
+                                MainPageController mainPageController){
         this.buyerViewProductViewModel = buyerViewProductViewModel;
         this.addToCartController = addToCartController;
         this.publishQuestionController = publishQuestionController;
+        this.mainPageController = mainPageController;
 
         this.buyerViewProductViewModel.addPropertyChangeListener(this);
 
@@ -175,9 +181,9 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
             public void actionPerformed(ActionEvent evt) {
                 if(evt.getSource().equals(cancel)){
                     try{
-                       // System.out.println(buyerViewProductViewModel.getState().getPrompt_words());
-                        //jump to the main page? or the former page( can be shopping_cart or the main page,
-                        // whichever gives us the nearest page?)
+                        BuyerViewProductState state = buyerViewProductViewModel.getState();
+                        User user = state.getUser();
+                        mainPageController.execute(user);
                     }catch (Exception e){
                         throw new RuntimeException(e);
                     }
@@ -210,6 +216,9 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
     
     @Override
     public void propertyChange(PropertyChangeEvent evt){
-        
+        BuyerViewProductState state = (BuyerViewProductState) evt.getNewValue();
+        if (!Objects.equals(state.getPrompt_words(), "")){
+            JOptionPane.showMessageDialog(this, state.getPrompt_words());
+        }
     }
 }

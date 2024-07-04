@@ -4,7 +4,7 @@ import entity.comment.Question;
 
 public class PublishQuestionInputData {
     private final Question question;
-    private final Product product;//
+    private final Product product;
 
     public PublishQuestionInputData(Question question, Product product) {
         this.question = question;

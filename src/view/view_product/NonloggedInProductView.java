@@ -7,7 +7,6 @@ import entity.user.User;
 import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.main_page.MainPageController;
-import interface_adapter.view_product.AddToCartController;
 import interface_adapter.view_product.Non_loggedInViewModel;
 
 
@@ -27,17 +26,15 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
     private final JButton cancel;
     private final JButton addToCart;
 
-    private final AddToCartController addToCartController; //好像应该跳login而不是addToCart？？
+
     private final ViewLoginPageController viewLoginPageController;
     private final MainPageController mainPageController;
 
 
     public NonloggedInProductView(Non_loggedInViewModel nonLoggedInViewModel,
-                                  AddToCartController addToCartController,
                                   ViewLoginPageController viewLoginPageController,
                                   MainPageController mainPageController) {
         this.nonLoggedInViewModel = nonLoggedInViewModel;
-        this.addToCartController = addToCartController;
         this.viewLoginPageController = viewLoginPageController;
         this.mainPageController = mainPageController;
 

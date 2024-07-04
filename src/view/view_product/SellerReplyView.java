@@ -23,8 +23,6 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
 
     final JTextField answerInputField = new JTextField(15);
 
-    private final JLabel replySucceedField = new JLabel();// how to pop up the prompt words?
-
 
     private final ReplyQuestionController replyQuestionController;
 
@@ -47,12 +45,12 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
                 String answer_content = answerInputField.getText() + event.getKeyChar();
 
                 CommonQuestionFactory questionFactory = new CommonQuestionFactory();
-                Question newquestion = questionFactory.createQuestion(question_content,
+                Question newquestion = questionFactory.createQuestion(answer_content,
                         replyQuestionViewModel.getState().getQuestion());
                 ArrayList<Question> lst_question = buyerViewProductViewModel.getState().getQuestion();
                 lst_question.add(newquestion);
 
-                buyerViewProductState.setLst_question(lst_question);
+                seller.setLst_question(lst_question);
                 buyerViewProductViewModel.setState(buyerViewProductState);
             }
             @Override
