@@ -23,6 +23,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * The BuyerViewProductView class for the product view pages.
+ * Two controller:
+ *      AddToCartController is used to transfer the user from the product view page to the shopping cart page.
+ *      PublishQuestionController is used to let the user publish their questions.
+ *      MainPageController is used to transfer the seller to the main page when they click cancel button.
+ *
+ */
+
 public class BuyerViewProductView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "buyer_view_product view";// useless??
@@ -213,7 +222,14 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
     public void actionPerformed(ActionEvent e) {
 
     }
-    
+
+    /**
+     * Pop out the prompt window when detect state changes in ReplyQuestionPresenter to tell the user that their action
+     * is successfully performed.
+     * @param evt A PropertyChangeEvent object describing the event source
+     *          and the property that has changed.
+     */
+
     @Override
     public void propertyChange(PropertyChangeEvent evt){
         BuyerViewProductState state = (BuyerViewProductState) evt.getNewValue();

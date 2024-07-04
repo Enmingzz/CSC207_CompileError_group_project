@@ -1,6 +1,5 @@
 package view.view_product;
 
-import entity.comment.CommonQuestionFactory;
 import entity.comment.Question;
 import entity.product.Product;
 import entity.user.User;
@@ -11,14 +10,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
+
+/**
+ * The SellerViewProductView class for the product view pages.
+ * Two controller:
+ *      ReplyQuestionController which is used to transfer the seller to the reply page when they click reply button.
+ *      MainPageController is used to transfer the seller to the main page when they click cancel button.
+ *
+ */
+
 
 public class SellerViewProductView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -28,13 +33,13 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
 
     private final JButton cancel;
 
-    private final ReplyQuestionController replyQuestionController;
+    private final ReplyQuestionController1 replyQuestionController;
     private final MainPageController mainPageController;
 
 
 
     public SellerViewProductView(SellerViewProductViewModel sellerViewProductViewModel,
-                                ReplyQuestionController replyQuestionController,
+                                ReplyQuestionController1 replyQuestionController,
                                 MainPageController mainPageController){
         this.sellerViewProductViewModel = sellerViewProductViewModel;
         this.replyQuestionController = replyQuestionController;
@@ -87,7 +92,7 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
                         try{
                             SellerViewProductState sellerViewProductState = sellerViewProductViewModel.getState();
                             Product product = sellerViewProductState.getProduct();
-                            replyQuestionController.execute(product, sellerViewProductState.getUser(), question, answer_content);
+                            replyQuestionController.execute(product, sellerViewProductState.getUser(), question);
                         }catch (Exception ex){
                             throw new RuntimeException(ex);
                         }
@@ -139,6 +144,13 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
     public void actionPerformed(ActionEvent e) {
 
     }
+
+    /**
+     * Pop out the prompt window when detect state changes in ReplyQuestionPresenter to tell the user that their action
+     * is successfully performed.
+     * @param evt A PropertyChangeEvent object describing the event source
+     *          and the property that has changed.
+     */
 
     @Override
     public void propertyChange(PropertyChangeEvent evt){
