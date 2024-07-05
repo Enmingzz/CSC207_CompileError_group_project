@@ -3,6 +3,7 @@ package view.shopping_cart;
 import entity.product.Product;
 import entity.user.User;
 
+import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartState;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
 
@@ -59,7 +60,7 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
 
     private final ShoppingCartController shoppingCartController;
     private final ViewProfileController viewProfileController;
-//  private final GetSearchPageController getSearchPageController;
+    private final GetSearchPageController getSearchPageController;
     private final LogOutController logOutController;
     private final MainPageController mainPageController;
 
@@ -84,7 +85,7 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
                             RateProductController rateProductController,
                             ShoppingCartController shoppingCartController,
                             ViewProfileController viewProfileController,
-                            // GetSearchPageController getSearchPageController,
+                            GetSearchPageController getSearchPageController,
                             LogOutController logOutController,
                             MainPageController mainPageController) {
 
@@ -98,7 +99,7 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
 
         this.viewProfileController = viewProfileController;
         this.shoppingCartController = shoppingCartController;
-        // this.getSearchPageController = getSearchPageController;
+        this.getSearchPageController = getSearchPageController;
         this.logOutController = logOutController;
         this.mainPageController = mainPageController;
 

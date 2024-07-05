@@ -32,6 +32,7 @@ import entity.schedule.ScheduleFactory;
 import entity.shopping_cart.CommonShoppingCartFactory;
 import entity.shopping_cart.ShoppingCartFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.login.LoginViewModel;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.login.ViewLoginPagePresenter;
 import interface_adapter.logout.LogOutController;
@@ -48,10 +49,13 @@ import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.search_product.SearchProductByNamePresenter;
 import interface_adapter.search_product.SearchProductByNameViewModel;
 import interface_adapter.shopping_cart.*;
-import interface_adapter.view_product.BuyerViewProductViewModel;
-import interface_adapter.view_product.SellerViewProductViewModel;
-import interface_adapter.view_product.ViewProductController;
-import interface_adapter.view_product.ViewProductPresenter;
+import interface_adapter.signup.SignupViewModel;
+import interface_adapter.signup.ViewSignupPageController;
+import interface_adapter.signup.ViewSignupPagePresenter;
+import interface_adapter.view_product.*;
+import use_case.Signup.ViewSignupPageInputBoundary;
+import use_case.Signup.ViewSignupPageInteractor;
+import use_case.Signup.ViewSignupPageOutputBoundary;
 import use_case.login.ViewLoginPageInputBoundary;
 import use_case.login.ViewLoginPageInteractor;
 import use_case.login.ViewLoginPageOutputBoundary;
@@ -124,12 +128,12 @@ public class ShoppingCartUseCaseFactory {
 
     private static ViewProductController createViewProductController
             (BuyerViewProductViewModel buyerViewProductViewModel, SellerViewProductViewModel
-                    sellerViewProductViewModel, ViewManagerModel viewManagerModel) throws SQLException {
+                    sellerViewProductViewModel, ViewManagerModel viewManagerModel,
+             Non_loggedInViewModel non_loggedInProductView) throws SQLException {
         ViewProductOutputBoundary viewProductPresenter =
                 new ViewProductPresenter(buyerViewProductViewModel, sellerViewProductViewModel,
-                        viewManagerModel);
-        DatabaseQuestionReadDataAccessObjectFactoryInterface databaseQuestionReadDataAccessObjectFactory
-                = new DatabaseQuestionReadDataAccessObjectFactory();
+                        non_loggedInProductView, viewManagerModel);
+        DatabaseQuestionReadDataAccessObjectFactoryInterface databaseQuestionReadDataAccessObjectFactory = new DatabaseQuestionReadDataAccessObjectFactory();
         QuestionFactory commonQuestionFactory = new CommonQuestionFactory();
         AnswerFactory commonAnswerFactory = new CommonAnswerFactory();
         QuestionReadDataAccessInterface questionReadDataAccess =
@@ -138,6 +142,14 @@ public class ShoppingCartUseCaseFactory {
         ViewProductInputBoundary viewProductInteractor =
                 new ViewProductInteractor(viewProductPresenter, questionReadDataAccess);
         return new ViewProductController(viewProductInteractor);
+    }
+
+    private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
+        ViewSignupPageOutputBoundary viewSignupPagePresenter =
+                new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
+        ViewSignupPageInputBoundary viewSignupPageInteractor =
+                new ViewSignupPageInteractor(viewSignupPagePresenter);
+        return new ViewSignupPageController(viewSignupPageInteractor);
     }
 
     private static DeleteShoppingCartProductController createDeleteShoppingCartProductController(
@@ -245,9 +257,11 @@ public class ShoppingCartUseCaseFactory {
         return new SearchProductByNameController(searchProductByNameInteractor);
     }
 
-    private static ViewLoginPageController createViewLoginPageController(){
+    private static ViewLoginPageController createViewLoginPageController(LoginViewModel loginViewModel,
+                                                                         ViewManagerModel viewManagerModel){
 
-        ViewLoginPageOutputBoundary viewLoginPagePresenter = new ViewLoginPagePresenter();
+        ViewLoginPageOutputBoundary viewLoginPagePresenter =
+                new ViewLoginPagePresenter(loginViewModel, viewManagerModel);
         ViewLoginPageInputBoundary viewLoginPageInteractor =
                 new ViewLoginPageInteractor(viewLoginPagePresenter);
         return new ViewLoginPageController(viewLoginPageInteractor);
