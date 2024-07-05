@@ -15,9 +15,15 @@ public class ManageProductPresenter implements ManageProductOutputBoundary {
         this.viewManagerModel = viewManagerModel;
     }
 
-
     @Override
     public void prepareSuccessfulView(ManageProductOutputData response) {
         // TODO need to implement this method
+//        ManageProductState manageProductState = modifyProductViewModel.getState();
+//        manageProductState.setListProducts(response.getProducts());
+//        this.modifyProductViewModel.setState(manageProductState);
+//
+//        viewManagerModel.firePropertyChanged();
+//        viewManagerModel.setActiveView(modifyProductViewModel.getViewName());
+
     }
 }

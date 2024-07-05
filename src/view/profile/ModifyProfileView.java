@@ -21,13 +21,15 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
     private final SearchProductByNameController searchProductByNameController;
 
 
-    public final String viewName = "modify profile";
+    public final String viewName = "Modify Profile";
 
     public ModifyProfileView(ModifyProfileController modifyProfileController, MainPageController mainPageController, ShoppingCartController shoppingCartController, SearchProductByNameController searchProductByNameController) {
         this.modifyProfileController = modifyProfileController;
         this.mainPageController = mainPageController;
         this.shoppingCartController = shoppingCartController;
         this.searchProductByNameController = searchProductByNameController;
+
+
 
     }
 

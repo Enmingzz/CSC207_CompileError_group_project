@@ -15,8 +15,8 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class UserProfileView extends JFrame implements ActionListener, PropertyChangeListener {
-    public final String viewName = "profile view";
+public class UserProfileView extends JFrame implements PropertyChangeListener {
+    public final String viewName = "UserProfile View";
     private final ViewProfileViewModel viewModel;
     private final ViewProfileController viewProfileController;
     private final MainPageController mainPageController;
@@ -46,6 +46,11 @@ public class UserProfileView extends JFrame implements ActionListener, PropertyC
         JLabel title = new JLabel(profileViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        studentNumberViewField.setText(viewModel.getState().getUser().getStudentNumber());
+        studentNameViewField.setText(viewModel.getState().getUser().getName());
+        studentEmailViewField.setText(viewModel.getState().getUser().getEmail());
+        studentRatingViewField.setText(String.valueOf(viewModel.getState().getUser().getUserRating()));
+
         ProfileLabelTextPanel userNameInfo = new ProfileLabelTextPanel(new JLabel(profileViewModel.USERNAME_LABEL), studentNameViewField);
         ProfileLabelTextPanel userIDInfo = new ProfileLabelTextPanel(new JLabel(profileViewModel.USERID_LABEL), studentNumberViewField);
         ProfileLabelTextPanel userEmail = new ProfileLabelTextPanel(new JLabel(profileViewModel.USEREMAIL_LABEL), studentEmailViewField);
@@ -58,11 +63,6 @@ public class UserProfileView extends JFrame implements ActionListener, PropertyC
         this.add(userIDInfo);
         this.add(userEmail);
         this.add(userRating);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println("Cancel not implemented yet.");
     }
 
     @Override
