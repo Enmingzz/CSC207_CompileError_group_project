@@ -7,10 +7,13 @@ import entity.user.User;
 import java.util.ArrayList;
 
 public class BuyerViewProductState {
-    Product product;
-    ArrayList<Question> lst_question;
-    String prompt_words;
-    User user;
+
+
+    private Product product = null;
+    private ArrayList<Question> lst_question = new ArrayList<>();
+    private String prompt_words = "";
+    private User user = null;
+
 
     public BuyerViewProductState(Product product, ArrayList<Question> lst_question, String prompt_words, User user){
         this.product = product;
@@ -19,28 +22,18 @@ public class BuyerViewProductState {
         this.user = user;
     }
     //getter methods
-    public Product getProduct(){
-        return product;
-    }
+    public Product getProduct(){return product;}
 
-    public ArrayList<Question> getQuestion(){
-        return lst_question;
-    }
+    public ArrayList<Question> getQuestion(){return lst_question;}
 
     public String getPrompt_words(){return prompt_words;}
 
-    public User getUser() {
-        return user;
-    }
+    public User getUser() {return user;}
 
     //setter methods
-    public void setProduct(Product product){
-        this.product = product;
-    }
+    public void setProduct(Product product){this.product = product;}
 
-    public void setLst_question(ArrayList<Question> lst_question){
-        this.lst_question = lst_question;
-    }
+    public void setLst_question(ArrayList<Question> lst_question){this.lst_question = lst_question;}
 
     public void setPrompt_words(String prompt_words){this.prompt_words = prompt_words;}
 

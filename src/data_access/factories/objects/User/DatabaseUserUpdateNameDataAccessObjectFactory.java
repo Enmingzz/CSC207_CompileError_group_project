@@ -1,6 +1,0 @@
-package data_access.factories.objects.User;
-
-import data_access.factories.interfaces.User.DatabaseUserUpdateNameDataAccessObjectFactoryInterface;
-
-public class DatabaseUserUpdateNameDataAccessObjectFactory implements DatabaseUserUpdateNameDataAccessObjectFactoryInterface {
-}

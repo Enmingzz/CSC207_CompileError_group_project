@@ -4,12 +4,12 @@ import entity.product.Product;
 import entity.user.User;
 import entity.shopping_cart.ShoppingCart;
 
-import data_access.interfaces.ShoppingCart.ShoppingCartUpdateDeleteDataAccessInterface;
-import data_access.interfaces.ShoppingCart.ShoppingCartReadDataAccessInterface;
+import data_access.interfaces.shopping_cart.ShoppingCartUpdateDeleteDataAccessInterface;
+import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class DeleteShoppingCartProductInteractor implements DeleteShoppingCartProductInputBoundary {
@@ -35,7 +35,7 @@ public class DeleteShoppingCartProductInteractor implements DeleteShoppingCartPr
         ShoppingCart shoppingCart = shoppingCartReadDataAccessObject.getShoppingCart(user.getStudentNumber());
 
         shoppingCartUpdateDeleteDataAccessObject.updateShoppingCart(user, deletedProduct);
-        ArrayList<Product> listProducts = shoppingCart.getListProducts();
+        List<Product> listProducts = shoppingCart.getListProducts();
         float totalPrice = shoppingCart.getTotalPrice() - deletedProduct.getPrice();
 
         DeleteShoppingCartProductOutputData deleteShoppingCartProductOutputData = new DeleteShoppingCartProductOutputData(user, listProducts, totalPrice);

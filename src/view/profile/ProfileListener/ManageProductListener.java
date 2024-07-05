@@ -1,7 +1,7 @@
 package view.profile.ProfileListener;
 
-import interface_adapter.profile.ManageProduct.ManageProductController;
-import interface_adapter.profile.ProfileViewModel;
+import interface_adapter.profile.manage_product.ManageProductController;
+import interface_adapter.profile.view_profile.ViewProfileViewModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,9 +10,9 @@ import java.sql.SQLException;
 
 public class ManageProductListener implements ActionListener {
     private final ManageProductController manageProductController;
-    private final ProfileViewModel profileViewModel;
+    private final ViewProfileViewModel profileViewModel;
 
-    public ManageProductListener(ManageProductController manageProductController, ProfileViewModel profileViewModel){
+    public ManageProductListener(ManageProductController manageProductController, ViewProfileViewModel profileViewModel){
         this.manageProductController = manageProductController;
         this.profileViewModel = profileViewModel;
     }
@@ -21,9 +21,7 @@ public class ManageProductListener implements ActionListener {
     public void actionPerformed(ActionEvent e){
         try {
             manageProductController.execute(profileViewModel.getState().getUser());
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        } catch (IOException ex) {
+        } catch (SQLException | IOException ex) {
             throw new RuntimeException(ex);
         }
     }

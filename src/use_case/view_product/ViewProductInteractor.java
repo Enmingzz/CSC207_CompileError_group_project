@@ -1,6 +1,6 @@
 package use_case.view_product;
 
-import data_access.interfaces.Question.QuestionReadDataAccessInterface;
+import data_access.interfaces.question.QuestionReadDataAccessInterface;
 import entity.comment.Question;
 import entity.product.Product;
 import entity.user.User;
@@ -33,7 +33,7 @@ public class ViewProductInteractor implements ViewProductInputBoundary{
             user_type = "seller";
         }
 
-        ViewProductOutputData outputProductQues = new ViewProductOutputData(product, lst_ques, user_type);
+        ViewProductOutputData outputProductQues = new ViewProductOutputData(product, lst_ques, user_type, user);
         viewPresenter.prepareViewSucceed(outputProductQues);
     }
 }

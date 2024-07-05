@@ -1,7 +1,11 @@
 package use_case.product_search;
 
-import data_access.factories.interfaces.Product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
-import data_access.interfaces.Prouct.ProductReadByNameDataAccessInterface;
+import data_access.interfaces.product.ProductReadByNameDataAccessInterface;
+import entity.product.Product;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class SearchProductByNameInteractor implements SearchProductByNameInputBoundary{
 
@@ -15,6 +19,13 @@ public class SearchProductByNameInteractor implements SearchProductByNameInputBo
 
     @Override
     public void execute(SearchProductByNameInputData inputData) {
-        //TODO need to implement this method
+        try {
+            ArrayList<Product> products = databaseProductReadByNameDataAccessObject.getProductByName(inputData.getProductName());
+            SearchProductByNameOutputData outputData = new SearchProductByNameOutputData(products);
+            searchProductByNamePresenter.prepareSuccessfulView(outputData);
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

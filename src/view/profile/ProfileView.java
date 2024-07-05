@@ -1,40 +1,43 @@
 package view.profile;
 
-import interface_adapter.profile.ManageProduct.ManageProductController;
-import interface_adapter.profile.ModifyProfile.ModifyProfileController;
-import interface_adapter.profile.ProfileState;
-import interface_adapter.profile.ProfileViewModel;
+import interface_adapter.profile.manage_product.ManageProductController;
+import interface_adapter.profile.modify_profile.ModifyProfileController;
+import interface_adapter.profile.view_profile.ViewProfileState;
+import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import view.profile.ProfileListener.ManageProductListener;
 import view.profile.ProfileListener.ModifyProfileListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class ProfileView extends JFrame implements ActionListener, PropertyChangeListener {
-    public final String viewName = "profile view";
+public class ProfileView extends JFrame implements PropertyChangeListener {
+    public final String viewName = "Profile View";
     private final ManageProductController manageProductController;
     private final ModifyProfileController modifyProfileController;
-    private final ProfileViewModel viewModel;
+    private final ViewProfileViewModel viewModel;
     private final JButton manageProduct;
     private final JButton modifyName;
     private final JButton modifyPassword;
 
-    private JTextField studentNumberViewField = new JTextField(20);
-    private JTextField studentNameViewField = new JTextField(20);
-    private JTextField studentEmailViewField = new JTextField(20);
-    private JTextField studentRatingViewField = new JTextField(20);
+    private JLabel studentNumberViewField = new JLabel();
+    private JLabel studentNameViewField = new JLabel();
+    private JLabel studentEmailViewField = new JLabel();
+    private JLabel studentRatingViewField = new JLabel();
 
-    public ProfileView (ManageProductController manageProductController, ModifyProfileController modifyProfileController, ProfileViewModel profileViewModel){
+    public ProfileView (ManageProductController manageProductController, ModifyProfileController modifyProfileController, ViewProfileViewModel profileViewModel){
         this.manageProductController = manageProductController;
         this.modifyProfileController = modifyProfileController;
         this.viewModel = profileViewModel;
         viewModel.addPropertyChangeListener(this);
         JLabel title = new JLabel(profileViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        studentNumberViewField.setText(viewModel.getState().getUser().getStudentNumber());
+        studentNameViewField.setText(viewModel.getState().getUser().getName());
+        studentEmailViewField.setText(viewModel.getState().getUser().getEmail());
+        studentRatingViewField.setText(String.valueOf(viewModel.getState().getUser().getUserRating()));
 
         ProfileLabelTextPanel userNameInfo = new ProfileLabelTextPanel(new JLabel(profileViewModel.USERNAME_LABEL), studentNameViewField);
         ProfileLabelTextPanel userIDInfo = new ProfileLabelTextPanel(new JLabel(profileViewModel.USERID_LABEL), studentNumberViewField);
@@ -65,12 +68,8 @@ public class ProfileView extends JFrame implements ActionListener, PropertyChang
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println("Cancel not implemented yet.");
-    }
-
-    @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        ProfileState state = (ProfileState) evt.getNewValue();
+        ViewProfileState state = (ViewProfileState) evt.getNewValue();
+        viewModel.setState(state);
     }
 }

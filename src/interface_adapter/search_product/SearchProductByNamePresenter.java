@@ -18,6 +18,6 @@ public class SearchProductByNamePresenter implements SearchProductByNameOutputBo
 
 
     public void prepareSuccessfulView(SearchProductByNameOutputData searchProductByNameOutputData) {
-        //TODO implements this
+        searchProductByNameViewModel.setProducts(searchProductByNameOutputData.getProducts());
     }
 }

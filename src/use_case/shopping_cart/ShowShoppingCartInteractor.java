@@ -1,13 +1,11 @@
 package use_case.shopping_cart;
 
-import data_access.interfaces.ShoppingCart.ShoppingCartReadDataAccessInterface;
-import entity.product.Product;
+import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
 import entity.shopping_cart.ShoppingCart;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class ShowShoppingCartInteractor implements ShowShoppingCartInputBoundary{
 
