@@ -75,7 +75,7 @@ public class ManageProductUseCaseFactory {
 
     public static ManageProductView create(){
         //TODO implements this method
-        return new ManageProductView();
+//        return new ManageProductView();
     }
 
     private static ViewProductController createViewProductController

@@ -24,12 +24,10 @@ public class UserProfileView extends JFrame implements PropertyChangeListener {
     private final LoginController loginController;
     private final SignupController signupController;
 
-
-
-    private JTextField studentNumberViewField = new JTextField(20);
-    private JTextField studentNameViewField = new JTextField(20);
-    private JTextField studentEmailViewField = new JTextField(20);
-    private JTextField studentRatingViewField = new JTextField(20);
+    private JLabel studentNumberViewField = new JLabel();
+    private JLabel studentNameViewField = new JLabel();
+    private JLabel studentEmailViewField = new JLabel();
+    private JLabel studentRatingViewField = new JLabel();
 
     public UserProfileView(MainPageController mainPageController,
                            ShoppingCartController shoppingCartController,

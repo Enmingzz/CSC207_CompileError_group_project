@@ -21,10 +21,10 @@ public class ProfileView extends JFrame implements PropertyChangeListener {
     private final JButton modifyName;
     private final JButton modifyPassword;
 
-    private JTextField studentNumberViewField = new JTextField(20);
-    private JTextField studentNameViewField = new JTextField(20);
-    private JTextField studentEmailViewField = new JTextField(20);
-    private JTextField studentRatingViewField = new JTextField(20);
+    private JLabel studentNumberViewField = new JLabel();
+    private JLabel studentNameViewField = new JLabel();
+    private JLabel studentEmailViewField = new JLabel();
+    private JLabel studentRatingViewField = new JLabel();
 
     public ProfileView (ManageProductController manageProductController, ModifyProfileController modifyProfileController, ViewProfileViewModel profileViewModel){
         this.manageProductController = manageProductController;
