@@ -21,9 +21,7 @@ public class ManageProductListener implements ActionListener {
     public void actionPerformed(ActionEvent e){
         try {
             manageProductController.execute(profileViewModel.getState().getUser());
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        } catch (IOException ex) {
+        } catch (SQLException | IOException ex) {
             throw new RuntimeException(ex);
         }
     }

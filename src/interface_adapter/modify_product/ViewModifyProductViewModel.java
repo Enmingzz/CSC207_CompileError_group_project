@@ -1,4 +1,4 @@
 package interface_adapter.modify_product;
 
-public class ViewModifyProductViewModel {
+public class ViewModifyProductViewModel{
 }
