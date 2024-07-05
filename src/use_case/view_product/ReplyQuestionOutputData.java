@@ -2,11 +2,11 @@ package use_case.view_product;
 
 import entity.comment.Question;
 
-public class ReplyQuestionOutputData2 {
+public class ReplyQuestionOutputData {
     private String outputStr;
     private Question question;
 
-    public ReplyQuestionOutputData2(String outputStr, Question question){
+    public ReplyQuestionOutputData(String outputStr, Question question){
         this.outputStr = outputStr;
         this.question = question;
     }

@@ -6,12 +6,12 @@ import entity.user.User;
 
 import java.util.ArrayList;
 
-public class Non_loggedInState {
+public class UnloggedInState {
     Product product = null;
     ArrayList<Question> lst_question = new ArrayList<>();
     User user = null;
 
-    public Non_loggedInState(Product product, ArrayList<Question> lst_question, User user){
+    public UnloggedInState(Product product, ArrayList<Question> lst_question, User user){
         this.product = product;
         this.lst_question = lst_question;
         this.user = user;
@@ -40,5 +40,5 @@ public class Non_loggedInState {
 
     public void setUser(User user){this.user = user;}
 
-    public Non_loggedInState(){}
+    public UnloggedInState(){}
 }

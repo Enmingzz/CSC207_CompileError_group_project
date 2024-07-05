@@ -7,7 +7,7 @@ import entity.user.User;
 import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.main_page.MainPageController;
-import interface_adapter.view_product.Non_loggedInViewModel;
+import interface_adapter.view_product.UnloggedInViewModel;
 
 
 import javax.swing.*;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class NonloggedInProductView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "non login view product view";// useless??
-    private final Non_loggedInViewModel nonLoggedInViewModel;
+    private final UnloggedInViewModel nonLoggedInViewModel;
 
 
     private final JButton cancel;
@@ -31,7 +31,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
     private final MainPageController mainPageController;
 
 
-    public NonloggedInProductView(Non_loggedInViewModel nonLoggedInViewModel,
+    public NonloggedInProductView(UnloggedInViewModel nonLoggedInViewModel,
                                   ViewLoginPageController viewLoginPageController,
                                   MainPageController mainPageController) {
         this.nonLoggedInViewModel = nonLoggedInViewModel;
