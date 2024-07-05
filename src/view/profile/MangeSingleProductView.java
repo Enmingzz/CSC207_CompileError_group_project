@@ -1,7 +1,12 @@
 package view.profile;
 
 import entity.product.Product;
+import interface_adapter.modify_product.DeleteProductController;
+import interface_adapter.modify_product.ModifyProductController;
+import interface_adapter.profile.manage_product.ManageProductState;
 import interface_adapter.profile.manage_product.ManageProductViewModel;
+import view.profile.ProfileListener.DeleteProductListener;
+import view.profile.ProfileListener.ModifyProductListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,10 +16,14 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
-public class MangeProductViewHelper extends JPanel implements ActionListener, PropertyChangeListener {
+public class MangeSingleProductView extends JPanel implements PropertyChangeListener {
     private final Product product;
     private final ManageProductViewModel manageProductViewModel;
+    private final ModifyProductController modifyProductController;
+    private final DeleteProductController deleteProductController;
+
     private JLabel titleViewField = new JLabel();
     private JLabel descriptionViewField = new JLabel();
     private JLabel emailViewField = new JLabel();
@@ -24,15 +33,21 @@ public class MangeProductViewHelper extends JPanel implements ActionListener, Pr
     private JLabel addressViewField = new JLabel();
     private JList<String> tagsViewField;
     private JLabel imageViewField = new JLabel();
-    private JList<LocalDateTime> sellerTimesViewField;
+    private JList<String> sellerTimesViewField;
+    private String[] sellerTimes;
+    private ArrayList<LocalDateTime> listSellerTimes;
     private JLabel buyerTimeViewField = new JLabel();
 
     private final JButton modifyProduct;
+    private final JButton deleteProduct;
 
-    public MangeProductViewHelper(Product product, ManageProductViewModel manageProductViewModel) {
+    public MangeSingleProductView(Product product, ManageProductViewModel manageProductViewModel,
+                                  ModifyProductController modifyProductController, DeleteProductController deleteProductController) {
         this.setLayout(new BorderLayout());
         this.product = product;
         this.manageProductViewModel = manageProductViewModel;
+        this.modifyProductController = modifyProductController;
+        this.deleteProductController = deleteProductController;
 
         titleViewField.setText(product.getTitle());
         descriptionViewField.setText(product.getDescription());
@@ -43,7 +58,14 @@ public class MangeProductViewHelper extends JPanel implements ActionListener, Pr
         tagsViewField = new JList<String>(product.getListTags().toArray(new String[0]));
         imageViewField.setIcon(new ImageIcon(product.getImage()));
         priceViewField.setText(String.valueOf(product.getPrice()) + " $");
-        sellerTimesViewField = new JList<LocalDateTime>(product.getSchedule().getSellerTime().toArray(new LocalDateTime[0]));
+
+        listSellerTimes = product.getSchedule().getSellerTime();
+        sellerTimes = new String[listSellerTimes.size()];
+        for(int i = 0; i < listSellerTimes.size(); i++){
+            sellerTimes[i] = listSellerTimes.get(i).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        }
+        sellerTimesViewField = new JList<String>(sellerTimes);
+
         buyerTimeViewField.setText(product.getSchedule().getBuyerTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
         ProfileLabelTextPanel titleInfo = new ProfileLabelTextPanel(new JLabel(manageProductViewModel.PRODUCTTITLE_LABEL),
@@ -70,6 +92,8 @@ public class MangeProductViewHelper extends JPanel implements ActionListener, Pr
                 buyerTimeViewField);
 
         modifyProduct = new JButton(manageProductViewModel.MODIFY_BUTTON_LABEL);
+        deleteProduct = new JButton(manageProductViewModel.DELETE_BUTTON_LABEL);
+
 
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         titlePanel.add(titleInfo);
@@ -88,24 +112,24 @@ public class MangeProductViewHelper extends JPanel implements ActionListener, Pr
         infoPanel.add(sellerTimesInfo);
         infoPanel.add(buyerTimeInfo);
 
-        JPanel buttonPanel = new JPanel();
+        JPanel buttonPanel = new JPanel((new FlowLayout(FlowLayout.RIGHT)));
         buttonPanel.add(modifyProduct);
+        buttonPanel.add(deleteProduct);
 
         this.add(titlePanel, BorderLayout.NORTH);
         this.add(tagsPanel, BorderLayout.NORTH);
         this.add(infoPanel, BorderLayout.CENTER);
         this.add(buttonPanel, BorderLayout.SOUTH);
 
-        modifyProduct.addActionListener(this);
-    }
+        modifyProduct.addActionListener(new ModifyProductListener(modifyProductController, product));
+        deleteProduct.addActionListener(new DeleteProductListener(deleteProductController, product));
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
+        this.setVisible(true);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        ManageProductState state = (ManageProductState) evt.getNewValue();
+        manageProductViewModel.setState(state);
     }
 }
