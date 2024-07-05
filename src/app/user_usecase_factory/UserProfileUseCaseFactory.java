@@ -139,9 +139,11 @@ public class UserProfileUseCaseFactory {
         return new SearchProductByNameController(searchProductByNameInteractor);
     }
 
-    private static ViewLoginPageController createViewLoginPageController(){
+    private static ViewLoginPageController createViewLoginPageController(LoginViewModel loginViewModel,
+                                                                         ViewManagerModel viewManagerModel){
 
-        ViewLoginPageOutputBoundary viewLoginPagePresenter = new ViewLoginPagePresenter();
+        ViewLoginPageOutputBoundary viewLoginPagePresenter =
+                new ViewLoginPagePresenter(loginViewModel, viewManagerModel);
         ViewLoginPageInputBoundary viewLoginPageInteractor =
                 new ViewLoginPageInteractor(viewLoginPagePresenter);
         return new ViewLoginPageController(viewLoginPageInteractor);

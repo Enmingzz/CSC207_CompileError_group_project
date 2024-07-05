@@ -42,23 +42,13 @@ import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.profile.view_profile.ViewProfilePresenter;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
-import interface_adapter.search_product.SearchProductByNameController;
-import interface_adapter.search_product.SearchProductByNamePresenter;
-import interface_adapter.search_product.SearchProductByNameViewModel;
-import interface_adapter.search_product.SearchProductByTagController;
+import interface_adapter.search_product.*;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
-import interface_adapter.signup.SignupController;
-import interface_adapter.signup.SignupPresenter;
-import interface_adapter.signup.SignupViewModel;
-import interface_adapter.view_product.BuyerViewProductViewModel;
-import interface_adapter.view_product.SellerViewProductViewModel;
-import interface_adapter.view_product.ViewProductController;
-import interface_adapter.view_product.ViewProductPresenter;
-import use_case.Signup.SignupInputBoundary;
-import use_case.Signup.SignupInteractor;
-import use_case.Signup.SignupOutputBoundary;
+import interface_adapter.signup.*;
+import interface_adapter.view_product.*;
+import use_case.Signup.*;
 import use_case.login.ViewLoginPageInputBoundary;
 import use_case.login.ViewLoginPageInteractor;
 import use_case.login.ViewLoginPageOutputBoundary;
@@ -116,28 +106,35 @@ public class MainPageUseCaseFactory {
         ViewProfileController viewProfileController =
                 MainPageUseCaseFactory.createProfileController(viewManagerModel,
                         viewProfileViewModel);
+
         SearchProductByNameController searchProductByNameController =
                 MainPageUseCaseFactory.createSearchProductByNameController(viewManagerModel,
                         searchProductByNameViewModel);
+        GetSearchPageController getSearchPageController = MainPageUseCaseFactory.createGetSearchPageController();
         return new MainPageView(mainPageViewModel, viewProductController, shoppingCartController,
                 viewProfileController,
-                searchProductByTagController,
+                getSearchPageController
                 searchProductByNameController,
                 logOutController,
                 mainPageController);
     }
 
+    private static GetSearchPageController createGetSearchPageController(){
+        return new GetSearchPageController();
+    }
+
     private static ViewProductController createViewProductController
             (BuyerViewProductViewModel buyerViewProductViewModel, SellerViewProductViewModel
-                    sellerViewProductViewModel, ViewManagerModel viewManagerModel) throws SQLException {
+                    sellerViewProductViewModel, ViewManagerModel viewManagerModel,
+             Non_loggedInViewModel non_loggedInProductView) throws SQLException {
         ViewProductOutputBoundary viewProductPresenter =
                 new ViewProductPresenter(buyerViewProductViewModel, sellerViewProductViewModel,
-                        viewManagerModel);
+                        non_loggedInProductView, viewManagerModel);
         DatabaseQuestionReadDataAccessObjectFactoryInterface databaseQuestionReadDataAccessObjectFactory = new DatabaseQuestionReadDataAccessObjectFactory();
         QuestionFactory commonQuestionFactory = new CommonQuestionFactory();
         AnswerFactory commonAnswerFactory = new CommonAnswerFactory();
         QuestionReadDataAccessInterface questionReadDataAccess =
-                databaseQuestionReadDataAccessObjectFactory.create(commonQuestionFactory,
+                new DatabaseQuestionReadDataAccessObjectFactory().create(commonQuestionFactory,
                         commonAnswerFactory);
         ViewProductInputBoundary viewProductInteractor =
                 new ViewProductInteractor(viewProductPresenter, questionReadDataAccess);
@@ -158,6 +155,14 @@ public class MainPageUseCaseFactory {
                 userCreateDataAccessObject, userReadDataAccessInterface, signupOutputBoundary, userFactory);
 
         return new SignupController(userSignupInteractor);
+    }
+
+    private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
+        ViewSignupPageOutputBoundary viewSignupPagePresenter =
+                new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
+        ViewSignupPageInputBoundary viewSignupPageInteractor =
+                new ViewSignupPageInteractor(viewSignupPagePresenter);
+        return new ViewSignupPageController(viewSignupPageInteractor);
     }
 
     private static MainPageController createMainPageController(MainPageViewModel mainPageViewModel, ViewManagerModel viewManagerModel) throws SQLException {
@@ -219,9 +224,11 @@ public class MainPageUseCaseFactory {
         return new SearchProductByNameController(searchProductByNameInteractor);
     }
 
-    private static ViewLoginPageController createViewLoginPageController(){
+    private static ViewLoginPageController createViewLoginPageController(LoginViewModel loginViewModel,
+                                                                         ViewManagerModel viewManagerModel){
 
-        ViewLoginPageOutputBoundary viewLoginPagePresenter = new ViewLoginPagePresenter();
+        ViewLoginPageOutputBoundary viewLoginPagePresenter =
+                new ViewLoginPagePresenter(loginViewModel, viewManagerModel);
         ViewLoginPageInputBoundary viewLoginPageInteractor =
                 new ViewLoginPageInteractor(viewLoginPagePresenter);
         return new ViewLoginPageController(viewLoginPageInteractor);

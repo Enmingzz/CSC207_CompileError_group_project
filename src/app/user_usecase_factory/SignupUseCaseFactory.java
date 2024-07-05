@@ -121,6 +121,14 @@ public class SignupUseCaseFactory {
         return new SignupController(userSignupInteractor);
     }
 
+    private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
+        ViewSignupPageOutputBoundary viewSignupPagePresenter =
+                new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
+        ViewSignupPageInputBoundary viewSignupPageInteractor =
+                new ViewSignupPageInteractor(viewSignupPagePresenter);
+        return new ViewSignupPageController(viewSignupPageInteractor);
+    }
+
     private static EmailVerificationController createEmailVerifyUseCase(ViewManagerModel viewManagerModel,
                                                                         SignupViewModel signupViewModel) {
         EmailVerificationOutputBoundary emailVerificationOutputBoundary = new
@@ -156,6 +164,16 @@ public class SignupUseCaseFactory {
         ShowMainPageInputBoundary showMainPageInteractor =
                 new ShowMainPageInteractor(showMainPagePresenter, productReadAllDataAccessObeject);
         return new MainPageController(showMainPageInteractor);
+    }
+
+    private static ViewLoginPageController createViewLoginPageController(LoginViewModel loginViewModel,
+                                                                         ViewManagerModel viewManagerModel){
+
+        ViewLoginPageOutputBoundary viewLoginPagePresenter =
+                new ViewLoginPagePresenter(loginViewModel, viewManagerModel);
+        ViewLoginPageInputBoundary viewLoginPageInteractor =
+                new ViewLoginPageInteractor(viewLoginPagePresenter);
+        return new ViewLoginPageController(viewLoginPageInteractor);
     }
 
     private static LoginController createUserLoginUseCase(ViewManagerModel viewManagerModel, LoginViewModel
