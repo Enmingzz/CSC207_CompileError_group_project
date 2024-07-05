@@ -39,12 +39,8 @@ import interface_adapter.search_product.SearchProductByNameViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
-import interface_adapter.signup.SignupController;
-import interface_adapter.signup.SignupPresenter;
-import interface_adapter.signup.SignupViewModel;
-import use_case.Signup.SignupInputBoundary;
-import use_case.Signup.SignupInteractor;
-import use_case.Signup.SignupOutputBoundary;
+import interface_adapter.signup.*;
+import use_case.Signup.*;
 import use_case.login.*;
 import use_case.logout.LogOutInputBoundary;
 import use_case.logout.LogOutInteractor;
@@ -128,6 +124,14 @@ public class LoginUseCaseFactory {
         return new SignupController(userSignupInteractor);
     }
 
+    private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
+        ViewSignupPageOutputBoundary viewSignupPagePresenter =
+                new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
+        ViewSignupPageInputBoundary viewSignupPageInteractor =
+                new ViewSignupPageInteractor(viewSignupPagePresenter);
+        return new ViewSignupPageController(viewSignupPageInteractor);
+    }
+
     private static MainPageController createMainPageController(MainPageViewModel mainPageViewModel, ViewManagerModel viewManagerModel) throws SQLException {
         ShowMainPageOutputBoundary showMainPagePresenter = new MainPagePresenter(mainPageViewModel, viewManagerModel);
         DataBaseProductReadAllDataAccessObjectFactoryInterface dataBaseProductReadAllDataAccessObjectFactoryInterface = new DatabaseProductReadAllDataAccessObjectFactory();
@@ -171,9 +175,11 @@ public class LoginUseCaseFactory {
         return new SearchProductByNameController(searchProductByNameInteractor);
     }
 
-    private static ViewLoginPageController createViewLoginPageController(){
+    private static ViewLoginPageController createViewLoginPageController(LoginViewModel loginViewModel,
+                                                                         ViewManagerModel viewManagerModel){
 
-        ViewLoginPageOutputBoundary viewLoginPagePresenter = new ViewLoginPagePresenter();
+        ViewLoginPageOutputBoundary viewLoginPagePresenter =
+                new ViewLoginPagePresenter(loginViewModel, viewManagerModel);
         ViewLoginPageInputBoundary viewLoginPageInteractor =
                 new ViewLoginPageInteractor(viewLoginPagePresenter);
         return new ViewLoginPageController(viewLoginPageInteractor);
