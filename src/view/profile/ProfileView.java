@@ -70,5 +70,6 @@ public class ProfileView extends JFrame implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         ViewProfileState state = (ViewProfileState) evt.getNewValue();
+        viewModel.setState(state);
     }
 }
