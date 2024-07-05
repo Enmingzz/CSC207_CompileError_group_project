@@ -21,8 +21,7 @@ import interface_adapter.view_product.ViewProductController;
 // Import all Controllers related to the top bar
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.profile.view_profile.ViewProfileController;
-import interface_adapter.search_product.SearchProductByNameController;
-import interface_adapter.search_product.SearchProductByTagController;
+// import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
 
@@ -53,8 +52,7 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
     private final ShoppingCartController shoppingCartController;
     private final ViewProfileController viewProfileController;
-    private final SearchProductByTagController searchProductByTagController;
-    private final SearchProductByNameController searchProductByNameController;
+    // private final GetSearchPageController getSearchPageController;
     private final LogOutController logOutController;
     private final MainPageController mainPageController;
 
@@ -62,8 +60,7 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
                         ViewProductController viewProductController,
                         ShoppingCartController shoppingCartController,
                         ViewProfileController viewProfileController,
-                        SearchProductByTagController searchProductByTagController,
-                        SearchProductByNameController searchProductByNameController,
+                        // GetSearchPageController getSearchPageController.
                         LogOutController logOutController,
                         MainPageController mainPageController){
         // initialize all controllers here
@@ -71,8 +68,7 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
         this.viewProfileController = viewProfileController;
         this.shoppingCartController = shoppingCartController;
-        this.searchProductByNameController = searchProductByNameController;
-        this.searchProductByTagController = searchProductByTagController;
+        // this.getSearchPageController = getSearchPageController;
         this.logOutController = logOutController;
         this.mainPageController = mainPageController;
 
@@ -86,6 +82,8 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
         this.add(title);
 
         //TODO: FINISH TOP BAR
+
+        // Products page starts here
 
         List<Product> allProducts = mainPageViewModel.getState().getAllProducts();
 
@@ -153,7 +151,7 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
 
         }
-
+    // Products panel ends here
 
 
 
