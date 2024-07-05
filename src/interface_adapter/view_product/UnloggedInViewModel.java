@@ -5,20 +5,20 @@ import interface_adapter.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class Non_loggedInViewModel extends ViewModel {
+public class UnloggedInViewModel extends ViewModel {
     public final String TITLE_LABEL = "Non-logged in product View";
     public final String ADD_TO_CART = "Add to shopping cart";
     public final String INPUT_QUESTION_TITLE = "My new question as follows:";
 
     public final String CANCEL_BUTTON_LABEL = "Cancel";
 
-    private Non_loggedInState state = new Non_loggedInState();
+    private UnloggedInState state = new UnloggedInState();
 
-    public Non_loggedInViewModel(){
+    public UnloggedInViewModel(){
         super("modify_product view");
     }
 
-    public  void setState(Non_loggedInState state){
+    public  void setState(UnloggedInState state){
         this.state = state;
     }
 
@@ -32,7 +32,7 @@ public class Non_loggedInViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
 
-    public Non_loggedInState getState(){
+    public UnloggedInState getState(){
         return state;
     }
 }

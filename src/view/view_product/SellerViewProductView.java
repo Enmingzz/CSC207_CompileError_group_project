@@ -33,13 +33,13 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
 
     private final JButton cancel;
 
-    private final ReplyQuestionController1 replyQuestionController;
+    private final ViewReplyQuestionController replyQuestionController;
     private final MainPageController mainPageController;
 
 
 
     public SellerViewProductView(SellerViewProductViewModel sellerViewProductViewModel,
-                                ReplyQuestionController1 replyQuestionController,
+                                ViewReplyQuestionController replyQuestionController,
                                 MainPageController mainPageController){
         this.sellerViewProductViewModel = sellerViewProductViewModel;
         this.replyQuestionController = replyQuestionController;

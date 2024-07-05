@@ -1,11 +1,9 @@
 package view.view_product;
 
-import app.Main;
 import entity.comment.*;
 import entity.product.Product;
 import entity.user.User;
 import interface_adapter.main_page.MainPageController;
-import interface_adapter.signup.SignupState;
 import interface_adapter.view_product.*;
 
 import javax.swing.*;
@@ -16,7 +14,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 
 public class SellerReplyView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -27,11 +24,11 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
     final JTextField answerInputField = new JTextField(15);
 
 
-    private final ReplyQuestionController2 replyQuestionController;
+    private final ReplyQuestionController replyQuestionController;
     private final MainPageController mainPageController;
 
     public SellerReplyView (ReplyQuestionViewModel replyQuestionViewModel,
-                            ReplyQuestionController2 replyQuestionController,
+                            ReplyQuestionController replyQuestionController,
                             MainPageController mainPageController){
 
         this.replyQuestionViewModel = replyQuestionViewModel;

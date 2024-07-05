@@ -1,26 +1,22 @@
 package interface_adapter.view_product;
 
-import entity.comment.Question;
 import interface_adapter.ViewManagerModel;
-import use_case.view_product.ReplyQuestionOutputData1;
-import use_case.view_product.ReplyQuestionOutputData2;
+import use_case.view_product.ViewReplyQuestionOutputData;
 
-import java.util.ArrayList;
-
-public class ReplyQuestionPresenter1 {
+public class ViewReplyQuestionPresenter {
     private final ReplyQuestionViewModel replyQuestionViewModel;
     ViewManagerModel viewManagerModel;
 
-    public ReplyQuestionPresenter1(ReplyQuestionViewModel replyQuestionViewModel,
-                                   ViewManagerModel viewManagerModel) {
+    public ViewReplyQuestionPresenter(ReplyQuestionViewModel replyQuestionViewModel,
+                                      ViewManagerModel viewManagerModel) {
         this.replyQuestionViewModel = replyQuestionViewModel;
         this.viewManagerModel = viewManagerModel;
     }
-    public void prepareSuccessView(ReplyQuestionOutputData1 replyQuestionOutputData1){
+    public void prepareSuccessView(ViewReplyQuestionOutputData viewReplyQuestionOutputData){
         ReplyQuestionState replyQuestionState = replyQuestionViewModel.getState();
         replyQuestionState.setQuestion(replyQuestionState.getQuestion());
-        replyQuestionState.setProduct(replyQuestionOutputData1.getProduct());
-        replyQuestionState.setUser(replyQuestionOutputData1.getSeller());
+        replyQuestionState.setProduct(viewReplyQuestionOutputData.getProduct());
+        replyQuestionState.setUser(viewReplyQuestionOutputData.getSeller());
 
         this.replyQuestionViewModel.setState(replyQuestionState);
 
