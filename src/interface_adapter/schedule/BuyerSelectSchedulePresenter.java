@@ -14,5 +14,6 @@ public class BuyerSelectSchedulePresenter implements BuyerSelectScheduleOutputBo
     public void presentScheduleSelection(BuyerSelectScheduleOutputData outputData) {
         viewModel.setSelectedTime(outputData.getSelectedTime());
         viewModel.setSuccess(outputData.isSuccess());
+        viewModel.firePropertyChanged();
     }
 }

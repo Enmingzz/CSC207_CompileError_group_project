@@ -6,31 +6,17 @@ import java.beans.PropertyChangeListener;
 import java.time.LocalDateTime;
 
 public class BuyerSelectScheduleViewModel extends ViewModel {
-    private String buyerName;
-    private String productId;
+    public final String TITLE_LABEL = "Select Schedule for Pickup";
+    public final String CONFIRM_BUTTON = "Confirm Schedule";
+    public final String CANCEL_BUTTON_LABEL = "Cancel";
+
     private LocalDateTime selectedTime;
     private boolean success;
-    private PropertyChangeSupport support;
+    private final PropertyChangeSupport support;
 
     public BuyerSelectScheduleViewModel() {
         super("BuyerSelectScheduleViewModel");
         this.support = new PropertyChangeSupport(this);
-    }
-
-    public String getBuyerName() {
-        return buyerName;
-    }
-
-    public void setBuyerName(String buyerName) {
-        this.buyerName = buyerName;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
     }
 
     public LocalDateTime getSelectedTime() {
@@ -38,8 +24,12 @@ public class BuyerSelectScheduleViewModel extends ViewModel {
     }
 
     public void setSelectedTime(LocalDateTime selectedTime) {
-        this.selectedTime = selectedTime;
+        this.selectedTime = truncateToHour(selectedTime);
         firePropertyChanged();
+    }
+
+    private LocalDateTime truncateToHour(LocalDateTime time) {
+        return time.withMinute(0).withSecond(0).withNano(0);
     }
 
     public boolean isSuccess() {
@@ -47,7 +37,6 @@ public class BuyerSelectScheduleViewModel extends ViewModel {
     }
 
     public void setSuccess(boolean success) {
-
         this.success = success;
         firePropertyChanged();
     }
