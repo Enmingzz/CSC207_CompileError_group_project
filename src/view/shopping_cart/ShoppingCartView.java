@@ -9,11 +9,11 @@ import interface_adapter.shopping_cart.ShoppingCartViewModel;
 
 // Import all controllers related to shopping_cart
 import interface_adapter.shopping_cart.PurchaseController;
-import interface_adapter.schedule.BuyerSelectScheduleController;
+import interface_adapter.schedule.GetBuyerSchedulePageController;
 import interface_adapter.view_product.ViewProductController;
 import interface_adapter.shopping_cart.DeleteShoppingCartProductController;
 import interface_adapter.shopping_cart.ConfirmController;
-import interface_adapter.rating.RateProductController;
+import interface_adapter.rating.GetRatePageController;
 
 // Import all Controllers related to the top bar
 import interface_adapter.logout.LogOutController;
@@ -80,9 +80,9 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
                             ViewProductController viewProductController,
                             PurchaseController purchaseController,
                             DeleteShoppingCartProductController deleteShoppingCartProductController,
-                            BuyerSelectScheduleController buyerSelectScheduleController,
+                            GetBuyerSchedulePageController getBuyerSchedulePageController,
                             ConfirmController confirmController,
-                            RateProductController rateProductController,
+                            GetRatePageController getRatePageController,
                             ShoppingCartController shoppingCartController,
                             ViewProfileController viewProfileController,
                             GetSearchPageController getSearchPageController,
@@ -93,9 +93,9 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
         this.viewProductController = viewProductController;
         this.purchaseController = purchaseController;
         this.deleteShoppingCartProductController = deleteShoppingCartProductController;
-        this.buyerSelectScheduleController = buyerSelectScheduleController;
+        this.getBuyerSchedulePageController = getBuyerSchedulePageController;
         this.confirmController = confirmController;
-        this.rateProductController = rateProductController;
+        this.getRatePageController = getRatePageController;
 
         this.viewProfileController = viewProfileController;
         this.shoppingCartController = shoppingCartController;
