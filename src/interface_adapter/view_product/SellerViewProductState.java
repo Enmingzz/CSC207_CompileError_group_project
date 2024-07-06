@@ -5,6 +5,7 @@ import entity.product.Product;
 import entity.user.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SellerViewProductState {
     Product product = null;
