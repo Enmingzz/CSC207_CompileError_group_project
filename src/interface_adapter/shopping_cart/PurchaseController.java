@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class PurchaseController{
-    final PurchaseInputBoundary purchaseInteractor;
+    private final PurchaseInputBoundary purchaseInteractor;
 
     public PurchaseController(PurchaseInputBoundary purchaseInteractor){
         this.purchaseInteractor = purchaseInteractor;
