@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 
 public class BuyerSelectScheduleState {
 
-    private User buyer;
-    private Product product;
-    private LocalDateTime selectedTime;
+    private User buyer = null;
+    private Product product = null;
+    private LocalDateTime selectedTime = ;
 
     public User getBuyer() {
         return buyer;
