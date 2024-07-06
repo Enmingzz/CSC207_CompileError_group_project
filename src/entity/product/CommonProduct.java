@@ -67,7 +67,6 @@ public class CommonProduct implements Product{
         this.listTags = listTags;
         this.productID = productID;
         this.schedule = schedule;
-
     }
 
     @Override
