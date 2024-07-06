@@ -13,6 +13,7 @@ import data_access.interfaces.product.ProductReadByNameDataAccessInterface;
 import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
 import data_access.interfaces.shopping_cart.ShoppingCartUpdateAddDataAccessInterface;
 import entity.product.CommonProductFactory;
+import entity.product.Product;
 import entity.product.ProductFactory;
 import entity.schedule.CommonScheduleFactory;
 import entity.schedule.ScheduleFactory;
@@ -64,7 +65,6 @@ public class BuyerViewProductUseCaseFactory {
                                               ShoppingCartViewModel shoppingCartViewModel,
                                               ViewProfileViewModel profileViewModel,
                                               BuyerViewProductViewModel buyerViewProductViewModel) throws SQLException {
-        //TODO implements this method
         MainPageController mainPageController =
                 BuyerViewProductUseCaseFactory.createMainPageController(mainPageViewModel,
                         viewManagerModel);
@@ -73,7 +73,7 @@ public class BuyerViewProductUseCaseFactory {
                         shoppingCartViewModel, buyerViewProductViewModel);
         PublishQuestionController publishQuestionController =
                 BuyerViewProductUseCaseFactory.createPublishQuestionController();
-        return new BuyerViewProductView(buyerViewProductViewModel, addToCartController, publishQuestionController);
+        return new BuyerViewProductView(buyerViewProductViewModel, addToCartController, publishQuestionController, mainPageController);
     }
 
     private static PublishQuestionController createPublishQuestionController(){

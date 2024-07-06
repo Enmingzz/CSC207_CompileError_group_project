@@ -7,8 +7,7 @@ import entity.user.User;
 import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.main_page.MainPageController;
-import interface_adapter.view_product.AddToCartController;
-import interface_adapter.view_product.Non_loggedInViewModel;
+import interface_adapter.view_product.UnloggedInViewModel;
 
 
 import javax.swing.*;
@@ -21,23 +20,21 @@ import java.util.ArrayList;
 
 public class NonloggedInProductView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "non login view product view";// useless??
-    private final Non_loggedInViewModel nonLoggedInViewModel;
+    private final UnloggedInViewModel nonLoggedInViewModel;
 
 
     private final JButton cancel;
     private final JButton addToCart;
 
-    private final AddToCartController addToCartController; //好像应该跳login而不是addToCart？？
+
     private final ViewLoginPageController viewLoginPageController;
     private final MainPageController mainPageController;
 
 
-    public NonloggedInProductView(Non_loggedInViewModel nonLoggedInViewModel,
-                                  AddToCartController addToCartController,
+    public NonloggedInProductView(UnloggedInViewModel nonLoggedInViewModel,
                                   ViewLoginPageController viewLoginPageController,
                                   MainPageController mainPageController) {
         this.nonLoggedInViewModel = nonLoggedInViewModel;
-        this.addToCartController = addToCartController;
         this.viewLoginPageController = viewLoginPageController;
         this.mainPageController = mainPageController;
 

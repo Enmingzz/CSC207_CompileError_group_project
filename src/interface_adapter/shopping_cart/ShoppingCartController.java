@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class ShoppingCartController {
 
-    final private ShowShoppingCartInputBoundary showShoppingCartInteractor;
+    private final ShowShoppingCartInputBoundary showShoppingCartInteractor;
 
     public ShoppingCartController(ShowShoppingCartInputBoundary showShoppingCartInteractor) {
         this.showShoppingCartInteractor = showShoppingCartInteractor;

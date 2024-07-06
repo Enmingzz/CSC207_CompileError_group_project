@@ -43,10 +43,7 @@ import interface_adapter.search_product.SearchProductByNameViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
-import interface_adapter.view_product.BuyerViewProductViewModel;
-import interface_adapter.view_product.SellerViewProductViewModel;
-import interface_adapter.view_product.ViewProductController;
-import interface_adapter.view_product.ViewProductPresenter;
+import interface_adapter.view_product.*;
 import use_case.logout.LogOutInputBoundary;
 import use_case.logout.LogOutInteractor;
 import use_case.logout.LogOutOutputBoundary;
@@ -68,6 +65,7 @@ import use_case.view_product.ViewProductInputBoundary;
 import use_case.view_product.ViewProductInteractor;
 import use_case.view_product.ViewProductOutputBoundary;
 import view.profile.ManageProductView;
+import view.view_product.NonloggedInProductView;
 
 import java.sql.SQLException;
 
@@ -75,15 +73,16 @@ public class ManageProductUseCaseFactory {
 
     public static ManageProductView create(){
         //TODO implements this method
-        return new ManageProductView();
+//        return new ManageProductView();
     }
 
     private static ViewProductController createViewProductController
             (BuyerViewProductViewModel buyerViewProductViewModel, SellerViewProductViewModel
-                    sellerViewProductViewModel, ViewManagerModel viewManagerModel) throws SQLException {
+                    sellerViewProductViewModel, ViewManagerModel viewManagerModel,
+             Non_loggedInViewModel non_loggedInProductView) throws SQLException {
         ViewProductOutputBoundary viewProductPresenter =
                 new ViewProductPresenter(buyerViewProductViewModel, sellerViewProductViewModel,
-                        viewManagerModel);
+                        non_loggedInProductView, viewManagerModel);
         DatabaseQuestionReadDataAccessObjectFactoryInterface databaseQuestionReadDataAccessObjectFactory = new DatabaseQuestionReadDataAccessObjectFactory();
         QuestionFactory commonQuestionFactory = new CommonQuestionFactory();
         AnswerFactory commonAnswerFactory = new CommonAnswerFactory();

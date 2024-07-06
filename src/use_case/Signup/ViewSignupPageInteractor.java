@@ -8,9 +8,9 @@ public class ViewSignupPageInteractor implements ViewSignupPageInputBoundary{
         this.viewSignupPresenter = viewSignupPresenter;
     }
 
-
-    void execute(ViewSignupPageInputBoundary viewSignupPageData){
+    public void execute(ViewSignupPageInputData viewSignupPageData){
         ViewSignupPageOutputData viewSignupPageOutputData = new ViewSignupPageOutputData();
         viewSignupPresenter.prepareSuccessfulView(viewSignupPageOutputData);
     }
+
 }

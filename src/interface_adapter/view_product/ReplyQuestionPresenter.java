@@ -13,8 +13,8 @@ public class ReplyQuestionPresenter {
     ViewManagerModel viewManagerModel;
 
     public ReplyQuestionPresenter(ReplyQuestionViewModel replyQuestionViewModel,
-                                   SellerViewProductViewModel sellerViewProductViewModel,
-                                   ViewManagerModel viewManagerModel){
+                                  SellerViewProductViewModel sellerViewProductViewModel,
+                                  ViewManagerModel viewManagerModel){
         this.replyQuestionViewModel = replyQuestionViewModel;
         this.sellerViewProductViewModel = sellerViewProductViewModel;
         this.viewManagerModel = viewManagerModel;
@@ -29,6 +29,7 @@ public class ReplyQuestionPresenter {
         old_lst.add(replyQuestionOutputData.getQuestion());
 
         sellerViewProductState.setLst_question(old_lst);
+        sellerViewProductState.setPromptStr("Successfully replied question");
 
         this.replyQuestionViewModel.setState(replyQuestionState);
         this.sellerViewProductViewModel.setState(sellerViewProductState);
