@@ -10,7 +10,7 @@ import entity.product.Product;
 
 import java.sql.SQLException;
 
-public class ReplyQuestionInteractor implements ReplyQuestionInputBoundary{
+public class ReplyQuestionInteractor implements ReplyQuestionInputBoundary {
     private final QuestionUpdateDataAccessInterface questionUpdateDataAccessObject;
 //    private final QuestionReadDataAccessInterface questionReadDataAccessObject;
     private final ReplyQuestionOutputBoundary replyPresenter;

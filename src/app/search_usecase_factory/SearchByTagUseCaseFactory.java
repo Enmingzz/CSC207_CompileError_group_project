@@ -39,12 +39,8 @@ import interface_adapter.search_product.SearchProductByNameViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
-import interface_adapter.signup.SignupController;
-import interface_adapter.signup.SignupPresenter;
-import interface_adapter.signup.SignupViewModel;
-import use_case.Signup.SignupInputBoundary;
-import use_case.Signup.SignupInteractor;
-import use_case.Signup.SignupOutputBoundary;
+import interface_adapter.signup.*;
+import use_case.Signup.*;
 import use_case.login.*;
 import use_case.logout.LogOutInputBoundary;
 import use_case.logout.LogOutInteractor;
@@ -87,6 +83,14 @@ public class SearchByTagUseCaseFactory {
         ShowShoppingCartInputBoundary showShoppingCartInteractor =
                 new ShowShoppingCartInteractor(presenter, shoppingCartReadDataAccess);
         return new ShoppingCartController(showShoppingCartInteractor);
+    }
+
+    private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
+        ViewSignupPageOutputBoundary viewSignupPagePresenter =
+                new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
+        ViewSignupPageInputBoundary viewSignupPageInteractor =
+                new ViewSignupPageInteractor(viewSignupPagePresenter);
+        return new ViewSignupPageController(viewSignupPageInteractor);
     }
 
     private static MainPageController createMainPageController(MainPageViewModel mainPageViewModel, ViewManagerModel viewManagerModel) throws SQLException {

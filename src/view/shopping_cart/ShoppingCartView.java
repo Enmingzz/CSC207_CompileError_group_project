@@ -3,6 +3,7 @@ package view.shopping_cart;
 import entity.product.Product;
 import entity.user.User;
 
+import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartState;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
 
@@ -17,8 +18,7 @@ import interface_adapter.rating.RateProductController;
 // Import all Controllers related to the top bar
 import interface_adapter.logout.LogOutController;
 import interface_adapter.profile.view_profile.ViewProfileController;
-import interface_adapter.search_product.SearchProductByNameController;
-import interface_adapter.search_product.SearchProductByTagController;
+// import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.main_page.MainPageController;
 
@@ -60,8 +60,7 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
 
     private final ShoppingCartController shoppingCartController;
     private final ViewProfileController viewProfileController;
-    private final SearchProductByTagController searchProductByTagController;
-    private final SearchProductByNameController searchProductByNameController;
+    private final GetSearchPageController getSearchPageController;
     private final LogOutController logOutController;
     private final MainPageController mainPageController;
 
@@ -74,6 +73,7 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
      * @param buyerSelectScheduleController the controller responsible for the buyerSelectSchedule use case
      * @param confirmController the controller responsible for the confirmProductReceived use case
      * @param rateProductController the controller responsible for the rateProduct use case
+     *
      */
 
     public ShoppingCartView(ShoppingCartViewModel shoppingCartViewModel,
@@ -85,8 +85,7 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
                             RateProductController rateProductController,
                             ShoppingCartController shoppingCartController,
                             ViewProfileController viewProfileController,
-                            SearchProductByTagController searchProductByTagController,
-                            SearchProductByNameController searchProductByNameController,
+                            GetSearchPageController getSearchPageController,
                             LogOutController logOutController,
                             MainPageController mainPageController) {
 
@@ -100,8 +99,7 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
 
         this.viewProfileController = viewProfileController;
         this.shoppingCartController = shoppingCartController;
-        this.searchProductByNameController = searchProductByNameController;
-        this.searchProductByTagController = searchProductByTagController;
+        this.getSearchPageController = getSearchPageController;
         this.logOutController = logOutController;
         this.mainPageController = mainPageController;
 
