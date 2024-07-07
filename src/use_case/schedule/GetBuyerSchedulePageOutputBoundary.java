@@ -1,4 +1,2 @@
-package use_case.schedule;
-
-public class GetBuyerSchedulePageOutputBoundary {
+package use_case.schedule;public interface GetBuyerSchedulePageOutputBoundary {
 }

@@ -59,7 +59,7 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
         if (e.getSource() == selectButton) {
             LocalDateTime selectTime = (LocalDateTime) availableTimesComboBox.getSelectedItem();
             if (selectTime != null) {
-                controller.selectSchedule(selectTime);
+                controller.execute(selectTime);
             } else {
                 JOptionPane.showMessageDialog(this, "Please select a time for the schedule:", "Error", JOptionPane.ERROR_MESSAGE);
             }
