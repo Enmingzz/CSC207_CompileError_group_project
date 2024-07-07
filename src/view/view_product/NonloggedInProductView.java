@@ -19,7 +19,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 public class NonloggedInProductView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "non login view product view";// useless??
+    public final String viewName = "non login view product view";
     private final UnloggedInViewModel nonLoggedInViewModel;
 
 
