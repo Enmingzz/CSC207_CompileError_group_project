@@ -49,7 +49,7 @@ class PublishQuestionSuccessTest {
         String eTransferEmail = "";
         String sellerStudentNumber = "";
         String address = "";
-        LocalDateTime time = LocalDateTime.now();
+        LocalDateTime time = null;
         ArrayList<LocalDateTime> arrayList = new ArrayList<>();
         Schedule schedule = scheduleFactory.createSchedule(time, arrayList);
         ArrayList<String> listTags = new ArrayList<>();
@@ -63,6 +63,5 @@ class PublishQuestionSuccessTest {
                 questionFactory, successPresenter);
 
         interactor.execute(inputData);
-
     }
 }
