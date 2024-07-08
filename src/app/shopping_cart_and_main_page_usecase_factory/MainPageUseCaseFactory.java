@@ -113,8 +113,7 @@ public class MainPageUseCaseFactory {
         GetSearchPageController getSearchPageController = MainPageUseCaseFactory.createGetSearchPageController();
         return new MainPageView(mainPageViewModel, viewProductController, shoppingCartController,
                 viewProfileController,
-                getSearchPageController
-                searchProductByNameController,
+                getSearchPageController,
                 logOutController,
                 mainPageController);
     }
