@@ -2,14 +2,14 @@ package use_case.shopping_cart;
 
 import entity.user.User;
 import entity.product.Product;
-import java.util.List;
+import java.util.ArrayList;
 
 public class DeleteShoppingCartProductOutputData {
     private final User user;
-    private final List<Product> listProducts;
+    private final ArrayList<Product> listProducts;
     private final float totalPrice;
 
-    public DeleteShoppingCartProductOutputData(User user, List<Product> listProducts, float totalPrice) {
+    public DeleteShoppingCartProductOutputData(User user, ArrayList<Product> listProducts, float totalPrice) {
         this.user = user;
         this.listProducts = listProducts;
         this.totalPrice = totalPrice;
@@ -19,7 +19,7 @@ public class DeleteShoppingCartProductOutputData {
         return user;
     }
 
-    public List<Product> getListProducts() {
+    public ArrayList<Product> getListProducts() {
         return listProducts;
     }
 

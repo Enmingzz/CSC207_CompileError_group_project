@@ -9,7 +9,7 @@ import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 
 
 public class DeleteShoppingCartProductInteractor implements DeleteShoppingCartProductInputBoundary {
@@ -35,7 +35,7 @@ public class DeleteShoppingCartProductInteractor implements DeleteShoppingCartPr
         ShoppingCart shoppingCart = shoppingCartReadDataAccessObject.getShoppingCart(user.getStudentNumber());
 
         shoppingCartUpdateDeleteDataAccessObject.updateShoppingCart(user, deletedProduct);
-        List<Product> listProducts = shoppingCart.getListProducts();
+        ArrayList<Product> listProducts = shoppingCart.getListProducts();
         float totalPrice = shoppingCart.getTotalPrice() - deletedProduct.getPrice();
 
         DeleteShoppingCartProductOutputData deleteShoppingCartProductOutputData = new DeleteShoppingCartProductOutputData(user, listProducts, totalPrice);
