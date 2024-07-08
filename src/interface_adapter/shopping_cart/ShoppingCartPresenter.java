@@ -6,7 +6,6 @@ import interface_adapter.ViewManagerModel;
 import use_case.shopping_cart.ShowShoppingCartOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartOutputData;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ShoppingCartPresenter implements ShowShoppingCartOutputBoundary {
 
@@ -19,9 +18,10 @@ public class ShoppingCartPresenter implements ShowShoppingCartOutputBoundary {
         this.viewManagerModel = viewManagerModel;
     }
 
-    public void prepareSuccessView(ShowShoppingCartOutputData response) {
+    @Override
+    public void prepareSuccessfulView(ShowShoppingCartOutputData response) {
         ShoppingCartState shoppingCartState = shoppingCartViewModel.getState();
-        List<Product> listProducts = response.getShoppingCart().getListProducts();
+        ArrayList<Product> listProducts = response.getShoppingCart().getListProducts();
         User user = response.getUser();
 
         shoppingCartState.setListProducts(listProducts);
