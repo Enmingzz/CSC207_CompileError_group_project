@@ -1,8 +1,8 @@
 package interface_adapter.signup;
 
 import interface_adapter.ViewManagerModel;
-import use_case.Signup.ViewSignupPageOutputBoundary;
-import use_case.Signup.ViewSignupPageOutputData;
+import use_case.signup.ViewSignupPageOutputBoundary;
+import use_case.signup.ViewSignupPageOutputData;
 
 public class ViewSignupPagePresenter implements ViewSignupPageOutputBoundary {
 
