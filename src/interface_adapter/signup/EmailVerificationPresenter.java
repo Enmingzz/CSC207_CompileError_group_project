@@ -1,8 +1,8 @@
 package interface_adapter.signup;
 
 import interface_adapter.ViewManagerModel;
-import use_case.Signup.EmailVerificationOutputBoundary;
-import use_case.Signup.EmailVerificationOutputData;
+import use_case.signup.EmailVerificationOutputBoundary;
+import use_case.signup.EmailVerificationOutputData;
 
 public class EmailVerificationPresenter implements EmailVerificationOutputBoundary {
 

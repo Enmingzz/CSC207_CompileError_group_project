@@ -1,7 +1,7 @@
 package interface_adapter.search_product;
 
-import use_case.product_search.SearchProductByTagOutputBoundary;
-import use_case.product_search.SearchProductByTagOutputData;
+import use_case.search_product.SearchProductByTagOutputBoundary;
+import use_case.search_product.SearchProductByTagOutputData;
 
 public class SearchProductByTagPresenter implements SearchProductByTagOutputBoundary {
     private final SearchProductByTagViewModel viewModel;
