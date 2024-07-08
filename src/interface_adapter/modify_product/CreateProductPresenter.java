@@ -4,9 +4,10 @@ import use_case.modify_product.CreateProductOutputBoundary;
 import use_case.modify_product.CreateProductOutputData;
 
 public class CreateProductPresenter implements CreateProductOutputBoundary {
+    private final CreateProductOutputData createProductOutputData;
 
     public void prepareSuccessfulView(CreateProductOutputData createProductOutputData){
-        //TODO need to implement this method
+        this.createProductOutputData = createProductOutputData;
     }
 
 }

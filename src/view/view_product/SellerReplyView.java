@@ -66,7 +66,6 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
 //                currentState.setQuestion(newQuestion);
 //                replyQuestionViewModel.setState(currentState);
 
-
             }
             @Override
             public void keyPressed(KeyEvent e) {
@@ -114,7 +113,6 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
             }
         }
 
-
         cancel.addActionListener(new CancelButtonListener());
 
         this.add(page_title);
@@ -126,9 +124,6 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
         this.add(cancel);
 
     }
-
-
-
 
     @Override
     public void actionPerformed(ActionEvent e) {

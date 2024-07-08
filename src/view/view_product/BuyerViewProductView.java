@@ -21,6 +21,7 @@ import java.beans.PropertyChangeListener;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -34,13 +35,12 @@ import java.util.Objects;
 
 public class BuyerViewProductView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    public final String viewName = "buyer_view_product view";// useless??
+    public final String viewName = "buyer_view_product view";
 
     private final BuyerViewProductViewModel buyerViewProductViewModel;
 
     final JTextField questionInputField = new JTextField(15);
 
-    private final JLabel questionPublishSucceedField = new JLabel();// how to pop up the prompt words?
 
     private final JButton cancel;
     private final JButton addToCart;

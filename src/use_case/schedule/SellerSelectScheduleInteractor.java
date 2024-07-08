@@ -29,7 +29,7 @@ public class SellerSelectScheduleInteractor implements SellerSelectScheduleInput
     }
 
     @Override
-    public void selectSchedule(SellerSelectScheduleInputData inputData) {
+    public void execute(SellerSelectScheduleInputData inputData) {
         boolean success = false;
         try {
             Product product = productReadById.getProductById(inputData.getProductId());
