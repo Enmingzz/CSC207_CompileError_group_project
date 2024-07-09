@@ -3,8 +3,9 @@ package interface_adapter.search_product;
 import entity.product.Product;
 import entity.user.User;
 import interface_adapter.ViewManagerModel;
-import use_case.product_search.GetSearchViewOutputBoundary;
-import use_case.product_search.GetSearchViewOutputData;
+import use_case.search_product.GetSearchViewOutputBoundary;
+import use_case.search_product.GetSearchViewOutputData;
+
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ public class GetSearchPagePresenter implements GetSearchViewOutputBoundary {
 
         searchProductState.setUser(user);
         searchProductState.setProducts(products);
+        this.searchProductViewModel.setState(searchProductState);
 
         searchProductViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(searchProductViewModel.getViewName());
