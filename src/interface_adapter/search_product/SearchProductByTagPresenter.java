@@ -4,9 +4,9 @@ import use_case.search_product.SearchProductByTagOutputBoundary;
 import use_case.search_product.SearchProductByTagOutputData;
 
 public class SearchProductByTagPresenter implements SearchProductByTagOutputBoundary {
-    private final SearchProductByTagViewModel viewModel;
+    private final SearchProductViewModel viewModel;
 
-    public SearchProductByTagPresenter(SearchProductByTagViewModel viewModel) {
+    public SearchProductByTagPresenter(SearchProductViewModel viewModel) {
         this.viewModel = viewModel;
     }
 

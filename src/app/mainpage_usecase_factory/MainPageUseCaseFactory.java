@@ -82,7 +82,7 @@ public class MainPageUseCaseFactory {
                                       SignupViewModel signupViewModel,
                                       LoginViewModel loginViewModel,
                                       ViewProfileViewModel viewProfileViewModel,
-                                      SearchProductByNameViewModel searchProductByNameViewModel,
+                                      SearchProductViewModel searchProductViewModel,
                                       BuyerViewProductViewModel buyerViewProductViewModel,
                                       SellerViewProductViewModel sellerViewProductViewModel
                                       ) throws SQLException, IOException {
@@ -109,7 +109,7 @@ public class MainPageUseCaseFactory {
 
         SearchProductByNameController searchProductByNameController =
                 MainPageUseCaseFactory.createSearchProductByNameController(viewManagerModel,
-                        searchProductByNameViewModel);
+                        searchProductViewModel);
         GetSearchPageController getSearchPageController = MainPageUseCaseFactory.createGetSearchPageController();
         return new MainPageView(mainPageViewModel, viewProductController, shoppingCartController,
                 viewProfileController,
@@ -208,9 +208,9 @@ public class MainPageUseCaseFactory {
         return new ViewProfileController(viewProfileInteractor);
     }
 
-    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductByNameViewModel searchProductByNameViewModel) throws SQLException {
+    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
         SearchProductByNameOutputBoundary searchProductByNamePresenter =
-                new SearchProductByNamePresenter(viewManagerModel, searchProductByNameViewModel);
+                new SearchProductByNamePresenter(viewManagerModel, searchProductViewModel);
         DatabaseProductReadByNameDataAccessObjectFactoryInterface databaseProductReadByNameDataAccessObjectFactory
                 = new DatabaseProductReadByNameDataAccessObjectFactory();
         ProductFactory productFactory = new CommonProductFactory();
