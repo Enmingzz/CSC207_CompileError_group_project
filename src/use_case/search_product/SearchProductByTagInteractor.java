@@ -2,6 +2,7 @@ package use_case.search_product;
 
 import data_access.interfaces.product.ProductReadByTagDataAccessInterface;
 import entity.product.Product;
+import entity.user.User;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -17,14 +18,10 @@ public class SearchProductByTagInteractor implements SearchProductByTagInputBoun
     }
 
     @Override
-    public void execute(SearchProductByTagInputData inputData) {
-        try {
-            ArrayList<Product> products = databaseProductReadByTagDataAccessObject.getProductByTag(inputData.getTag());
-            SearchProductByTagOutputData outputData = new SearchProductByTagOutputData(products);
-            searchProductByTagPresenter.prepareSuccessfulView(outputData);
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-
-        }
+    public void execute(SearchProductByTagInputData inputData) throws SQLException, IOException {
+        User user = inputData.getUser();
+        ArrayList<Product> products = databaseProductReadByTagDataAccessObject.getProductByTag(inputData.getTag());
+        SearchProductByTagOutputData outputData = new SearchProductByTagOutputData(user, products);
+        searchProductByTagPresenter.prepareSuccessfulView(outputData);
     }
 }

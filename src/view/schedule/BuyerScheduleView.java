@@ -26,11 +26,15 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
     private JButton selectButton;
     private JButton cancelButton;
 
-    public BuyerScheduleView(BuyerSelectScheduleViewModel viewModel, BuyerSelectScheduleController controller,
+    public BuyerScheduleView(BuyerSelectScheduleViewModel viewModel,
+                             BuyerSelectScheduleController controller,
                              ShoppingCartController shoppingCartController) {
         this.viewModel = viewModel;
         this.controller = controller;
         this.shoppingCartController = shoppingCartController;
+
+        JLabel title = new JLabel(viewModel.TITLE_LABEL);
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         initializeComponents();
         layoutComponents();

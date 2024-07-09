@@ -1,8 +1,9 @@
 package interface_adapter.search_product;
 
 import entity.user.User;
-import use_case.product_search.GetSearchViewInputBoundary;
-import use_case.product_search.GetSearchViewInputData;
+import use_case.search_product.GetSearchViewInputBoundary;
+import use_case.search_product.GetSearchViewInputData;
+
 
 import java.io.IOException;
 import java.sql.SQLException;
