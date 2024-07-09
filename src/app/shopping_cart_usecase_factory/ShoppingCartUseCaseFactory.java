@@ -45,7 +45,9 @@ import interface_adapter.profile.view_profile.ViewProfilePresenter;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import interface_adapter.rating.GetRatePageController;
 import interface_adapter.rating.RateProductController;
+import interface_adapter.rating.RateProductViewModel;
 import interface_adapter.schedule.BuyerSelectScheduleController;
+import interface_adapter.schedule.BuyerSelectScheduleViewModel;
 import interface_adapter.schedule.GetBuyerSchedulePageController;
 import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.search_product.SearchProductByNamePresenter;
@@ -78,6 +80,7 @@ import use_case.view_product.ViewProductInputBoundary;
 import use_case.view_product.ViewProductInteractor;
 import use_case.view_product.ViewProductOutputBoundary;
 import view.shopping_cart.ShoppingCartView;
+import view.view_product.NonloggedInProductView;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -87,30 +90,39 @@ public class ShoppingCartUseCaseFactory {
     public static ShoppingCartView create(ShoppingCartViewModel shoppingCartViewModel,
                                           BuyerViewProductViewModel buyerViewProductViewModel,
                                           SellerViewProductViewModel sellerViewProductViewModel,
+                                          UnloggedInViewModel unloggedInViewModel,
+                                          BuyerSelectScheduleViewModel buyerSelectScheduleViewModel,
+                                          RateProductViewModel rateProductViewModel,
+                                          ViewProfileViewModel viewProfileViewModel,
+                                          MainPageViewModel mainPageViewModel,
                                           ViewManagerModel viewManagerModel) throws SQLException {
         //TODO need to implement this method
         ViewProductController viewProductController =
                 ShoppingCartUseCaseFactory.createViewProductController(buyerViewProductViewModel,
-                        sellerViewProductViewModel, viewManagerModel);
+                        sellerViewProductViewModel, viewManagerModel, unloggedInViewModel);
         PurchaseController purchaseController =
                 ShoppingCartUseCaseFactory.createPurchaseController(shoppingCartViewModel,
                         viewManagerModel);
         DeleteShoppingCartProductController deleteShoppingCartProductController =
                 ShoppingCartUseCaseFactory.createDeleteShoppingCartProductController(
                         shoppingCartViewModel, viewManagerModel);
-        BuyerSelectScheduleController buyerSelectScheduleController =
+        GetBuyerSchedulePageController getBuyerSelectScheduleController =
                 ShoppingCartUseCaseFactory.createBuyerSelectScheduleController();
+        //TODO: ADD CONTROLLER INPUT
         ConfirmController confirmController = ShoppingCartUseCaseFactory.createConfirmController();
-        RateProductController rateProductController =
+        GetRatePageController getRatePageController =
                 ShoppingCartUseCaseFactory.createRateProductController();
+        ShoppingCartController shoppingCartController = ShoppingCartUseCaseFactory.createShoppingCartController();
+
+
 
         return new ShoppingCartView(shoppingCartViewModel,
                 viewProductController,
                 purchaseController,
                 deleteShoppingCartProductController,
-                buyerSelectScheduleController,
+                getBuyerSelectScheduleController,
                 confirmController,
-                rateProductController);
+                getRatePageController,);
     }
 
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
