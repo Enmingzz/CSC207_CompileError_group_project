@@ -26,17 +26,17 @@ public class InMemoryProductReadAllDataAccessObject implements ProductReadAllDat
         for (Product product : products) {
             ProductFactory productFactory = new CommonProductFactory();
             ArrayList<String> copyListTags = new ArrayList<>();
-            for (String tag: product.getListTags()) {
+            for (String tag : product.getListTags()) {
                 copyListTags.add(tag);
             }
 
             Schedule schedule = product.getSchedule();
             ArrayList<LocalDateTime> sellerTimes = new ArrayList<>();
-            for (LocalDateTime sellerTime: schedule.getSellerTime()){
+            for (LocalDateTime sellerTime : schedule.getSellerTime()) {
                 sellerTimes.add(sellerTime);
             }
             ScheduleFactory scheduleFactory = new CommonScheduleFactory();
-            Schedule copySchedule  = scheduleFactory.createSchedule(schedule.getBuyerTime(),
+            Schedule copySchedule = scheduleFactory.createSchedule(schedule.getBuyerTime(),
                     sellerTimes);
             Product copyProduct = productFactory.createProduct(product.getImage(),
                     product.getDescription(),
@@ -88,5 +88,6 @@ public class InMemoryProductReadAllDataAccessObject implements ProductReadAllDat
             outputProducts.add(copyProduct);
         }
         return outputProducts;
+
     }
 }
