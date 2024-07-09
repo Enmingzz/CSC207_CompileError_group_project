@@ -27,60 +27,16 @@ public class InMemoryShoppingCartUpdateAddDataAccessObject implements ShoppingCa
 
     public InMemoryShoppingCartUpdateAddDataAccessObject(ArrayList<ShoppingCart> shoppingCarts) {
 
-        this.shoppingCarts = new ArrayList<>();
-
-        for (ShoppingCart shoppingCart : shoppingCarts) {
-            ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
-
-            ArrayList<Product> outputProducts = new ArrayList<>();
-            for (Product product : shoppingCart.getListProducts()) {
-                ProductFactory productFactory = new CommonProductFactory();
-                ArrayList<String> copyListTags = new ArrayList<>();
-                for (String tag : product.getListTags()) {
-                    copyListTags.add(tag);
-                }
-
-                Schedule schedule = product.getSchedule();
-                ArrayList<LocalDateTime> sellerTimes = new ArrayList<>();
-                for (LocalDateTime sellerTime : schedule.getSellerTime()) {
-                    sellerTimes.add(sellerTime);
-                }
-                ScheduleFactory scheduleFactory = new CommonScheduleFactory();
-                Schedule copySchedule = scheduleFactory.createSchedule(schedule.getBuyerTime(),
-                        sellerTimes);
-                Product copyProduct = productFactory.createProduct(product.getImage(),
-                        product.getDescription(),
-                        product.getTitle(),
-                        product.getPrice(),
-                        product.getRating(),
-                        product.getState(),
-                        product.geteTransferEmail(),
-                        product.getSellerStudentNumber(),
-                        product.getAddress(),
-                        copyListTags,
-                        product.getProductID(),
-                        copySchedule);
-
-                outputProducts.add(copyProduct);
-            }
-
-            ShoppingCart copyShoppingCart =
-                    shoppingCartFactory.createShoppingCart(shoppingCart.getTotalPrice(),
-                            shoppingCart.getStudentNumber(),
-                            outputProducts);
-
-            this.shoppingCarts.add(copyShoppingCart);
-
-        }
+        this.shoppingCarts = shoppingCarts;
     }
 
     @Override
-    public void updateShoppingCart(User user, Product updated_product) throws SQLException {
+    public void updateShoppingCart(User user, Product updatedProduct) throws SQLException {
         for (ShoppingCart shoppingCart : this.shoppingCarts) {
             if (Objects.equals(shoppingCart.getStudentNumber(), user.getStudentNumber())) {
                 ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
 
-                ArrayList<Product> outputProducts = new ArrayList<>();
+                ArrayList<Product> updatedProducts = new ArrayList<>();
                 for (Product product : shoppingCart.getListProducts()) {
                     ProductFactory productFactory = new CommonProductFactory();
                     ArrayList<String> copyListTags = new ArrayList<>();
@@ -109,20 +65,41 @@ public class InMemoryShoppingCartUpdateAddDataAccessObject implements ShoppingCa
                             product.getProductID(),
                             copySchedule);
 
-                    outputProducts.add(copyProduct);
+                    updatedProducts.add(copyProduct);
                 }
 
-                ShoppingCart copyShoppingCart =
-                        shoppingCartFactory.createShoppingCart(shoppingCart.getTotalPrice(),
-                                userID,
-                                outputProducts);
+                ProductFactory productFactory = new CommonProductFactory();
 
-                return copyShoppingCart;
+                ArrayList<String> copyListTags = new ArrayList<>();
+                for (String tag : updatedProduct.getListTags()) {
+                    copyListTags.add(tag);
+                }
+
+                Schedule schedule = updatedProduct.getSchedule();
+                ArrayList<LocalDateTime> sellerTimes = new ArrayList<>();
+                for (LocalDateTime sellerTime : schedule.getSellerTime()) {
+                    sellerTimes.add(sellerTime);
+                }
+                ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+                Schedule copySchedule = scheduleFactory.createSchedule(schedule.getBuyerTime(),
+                        sellerTimes);
+                Product copyProduct = productFactory.createProduct(updatedProduct.getImage(),
+                        updatedProduct.getDescription(),
+                        updatedProduct.getTitle(),
+                        updatedProduct.getPrice(),
+                        updatedProduct.getRating(),
+                        updatedProduct.getState(),
+                        updatedProduct.geteTransferEmail(),
+                        updatedProduct.getSellerStudentNumber(),
+                        updatedProduct.getAddress(),
+                        copyListTags,
+                        updatedProduct.getProductID(),
+                        copySchedule);
+
+                updatedProducts.add(copyProduct);
             }
 
         }
-
-        return null;
     }
 
 
