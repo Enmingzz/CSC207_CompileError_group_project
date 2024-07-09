@@ -1,5 +1,8 @@
 package data_access.in_memory.user;
 
+import data_access.interfaces.user.UserCreateDataAccessInterface;
+import data_access.interfaces.user.UserReadDataAccessInterface;
+import data_access.interfaces.user.UserUpdateNameDataAccessInterface;
 import data_access.interfaces.user.UserUpdatePasswordDataAccessInterface;
 import entity.user.User;
 import entity.user.UserFactory;
@@ -7,29 +10,24 @@ import entity.user.UserFactory;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class InMemoryUserUpdatePasswordDataAccessObject implements UserUpdatePasswordDataAccessInterface {
+/**
+ * mocked DAO for User table
+ */
+
+public class InMemoryUserDataReadAccessObject implements UserReadDataAccessInterface{
 
     private ArrayList<User> users;
     private UserFactory userFactory;
 
-    public InMemoryUserUpdatePasswordDataAccessObject(ArrayList<User> listUser, UserFactory userFactory) {
+    public InMemoryUserDataReadAccessObject(ArrayList<User> listUser, UserFactory userFactory) {
         users = new ArrayList<>();
-        this.userFactory = userFactory;
         for (User user : listUser) {
             users.add(user);
         }
+        this.userFactory = userFactory;
     }
 
     @Override
-    public void updateUserPassword(User user, String password) throws SQLException {
-        for(User user1 : users) {
-            if(user1.getStudentNumber().equals(user.getStudentNumber())) {
-                User commonUser = userFactory.createUser(user.getName(), password,
-                        user.getEmail(),user.getUserRating(), user.getStudentNumber());
-            }
-        }
-    }
-
     public User getUser(String studentNumber) throws SQLException {
         for(User user : users) {
             if(user.getStudentNumber().equals(studentNumber)) {
@@ -38,4 +36,5 @@ public class InMemoryUserUpdatePasswordDataAccessObject implements UserUpdatePas
         }
         return null;
     }
+
 }

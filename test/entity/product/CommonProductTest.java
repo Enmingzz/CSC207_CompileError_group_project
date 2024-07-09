@@ -22,7 +22,6 @@ class CommonProductTest {
     private LocalDateTime startTime;
     private Image image;
     private ArrayList<String> tags;
-    private ArrayList<String> tags;
     private LocalDateTime time;
     private ArrayList<LocalDateTime> localDateTimeList;
 

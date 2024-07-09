@@ -185,7 +185,7 @@ public class SignupUseCaseFactory {
 
         UserFactory userFactory = new CommonUserFactory();
 
-        LoginInputBoundary userLoginInteractor = new LoginInteractor(userReadDataAccessInterface, loginOutputBoundary, userFactory);
+        LoginInputBoundary userLoginInteractor = new LoginInteractor(userReadDataAccessInterface, loginOutputBoundary);
 
         return new LoginController(userLoginInteractor);
     }

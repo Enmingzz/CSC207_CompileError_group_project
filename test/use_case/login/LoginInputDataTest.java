@@ -8,8 +8,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LoginInputDataTest {
 
+    private String studentNumber;
+    private String password;
+    private LoginInputData loginInputData;
+
     @BeforeEach
     void setUp() {
+        studentNumber = "123456";
+        password = "123456";
+        loginInputData = new LoginInputData(studentNumber, password);
     }
 
     @AfterEach
@@ -18,9 +25,12 @@ class LoginInputDataTest {
 
     @Test
     void getStudentNumber() {
+        assertEquals(studentNumber, loginInputData.getStudentNumber());
     }
 
     @Test
     void getPassword() {
+        assertEquals(password, loginInputData.getPassword());
     }
+
 }
