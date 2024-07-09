@@ -8,8 +8,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CommonCommentTest {
 
+    private Comment commonCommment;
+
     @BeforeEach
     void setUp() {
+        commonCommment = new CommonComment("this is a test", "123456");
     }
 
     @AfterEach
@@ -18,9 +21,11 @@ class CommonCommentTest {
 
     @Test
     void getDescription() {
+        assertEquals("this is a test", this.commonCommment.getDescription());
     }
 
     @Test
     void getStudentNumber() {
+        assertEquals("123456", this.commonCommment.getStudentNumber());
     }
 }
