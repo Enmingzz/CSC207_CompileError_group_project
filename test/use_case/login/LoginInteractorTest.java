@@ -21,14 +21,24 @@ class LoginInteractorTest {
     private String password;
     private InMemoryUserDataReadAccessObject inMemoryUserDataAccessObject;
     private LoginInteractor loginInteractor;
+    private ArrayList<User> users;
+    private UserFactory userFactory;
 
     @BeforeEach
     void setUp(){
         studentNumber = "123456";
         password = "123456";
+        userFactory = new CommonUserFactory();
+        users = new ArrayList<>();
+    }
+
+    @AfterEach
+    void tearDown() {
+    }
+
+    @Test
+    void successfulView() throws SQLException {
         commonUser = new CommonUser("hanrui", password, "hanrui@mail", 0, studentNumber);
-        UserFactory userFactory = new CommonUserFactory();
-        ArrayList<User> users = new ArrayList<>();
         users.add(commonUser);
         inMemoryUserDataAccessObject = new InMemoryUserDataReadAccessObject(users, userFactory);
 
@@ -44,15 +54,50 @@ class LoginInteractorTest {
         };
 
         this.loginInteractor = new LoginInteractor(inMemoryUserDataAccessObject, loginPresenter);
-
-    }
-
-    @AfterEach
-    void tearDown() {
+        LoginInputData loginInputData = new LoginInputData(studentNumber, password);
+        loginInteractor.execute(loginInputData);
     }
 
     @Test
-    void execute() throws SQLException {
+    void canNotFindUserFailedView() throws SQLException {
+        commonUser = new CommonUser("nothanrui", password, "hanrui@mail", 0, studentNumber);
+        users.add(commonUser);
+        inMemoryUserDataAccessObject = new InMemoryUserDataReadAccessObject(users, userFactory);
+
+        LoginOutputBoundary loginPresenter = new LoginOutputBoundary() {
+            @Override
+            public void prepareSuccessfulView(LoginOutputData response) {
+            }
+
+            @Override
+            public void prepareFailedView(String error) {
+                assertEquals("Can not find user", error);
+            }
+        };
+
+        this.loginInteractor = new LoginInteractor(inMemoryUserDataAccessObject, loginPresenter);
+        LoginInputData loginInputData = new LoginInputData(studentNumber, password);
+        loginInteractor.execute(loginInputData);
+    }
+
+    @Test
+    void passwordDoesNotMatch() throws SQLException {
+        commonUser = new CommonUser("hanrui", password+"222", "hanrui@mail", 0, studentNumber);
+        users.add(commonUser);
+        inMemoryUserDataAccessObject = new InMemoryUserDataReadAccessObject(users, userFactory);
+
+        LoginOutputBoundary loginPresenter = new LoginOutputBoundary() {
+            @Override
+            public void prepareSuccessfulView(LoginOutputData response) {
+            }
+
+            @Override
+            public void prepareFailedView(String error) {
+                assertEquals("Passwords do not match", error);
+            }
+        };
+
+        this.loginInteractor = new LoginInteractor(inMemoryUserDataAccessObject, loginPresenter);
         LoginInputData loginInputData = new LoginInputData(studentNumber, password);
         loginInteractor.execute(loginInputData);
     }

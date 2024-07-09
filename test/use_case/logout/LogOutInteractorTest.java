@@ -8,8 +8,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LogOutInteractorTest {
 
+    private LogOutInteractor logOutInteractor;
+    private LogOutOutputBoundary logOutOutputPresenter;
+    private LogOutInputData logOutInputData;
+
     @BeforeEach
     void setUp() {
+        logOutOutputPresenter = new LogOutOutputBoundary() {
+            @Override
+            public void prepareSuccessfulView(LogOutOutputData logOutOutputData) {
+                assertEquals(new LogOutOutputData(), logOutOutputData);
+            }
+        };
+
+        logOutInputData = new LogOutInputData();
+        logOutInteractor = new LogOutInteractor(logOutOutputPresenter);
     }
 
     @AfterEach
@@ -18,5 +31,7 @@ class LogOutInteractorTest {
 
     @Test
     void execute() {
+        logOutInteractor.execute(logOutInputData);
     }
+
 }

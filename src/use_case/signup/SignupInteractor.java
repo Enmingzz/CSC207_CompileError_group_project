@@ -7,18 +7,34 @@ import entity.user.UserFactory;
 
 import java.sql.SQLException;
 
+/**
+ *Receive Student's information from the SignUpView, then process those information and executes
+ * different actions.
+ * If user does not exist, password does match and validation code does match, then execute the
+ * successful view presenter.
+ * Otherwise, executes failed view presenter, with different error message.
+ */
+
 public class SignupInteractor implements SignupInputBoundary{
     final UserCreateDataAccessInterface userCreateDataAccessObject;
     final UserReadDataAccessInterface userReadDataAccessObject;
-    final SignupOutputBoundary userPresenter;
+    final SignupOutputBoundary signupPresenter;
     final UserFactory userFactory;
 
+    /**
+     * @param userCreateDataAccessObject A DAO used to save a user into databases.
+     * @param userReadDataAccessObject A DAO used to read users from database.
+     * @param signupPresenter initialize userPresenter with a signupPresenter but with upcasting
+     *                        to SignupOutputBoundary
+     * @param userFactory Used to create a commonUser.
+     */
+
     public SignupInteractor(UserCreateDataAccessInterface userCreateDataAccessObject, UserReadDataAccessInterface userReadDataAccessObject,
-                            SignupOutputBoundary signupOutputBoundary,
+                            SignupOutputBoundary signupPresenter,
                             UserFactory userFactory) {
             this.userCreateDataAccessObject = userCreateDataAccessObject;
             this.userReadDataAccessObject = userReadDataAccessObject;
-            this.userPresenter = signupOutputBoundary;
+            this.signupPresenter = signupPresenter;
             this.userFactory = userFactory;
         }
 
@@ -33,21 +49,26 @@ public class SignupInteractor implements SignupInputBoundary{
 
     @Override
     public void execute(SignupInputData signupInputData) throws SQLException {
+        User user = userFactory.createUser(signupInputData.getUsername(), signupInputData.getPassword(),
+                signupInputData.getEmailAddress(), 0, signupInputData.getStudentNumber());
         //System.out.println(signupInputData.getGeneratedVerificationCode());
         if (existsByStudentNumber(signupInputData)) {
-            userPresenter.presentFailedView("user already exists.");
+            SignupOutputData signupOutputData = new SignupOutputData(user, "user already exists");
+            signupPresenter.presentFailedView(signupOutputData);
         } else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
-            userPresenter.presentFailedView("Passwords don't match.");
+            SignupOutputData signupOutputData = new SignupOutputData(user, "user already exists");
+            signupPresenter.presentFailedView(signupOutputData);
         }else if(signupInputData.getGeneratedVerificationCode() == ""){
-            userPresenter.presentFailedView("Need to send verification code fist.");
+            SignupOutputData signupOutputData = new SignupOutputData(user, "Need to send verification code fist");
+            signupPresenter.presentFailedView(signupOutputData);
         }
         else if (!signupInputData.getInputVerificationCode().equals(signupInputData.getGeneratedVerificationCode())){
-            userPresenter.presentFailedView("Wrong verification code.");
+            SignupOutputData signupOutputData = new SignupOutputData(user, "Wrong verification code");
+            signupPresenter.presentFailedView(signupOutputData);
         }else {
-            User user = userFactory.createUser(signupInputData.getUsername(), signupInputData.getPassword(), signupInputData.getEmailAddress(), 0, signupInputData.getStudentNumber());
             userCreateDataAccessObject.saveUser(user);
-            SignupOutputData signupOutputData = new SignupOutputData(user.getName(), user.getStudentNumber(), false);
-            userPresenter.presentSuccessfulView(signupOutputData);
+            SignupOutputData signupOutputData = new SignupOutputData(user, "successful");
+            signupPresenter.presentSuccessfulView(signupOutputData);
         }
     }
 }
