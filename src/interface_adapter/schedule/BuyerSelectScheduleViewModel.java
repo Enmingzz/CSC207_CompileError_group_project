@@ -6,45 +6,29 @@ import java.beans.PropertyChangeListener;
 import java.time.LocalDateTime;
 
 public class BuyerSelectScheduleViewModel extends ViewModel {
-    public final String TITLE_LABEL = "Select Schedule for Pickup";
-    public final String CONFIRM_BUTTON = "Confirm Schedule";
+    public final String TITLE_LABEL = "Select Schedule";
+    public final String CONFIRM_BUTTON_LABEL = "Confirm Schedule";
     public final String CANCEL_BUTTON_LABEL = "Cancel";
 
-    private LocalDateTime selectedTime;
-    private boolean success;
-    private final PropertyChangeSupport support;
+
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private BuyerSelectScheduleState state = new BuyerSelectScheduleState();
 
     public BuyerSelectScheduleViewModel() {
-        super("BuyerSelectScheduleViewModel");
-        this.support = new PropertyChangeSupport(this);
+        super("buyer_schedule");
     }
 
-    public LocalDateTime getSelectedTime() {
-        return selectedTime;
+    public void setState(BuyerSelectScheduleState state) {
+        this.state = state;
     }
 
-    public void setSelectedTime(LocalDateTime selectedTime) {
-        this.selectedTime = truncateToHour(selectedTime);
-        firePropertyChanged();
-    }
-
-    private LocalDateTime truncateToHour(LocalDateTime time) {
-        return time.withMinute(0).withSecond(0).withNano(0);
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-        firePropertyChanged();
+    public BuyerSelectScheduleState getState() {
+        return state;
     }
 
     @Override
     public void firePropertyChanged() {
-        support.firePropertyChange("BuyerSelectScheduleViewModel", null, this);
-    }
+        support.firePropertyChange("state", null, this.state);    }
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {

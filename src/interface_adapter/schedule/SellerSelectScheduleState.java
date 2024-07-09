@@ -7,9 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SellerSelectScheduleState {
-    private User seller;
-    private Product product;
-    private List<LocalDateTime> availableTimes;
+    private User seller = null;
+    private Product product = null;
 
     public User getSeller() {
         return seller;
@@ -27,15 +26,6 @@ public class SellerSelectScheduleState {
         this.product = product;
     }
 
-    public List<LocalDateTime> getAvailableTimes() {
-        return availableTimes;
-    }
-
-    public void setAvailableTimes(List<LocalDateTime> availableTimes) {
-        this.availableTimes = availableTimes.stream()
-                .map(this::truncateToHour)
-                .collect(Collectors.toList());
-    }
 
     private LocalDateTime truncateToHour(LocalDateTime time) {
         return time.withMinute(0).withSecond(0).withNano(0);

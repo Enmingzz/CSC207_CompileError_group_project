@@ -8,16 +8,23 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class SellerSelectScheduleViewModel extends ViewModel{
+    public final String TITLE_LABEL = "Select Available Times";
+    public final String ADD_BUTTON_LABEL = "Add";
+    public final String REMOVE_BUTTON_LABEL = "Remove";
+    public final String CONFIRM_BUTTON_LABEL = "Confirm";
+    public final String CANCEL_BUTTON_LABEL = "Cancel";
+
     private String sellerName;
     private String productId;
     private ArrayList<LocalDateTime> availableTimes;
     private boolean success;
+    private SellerSelectScheduleState state = new SellerSelectScheduleState();
 
-    private PropertyChangeSupport support;
+
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public SellerSelectScheduleViewModel() {
-        super("SellerSelectScheduleViewModel");
-        this.support = new PropertyChangeSupport(this);
+        super("seller_schedule");
     }
 
     public String getSellerName() {
@@ -54,10 +61,17 @@ public class SellerSelectScheduleViewModel extends ViewModel{
         firePropertyChanged();
     }
 
+    public void setState(SellerSelectScheduleState state) {
+        this.state = state;
+    }
+
+    public SellerSelectScheduleState getState() {
+        return state;
+    }
+
     @Override
     public void firePropertyChanged() {
-        support.firePropertyChange("SellerSelectScheduleViewModel", null, this);
-    }
+        support.firePropertyChange("state", null, this.state);    }
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {

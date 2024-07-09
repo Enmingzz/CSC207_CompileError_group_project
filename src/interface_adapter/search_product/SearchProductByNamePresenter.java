@@ -3,21 +3,20 @@ package interface_adapter.search_product;
 import interface_adapter.ViewManagerModel;
 import use_case.product_search.SearchProductByNameOutputBoundary;
 import use_case.product_search.SearchProductByNameOutputData;
-import view.product_search.SearchByNameView;
 
 public class SearchProductByNamePresenter implements SearchProductByNameOutputBoundary{
 
     final private ViewManagerModel viewManagerModel;
-    final private SearchProductByNameViewModel searchProductByNameViewModel;
+    final private SearchProductViewModel searchProductViewModel;
 
     public SearchProductByNamePresenter(ViewManagerModel viewManagerModel,
-                                        SearchProductByNameViewModel searchProductByNameViewModel) {
+                                        SearchProductViewModel searchProductViewModel) {
         this.viewManagerModel = viewManagerModel;
-        this.searchProductByNameViewModel = searchProductByNameViewModel;
+        this.searchProductViewModel = searchProductViewModel;
     }
 
 
     public void prepareSuccessfulView(SearchProductByNameOutputData searchProductByNameOutputData) {
-        searchProductByNameViewModel.setProducts(searchProductByNameOutputData.getProducts());
+        searchProductViewModel.setProducts(searchProductByNameOutputData.getProducts());
     }
 }

@@ -26,7 +26,7 @@ import interface_adapter.schedule.SellerSelectSchedulePresenter;
 import interface_adapter.schedule.SellerSelectScheduleViewModel;
 import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.search_product.SearchProductByNamePresenter;
-import interface_adapter.search_product.SearchProductByNameViewModel;
+import interface_adapter.search_product.SearchProductViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
@@ -46,7 +46,6 @@ import use_case.schedule.SellerSelectScheduleInputBoundary;
 import use_case.schedule.SellerSelectScheduleInteractor;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
-import view.product_search.SearchByNameView;
 import view.schedule.SellerScheduleView;
 
 import java.io.IOException;
@@ -127,9 +126,9 @@ public class SellerScheduleUseCaseFactory {
         return new ViewProfileController(viewProfileInteractor);
     }
 
-    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductByNameViewModel searchProductByNameViewModel) throws SQLException {
+    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
         SearchProductByNameOutputBoundary searchProductByNamePresenter =
-                new SearchProductByNamePresenter(viewManagerModel, searchProductByNameViewModel);
+                new SearchProductByNamePresenter(viewManagerModel, searchProductViewModel);
         DatabaseProductReadByNameDataAccessObjectFactoryInterface databaseProductReadByNameDataAccessObjectFactory
                 = new DatabaseProductReadByNameDataAccessObjectFactory();
         ProductFactory productFactory = new CommonProductFactory();

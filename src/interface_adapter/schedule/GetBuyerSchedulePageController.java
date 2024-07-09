@@ -10,12 +10,13 @@ import java.sql.SQLException;
 
 public class GetBuyerSchedulePageController {
     private GetBuyerSchedulePageInputBoundary inputBoundary;
-    private final BuyerSelectScheduleState state;
 
-    public void execute(User user, Product product) throws SQLException, IOException {
-        state.setBuyer(user);
-        state.setProduct(product);
-        GetBuyerSchedulePageInputData inputData = new GetBuyerSchedulePageInputData();
+    public GetBuyerSchedulePageController(GetBuyerSchedulePageInputBoundary inputBoundary) {
+        this.inputBoundary = inputBoundary;
+    }
+
+    public void execute(User buyer, Product product) throws SQLException, IOException {
+        GetBuyerSchedulePageInputData inputData = new GetBuyerSchedulePageInputData(buyer, product);
         inputBoundary.execute(inputData);
-
+    }
 }

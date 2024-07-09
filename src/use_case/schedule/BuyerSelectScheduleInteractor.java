@@ -10,10 +10,10 @@ import java.sql.SQLException;
 import java.io.IOException;
 
 public class BuyerSelectScheduleInteractor implements BuyerSelectScheduleInputBoundary {
-    private BuyerSelectScheduleOutputBoundary outputBoundary;
-    private ProductReadByIdDataAccessInterface productReadById;
-    private ProductUpdateBuyerScheduleDataAccessInterface productUpdateBuyerSchedule;
-    private ProductUpdateStateDataAccessInterface productUpdateState;
+    private final BuyerSelectScheduleOutputBoundary outputBoundary;
+    private final ProductReadByIdDataAccessInterface productReadById;
+    private final ProductUpdateBuyerScheduleDataAccessInterface productUpdateBuyerSchedule;
+    private final ProductUpdateStateDataAccessInterface productUpdateState;
 
     public BuyerSelectScheduleInteractor(BuyerSelectScheduleOutputBoundary outputBoundary,
                                          ProductReadByIdDataAccessInterface productReadById,

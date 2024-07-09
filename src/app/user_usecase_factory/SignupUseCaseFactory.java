@@ -70,7 +70,7 @@ public class SignupUseCaseFactory {
                                     SignupViewModel signupViewModel,
                                     MainPageViewModel mainPageViewModel,
                                     ShoppingCartViewModel shoppingCartViewModel,
-                                    SearchProductByNameViewModel searchProductByNameViewModel,
+                                    SearchProductViewModel searchProductViewModel,
                                     SearchProductByTagViewModel searchProductByTagViewModel,
                                     LoginViewModel LoginViewModel) {
 
@@ -85,7 +85,7 @@ public class SignupUseCaseFactory {
                             shoppingCartViewModel);
             SearchProductByNameController searchProductByNameController =
                     SignupUseCaseFactory.createSearchProductByNameController(viewManagerModel,
-                            searchProductByNameViewModel);
+                            searchProductViewModel);
             SearchProductByTagController searchProductByTagController =
                     SignupUseCaseFactory.createSearchProductByTagController();
             ViewLoginPageController viewLoginPageController =
@@ -215,9 +215,9 @@ public class SignupUseCaseFactory {
         return new ViewProfileController(viewProfileInteractor);
     }
 
-    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductByNameViewModel searchProductByNameViewModel) throws SQLException {
+    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
         SearchProductByNameOutputBoundary searchProductByNamePresenter =
-                new SearchProductByNamePresenter(viewManagerModel, searchProductByNameViewModel);
+                new SearchProductByNamePresenter(viewManagerModel, searchProductViewModel);
         DatabaseProductReadByNameDataAccessObjectFactoryInterface databaseProductReadByNameDataAccessObjectFactory
                 = new DatabaseProductReadByNameDataAccessObjectFactory();
         ProductFactory productFactory = new CommonProductFactory();

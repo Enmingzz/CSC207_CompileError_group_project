@@ -2,6 +2,7 @@ package view.schedule;
 
 import interface_adapter.schedule.BuyerSelectScheduleController;
 import interface_adapter.schedule.BuyerSelectScheduleViewModel;
+import interface_adapter.shopping_cart.ShoppingCartController;
 
 
 import javax.swing.*;
@@ -15,16 +16,21 @@ import java.util.ArrayList;
 
 public class BuyerScheduleView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    public final String viewName = "buyer schedule";
+    public final String viewName = "buyer_schedule";
+
     private BuyerSelectScheduleViewModel viewModel;
     private final BuyerSelectScheduleController controller;
+    private ShoppingCartController shoppingCartController;
 
     private JComboBox<LocalDateTime> availableTimesComboBox;
     private JButton selectButton;
+    private JButton cancelButton;
 
-    public BuyerScheduleView(BuyerSelectScheduleViewModel viewModel, BuyerSelectScheduleController controller) {
+    public BuyerScheduleView(BuyerSelectScheduleViewModel viewModel, BuyerSelectScheduleController controller,
+                             ShoppingCartController shoppingCartController) {
         this.viewModel = viewModel;
         this.controller = controller;
+        this.shoppingCartController = shoppingCartController;
 
         initializeComponents();
         layoutComponents();
@@ -55,11 +61,16 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == selectButton) {
+    public void actionPerformed(ActionEvent evt) {
+        if (evt.getSource().equals(selectButton)) {
             LocalDateTime selectTime = (LocalDateTime) availableTimesComboBox.getSelectedItem();
             if (selectTime != null) {
-                controller.execute(selectTime);
+                try {
+                    controller.execute(viewModel.getState().getBuyer().getName(),
+                            viewModel.getState().getProduct().getProductID(), selectTime);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Please select a time for the schedule:", "Error", JOptionPane.ERROR_MESSAGE);
             }
