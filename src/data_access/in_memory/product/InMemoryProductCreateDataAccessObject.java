@@ -59,5 +59,7 @@ public class InMemoryProductCreateDataAccessObject implements ProductCreateDataA
                 copyListTags,
                 product.getProductID(),
                 copySchedule);
+
+        products.add(copyProduct);
     }
 }
