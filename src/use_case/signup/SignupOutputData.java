@@ -1,26 +1,21 @@
 package use_case.signup;
 
+import entity.user.User;
+
 public class SignupOutputData {
-    private final String username;
-    private final String Utorid;
-    private boolean useCaseFailed;
+    private final User user;
+    private final String error;
 
-    public SignupOutputData(String username, String utorid, boolean useCaseFailed) {
-        this.username = username;
-        Utorid = utorid;
-        this.useCaseFailed = useCaseFailed;
+    public SignupOutputData(User user, String error) {
+        this.user = user;
+        this.error = error;
     }
 
-    public String getUsername() {
-        return username;
+    public User getUser() {
+        return user;
     }
 
-    public String getUtorid() {
-        return Utorid;
+    public String getError() {
+        return error;
     }
-
-    public boolean getUseCaseFailed() {
-        return useCaseFailed;
-    }
-
 }

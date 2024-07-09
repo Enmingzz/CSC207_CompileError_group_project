@@ -8,7 +8,8 @@ public class LogOutInteractor implements LogOutInputBoundary{
         this.logOutPresenter = logOutPresenter;
     }
 
-    public void execute(){
-
+    public void execute(LogOutInputData logOutInputData){
+        LogOutOutputData logOutOutputData = new LogOutOutputData();
+        logOutPresenter.prepareSuccessfulView(logOutOutputData);
     }
 }

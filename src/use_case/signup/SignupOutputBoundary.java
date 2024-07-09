@@ -4,5 +4,6 @@ public interface SignupOutputBoundary {
 
     public void presentSuccessfulView(SignupOutputData response);
 
-    public void presentFailedView(String error);
+    public void presentFailedView(SignupOutputData response);
+
 }

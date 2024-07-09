@@ -8,8 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EmailVerificationInteractorTest {
 
+    private EmailVerificationInteractor emailVerificationInteractor;
+    private EmailVerificationInputData emailVerificationInputData;
+
     @BeforeEach
     void setUp() {
+        emailVerificationInputData = new EmailVerificationInputData("hanrui@gmail");
     }
 
     @AfterEach

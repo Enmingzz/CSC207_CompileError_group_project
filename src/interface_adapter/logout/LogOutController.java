@@ -1,6 +1,7 @@
 package interface_adapter.logout;
 
 import use_case.logout.LogOutInputBoundary;
+import use_case.logout.LogOutInputData;
 
 public class LogOutController {
 
@@ -11,6 +12,8 @@ public class LogOutController {
     }
 
     public void execute(){
-        logOutInteractor.execute();
+        LogOutInputData data = new LogOutInputData();
+        logOutInteractor.execute(data);
     }
+
 }
