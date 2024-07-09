@@ -1,7 +1,7 @@
 package interface_adapter.signup;
 
-import use_case.Signup.EmailVerificationInputBoundary;
-import use_case.Signup.EmailVerificationInputData;
+import use_case.signup.EmailVerificationInputBoundary;
+import use_case.signup.EmailVerificationInputData;
 
 public class EmailVerificationController {
 

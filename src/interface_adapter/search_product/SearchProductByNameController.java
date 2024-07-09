@@ -1,8 +1,8 @@
 package interface_adapter.search_product;
 
 import entity.user.User;
-import use_case.product_search.SearchProductByNameInputBoundary;
-import use_case.product_search.SearchProductByNameInputData;
+import use_case.search_product.SearchProductByNameInputBoundary;
+import use_case.search_product.SearchProductByNameInputData;
 
 public class SearchProductByNameController {
 
