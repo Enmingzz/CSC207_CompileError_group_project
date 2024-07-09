@@ -5,4 +5,8 @@ package entity.comment;
  * @author CompileError group
  */
 public interface Comment {
+
+    String getDescription();
+
+    String getStudentNumber();
 }
