@@ -26,6 +26,8 @@ public class MainPagePresenter implements ShowMainPageOutputBoundary {
         mainPageState.setUser(user);
         mainPageState.setAllProducts(allProducts);
 
+        mainPageViewModel.setState(mainPageState);
+
         mainPageViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(mainPageViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
