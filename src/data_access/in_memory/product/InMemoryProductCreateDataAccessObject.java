@@ -53,6 +53,13 @@ public class InMemoryProductCreateDataAccessObject implements ProductCreateDataA
                 copySchedule);
     }
 
+    /**
+     *
+     * @return returns an arraylist of Product to check if product has been saved into the mock database
+     * @throws SQLException
+     * @throws IOException
+     */
+
     public ArrayList<Product> getProducts() throws SQLException, IOException {
         ArrayList<Product> outputProducts = new ArrayList<>();
         for(Product product: products){
