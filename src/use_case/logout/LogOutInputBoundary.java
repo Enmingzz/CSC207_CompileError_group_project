@@ -1,6 +1,11 @@
 package use_case.logout;
 
+/**
+ * Interface of LogOutInteractor
+ * @author CompileError group
+ */
+
 public interface LogOutInputBoundary {
 
-    public void execute();
+    void execute(LogOutInputData logOutInputData);
 }

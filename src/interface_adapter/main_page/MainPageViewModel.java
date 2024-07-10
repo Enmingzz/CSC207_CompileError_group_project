@@ -10,7 +10,7 @@ public class MainPageViewModel extends ViewModel {
     // Add all necessary constant labels for view as attributes here
     public final String TITLE_LABEL = "Products Page";
 
-    private final MainPageState state = new MainPageState();
+    private MainPageState state = new MainPageState();
 
     public MainPageViewModel() {
         super("main page");
@@ -18,6 +18,10 @@ public class MainPageViewModel extends ViewModel {
 
     public MainPageState getState() {
         return state;
+    }
+
+    public void setState(MainPageState state) {
+        this.state = state;
     }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);

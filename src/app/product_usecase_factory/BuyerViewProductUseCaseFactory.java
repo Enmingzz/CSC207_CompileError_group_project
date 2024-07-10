@@ -13,7 +13,6 @@ import data_access.interfaces.product.ProductReadByNameDataAccessInterface;
 import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
 import data_access.interfaces.shopping_cart.ShoppingCartUpdateAddDataAccessInterface;
 import entity.product.CommonProductFactory;
-import entity.product.Product;
 import entity.product.ProductFactory;
 import entity.schedule.CommonScheduleFactory;
 import entity.schedule.ScheduleFactory;
@@ -30,7 +29,7 @@ import interface_adapter.profile.view_profile.ViewProfilePresenter;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.search_product.SearchProductByNamePresenter;
-import interface_adapter.search_product.SearchProductByNameViewModel;
+import interface_adapter.search_product.SearchProductViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
@@ -44,9 +43,9 @@ import use_case.logout.LogOutOutputBoundary;
 import use_case.main_page.ShowMainPageInputBoundary;
 import use_case.main_page.ShowMainPageInteractor;
 import use_case.main_page.ShowMainPageOutputBoundary;
-import use_case.product_search.SearchProductByNameInputBoundary;
-import use_case.product_search.SearchProductByNameInteractor;
-import use_case.product_search.SearchProductByNameOutputBoundary;
+import use_case.search_product.SearchProductByNameInputBoundary;
+import use_case.search_product.SearchProductByNameInteractor;
+import use_case.search_product.SearchProductByNameOutputBoundary;
 import use_case.profile.view_profile.ViewProfileInputBoundary;
 import use_case.profile.view_profile.ViewProfileInteractor;
 import use_case.profile.view_profile.ViewProfileOutputBoundary;
@@ -147,9 +146,9 @@ public class BuyerViewProductUseCaseFactory {
         return new ViewProfileController(viewProfileInteractor);
     }
 
-    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductByNameViewModel searchProductByNameViewModel) throws SQLException {
+    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
         SearchProductByNameOutputBoundary searchProductByNamePresenter =
-                new SearchProductByNamePresenter(viewManagerModel, searchProductByNameViewModel);
+                new SearchProductByNamePresenter(viewManagerModel, searchProductViewModel);
         DatabaseProductReadByNameDataAccessObjectFactoryInterface databaseProductReadByNameDataAccessObjectFactory
                 = new DatabaseProductReadByNameDataAccessObjectFactory();
         ProductFactory productFactory = new CommonProductFactory();

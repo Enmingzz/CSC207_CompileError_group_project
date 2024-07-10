@@ -1,8 +1,11 @@
 package interface_adapter.search_product;
 
 import entity.user.User;
-import use_case.product_search.SearchProductByTagInputBoundary;
-import use_case.product_search.SearchProductByTagInputData;
+import use_case.search_product.SearchProductByTagInputBoundary;
+import use_case.search_product.SearchProductByTagInputData;
+
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class SearchProductByTagController {
     private final SearchProductByTagInputBoundary searchProductByTagInputBoundary;
@@ -11,7 +14,7 @@ public class SearchProductByTagController {
         this.searchProductByTagInputBoundary = searchProductByTagInputBoundary;
     }
 
-    public void searchProductByTag(User user, String tag) {
+    public void execute(User user, String tag)  throws SQLException, IOException {
         SearchProductByTagInputData inputData = new SearchProductByTagInputData(user, tag);
         searchProductByTagInputBoundary.execute(inputData);
     }

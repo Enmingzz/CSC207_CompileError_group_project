@@ -1,7 +1,5 @@
 package use_case.logout;
 
-import interface_adapter.main_page.MainPageViewModel;
-
 public class LogOutInteractor implements LogOutInputBoundary{
 
     private final LogOutOutputBoundary logOutPresenter;
@@ -10,7 +8,8 @@ public class LogOutInteractor implements LogOutInputBoundary{
         this.logOutPresenter = logOutPresenter;
     }
 
-    public void execute(){
-
+    public void execute(LogOutInputData logOutInputData){
+        LogOutOutputData logOutOutputData = new LogOutOutputData();
+        logOutPresenter.prepareSuccessfulView(logOutOutputData);
     }
 }

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class SellerScheduleView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    public final String viewName = "seller schedule";
+    public final String viewName = "seller_schedule";
     private final SellerSelectScheduleController controller;
 
     private JList<LocalDateTime> availableTimesList;

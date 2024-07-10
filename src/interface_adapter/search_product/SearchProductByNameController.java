@@ -1,8 +1,11 @@
 package interface_adapter.search_product;
 
 import entity.user.User;
-import use_case.product_search.SearchProductByNameInputBoundary;
-import use_case.product_search.SearchProductByNameInputData;
+import use_case.search_product.SearchProductByNameInputBoundary;
+import use_case.search_product.SearchProductByNameInputData;
+
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class SearchProductByNameController {
 
@@ -12,7 +15,7 @@ public class SearchProductByNameController {
         this.searchProductByNameInteractor = searchProductByNameInteractor;
     }
 
-    public void execute(User user, String productName){
+    public void execute(User user, String productName) throws SQLException, IOException {
         SearchProductByNameInputData searchProductByNameInputData =
                 new SearchProductByNameInputData(user, productName);
         searchProductByNameInteractor.execute(searchProductByNameInputData);
