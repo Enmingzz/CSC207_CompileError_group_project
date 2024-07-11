@@ -28,7 +28,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PublishQuestionInteractorTest {
 
-    private PublishQuestionInteractor publishQuestionInteractor;
     private Question question;
     private Product product;
     private ScheduleFactory scheduleFactory = new CommonScheduleFactory();
@@ -70,7 +69,8 @@ class PublishQuestionInteractorTest {
             @Override
             public void prepareSuccessView(PublishQuestionOutputData publishQuestionOutputData) {
                 assertEquals("question successfully published", publishQuestionOutputData.getOutputStr());
-
+                //TODO Assert that the question is already stored in InMemoryDAO
+                // assertNotNull();
             }
         };
 
