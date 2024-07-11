@@ -1,6 +1,7 @@
 package view.schedule;
 
 import interface_adapter.schedule.BuyerSelectScheduleController;
+import interface_adapter.schedule.BuyerSelectScheduleState;
 import interface_adapter.schedule.BuyerSelectScheduleViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 
@@ -32,6 +33,7 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
         this.viewModel = viewModel;
         this.controller = controller;
         this.shoppingCartController = shoppingCartController;
+        this.selectButton = new
 
         JLabel title = new JLabel(viewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -84,19 +86,9 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("availableTimes")) {
-            Object newValue = evt.getNewValue();
-            if (newValue instanceof ArrayList<?> newList) {
-                if (!newList.isEmpty() && newList.get(0) instanceof LocalDateTime) {
-                    @SuppressWarnings("unchecked")
-                    ArrayList<LocalDateTime> availableTimes = (ArrayList<LocalDateTime>) evt.getNewValue();
-                    availableTimesComboBox.removeAllItems();
-                    for (LocalDateTime availableTime : availableTimes) {
-                        availableTimesComboBox.addItem(availableTime);
-                    }
-                }
-            }
+        BuyerSelectScheduleState state = (BuyerSelectScheduleState) evt.getNewValue();
+        if (state.getError() != null) {
+            JOptionPane.showMessageDialog(this, state.getError());
         }
-
     }
 }
