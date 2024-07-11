@@ -1,6 +1,7 @@
 package use_case.login;
 
 import data_access.in_memory.user.InMemoryUserDataReadAccessObject;
+import data_access.interfaces.user.UserReadDataAccessInterface;
 import entity.user.CommonUser;
 import entity.user.CommonUserFactory;
 import entity.user.User;
@@ -19,7 +20,7 @@ class LoginInteractorTest {
     private User commonUser;
     private String studentNumber = "123456";
     private String password;
-    private InMemoryUserDataReadAccessObject inMemoryUserDataAccessObject;
+    private UserReadDataAccessInterface inMemoryUserDataAccessObject;
     private LoginInteractor loginInteractor;
     private ArrayList<User> users;
     private UserFactory userFactory;

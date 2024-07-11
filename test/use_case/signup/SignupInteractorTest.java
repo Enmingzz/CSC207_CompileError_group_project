@@ -2,6 +2,8 @@ package use_case.signup;
 
 import data_access.in_memory.user.InMemoryUserCreateDataAccessObject;
 import data_access.in_memory.user.InMemoryUserDataReadAccessObject;
+import data_access.interfaces.user.UserCreateDataAccessInterface;
+import data_access.interfaces.user.UserReadDataAccessInterface;
 import entity.user.CommonUser;
 import entity.user.CommonUserFactory;
 import entity.user.User;
@@ -21,8 +23,8 @@ class SignupInteractorTest {
     private User user;
     private SignupInputData signupInputData;
     private SignupOutputData signupOutputData;
-    private InMemoryUserDataReadAccessObject inMemoryUserDataReadAccessObject;
-    private InMemoryUserCreateDataAccessObject inMemoryUserCreateDataAccessObject;
+    private UserReadDataAccessInterface inMemoryUserDataReadAccessObject;
+    private UserCreateDataAccessInterface inMemoryUserCreateDataAccessObject;
     private ArrayList<User> users;
     private UserFactory userFactory;
     private SignupOutputBoundary signupPresenter;
@@ -30,8 +32,9 @@ class SignupInteractorTest {
     @BeforeEach
     void setUp() {
         userFactory = new CommonUserFactory();
-        inMemoryUserCreateDataAccessObject =
-                new InMemoryUserCreateDataAccessObject(new ArrayList<User>());
+        users = new ArrayList<User>();
+        user = new CommonUser("hanrui", "123456", "hanrui@mail", 0, "11111");
+        users.add(user);
     }
 
     @AfterEach
@@ -40,11 +43,21 @@ class SignupInteractorTest {
 
     @Test
     void existsByStudentNumber() throws SQLException {
-        user = new CommonUser("hanrui", "123456", "hanrui@mail", 0, "11111");
-        users = new ArrayList<User>();
-        users.add(user);
+        inMemoryUserCreateDataAccessObject =
+                new InMemoryUserCreateDataAccessObject(new ArrayList<User>());
         inMemoryUserDataReadAccessObject = new InMemoryUserDataReadAccessObject(users, userFactory);
         assertEquals(true, inMemoryUserDataReadAccessObject.getUser("11111"));
+        signupPresenter = new SignupOutputBoundary() {
+            @Override
+            public void presentSuccessfulView(SignupOutputData response) {
+
+            }
+
+            @Override
+            public void presentFailedView(SignupOutputData response) {
+                assertEquals("user already exists", response.getError());
+            }
+        };
     }
 
     @Test
@@ -53,7 +66,7 @@ class SignupInteractorTest {
                 "1234","1234",
                 "11111");
         user = new CommonUser("hanrui", "123456", "hanrui@mail", 0, "11111");
-
+        users.add(user);
         signupPresenter = new SignupOutputBoundary() {
             @Override
             public void presentSuccessfulView(SignupOutputData response) {
@@ -124,11 +137,9 @@ class SignupInteractorTest {
 
     @Test
     void userDoesExit() throws SQLException {
-        user = new CommonUser("hanrui", "123456", "hanrui@mail", 0, "11111");
-        users.add(user);
         signupInputData = new SignupInputData("hanrui", "123456", "123456", "hanrui@mail",
                 "1234","1234",
-                "11111");
+                "12345");
 
         signupPresenter = new SignupOutputBoundary() {
 

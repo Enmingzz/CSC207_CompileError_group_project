@@ -6,6 +6,7 @@ import entity.comment.QuestionFactory;
 import entity.comment.Question;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class PublishQuestionInteractor implements PublishQuestionInputBoundary{
     Product product;
@@ -28,7 +29,7 @@ public class PublishQuestionInteractor implements PublishQuestionInputBoundary{
         Product questionProduct = publishQuestionInputData.getProduct();
 
         Question question = questionFactory.createQuestion(publishQuestion.getDescription(), publishQuestion.getStudentNumber(),
-                publishQuestion.getAnswer());
+                publishQuestion.getAnswer(), LocalDateTime.now().toString());
 
         questionCreateDataAccessObject.saveQuestion(question, questionProduct);
 

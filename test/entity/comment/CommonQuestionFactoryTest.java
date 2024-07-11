@@ -16,7 +16,7 @@ class CommonQuestionFactoryTest {
     void setUp() {
         commonQuestionFactory = new CommonQuestionFactory();
         commonAnswer = new CommonAnswer("test answer", "123456");
-        commonQuestion = new CommonQuestion("test question", "123456", commonAnswer);
+        commonQuestion = new CommonQuestion("test question", "123456", commonAnswer, "123456");
     }
 
     @AfterEach
@@ -26,7 +26,7 @@ class CommonQuestionFactoryTest {
     @Test
     void createQuestion() {
         Question newQuestion = commonQuestionFactory.createQuestion("test question", "123456",
-                commonAnswer);
+                commonAnswer, "123456");
         assertEquals(commonQuestion, newQuestion);
     }
 

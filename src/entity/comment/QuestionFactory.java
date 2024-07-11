@@ -8,6 +8,6 @@ package entity.comment;
 
 public interface QuestionFactory {
 
-    Question createQuestion(String description, String studentNumber, Answer answer);
+    Question createQuestion(String description, String studentNumber, Answer answer, String questionID);
 
 }

@@ -4,6 +4,9 @@ import entity.user.User;
 import use_case.search_product.SearchProductByNameInputBoundary;
 import use_case.search_product.SearchProductByNameInputData;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 public class SearchProductByNameController {
 
     final private SearchProductByNameInputBoundary searchProductByNameInteractor;
@@ -12,7 +15,7 @@ public class SearchProductByNameController {
         this.searchProductByNameInteractor = searchProductByNameInteractor;
     }
 
-    public void execute(User user, String productName){
+    public void execute(User user, String productName) throws SQLException, IOException {
         SearchProductByNameInputData searchProductByNameInputData =
                 new SearchProductByNameInputData(user, productName);
         searchProductByNameInteractor.execute(searchProductByNameInputData);
