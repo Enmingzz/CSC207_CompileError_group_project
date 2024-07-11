@@ -13,4 +13,6 @@ public interface Question{
 
     Answer getAnswer();
 
+    String getQuestionID();
+
 }

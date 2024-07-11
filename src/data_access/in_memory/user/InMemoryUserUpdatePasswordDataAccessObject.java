@@ -30,12 +30,4 @@ public class InMemoryUserUpdatePasswordDataAccessObject implements UserUpdatePas
         }
     }
 
-    public User getUser(String studentNumber) throws SQLException {
-        for(User user : users) {
-            if(user.getStudentNumber().equals(studentNumber)) {
-                return user;
-            }
-        }
-        return null;
-    }
 }

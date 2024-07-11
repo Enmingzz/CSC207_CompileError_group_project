@@ -18,7 +18,6 @@ public class ViewProductOutputData {
         this.list_of_question = list_of_question;
         this.user_type = user_type;
         this.user = user;
-
     }
 
     public Product getProduct(){
