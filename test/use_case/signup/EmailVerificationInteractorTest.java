@@ -10,6 +10,7 @@ class EmailVerificationInteractorTest {
 
     private EmailVerificationInteractor emailVerificationInteractor;
     private EmailVerificationInputData emailVerificationInputData;
+    private EmailVerificationOutputBoundary emailVerificationPresenter;
 
     @BeforeEach
     void setUp() {
@@ -22,6 +23,14 @@ class EmailVerificationInteractorTest {
 
     @Test
     void execute() {
+        
+        emailVerificationPresenter = new EmailVerificationOutputBoundary(){
+
+            @Override
+            public void prepareView(EmailVerificationOutputData emailVerificationOutputData) {
+                assertEquals(emailVerificationOutputData.getVerificationCode());
+            }
+        };
     }
 
     @Test
