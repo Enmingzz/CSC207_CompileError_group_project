@@ -1,34 +1,23 @@
 package use_case.schedule;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import entity.product.Product;
+import entity.user.User;
+
 
 public class SellerSelectScheduleOutputData {
-    private String sellerName;
-    private String productId;
-    private ArrayList<LocalDateTime> availableTimes;
-    private boolean success;
+    private User buyer;
+    private Product product;
 
-    public SellerSelectScheduleOutputData(String sellerName, String productId, ArrayList<LocalDateTime> availableTimes, boolean success) {
-        this.sellerName = sellerName;
-        this.productId = productId;
-        this.availableTimes = availableTimes;
-        this.success = success;
+    public SellerSelectScheduleOutputData(User buyer, Product product) {
+        this.buyer = buyer;
+        this.product = product;
     }
 
-    public String getSellerName() {
-        return sellerName;
+    public User getBuyer() {
+        return buyer;
     }
 
-    public String getProductId() {
-        return productId;
-    }
-
-    public ArrayList<LocalDateTime> getAvailableTimes() {
-        return availableTimes;
-    }
-
-    public boolean isSuccess() {
-        return success;
+    public Product getProduct() {
+        return product;
     }
 }

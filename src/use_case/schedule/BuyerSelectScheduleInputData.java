@@ -1,28 +1,27 @@
 package use_case.schedule;
 
+import entity.product.Product;
+import entity.user.User;
+
 import java.time.LocalDateTime;
 
 public class BuyerSelectScheduleInputData {
-    private String buyerName;
-    private String productId;
+    private User buyer;
+    private Product product;
     private LocalDateTime selectedTime;
 
-    public BuyerSelectScheduleInputData(String buyerName, String productId, LocalDateTime selectedTime) {
-        this.buyerName = buyerName;
-        this.productId = productId;
-        this.selectedTime = truncateToHour(selectedTime);
+    public BuyerSelectScheduleInputData(User buyer, Product product, LocalDateTime selectedTime) {
+        this.buyer = buyer;
+        this.product = product;
+        this.selectedTime = selectedTime;
     }
 
-    private LocalDateTime truncateToHour(LocalDateTime time) {
-        return time.withMinute(0).withSecond(0).withNano(0);
+    public User getBuyer() {
+        return buyer;
     }
 
-    public String getBuyerName() {
-        return buyerName;
-    }
-
-    public String getProductId() {
-        return productId;
+    public Product getProduct() {
+        return product;
     }
 
     public LocalDateTime getSelectedTime() {

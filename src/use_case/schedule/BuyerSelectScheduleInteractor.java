@@ -26,21 +26,21 @@ public class BuyerSelectScheduleInteractor implements BuyerSelectScheduleInputBo
     }
 
     @Override
-    public void execute(BuyerSelectScheduleInputData inputData) {
-        boolean success = false;
-        try{
-            Product product = productReadById.getProductById(inputData.getProductId());
+    public void execute(BuyerSelectScheduleInputData inputData) throws SQLException, IOException {
+        if (inputData.getSelectedTime() == null) {
+            outputBoundary.prepareFailedView("No time selected. Please select a time.");
+        }
+        else {
+            Product product = productReadById.getProductById(inputData.getProduct().getProductID());
             productUpdateBuyerSchedule.updateBuyerScheduleByProductID(product, inputData.getSelectedTime());
 
             productUpdateState.updateProductState(product, 3);
+            Product updated_product = productReadById.getProductById(product.getProductID());
 
-            success = true;
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-        } finally {
-            BuyerSelectScheduleOutputData outputData = new BuyerSelectScheduleOutputData(inputData.getBuyerName(),
-                    inputData.getProductId(), inputData.getSelectedTime(), success);
-            outputBoundary.presentScheduleSelection(outputData);
+            BuyerSelectScheduleOutputData outputData = new BuyerSelectScheduleOutputData(inputData.getBuyer(),
+                    updated_product);
+            outputBoundary.prepareSuccessfulView(outputData);
         }
+
     }
 }
