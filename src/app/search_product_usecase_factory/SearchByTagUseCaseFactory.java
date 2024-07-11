@@ -35,7 +35,7 @@ import interface_adapter.profile.view_profile.ViewProfilePresenter;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.search_product.SearchProductByNamePresenter;
-import interface_adapter.search_product.SearchProductByNameViewModel;
+import interface_adapter.search_product.SearchProductViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
@@ -56,17 +56,17 @@ import use_case.profile.view_profile.ViewProfileInteractor;
 import use_case.profile.view_profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
-import view.search_product.SearchByTagView;
+import view.search_product.SearchByTagPanel;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class SearchByTagUseCaseFactory {
 
-    public static SearchByTagView create(ViewManagerModel viewManagerModel,
-                                         MainPageViewModel mainPageViewModel) throws SQLException {
+    public static SearchByTagPanel create(ViewManagerModel viewManagerModel,
+                                          MainPageViewModel mainPageViewModel) throws SQLException {
         //TODO implements this method
-        return new SearchByTagView(SearchByTagUseCaseFactory.createMainPageController(mainPageViewModel, viewManagerModel));
+        return new SearchByTagPanel(SearchByTagUseCaseFactory.createMainPageController(mainPageViewModel, viewManagerModel));
     }
 
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
@@ -146,9 +146,9 @@ public class SearchByTagUseCaseFactory {
         return new ViewProfileController(viewProfileInteractor);
     }
 
-    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductByNameViewModel searchProductByNameViewModel) throws SQLException {
+    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
         SearchProductByNameOutputBoundary searchProductByNamePresenter =
-                new SearchProductByNamePresenter(viewManagerModel, searchProductByNameViewModel);
+                new SearchProductByNamePresenter(viewManagerModel, searchProductViewModel);
         DatabaseProductReadByNameDataAccessObjectFactoryInterface databaseProductReadByNameDataAccessObjectFactory
                 = new DatabaseProductReadByNameDataAccessObjectFactory();
         ProductFactory productFactory = new CommonProductFactory();

@@ -8,8 +8,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PublishQuestionOutputDataTest {
 
+    PublishQuestionOutputData outputData;
+
     @BeforeEach
     void setUp() {
+        outputData = new PublishQuestionOutputData("question successfully published");
     }
 
     @AfterEach
@@ -18,5 +21,6 @@ class PublishQuestionOutputDataTest {
 
     @Test
     void getOutputStr() {
+        assertEquals("question successfully published", outputData.getOutputStr());
     }
 }

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.sql.SQLException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class SellerSelectScheduleInteractor implements SellerSelectScheduleInputBoundary {
     private SellerSelectScheduleOutputBoundary outputBoundary;
@@ -29,23 +29,20 @@ public class SellerSelectScheduleInteractor implements SellerSelectScheduleInput
     }
 
     @Override
-    public void execute(SellerSelectScheduleInputData inputData) {
-        boolean success = false;
-        try {
-            Product product = productReadById.getProductById(inputData.getProductId());
+    public void execute(SellerSelectScheduleInputData inputData) throws SQLException, IOException {
+        if (inputData.getAvailableTimes().isEmpty()) {
+            outputBoundary.prepareFailedView("No available times added. Please add at least one time.");
+        } else {
+            Product product = productReadById.getProductById(inputData.getProduct().getProductID());
             ArrayList<LocalDateTime> availableTimes = inputData.getAvailableTimes();
             productUpdateSellerSchedule.updateSellerSchedule(product, availableTimes);
 
             productUpdateState.updateProductState(product, 2);
 
-            success = true;
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-        } finally {
-            SellerSelectScheduleOutputData outputData = new SellerSelectScheduleOutputData(inputData.getSellerName(),
-                    inputData.getProductId(), inputData.getAvailableTimes(), success);
-
-            outputBoundary.presentScheduleSelection(outputData);
+            Product updated_product = productReadById.getProductById(product.getProductID());
+            SellerSelectScheduleOutputData outputData = new SellerSelectScheduleOutputData(inputData.getSeller(),
+                    updated_product);
+            outputBoundary.prepareSuccessfulView(outputData);
         }
     }
 }

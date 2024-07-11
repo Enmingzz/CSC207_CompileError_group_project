@@ -21,7 +21,6 @@ public class ViewManagerModel {
         support.firePropertyChange("view", null, this.activeViewName);
     }
 
-
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }

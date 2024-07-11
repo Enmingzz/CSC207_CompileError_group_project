@@ -22,37 +22,11 @@ public class InMemoryProductReadAllDataAccessObject implements ProductReadAllDat
         this.products = new ArrayList<>();
     }
 
-    public InMemoryProductReadAllDataAccessObject(ArrayList<Product> products){
-        for (Product product : products) {
-            ProductFactory productFactory = new CommonProductFactory();
-            ArrayList<String> copyListTags = new ArrayList<>();
-            for (String tag : product.getListTags()) {
-                copyListTags.add(tag);
-            }
 
-            Schedule schedule = product.getSchedule();
-            ArrayList<LocalDateTime> sellerTimes = new ArrayList<>();
-            for (LocalDateTime sellerTime : schedule.getSellerTime()) {
-                sellerTimes.add(sellerTime);
-            }
-            ScheduleFactory scheduleFactory = new CommonScheduleFactory();
-            Schedule copySchedule = scheduleFactory.createSchedule(schedule.getBuyerTime(),
-                    sellerTimes);
-            Product copyProduct = productFactory.createProduct(product.getImage(),
-                    product.getDescription(),
-                    product.getTitle(),
-                    product.getPrice(),
-                    product.getRating(),
-                    product.getState(),
-                    product.geteTransferEmail(),
-                    product.getSellerStudentNumber(),
-                    product.getAddress(),
-                    copyListTags,
-                    product.getProductID(),
-                    copySchedule);
-            this.products.add(copyProduct);
-        }
+    public InMemoryProductReadAllDataAccessObject(ArrayList<Product> products){
+        this.products = products;
     }
+
 
     @Override
     public ArrayList<Product> getAllProducts() throws SQLException, IOException {
@@ -90,4 +64,6 @@ public class InMemoryProductReadAllDataAccessObject implements ProductReadAllDat
         return outputProducts;
 
     }
+
+
 }

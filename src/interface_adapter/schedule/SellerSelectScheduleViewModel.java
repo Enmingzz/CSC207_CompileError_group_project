@@ -8,56 +8,30 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class SellerSelectScheduleViewModel extends ViewModel{
-    private String sellerName;
-    private String productId;
-    private ArrayList<LocalDateTime> availableTimes;
-    private boolean success;
+    public final String TITLE_LABEL = "Select Available Times";
+    public final String ADD_BUTTON_LABEL = "Add";
+    public final String REMOVE_BUTTON_LABEL = "Remove";
+    public final String CONFIRM_BUTTON_LABEL = "Confirm";
+    public final String CANCEL_BUTTON_LABEL = "Cancel";
 
-    private PropertyChangeSupport support;
+    private SellerSelectScheduleState state = new SellerSelectScheduleState();
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public SellerSelectScheduleViewModel() {
-        super("SellerSelectScheduleViewModel");
-        this.support = new PropertyChangeSupport(this);
+        super("seller_schedule");
     }
 
-    public String getSellerName() {
-        return sellerName;
+    public void setState(SellerSelectScheduleState state) {
+        this.state = state;
     }
 
-    public void setSellerName(String sellerName) {
-        this.sellerName = sellerName;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
-
-    public ArrayList<LocalDateTime> getAvailableTimes() {
-        return availableTimes;
-    }
-
-    public void setAvailableTimes(ArrayList<LocalDateTime> availableTimes) {
-        this.availableTimes = availableTimes;
-        firePropertyChanged();
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-        firePropertyChanged();
+    public SellerSelectScheduleState getState() {
+        return state;
     }
 
     @Override
     public void firePropertyChanged() {
-        support.firePropertyChange("SellerSelectScheduleViewModel", null, this);
-    }
+        support.firePropertyChange("state", null, this.state);    }
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {

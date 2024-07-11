@@ -9,7 +9,15 @@ public class BuyerSelectScheduleState {
 
     private User buyer = null;
     private Product product = null;
-    private LocalDateTime selectedTime = ;
+    private String error = null;
+
+    public BuyerSelectScheduleState(BuyerSelectScheduleState copy) {
+        buyer = copy.buyer;
+        product = copy.product;
+        error = copy.error;
+    }
+
+    public BuyerSelectScheduleState () {}
 
     public User getBuyer() {
         return buyer;
@@ -27,16 +35,13 @@ public class BuyerSelectScheduleState {
         this.product = product;
     }
 
-    public LocalDateTime getSelectedTime() {
-        return selectedTime;
+    public String getError() {
+        return error;
     }
 
-    public void setSelectedTime(LocalDateTime selectedTime) {
-        this.selectedTime = truncateToHour(selectedTime);
+    public void setError(String error) {
+        this.error = error;
     }
 
-    private LocalDateTime truncateToHour(LocalDateTime time) {
-        return time.withMinute(0).withSecond(0).withNano(0);
-    }
 }
 

@@ -8,14 +8,20 @@ package entity.comment;
 
 public class CommonQuestion extends CommonComment implements Question {
     private Answer answer;
+    private String questionID;
 
-    public CommonQuestion(String description, String studentNumber, Answer answer){
+    public CommonQuestion(String description, String studentNumber, Answer answer, String questionID){
         super(description, studentNumber);
         this.answer = answer;
+        this.questionID = questionID;
     }
 
     @Override
     public Answer getAnswer() {
         return answer;
+    }
+
+    public String getQuestionID() {
+        return questionID;
     }
 }

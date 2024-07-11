@@ -1,6 +1,7 @@
 package view.schedule;
 
 import interface_adapter.schedule.SellerSelectScheduleController;
+import interface_adapter.schedule.SellerSelectScheduleState;
 import interface_adapter.schedule.SellerSelectScheduleViewModel;
 
 import javax.swing.*;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 
 public class SellerScheduleView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    public final String viewName = "seller schedule";
+    public final String viewName = "seller_schedule";
     private final SellerSelectScheduleController controller;
 
     private JList<LocalDateTime> availableTimesList;
@@ -92,19 +93,9 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("availableTimes")) {
-            Object newValue = evt.getNewValue();
-            if (newValue instanceof ArrayList<?> tempList) {
-                if (!tempList.isEmpty() && tempList.get(0) instanceof LocalDateTime) {
-
-                    @SuppressWarnings("unchecked")
-                    ArrayList<LocalDateTime> availableTimes = (ArrayList<LocalDateTime>) evt.getNewValue();
-                    listModel.clear();
-                    for (LocalDateTime time : availableTimes) {
-                        listModel.addElement(time);
-                    }
-                }
-            }
+        SellerSelectScheduleState state = (SellerSelectScheduleState) evt.getNewValue();
+        if (state.getError() != null) {
+            JOptionPane.showMessageDialog(this, state.getError());
         }
 
     }
