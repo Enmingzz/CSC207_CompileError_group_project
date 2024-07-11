@@ -13,7 +13,7 @@ class ReplyQuestionOutputDataTest {
 
     @BeforeEach
     void setUp() {
-        Question question = new CommonQuestion("how much is it?", "1234567890", null);
+        Question question = new CommonQuestion("how much is it?", "1234567890", null, "123");
         replyQuestionOutputData = new ReplyQuestionOutputData("question successfully answered", question);
     }
 
@@ -28,7 +28,7 @@ class ReplyQuestionOutputDataTest {
 
     @Test
     void getQuestion() {
-        Question question = new CommonQuestion("how much is it?", "1234567890", null);
+        Question question = new CommonQuestion("how much is it?", "1234567890", null, "123");
         assertEquals(question, replyQuestionOutputData.getQuestion());
     }
 }
