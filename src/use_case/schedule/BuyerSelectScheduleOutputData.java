@@ -1,33 +1,25 @@
 package use_case.schedule;
 
+import entity.product.Product;
+import entity.user.User;
+
 import java.time.LocalDateTime;
 
 public class BuyerSelectScheduleOutputData {
-    private String buyerName;
-    private String productId;
-    private LocalDateTime selectedTime;
-    private boolean success;
+    private User buyer;
+    private Product product;
 
-    public BuyerSelectScheduleOutputData(String buyerName, String productId, LocalDateTime selectedTime, boolean success) {
-        this.buyerName = buyerName;
-        this.productId = productId;
-        this.selectedTime = selectedTime;
-        this.success = success;
+    public BuyerSelectScheduleOutputData(User buyer, Product product) {
+        this.buyer = buyer;
+        this.product = product;
     }
 
-    public String getBuyerName() {
-        return buyerName;
+    public User getBuyer() {
+        return buyer;
     }
 
-    public String getProductId() {
-        return productId;
+    public Product getProduct() {
+        return product;
     }
 
-    public LocalDateTime getSelectedTime() {
-        return selectedTime;
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
 }

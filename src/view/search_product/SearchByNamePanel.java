@@ -7,11 +7,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SearchByNameView extends JPanel {
+public class SearchByNamePanel extends JPanel {
     private final JTextField searchBox;
     private final JButton searchButton;
 
-    public SearchByNameView(SearchProductByNameController searchByNameController) {
+    public SearchByNamePanel(SearchProductByNameController searchByNameController) {
         searchBox = new JTextField(20);
         searchButton = new JButton("Search");
 

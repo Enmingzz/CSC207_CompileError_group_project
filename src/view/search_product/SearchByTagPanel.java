@@ -8,14 +8,14 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class SearchByTagView extends JPanel implements ActionListener, PropertyChangeListener {
+public class SearchByTagPanel extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "search by tag";
 
 
     private final MainPageController mainPageController;
 
-    public SearchByTagView(MainPageController mainPageController) {
+    public SearchByTagPanel(MainPageController mainPageController) {
         this.mainPageController = mainPageController;
 
         //TODO implements this method

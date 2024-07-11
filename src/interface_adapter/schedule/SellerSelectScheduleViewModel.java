@@ -14,51 +14,11 @@ public class SellerSelectScheduleViewModel extends ViewModel{
     public final String CONFIRM_BUTTON_LABEL = "Confirm";
     public final String CANCEL_BUTTON_LABEL = "Cancel";
 
-    private String sellerName;
-    private String productId;
-    private ArrayList<LocalDateTime> availableTimes;
-    private boolean success;
     private SellerSelectScheduleState state = new SellerSelectScheduleState();
-
-
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public SellerSelectScheduleViewModel() {
         super("seller_schedule");
-    }
-
-    public String getSellerName() {
-        return sellerName;
-    }
-
-    public void setSellerName(String sellerName) {
-        this.sellerName = sellerName;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
-
-    public ArrayList<LocalDateTime> getAvailableTimes() {
-        return availableTimes;
-    }
-
-    public void setAvailableTimes(ArrayList<LocalDateTime> availableTimes) {
-        this.availableTimes = availableTimes;
-        firePropertyChanged();
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-        firePropertyChanged();
     }
 
     public void setState(SellerSelectScheduleState state) {

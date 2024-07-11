@@ -1,5 +1,7 @@
 package interface_adapter.schedule;
 
+import entity.product.Product;
+import entity.user.User;
 import use_case.schedule.BuyerSelectScheduleInputBoundary;
 import use_case.schedule.BuyerSelectScheduleInputData;
 
@@ -16,8 +18,8 @@ public class BuyerSelectScheduleController {
     }
 
 
-    public void execute(String buyerName, String productId,LocalDateTime selectedTime) throws SQLException, IOException {
-        BuyerSelectScheduleInputData inputData = new BuyerSelectScheduleInputData(buyerName, productId, selectedTime);
+    public void execute(User buyer, Product product, LocalDateTime selectedTime) throws SQLException, IOException {
+        BuyerSelectScheduleInputData inputData = new BuyerSelectScheduleInputData(buyer, product, selectedTime);
         inputBoundary.execute(inputData);
     }
 
