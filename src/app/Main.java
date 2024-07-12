@@ -31,8 +31,6 @@ import interface_adapter.view_product.SellerViewProductViewModel;
 
 import interface_adapter.view_product.UnloggedInViewModel;
 import view.*;
-import view.search_product.SearchByNamePanel;
-import view.search_product.SearchByTagPanel;
 import view.shopping_cart.ShoppingCartView;
 import view.login.LoginView;
 import view.main_page.MainPageView;
