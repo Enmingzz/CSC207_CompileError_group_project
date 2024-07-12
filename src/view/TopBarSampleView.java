@@ -27,7 +27,6 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
                 if(evt.getSource().equals(searchButton)){
                     try{
                         getSearchPageController.execute(user);
-
                     }catch (Exception e){
                         throw new RuntimeException(e);
                     }
