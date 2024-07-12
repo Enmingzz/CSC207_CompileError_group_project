@@ -16,7 +16,7 @@ class CommonQuestionTest {
     @BeforeEach
     void setUp() {
         commonAnswer = new CommonAnswer("test answer", "123456");
-        commonQuestion = new CommonQuestion("test question", "123456", commonAnswer);
+        commonQuestion = new CommonQuestion("test question", "123456", commonAnswer, "12");
     }
 
     @AfterEach
@@ -36,6 +36,11 @@ class CommonQuestionTest {
     @Test
     void getAnswer() {
         assertEquals(commonAnswer, commonQuestion.getAnswer());
+    }
+
+    @Test
+    void getQuestionId() {
+        assertEquals("12", commonQuestion.getQuestionID());
     }
 
 }
