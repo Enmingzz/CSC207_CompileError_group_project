@@ -56,7 +56,6 @@ import use_case.profile.view_profile.ViewProfileInteractor;
 import use_case.profile.view_profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
-import view.search_product.SearchByNamePanel;
 
 import java.io.IOException;
 import java.sql.SQLException;

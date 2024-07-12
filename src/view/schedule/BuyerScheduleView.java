@@ -1,5 +1,7 @@
 package view.schedule;
 
+import entity.product.Product;
+import entity.user.User;
 import interface_adapter.schedule.BuyerSelectScheduleController;
 import interface_adapter.schedule.BuyerSelectScheduleState;
 import interface_adapter.schedule.BuyerSelectScheduleViewModel;
@@ -12,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -20,12 +24,12 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
     public final String viewName = "buyer_schedule";
 
     private BuyerSelectScheduleViewModel viewModel;
-    private final BuyerSelectScheduleController controller;
+    private BuyerSelectScheduleController controller;
     private ShoppingCartController shoppingCartController;
 
     private JComboBox<LocalDateTime> availableTimesComboBox;
-    private JButton selectButton;
-    private JButton cancelButton;
+    private final JButton selectButton;
+    private final JButton cancelButton;
 
     public BuyerScheduleView(BuyerSelectScheduleViewModel viewModel,
                              BuyerSelectScheduleController controller,
@@ -33,55 +37,68 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
         this.viewModel = viewModel;
         this.controller = controller;
         this.shoppingCartController = shoppingCartController;
-        this.selectButton = new
+        viewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(viewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        initializeComponents();
-        layoutComponents();
-        registerListeners();
+        JPanel buttons = new JPanel();
+        selectButton = new JButton(viewModel.CONFIRM_BUTTON_LABEL);
+        buttons.add(selectButton);
+        cancelButton = new JButton(viewModel.CANCEL_BUTTON_LABEL);
+        buttons.add(cancelButton);
 
-        viewModel.addPropertyChangeListener(this);
-    }
-
-    private void initializeComponents() {
         availableTimesComboBox = new JComboBox<>();
-        selectButton = new JButton("Select Time");
+        ArrayList<LocalDateTime> availableTimes = viewModel.getState().getProduct().getSchedule().getSellerTime();
+        for (LocalDateTime time : availableTimes) {
+            availableTimesComboBox.addItem(time);
+        }
+
+        selectButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(selectButton)) {
+                            User buyer = viewModel.getState().getBuyer();
+                            Product product = viewModel.getState().getProduct();
+                            LocalDateTime selectedTime = (LocalDateTime) availableTimesComboBox.getSelectedItem();
+                            try {
+                                controller.execute(buyer, product, selectedTime);
+                            } catch (SQLException | IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+                }
+        );
+
+        cancelButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(cancelButton)) {
+                            User buyer = viewModel.getState().getBuyer();
+                            try {
+                                shoppingCartController.execute(buyer);
+                            } catch (SQLException | IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+                }
+        );
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        this.add(title);
+        this.add(new JLabel("Available Times:"));
+        this.add(availableTimesComboBox);
+        this.add(buttons);
+
+
     }
 
-    private void layoutComponents() {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.add(new JLabel("Please select a time for the schedule:"));
-        mainPanel.add(availableTimesComboBox);
-
-        add(mainPanel, BorderLayout.CENTER);
-        add(selectButton, BorderLayout.SOUTH);
-    }
-
-    private void registerListeners() {
-        selectButton.addActionListener(this);
-    }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (evt.getSource().equals(selectButton)) {
-            LocalDateTime selectTime = (LocalDateTime) availableTimesComboBox.getSelectedItem();
-            if (selectTime != null) {
-                try {
-                    controller.execute(viewModel.getState().getBuyer().getName(),
-                            viewModel.getState().getProduct().getProductID(), selectTime);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Please select a time for the schedule:", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-
     }
 
     @Override
