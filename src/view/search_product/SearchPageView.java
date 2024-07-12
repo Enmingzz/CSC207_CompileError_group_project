@@ -83,14 +83,18 @@ public class SearchPageView extends JPanel implements ActionListener, PropertyCh
             }
         });
 
+        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+        this.add(searchPanel);
+        this.add(tagsPanel);
 
+        // products display starts here
         ArrayList<Product> products = viewModel.getState().getProducts();
 
         int _i = 0;
         List<JPanel> listProductPanels = new ArrayList<>();
 
         for (Product product: products) {
-            if (product.getState() == 0){
+            if (product.getState() == 0) {
 
                 Image image = product.getImage();
                 JLabel paneledImage = new JLabel(new ImageIcon(image));
@@ -107,8 +111,8 @@ public class SearchPageView extends JPanel implements ActionListener, PropertyCh
                                 if (event.getSource().equals(viewButton)) {
                                     User user = viewModel.getState().getUser();
                                     try {
-                                        viewProductController.execute(product, user) ;
-                                    } catch (SQLException | IOException e) {
+                                        viewProductController.execute(product, user);
+                                    } catch (SQLException e) {
                                         throw new RuntimeException(e); //Revisit this in case of bug in viewing a product
                                     }
 
@@ -117,26 +121,25 @@ public class SearchPageView extends JPanel implements ActionListener, PropertyCh
                         }
                 );
 
-                ProductPanel productPanel = new ProductPanel(
+                view.search_product.ProductPanel productPanel = new view.search_product.ProductPanel(
                         paneledImage, productTitle, productPrice, viewButton
                 );
 
                 // Above created one panel for image
 
-                if (_i % 3 == 0){
+                if (_i % 3 == 0) {
                     listProductPanels = new ArrayList<>();
 
                 }
                 listProductPanels.add(productPanel);
 
-                if (_i % 3 == 2){
-                    view.main_page.HorizontalLayoutPanel horizontalLayoutPanel = new HorizontalLayoutPanel(
+                if (_i % 3 == 2) {
+                    view.search_product.HorizontalLayoutPanel horizontalLayoutPanel = new view.search_product.HorizontalLayoutPanel(
                             listProductPanels
                     );
                     this.add(horizontalLayoutPanel);
-                }
-                else if (_i + 1 == products.size()){
-                    view.main_page.HorizontalLayoutPanel horizontalLayoutPanel = new HorizontalLayoutPanel(
+                } else if (_i + 1 == products.size()) {
+                    view.search_product.HorizontalLayoutPanel horizontalLayoutPanel = new view.search_product.HorizontalLayoutPanel(
                             listProductPanels
                     );
                     this.add(horizontalLayoutPanel);
@@ -145,12 +148,8 @@ public class SearchPageView extends JPanel implements ActionListener, PropertyCh
                 _i++;
 
             }
-
-            this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-        this.add(searchPanel);
-        this.add(tagsPanel);
-
-
+        }
+        // Products panel ends here
 
 
     }
