@@ -7,6 +7,7 @@ import entity.user.User;
 import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.main_page.MainPageController;
+import interface_adapter.view_product.UnloggedInState;
 import interface_adapter.view_product.UnloggedInViewModel;
 
 
@@ -29,6 +30,8 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
 
     private final ViewLoginPageController viewLoginPageController;
     private final MainPageController mainPageController;
+
+    private ProductInfoLabelTextPanel productInfo;
 
 
     public NonloggedInProductView(UnloggedInViewModel nonLoggedInViewModel,
@@ -57,7 +60,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
         final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags()));//what will valueOf list look like???
         final JLabel productID = new JLabel(wtv_product.getProductID());
 
-        ProductInfoLabelTextPanel productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
+        productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
                 lstTags, productID);
 
 
@@ -143,6 +146,18 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
 
     @Override
     public void propertyChange(PropertyChangeEvent evt){
-
+        UnloggedInState state = (UnloggedInState) evt.getNewValue();
+        if(state.getIsChanged()){
+            JLabel title= new JLabel(String.valueOf(state.getProduct().getTitle()));
+            JLabel image = new JLabel(String.valueOf(state.getProduct().getImage()));
+            JLabel des = new JLabel(String.valueOf(state.getProduct().getDescription()));
+            JLabel price = new JLabel(String.valueOf(state.getProduct().getPrice()));
+            JLabel rating = new JLabel(String.valueOf(state.getProduct().getRating()));
+            JLabel pro_state = new JLabel(String.valueOf(state.getProduct().getState()));
+            JLabel address = new JLabel(String.valueOf(state.getProduct().getAddress()));
+            JLabel lstTags = new JLabel(String.valueOf(state.getProduct().getListTags()));
+            JLabel proId = new JLabel(String.valueOf(state.getProduct().getProductID()));
+            this.productInfo = new ProductInfoLabelTextPanel(title, image, des, price, rating, pro_state, address,lstTags, proId);
+        }
     }
 }

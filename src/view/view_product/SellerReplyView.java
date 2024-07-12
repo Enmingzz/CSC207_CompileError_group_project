@@ -14,6 +14,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class SellerReplyView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -58,7 +60,7 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
                 CommonQuestionFactory questionFactory = new CommonQuestionFactory();
                 Question newQuestion = questionFactory.createQuestion(replyQuestionState.getQuestion().getDescription(),
                         replyQuestionState.getQuestion().getStudentNumber(),
-                        answer);
+                        answer, Objects.toString(LocalDateTime.now()));
 
                 replyQuestionViewModel.getState().setQuestion(newQuestion);
 
