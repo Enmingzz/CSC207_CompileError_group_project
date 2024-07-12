@@ -5,10 +5,12 @@ import entity.comment.Question;
 import entity.product.Product;
 import entity.user.User;
 import interface_adapter.main_page.MainPageController;
+import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.view_product.AddToCartController;
 import interface_adapter.view_product.BuyerViewProductState;
 import interface_adapter.view_product.BuyerViewProductViewModel;
 import interface_adapter.view_product.PublishQuestionController;
+import view.TopBarSampleView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +22,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -46,19 +49,11 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
     private final JButton addToCart;
     private final JButton publishQuestion;
 
-    private final AddToCartController addToCartController;
-    private final PublishQuestionController publishQuestionController;
-    private final MainPageController mainPageController;
-
-
 
     public BuyerViewProductView(BuyerViewProductViewModel buyerViewProductViewModel,
                                 AddToCartController addToCartController, PublishQuestionController publishQuestionController,
-                                MainPageController mainPageController){
+                                MainPageController mainPageController, GetSearchPageController getSearchPageController){
         this.buyerViewProductViewModel = buyerViewProductViewModel;
-        this.addToCartController = addToCartController;
-        this.publishQuestionController = publishQuestionController;
-        this.mainPageController = mainPageController;
 
         this.buyerViewProductViewModel.addPropertyChangeListener(this);
 
@@ -75,7 +70,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         final JLabel rating = new JLabel(String.valueOf(wtv_product.getRating()));
         final JLabel state = new JLabel(String.valueOf(wtv_product.getState()));
         final JLabel address = new JLabel(wtv_product.getAddress());
-        final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags()));//what will valueOf list look like???
+        final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags())); //what will valueOf list look like???
         final JLabel productID = new JLabel(wtv_product.getProductID());
 
         ProductInfoLabelTextPanel productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
@@ -149,7 +144,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
 
                 CommonQuestionFactory questionFactory = new CommonQuestionFactory();
                 Question newquestion = questionFactory.createQuestion(question_content,
-                        buyerViewProductViewModel.getState().getProduct().getSellerStudentNumber(), null);
+                        buyerViewProductViewModel.getState().getProduct().getSellerStudentNumber(), null, Objects.toString(LocalDateTime.now()));
                 ArrayList<Question> lst_question = buyerViewProductViewModel.getState().getQuestion();
                 lst_question.add(newquestion);
 
@@ -174,7 +169,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
                         String question_content = questionInputField.getText();
                         CommonQuestionFactory questionFactory = new CommonQuestionFactory();
                         Question new_question = questionFactory.createQuestion(question_content,
-                                buyerViewProductViewModel.getState().getProduct().getSellerStudentNumber(), null);
+                                buyerViewProductViewModel.getState().getProduct().getSellerStudentNumber(), null, Objects.toString(LocalDateTime.now()));
 
                         publishQuestionController.execute(new_question, que_product);
                     }catch (SQLException e){
@@ -183,7 +178,6 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
                 }
             }
         }
-
 
         class CancelButtonListener implements ActionListener{
             @Override
@@ -216,6 +210,10 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         this.add(addQuestionInfo);
         this.add(buttons);
 
+        JPanel topBar = new TopBarSampleView(this.buyerViewProductViewModel.getState().getUser(), getSearchPageController);
+        //TODO implement the shared top bar
+        this.add(topBar);
+
     }
 
     @Override
@@ -233,8 +231,11 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
     @Override
     public void propertyChange(PropertyChangeEvent evt){
         BuyerViewProductState state = (BuyerViewProductState) evt.getNewValue();
+
         if (!Objects.equals(state.getPrompt_words(), "")){
             JOptionPane.showMessageDialog(this, state.getPrompt_words());
+        }else if(){
+
         }
     }
 }

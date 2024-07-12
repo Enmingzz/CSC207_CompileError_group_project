@@ -72,7 +72,7 @@ public class BuyerViewProductUseCaseFactory {
                         shoppingCartViewModel, buyerViewProductViewModel);
         PublishQuestionController publishQuestionController =
                 BuyerViewProductUseCaseFactory.createPublishQuestionController();
-        return new BuyerViewProductView(buyerViewProductViewModel, addToCartController, publishQuestionController, mainPageController);
+        return new BuyerViewProductView(buyerViewProductViewModel, addToCartController, publishQuestionController, mainPageController, );
     }
 
     private static PublishQuestionController createPublishQuestionController(){
