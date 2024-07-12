@@ -36,4 +36,6 @@ public class ViewProductInteractor implements ViewProductInputBoundary{
         ViewProductOutputData outputProductQues = new ViewProductOutputData(product, lst_ques, user_type, user);
         viewPresenter.prepareViewSucceed(outputProductQues);
     }
+
+
 }
