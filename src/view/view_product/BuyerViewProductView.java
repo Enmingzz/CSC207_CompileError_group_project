@@ -4,8 +4,12 @@ import entity.comment.CommonQuestionFactory;
 import entity.comment.Question;
 import entity.product.Product;
 import entity.user.User;
+import interface_adapter.login.ViewLoginPageController;
+import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.search_product.GetSearchPageController;
+import interface_adapter.shopping_cart.ShoppingCartController;
+import interface_adapter.signup.ViewSignupPageController;
 import interface_adapter.view_product.AddToCartController;
 import interface_adapter.view_product.BuyerViewProductState;
 import interface_adapter.view_product.BuyerViewProductViewModel;
@@ -44,6 +48,11 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
 
     final JTextField questionInputField = new JTextField(15);
 
+    GetSearchPageController getSearchPageController;
+    ViewSignupPageController viewSignupPageController;
+    ViewLoginPageController viewLoginPageController;
+    ShoppingCartController shoppingCartController;
+    LogOutController logOutController;
 
     private final JButton cancel;
     private final JButton addToCart;
@@ -55,7 +64,12 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
 
     public BuyerViewProductView(BuyerViewProductViewModel buyerViewProductViewModel,
                                 AddToCartController addToCartController, PublishQuestionController publishQuestionController,
-                                MainPageController mainPageController, GetSearchPageController getSearchPageController){
+                                MainPageController mainPageController,
+                                GetSearchPageController getSearchPageController,
+                                ViewSignupPageController viewSignupPageController,
+                                ViewLoginPageController viewLoginPageController,
+                                ShoppingCartController shoppingCartController,
+                                LogOutController logOutController){
         this.buyerViewProductViewModel = buyerViewProductViewModel;
 
         this.buyerViewProductViewModel.addPropertyChangeListener(this);
@@ -213,7 +227,8 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         this.add(addQuestionInfo);
         this.add(buttons);
 
-        JPanel topBar = new TopBarSampleView(this.buyerViewProductViewModel.getState().getUser(), getSearchPageController);
+        JPanel topBar = new TopBarSampleView(this.buyerViewProductViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
         //TODO implement the shared top bar
         this.add(topBar);
 
@@ -273,7 +288,11 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
             qAInfo.add(qA_title);
             qAInfo.add(qA_TextPanel);
 
-//            newState.setIsChanged(false);
+            JPanel topBar = new TopBarSampleView(newState.getUser(),
+                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
+            this.add(topBar);// TODO need to add this to all view
+
+            newState.setIsChanged(false);
         }
     }
 }
