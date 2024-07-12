@@ -183,6 +183,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
             qAInfo.add(qA_title);
             qAInfo.add(qA_TextPanel);
 
+            newState.setIsChanged(false);
         }
     }
 }

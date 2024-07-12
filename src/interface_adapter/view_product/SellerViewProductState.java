@@ -12,12 +12,14 @@ public class SellerViewProductState {
     ArrayList<Question> lst_question = new ArrayList<>();
     User user = null;
     String promptStr = "";
+    Boolean isChanged = false;
 
-    public SellerViewProductState(Product product, ArrayList<Question> lst_question, User user, String promptStr){
+    public SellerViewProductState(Product product, ArrayList<Question> lst_question, User user, String promptStr, Boolean isChanged){
         this.product = product;
         this.lst_question = lst_question;
         this.user = user;
         this.promptStr = promptStr;
+        this.isChanged = isChanged;
     }
 
     public Product getProduct(){
@@ -32,7 +34,7 @@ public class SellerViewProductState {
 
     public String getPromptStr(){return promptStr;}
 
-
+    public Boolean getIsChanged(){return isChanged;}
 
     public void setProduct(Product product){
         this.product = product;
@@ -46,6 +48,8 @@ public class SellerViewProductState {
 
     public void setPromptStr(String promptStr){this.promptStr = promptStr;}
 
+    public void setIsChanged(Boolean isChanged){this.isChanged = isChanged;}//TODO need to change the presenter to make sure that everytime the state is changed, the attribute isChanged is set to true
+// TODO do we need to turn the isChange back to false.
 
     public SellerViewProductState(){}
 }
