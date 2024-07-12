@@ -6,12 +6,12 @@ import entity.user.User;
 
 import java.sql.SQLException;
 
-public class ModifyProfilePasswordInteractor {
+public class ModifyProfilePassword implements ModifyProfilePasswordInterface{
 
     private final UserUpdatePasswordDataAccessInterface userUpdatePasswordDataAccessInterface;
     private final UserReadDataAccessInterface userReadDataAccessInterface;
 
-    public ModifyProfilePasswordInteractor(UserReadDataAccessInterface userReadDataAccessInterface, UserUpdatePasswordDataAccessInterface userUpdatePasswordDataAccessInterface) {
+    public ModifyProfilePassword(UserReadDataAccessInterface userReadDataAccessInterface, UserUpdatePasswordDataAccessInterface userUpdatePasswordDataAccessInterface) {
         this.userUpdatePasswordDataAccessInterface = userUpdatePasswordDataAccessInterface;
         this.userReadDataAccessInterface = userReadDataAccessInterface;
     }
