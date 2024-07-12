@@ -18,6 +18,7 @@ public class PublishQuestionPresenter implements PublishQuestionOutputBoundary {
     public void prepareSuccessView(PublishQuestionOutputData publishQuestionOutputData) {
         BuyerViewProductState buyerViewProductState = buyerViewProductViewModel.getState();
         buyerViewProductState.setPrompt_words(publishQuestionOutputData.getOutputStr());
+        buyerViewProductState.setIsChanged(true);
 
         this.buyerViewProductViewModel.setState(buyerViewProductState);
         buyerViewProductViewModel.firePropertyChanged();
