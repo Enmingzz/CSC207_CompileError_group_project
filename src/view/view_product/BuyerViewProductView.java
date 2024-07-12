@@ -49,6 +49,9 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
     private final JButton addToCart;
     private final JButton publishQuestion;
 
+    ProductInfoLabelTextPanel productInfo;
+    JPanel qAInfo;
+
 
     public BuyerViewProductView(BuyerViewProductViewModel buyerViewProductViewModel,
                                 AddToCartController addToCartController, PublishQuestionController publishQuestionController,
@@ -73,12 +76,12 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags())); //what will valueOf list look like???
         final JLabel productID = new JLabel(wtv_product.getProductID());
 
-        ProductInfoLabelTextPanel productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
+        productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
                 lstTags, productID);
 
 
         //(2)show q_and_a
-        final JPanel qAInfo = new JPanel();
+        qAInfo = new JPanel();
 
         final JLabel qA_title = new JLabel("Q&A:");
 
@@ -230,12 +233,45 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
 
     @Override
     public void propertyChange(PropertyChangeEvent evt){
-        BuyerViewProductState state = (BuyerViewProductState) evt.getNewValue();
+        BuyerViewProductState newState = (BuyerViewProductState) evt.getNewValue();
 
-        if (!Objects.equals(state.getPrompt_words(), "")){
-            JOptionPane.showMessageDialog(this, state.getPrompt_words());
-        }else if(){
+        if (!Objects.equals(newState.getPrompt_words(), "")){
+            JOptionPane.showMessageDialog(this, newState.getPrompt_words());
+        }else if(newState.getIsChanged()){
+            Product wtv_product = newState.getProduct();
+            final JLabel image = new JLabel(String.valueOf(wtv_product.getImage()));//image???
+            final JLabel description = new JLabel(wtv_product.getDescription());
+            final JLabel price = new JLabel(String.valueOf(wtv_product.getPrice()));
+            final JLabel _title = new JLabel(wtv_product.getTitle());
+            final JLabel rating = new JLabel(String.valueOf(wtv_product.getRating()));
+            final JLabel state = new JLabel(String.valueOf(wtv_product.getState()));
+            final JLabel address = new JLabel(wtv_product.getAddress());
+            final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags())); //what will valueOf list look like???
+            final JLabel productID = new JLabel(wtv_product.getProductID());
 
+            productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
+                    lstTags, productID);
+
+            qAInfo = new JPanel();
+
+            final JLabel qA_title = new JLabel("Q&A:");
+
+            ArrayList<Question> lst_question = newState.getQuestion();
+            final JPanel qA_TextPanel = new JPanel();
+            for (Question question : lst_question) {
+
+                String answer_content = question.getAnswer().getDescription();
+                String question_content = question.getDescription();
+
+                JLabel q = new JLabel(question_content);
+                JLabel a = new JLabel(answer_content);
+
+                BuyerQAInfoLabelTextPanel panel = new BuyerQAInfoLabelTextPanel(q, a);
+                qA_TextPanel.add(panel);
+            }
+
+            qAInfo.add(qA_title);
+            qAInfo.add(qA_TextPanel);
         }
     }
 }
