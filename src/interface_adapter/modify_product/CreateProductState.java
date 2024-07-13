@@ -20,7 +20,7 @@ public class CreateProductState {
         address = copy.address;
     }
 
-    public CeateProductState() {}
+    public CreateProductState() {}
 
     public String getDescription() {return description;}
     public String getPrice() {return price;}
