@@ -33,10 +33,11 @@ class PublishQuestionInteractorTest {
     private ScheduleFactory scheduleFactory = new CommonScheduleFactory();
     private QuestionFactory questionFactory = new CommonQuestionFactory();
     private ProductFactory productFactory = new CommonProductFactory();
+    private ArrayList<Question> questions = new ArrayList<>();
 
     @BeforeEach
     void setUp() throws IOException {
-        question  = questionFactory.createQuestion("", "", null);
+        question  = questionFactory.createQuestion("", "", null, );
 
         Image image = ImageIO.read(new File("D:/24 summer/csc207/CSC207_CompileError_group_project/src/pic/testpic1.png"));
         String des = " ";
@@ -63,14 +64,16 @@ class PublishQuestionInteractorTest {
 
     @Test
     void execute() throws SQLException {
-        QuestionCreateDataAccessInterface questionRepository = new InMemoryQuestionCreateDataAccessObject();// need a new method in DAO, it should be
+
+        QuestionCreateDataAccessInterface questionRepository = new InMemoryQuestionCreateDataAccessObject(questions);// need a new method in DAO, it should be
+
 
         PublishQuestionOutputBoundary successPresenter = new PublishQuestionOutputBoundary() {
             @Override
             public void prepareSuccessView(PublishQuestionOutputData publishQuestionOutputData) {
                 assertEquals("question successfully published", publishQuestionOutputData.getOutputStr());
                 //TODO Assert that the question is already stored in InMemoryDAO
-                // assertNotNull();
+                assertEquals(questionRepository.);
             }
         };
 

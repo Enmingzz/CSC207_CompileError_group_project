@@ -30,6 +30,8 @@ import interface_adapter.search_product.SearchProductViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
+import interface_adapter.view_product.SellerViewProductViewModel;
+import interface_adapter.view_product.ViewReplyQuestionController;
 import use_case.logout.LogOutInputBoundary;
 import use_case.logout.LogOutInteractor;
 import use_case.logout.LogOutOutputBoundary;
@@ -44,6 +46,8 @@ import use_case.profile.view_profile.ViewProfileInteractor;
 import use_case.profile.view_profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
+import use_case.view_product.ViewReplyQuestionInputBoundary;
+import use_case.view_product.ViewReplyQuestionOutputBoundary;
 import view.view_product.SellerViewProductView;
 
 import java.io.IOException;
@@ -53,7 +57,13 @@ public class SellerViewProductUseCaseFactory {
 
     public static SellerViewProductView create(){
         //TODO need to implement this method
-        return new SellerViewProductView();
+        SellerViewProductViewModel sellerViewProductViewModel = new SellerViewProductViewModel();
+        ViewReplyQuestionInputBoundary viewReplyQuestionInputBoundary = new ViewReplyQuestionOutputBoundary();
+        ViewReplyQuestionController viewReplyQuestionController = new ViewReplyQuestionController();
+
+        MainPageController mainPageController = new MainPageController();
+
+        return new SellerViewProductView(sellerViewProductViewModel, viewReplyQuestionController, mainPageController);
     }
 
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
