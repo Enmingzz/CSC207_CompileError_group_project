@@ -1,18 +1,24 @@
 package interface_adapter.modify_product;
 
+import entity.product.Product;
+import entity.user.User;
 import use_case.modify_product.ViewModifyProductInputBoundary;
 import use_case.modify_product.ViewModifyProductInputData;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 public class ViewModifyProductController {
 
-    private final ViewModifyProductInputBoundary modifyProductInteractor;
+    //Upon detecting the click, the controller will
+    private final ViewModifyProductInputBoundary viewModifyProductInputBoundary;
 
-
-    public ViewModifyProductController(ViewModifyProductInputBoundary modifyProductInteractor) {
-        this.modifyProductInteractor = modifyProductInteractor;
+    public ViewModifyProductController(ViewModifyProductInputBoundary modifyProductInputBoundary) {
+        this.viewModifyProductInputBoundary = modifyProductInputBoundary;
     }
 
-    public void execute(ViewModifyProductInputData modifyProductInputData){
-        //TODO need to implement this
+    public void execute(User user, Product product) throws SQLException, IOException {
+        ViewModifyProductInputData viewModifyProductInputData = new ViewModifyProductInputData(user, product);
+        viewModifyProductInputBoundary.execute(viewModifyProductInputData);
     }
 }

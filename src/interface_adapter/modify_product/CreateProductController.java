@@ -19,7 +19,8 @@ public class CreateProductController {
     public void execute(User user, Image image, String description, String price, String title, String
             eTransferEmail, String address, ArrayList<String> listTags) throws SQLException, IOException {
 
-        CreateProductInputData createProductInputData = new CreateProductInputData(user, image, description, price, title, eTransferEmail, address, listTags);
+        CreateProductInputData createProductInputData = new CreateProductInputData(user, image, description, price, title,
+                eTransferEmail, address, listTags);
         createProductInteractor.execute(createProductInputData);
     }
 }
