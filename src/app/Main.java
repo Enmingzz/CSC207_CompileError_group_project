@@ -5,8 +5,7 @@ import app.mainpage_usecase_factory.MainPageUseCaseFactory;
 import app.shopping_cart_usecase_factory.ShoppingCartUseCaseFactory;
 import app.user_usecase_factory.LoginUseCaseFactory;
 import app.user_usecase_factory.SignupUseCaseFactory;
-import app.search_product_usecase_factory.SearchByNameUseCaseFactory;
-import app.search_product_usecase_factory.SearchByTagUseCaseFactory;
+import app.search_product_usecase_factory.SearchProductUseCaseFactory;
 import app.product_usecase_factory.BuyerViewProductUseCaseFactory;
 import app.product_usecase_factory.SellerViewProductUseCaseFactory;
 import app.user_usecase_factory.ModifyProfileUseCaseFactory;
@@ -112,7 +111,7 @@ public class Main {
         NonloggedInProductView productView =
                 NonLoggedInViewProductUseFactory.create(viewManagerModel, mainPageViewModel,
                         shoppingCartViewModel, );
-        SearchByNamePanel searchByNamePanel = SearchByNameUseCaseFactory.create();
+        SearchByNamePanel searchByNamePanel = SearchProductUseCaseFactory.create();
         SearchByTagPanel searchByTagPanel = SearchByTagUseCaseFactory.create(viewManagerModel, mainPageViewModel);
 
 

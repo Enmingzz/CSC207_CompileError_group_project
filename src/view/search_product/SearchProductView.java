@@ -6,8 +6,6 @@ import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.search_product.SearchProductByTagController;
 import interface_adapter.search_product.SearchProductViewModel;
 import interface_adapter.view_product.ViewProductController;
-import view.main_page.HorizontalLayoutPanel;
-import view.main_page.ProductPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchPageView extends JPanel implements ActionListener, PropertyChangeListener {
+public class SearchProductView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "search_product_view";
 
     private SearchProductByNameController searchByNameController;
@@ -32,10 +30,10 @@ public class SearchPageView extends JPanel implements ActionListener, PropertyCh
     private JButton searchButton;
     private final String[] tags = {"Tag1", "Tag2", "Tag3"}; // to be decided later
 
-    public SearchPageView(SearchProductByNameController searchByNameController,
-                          SearchProductByTagController searchByTagController,
-                          ViewProductController viewProductController,
-                          SearchProductViewModel viewModel) {
+    public SearchProductView(SearchProductByNameController searchByNameController,
+                             SearchProductByTagController searchByTagController,
+                             ViewProductController viewProductController,
+                             SearchProductViewModel viewModel) {
 
         this.searchByNameController = searchByNameController;
         this.searchByTagController = searchByTagController;
