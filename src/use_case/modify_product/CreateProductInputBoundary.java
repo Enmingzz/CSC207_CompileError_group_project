@@ -1,6 +1,9 @@
 package use_case.modify_product;
 
-public interface CreateProductInputBoundary {
+import java.io.IOException;
+import java.sql.SQLException;
 
-    void execute(CreateProductInputData createProductInputData);
+public interface CreateProductInputBoundary {
+    void execute(CreateProductInputData createProductInputData) throws SQLException, IOException;
+
 }

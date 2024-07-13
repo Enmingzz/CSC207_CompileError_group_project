@@ -1,11 +1,9 @@
 package view.view_product;
 
-import app.Main;
 import entity.comment.*;
 import entity.product.Product;
 import entity.user.User;
 import interface_adapter.main_page.MainPageController;
-import interface_adapter.signup.SignupState;
 import interface_adapter.view_product.*;
 
 import javax.swing.*;
@@ -16,7 +14,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class SellerReplyView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -27,11 +26,11 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
     final JTextField answerInputField = new JTextField(15);
 
 
-    private final ReplyQuestionController2 replyQuestionController;
+    private final ReplyQuestionController replyQuestionController;
     private final MainPageController mainPageController;
 
     public SellerReplyView (ReplyQuestionViewModel replyQuestionViewModel,
-                            ReplyQuestionController2 replyQuestionController,
+                            ReplyQuestionController replyQuestionController,
                             MainPageController mainPageController){
 
         this.replyQuestionViewModel = replyQuestionViewModel;
@@ -61,14 +60,13 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
                 CommonQuestionFactory questionFactory = new CommonQuestionFactory();
                 Question newQuestion = questionFactory.createQuestion(replyQuestionState.getQuestion().getDescription(),
                         replyQuestionState.getQuestion().getStudentNumber(),
-                        answer);
+                        answer, Objects.toString(LocalDateTime.now()));
 
                 replyQuestionViewModel.getState().setQuestion(newQuestion);
 
 //                ReplyQuestionState currentState = replyQuestionViewModel.getState();
 //                currentState.setQuestion(newQuestion);
 //                replyQuestionViewModel.setState(currentState);
-
 
             }
             @Override
@@ -117,7 +115,6 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
             }
         }
 
-
         cancel.addActionListener(new CancelButtonListener());
 
         this.add(page_title);
@@ -129,9 +126,6 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
         this.add(cancel);
 
     }
-
-
-
 
     @Override
     public void actionPerformed(ActionEvent e) {

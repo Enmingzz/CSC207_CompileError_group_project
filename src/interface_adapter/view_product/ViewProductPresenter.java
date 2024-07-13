@@ -7,12 +7,12 @@ import use_case.view_product.ViewProductOutputData;
 public class ViewProductPresenter implements ViewProductOutputBoundary {
     private final BuyerViewProductViewModel buyerViewProductViewModel;
     private final SellerViewProductViewModel sellerViewProductViewModel;
-    private final Non_loggedInViewModel nonLoggedInViewModel;
+    private final UnloggedInViewModel nonLoggedInViewModel;
 
     private final ViewManagerModel viewManagerModel;
 
     public ViewProductPresenter(BuyerViewProductViewModel buyerViewProductViewModel, SellerViewProductViewModel sellerViewProductViewModel,
-                                Non_loggedInViewModel nonLoggedInViewModel, ViewManagerModel viewManagerModel){
+                                UnloggedInViewModel nonLoggedInViewModel, ViewManagerModel viewManagerModel){
         this.buyerViewProductViewModel = buyerViewProductViewModel;
         this.sellerViewProductViewModel = sellerViewProductViewModel;
         this.nonLoggedInViewModel = nonLoggedInViewModel;
@@ -23,13 +23,14 @@ public class ViewProductPresenter implements ViewProductOutputBoundary {
     public void prepareViewSucceed(ViewProductOutputData viewProductOutputData) {
         BuyerViewProductState buyerViewProductState = buyerViewProductViewModel.getState();
         SellerViewProductState sellerViewProductState = sellerViewProductViewModel.getState();
-        Non_loggedInState nonLoggedInState = nonLoggedInViewModel.getState();
+        UnloggedInState nonLoggedInState = nonLoggedInViewModel.getState();
 
 
         if(viewProductOutputData.getUser_type().equals("seller")) {
             sellerViewProductState.setProduct(viewProductOutputData.getProduct());
             sellerViewProductState.setLst_question(viewProductOutputData.getList_of_question());
             sellerViewProductState.setUser(viewProductOutputData.getUser());
+            sellerViewProductState.setIsChanged(true);
 
             this.sellerViewProductViewModel.setState(sellerViewProductState);
 
@@ -41,6 +42,7 @@ public class ViewProductPresenter implements ViewProductOutputBoundary {
             buyerViewProductState.setProduct(viewProductOutputData.getProduct());
             buyerViewProductState.setLst_question(viewProductOutputData.getList_of_question());
             buyerViewProductState.setUser(viewProductOutputData.getUser());
+            buyerViewProductState.setIsChanged(true);
 
             this.buyerViewProductViewModel.setState(buyerViewProductState);
 
@@ -51,6 +53,8 @@ public class ViewProductPresenter implements ViewProductOutputBoundary {
         else{
             nonLoggedInState.setProduct(viewProductOutputData.getProduct());
             nonLoggedInState.setLst_question(viewProductOutputData.getList_of_question());
+            nonLoggedInState.setUser(viewProductOutputData.getUser());
+            nonLoggedInState.setIsChanged(true);
 
             this.nonLoggedInViewModel.setState(nonLoggedInState);
 

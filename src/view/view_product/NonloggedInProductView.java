@@ -7,7 +7,8 @@ import entity.user.User;
 import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.main_page.MainPageController;
-import interface_adapter.view_product.Non_loggedInViewModel;
+import interface_adapter.view_product.UnloggedInState;
+import interface_adapter.view_product.UnloggedInViewModel;
 
 
 import javax.swing.*;
@@ -19,8 +20,8 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 public class NonloggedInProductView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "non login view product view";// useless??
-    private final Non_loggedInViewModel nonLoggedInViewModel;
+    public final String viewName = "non login view product view";
+    private final UnloggedInViewModel nonLoggedInViewModel;
 
 
     private final JButton cancel;
@@ -30,8 +31,11 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
     private final ViewLoginPageController viewLoginPageController;
     private final MainPageController mainPageController;
 
+    private ProductInfoLabelTextPanel productInfo;
+    private JPanel qAInfo;
 
-    public NonloggedInProductView(Non_loggedInViewModel nonLoggedInViewModel,
+
+    public NonloggedInProductView(UnloggedInViewModel nonLoggedInViewModel,
                                   ViewLoginPageController viewLoginPageController,
                                   MainPageController mainPageController) {
         this.nonLoggedInViewModel = nonLoggedInViewModel;
@@ -57,7 +61,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
         final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags()));//what will valueOf list look like???
         final JLabel productID = new JLabel(wtv_product.getProductID());
 
-        ProductInfoLabelTextPanel productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
+        productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
                 lstTags, productID);
 
 
@@ -143,6 +147,43 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
 
     @Override
     public void propertyChange(PropertyChangeEvent evt){
+        UnloggedInState newState = (UnloggedInState) evt.getNewValue();
+        if(newState.getIsChanged()){
+            JLabel title= new JLabel(String.valueOf(newState.getProduct().getTitle()));
+            JLabel image = new JLabel(String.valueOf(newState.getProduct().getImage()));
+            JLabel des = new JLabel(String.valueOf(newState.getProduct().getDescription()));
+            JLabel price = new JLabel(String.valueOf(newState.getProduct().getPrice()));
+            JLabel rating = new JLabel(String.valueOf(newState.getProduct().getRating()));
+            JLabel pro_state = new JLabel(String.valueOf(newState.getProduct().getState()));
+            JLabel address = new JLabel(String.valueOf(newState.getProduct().getAddress()));
+            JLabel lstTags = new JLabel(String.valueOf(newState.getProduct().getListTags()));
+            JLabel proId = new JLabel(String.valueOf(newState.getProduct().getProductID()));
+            this.productInfo = new ProductInfoLabelTextPanel(title, image, des, price, rating, pro_state, address,lstTags, proId);
 
+            //(2)show q_and_a
+            qAInfo = new JPanel();
+
+            final JLabel qA_title = new JLabel("Q&A:");
+
+            ArrayList<Question> lst_question = newState.getQuestion();
+
+            final JPanel qA_TextPanel = new JPanel();
+            for (Question question : lst_question) {
+
+                String answer_content = question.getAnswer().getDescription();
+                String question_content = question.getDescription();
+
+                JLabel q = new JLabel(question_content);
+                JLabel a = new JLabel(answer_content);
+
+                BuyerQAInfoLabelTextPanel panel = new BuyerQAInfoLabelTextPanel(q, a);
+                qA_TextPanel.add(panel);
+            }
+
+            qAInfo.add(qA_title);
+            qAInfo.add(qA_TextPanel);
+
+            newState.setIsChanged(false);
+        }
     }
 }

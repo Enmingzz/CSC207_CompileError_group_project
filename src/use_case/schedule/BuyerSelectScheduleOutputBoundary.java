@@ -1,5 +1,6 @@
 package use_case.schedule;
 
 public interface BuyerSelectScheduleOutputBoundary {
-    void presentScheduleSelection(BuyerSelectScheduleOutputData outputData);
+    void prepareSuccessfulView(BuyerSelectScheduleOutputData outputData);
+    void prepareFailedView(String error);
 }

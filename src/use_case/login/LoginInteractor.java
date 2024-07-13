@@ -4,6 +4,7 @@ import data_access.interfaces.user.UserReadDataAccessInterface;
 import entity.user.User;
 import entity.user.UserFactory;
 
+import java.awt.*;
 import java.sql.SQLException;
 
 /**
@@ -15,12 +16,10 @@ public class LoginInteractor implements LoginInputBoundary{
 
     final UserReadDataAccessInterface userReadDataAccessObject;
     final LoginOutputBoundary loginPresenter;
-    final UserFactory userFactory;
 
-    public LoginInteractor(UserReadDataAccessInterface userReadDataAccessObject, LoginOutputBoundary loginPresenter, UserFactory userFactory) {
+    public LoginInteractor(UserReadDataAccessInterface userReadDataAccessObject, LoginOutputBoundary loginPresenter) {
         this.userReadDataAccessObject = userReadDataAccessObject;
         this.loginPresenter = loginPresenter;
-        this.userFactory = userFactory;
     }
 
     @Override

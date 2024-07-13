@@ -1,5 +1,8 @@
 package use_case.schedule;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 public interface BuyerSelectScheduleInputBoundary {
-    void selectSchedule(BuyerSelectScheduleInputData inputData);
+    void execute(BuyerSelectScheduleInputData inputData) throws SQLException, IOException;
 }

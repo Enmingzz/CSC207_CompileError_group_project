@@ -2,5 +2,5 @@ package use_case.logout;
 
 public interface LogOutOutputBoundary {
 
-    void prepareSuccessfulView();
+    void prepareSuccessfulView(LogOutOutputData logOutOutputData);
 }

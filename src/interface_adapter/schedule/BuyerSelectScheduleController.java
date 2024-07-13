@@ -1,25 +1,26 @@
 package interface_adapter.schedule;
-import interface_adapter.ViewManagerModel;
+
+import entity.product.Product;
+import entity.user.User;
 import use_case.schedule.BuyerSelectScheduleInputBoundary;
 import use_case.schedule.BuyerSelectScheduleInputData;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class BuyerSelectScheduleController {
     private BuyerSelectScheduleInputBoundary inputBoundary;
-    private ViewManagerModel viewManagerModel;
 
-    public BuyerSelectScheduleController(BuyerSelectScheduleInputBoundary inputBoundary, ViewManagerModel viewManagerModel) {
+
+    public BuyerSelectScheduleController(BuyerSelectScheduleInputBoundary inputBoundary, BuyerSelectScheduleState state) {
         this.inputBoundary = inputBoundary;
-        this.viewManagerModel = viewManagerModel;
     }
 
-    public void selectSchedule(LocalDateTime selectedTime) {
-        String buyerName = viewManagerModel.getBuyerName();
-        String productId = viewManagerModel.getProductId();
 
-        BuyerSelectScheduleInputData inputData = new BuyerSelectScheduleInputData(buyerName, productId, selectedTime);
-        inputBoundary.selectSchedule(inputData);
+    public void execute(User buyer, Product product, LocalDateTime selectedTime) throws SQLException, IOException {
+        BuyerSelectScheduleInputData inputData = new BuyerSelectScheduleInputData(buyer, product, selectedTime);
+        inputBoundary.execute(inputData);
     }
 
 }

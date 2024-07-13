@@ -1,12 +1,12 @@
 package app;
 
 import app.product_usecase_factory.NonLoggedInViewProductUseFactory;
-import app.shopping_cart_and_main_page_usecase_factory.MainPageUseCaseFactory;
-import app.shopping_cart_and_main_page_usecase_factory.ShoppingCartUseCaseFactory;
+import app.mainpage_usecase_factory.MainPageUseCaseFactory;
+import app.shopping_cart_usecase_factory.ShoppingCartUseCaseFactory;
 import app.user_usecase_factory.LoginUseCaseFactory;
 import app.user_usecase_factory.SignupUseCaseFactory;
-import app.search_usecase_factory.SearchByNameUseCaseFactory;
-import app.search_usecase_factory.SearchByTagUseCaseFactory;
+import app.search_product_usecase_factory.SearchByNameUseCaseFactory;
+import app.search_product_usecase_factory.SearchByTagUseCaseFactory;
 import app.product_usecase_factory.BuyerViewProductUseCaseFactory;
 import app.product_usecase_factory.SellerViewProductUseCaseFactory;
 import app.user_usecase_factory.ModifyProfileUseCaseFactory;
@@ -21,7 +21,7 @@ import interface_adapter.profile.modify_profile.ModifyProfileViewModel;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import interface_adapter.schedule.BuyerSelectScheduleViewModel;
 import interface_adapter.schedule.SellerSelectScheduleViewModel;
-import interface_adapter.search_product.SearchProductByNameViewModel;
+import interface_adapter.search_product.SearchProductViewModel;
 import interface_adapter.search_product.SearchProductByTagViewModel;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import interface_adapter.signup.SignupViewModel;
@@ -29,9 +29,8 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.view_product.BuyerViewProductViewModel;
 import interface_adapter.view_product.SellerViewProductViewModel;
 
+import interface_adapter.view_product.UnloggedInViewModel;
 import view.*;
-import view.product_search.SearchByNameView;
-import view.product_search.SearchByTagView;
 import view.shopping_cart.ShoppingCartView;
 import view.login.LoginView;
 import view.main_page.MainPageView;
@@ -82,20 +81,21 @@ public class Main {
         ViewModifyProductViewModel modifyProductViewModel = new ViewModifyProductViewModel();
         SellerSelectScheduleViewModel sellerSelectScheduleViewModel = new SellerSelectScheduleViewModel();
         BuyerSelectScheduleViewModel buyerSelectScheduleViewModel = new BuyerSelectScheduleViewModel();
-        SearchProductByNameViewModel searchProductByNameViewModel = new SearchProductByNameViewModel();
+        SearchProductViewModel searchProductViewModel = new SearchProductViewModel();
         SearchProductByTagViewModel searchProductByTagViewModel = new SearchProductByTagViewModel();
         ViewProfileViewModel viewProfileViewModel = new ViewProfileViewModel();
+        UnloggedInViewModel unloggedInViewModel = new UnloggedInViewModel();
 
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel,
                 signupViewModel, mainPageViewModel, shoppingCartViewModel,
-                searchProductByNameViewModel, searchProductByTagViewModel, loginViewModel);
+                searchProductViewModel, searchProductByTagViewModel, loginViewModel);
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, mainPageViewModel);
         ProfileView profileView = ProfileUseCaseFactory.create(viewManagerModel, signupViewModel
                 , loginViewModel, mainPageViewModel, profileViewModel,
                 shoppingCartViewModel, manageProductViewModel);
         ModifyProfileView modifyProfileView = ModifyProfileUseCaseFactory.create(viewManagerModel
-                , mainPageViewModel,shoppingCartViewModel, searchProductByNameViewModel);
+                , mainPageViewModel,shoppingCartViewModel, searchProductViewModel);
         BuyerViewProductView buyerViewProductView =
                 BuyerViewProductUseCaseFactory.create(viewManagerModel, mainPageViewModel,
                         shoppingCartViewModel, profileViewModel, buyerViewProductViewModel);
@@ -104,14 +104,16 @@ public class Main {
         SellerViewProductView sellerViewProductView = SellerViewProductUseCaseFactory.create();
         MainPageView mainPageView = MainPageUseCaseFactory.Create(viewManagerModel,
                         mainPageViewModel, shoppingCartViewModel, signupViewModel, loginViewModel,
-                viewProfileViewModel, searchProductByNameViewModel, buyerViewProductViewModel,
+                viewProfileViewModel, searchProductViewModel, buyerViewProductViewModel,
                 sellerViewProductViewModel);
         ShoppingCartView shoppingCartView =
                 ShoppingCartUseCaseFactory.create(shoppingCartViewModel,
                         buyerViewProductViewModel, sellerViewProductViewModel, viewManagerModel);
-        NonloggedInProductView productView = NonLoggedInViewProductUseFactory.create(viewManagerModel);
-        SearchByNameView searchByNameView = SearchByNameUseCaseFactory.create();
-        SearchByTagView searchByTagView = SearchByTagUseCaseFactory.create(viewManagerModel, mainPageViewModel);
+        NonloggedInProductView productView =
+                NonLoggedInViewProductUseFactory.create(viewManagerModel, mainPageViewModel,
+                        shoppingCartViewModel, );
+        SearchByNamePanel searchByNamePanel = SearchByNameUseCaseFactory.create();
+        SearchByTagPanel searchByTagPanel = SearchByTagUseCaseFactory.create(viewManagerModel, mainPageViewModel);
 
 
         TestView testView = new TestView();
@@ -127,8 +129,8 @@ public class Main {
         views.add(mainPageView.viewName, mainPageView);
         views.add(shoppingCartView.viewName, shoppingCartView);
         views.add(productView.viewName, productView);
-        views.add(searchByNameView.viewName, searchByNameView);
-        views.add(searchByTagView.viewName, searchByTagView);
+        views.add(searchByNamePanel.viewName, searchByNamePanel);
+        views.add(searchByTagPanel.viewName, searchByTagPanel);
 
 
         viewManagerModel.setActiveView(signupView.viewName);

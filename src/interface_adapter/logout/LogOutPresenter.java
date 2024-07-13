@@ -7,6 +7,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.main_page.MainPageState;
 import interface_adapter.main_page.MainPageViewModel;
 import use_case.logout.LogOutOutputBoundary;
+import use_case.logout.LogOutOutputData;
 
 public class LogOutPresenter implements LogOutOutputBoundary {
     private final MainPageViewModel mainPageViewModel;
@@ -18,7 +19,7 @@ public class LogOutPresenter implements LogOutOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessfulView() {
+    public void prepareSuccessfulView(LogOutOutputData logOutOutputData) {
         MainPageState state = mainPageViewModel.getState();
         UserFactory commonUserFactory = new CommonUserFactory();
         User user = commonUserFactory.createUser("", "", "", 0, "");

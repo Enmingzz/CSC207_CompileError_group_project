@@ -6,56 +6,29 @@ import java.beans.PropertyChangeListener;
 import java.time.LocalDateTime;
 
 public class BuyerSelectScheduleViewModel extends ViewModel {
-    private String buyerName;
-    private String productId;
-    private LocalDateTime selectedTime;
-    private boolean success;
-    private PropertyChangeSupport support;
+    public final String TITLE_LABEL = "Select Schedule";
+    public final String CONFIRM_BUTTON_LABEL = "Confirm Schedule";
+    public final String CANCEL_BUTTON_LABEL = "Cancel";
+
+
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private BuyerSelectScheduleState state = new BuyerSelectScheduleState();
 
     public BuyerSelectScheduleViewModel() {
-        super("BuyerSelectScheduleViewModel");
-        this.support = new PropertyChangeSupport(this);
+        super("buyer_schedule");
     }
 
-    public String getBuyerName() {
-        return buyerName;
+    public void setState(BuyerSelectScheduleState state) {
+        this.state = state;
     }
 
-    public void setBuyerName(String buyerName) {
-        this.buyerName = buyerName;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
-
-    public LocalDateTime getSelectedTime() {
-        return selectedTime;
-    }
-
-    public void setSelectedTime(LocalDateTime selectedTime) {
-        this.selectedTime = selectedTime;
-        firePropertyChanged();
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-
-        this.success = success;
-        firePropertyChanged();
+    public BuyerSelectScheduleState getState() {
+        return state;
     }
 
     @Override
     public void firePropertyChanged() {
-        support.firePropertyChange("BuyerSelectScheduleViewModel", null, this);
-    }
+        support.firePropertyChange("state", null, this.state);    }
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {

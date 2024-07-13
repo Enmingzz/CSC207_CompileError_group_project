@@ -10,10 +10,10 @@ import java.sql.SQLException;
 import java.io.IOException;
 
 public class BuyerSelectScheduleInteractor implements BuyerSelectScheduleInputBoundary {
-    private BuyerSelectScheduleOutputBoundary outputBoundary;
-    private ProductReadByIdDataAccessInterface productReadById;
-    private ProductUpdateBuyerScheduleDataAccessInterface productUpdateBuyerSchedule;
-    private ProductUpdateStateDataAccessInterface productUpdateState;
+    private final BuyerSelectScheduleOutputBoundary outputBoundary;
+    private final ProductReadByIdDataAccessInterface productReadById;
+    private final ProductUpdateBuyerScheduleDataAccessInterface productUpdateBuyerSchedule;
+    private final ProductUpdateStateDataAccessInterface productUpdateState;
 
     public BuyerSelectScheduleInteractor(BuyerSelectScheduleOutputBoundary outputBoundary,
                                          ProductReadByIdDataAccessInterface productReadById,
@@ -26,21 +26,21 @@ public class BuyerSelectScheduleInteractor implements BuyerSelectScheduleInputBo
     }
 
     @Override
-    public void selectSchedule(BuyerSelectScheduleInputData inputData) {
-        boolean success = false;
-        try{
-            Product product = productReadById.getProductById(inputData.getProductId());
+    public void execute(BuyerSelectScheduleInputData inputData) throws SQLException, IOException {
+        if (inputData.getSelectedTime() == null) {
+            outputBoundary.prepareFailedView("No time selected. Please select a time.");
+        }
+        else {
+            Product product = productReadById.getProductById(inputData.getProduct().getProductID());
             productUpdateBuyerSchedule.updateBuyerScheduleByProductID(product, inputData.getSelectedTime());
 
             productUpdateState.updateProductState(product, 3);
+            Product updated_product = productReadById.getProductById(product.getProductID());
 
-            success = true;
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-        } finally {
-            BuyerSelectScheduleOutputData outputData = new BuyerSelectScheduleOutputData(inputData.getBuyerName(),
-                    inputData.getProductId(), inputData.getSelectedTime(), success);
-            outputBoundary.presentScheduleSelection(outputData);
+            BuyerSelectScheduleOutputData outputData = new BuyerSelectScheduleOutputData(inputData.getBuyer(),
+                    updated_product);
+            outputBoundary.prepareSuccessfulView(outputData);
         }
+
     }
 }

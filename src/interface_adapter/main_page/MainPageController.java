@@ -14,7 +14,7 @@ public class MainPageController {
         this.showMainPageInteractor = showMainPageInteractor;
     }
 
-    public void execute(User user) throws SQLException, IOException {
+    public void execute(User user)  throws SQLException, IOException {
         ShowMainPageInputData showMainPageInputData = new ShowMainPageInputData(user);
 
         showMainPageInteractor.showMainPage(showMainPageInputData);
