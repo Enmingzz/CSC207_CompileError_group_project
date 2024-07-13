@@ -8,8 +8,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ManageProductInteractorTest {
 
+    private ManageProductInteractor manageProductInteractor;
+    private ManageProductInputData manageProductInputData;
+    private ManageProductOutputData manageProductOutputData;
+
     @BeforeEach
     void setUp() {
+
     }
 
     @AfterEach

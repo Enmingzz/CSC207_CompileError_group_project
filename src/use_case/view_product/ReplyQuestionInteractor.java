@@ -35,7 +35,9 @@ public class ReplyQuestionInteractor implements ReplyQuestionInputBoundary {
 
         Answer sellerAnswer = answerFactory.createAnswer(answerDescription, seller.getStudentNumber());
 
-        Question completeQuestion = questionFactory.createQuestion(questionContent, product.getSellerStudentNumber(), sellerAnswer);
+        String questionID = replyQuestionInputData.getQuestion().getQuestionID();
+
+        Question completeQuestion = questionFactory.createQuestion(questionContent, product.getSellerStudentNumber(), sellerAnswer, questionID);
         questionUpdateDataAccessObject.updateQuestion(completeQuestion);
 
         ReplyQuestionOutputData replyQuestionOutputData = new ReplyQuestionOutputData("question successfully answered", replyQuestionInputData.getQuestion());

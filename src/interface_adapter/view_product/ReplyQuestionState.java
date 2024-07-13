@@ -6,7 +6,7 @@ import entity.user.User;
 
 public class ReplyQuestionState {
     private Question question = null;
-    Product product = null;
+    private Product product = null;
     private User user = null;
 
     public ReplyQuestionState(Question question, Product product, User user) {

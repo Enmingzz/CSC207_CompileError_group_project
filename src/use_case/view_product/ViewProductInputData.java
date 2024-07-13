@@ -5,7 +5,7 @@ import entity.user.User;
 
 public class ViewProductInputData {
     private final Product product;
-    private User user;
+    private final User user;
 
     public ViewProductInputData(Product product, User user){
         this.product = product;

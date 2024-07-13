@@ -31,8 +31,6 @@ import interface_adapter.view_product.SellerViewProductViewModel;
 
 import interface_adapter.view_product.UnloggedInViewModel;
 import view.*;
-import view.search_product.SearchByNameView;
-import view.search_product.SearchByTagView;
 import view.shopping_cart.ShoppingCartView;
 import view.login.LoginView;
 import view.main_page.MainPageView;
@@ -114,8 +112,8 @@ public class Main {
         NonloggedInProductView productView =
                 NonLoggedInViewProductUseFactory.create(viewManagerModel, mainPageViewModel,
                         shoppingCartViewModel, );
-        SearchByNameView searchByNameView = SearchByNameUseCaseFactory.create();
-        SearchByTagView searchByTagView = SearchByTagUseCaseFactory.create(viewManagerModel, mainPageViewModel);
+        SearchByNamePanel searchByNamePanel = SearchByNameUseCaseFactory.create();
+        SearchByTagPanel searchByTagPanel = SearchByTagUseCaseFactory.create(viewManagerModel, mainPageViewModel);
 
 
         TestView testView = new TestView();
@@ -131,8 +129,8 @@ public class Main {
         views.add(mainPageView.viewName, mainPageView);
         views.add(shoppingCartView.viewName, shoppingCartView);
         views.add(productView.viewName, productView);
-        views.add(searchByNameView.viewName, searchByNameView);
-        views.add(searchByTagView.viewName, searchByTagView);
+        views.add(searchByNamePanel.viewName, searchByNamePanel);
+        views.add(searchByTagPanel.viewName, searchByTagPanel);
 
 
         viewManagerModel.setActiveView(signupView.viewName);

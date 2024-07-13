@@ -30,6 +30,7 @@ public class ViewProductPresenter implements ViewProductOutputBoundary {
             sellerViewProductState.setProduct(viewProductOutputData.getProduct());
             sellerViewProductState.setLst_question(viewProductOutputData.getList_of_question());
             sellerViewProductState.setUser(viewProductOutputData.getUser());
+            sellerViewProductState.setIsChanged(true);
 
             this.sellerViewProductViewModel.setState(sellerViewProductState);
 
@@ -41,6 +42,7 @@ public class ViewProductPresenter implements ViewProductOutputBoundary {
             buyerViewProductState.setProduct(viewProductOutputData.getProduct());
             buyerViewProductState.setLst_question(viewProductOutputData.getList_of_question());
             buyerViewProductState.setUser(viewProductOutputData.getUser());
+            buyerViewProductState.setIsChanged(true);
 
             this.buyerViewProductViewModel.setState(buyerViewProductState);
 
@@ -51,6 +53,8 @@ public class ViewProductPresenter implements ViewProductOutputBoundary {
         else{
             nonLoggedInState.setProduct(viewProductOutputData.getProduct());
             nonLoggedInState.setLst_question(viewProductOutputData.getList_of_question());
+            nonLoggedInState.setUser(viewProductOutputData.getUser());
+            nonLoggedInState.setIsChanged(true);
 
             this.nonLoggedInViewModel.setState(nonLoggedInState);
 

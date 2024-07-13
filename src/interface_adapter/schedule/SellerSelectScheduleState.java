@@ -9,6 +9,15 @@ import java.util.stream.Collectors;
 public class SellerSelectScheduleState {
     private User seller = null;
     private Product product = null;
+    private String error = null;
+
+    public SellerSelectScheduleState(SellerSelectScheduleState copy) {
+        seller = copy.seller;
+        product = copy.product;
+        error = copy.error;
+    }
+
+    public SellerSelectScheduleState () {}
 
     public User getSeller() {
         return seller;
@@ -27,7 +36,11 @@ public class SellerSelectScheduleState {
     }
 
 
-    private LocalDateTime truncateToHour(LocalDateTime time) {
-        return time.withMinute(0).withSecond(0).withNano(0);
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 }

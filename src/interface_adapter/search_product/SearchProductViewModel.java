@@ -10,21 +10,11 @@ import java.util.List;
 
 public class SearchProductViewModel extends ViewModel {
 
-    private ArrayList<Product> products;
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     private SearchProductState state = new SearchProductState();
 
     public SearchProductViewModel() {
         super("search_product_view");
-    }
-
-    public ArrayList<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
-        firePropertyChanged();
     }
 
     public SearchProductState getState() {

@@ -30,8 +30,9 @@ public class ReplyQuestionPresenter {
 
         sellerViewProductState.setLst_question(old_lst);
         sellerViewProductState.setPromptStr("Successfully replied question");
+        sellerViewProductState.setIsChanged(true);
 
-        this.replyQuestionViewModel.setState(replyQuestionState);
+//        this.replyQuestionViewModel.setState(replyQuestionState);
         this.sellerViewProductViewModel.setState(sellerViewProductState);
 
         sellerViewProductViewModel.firePropertyChanged();
