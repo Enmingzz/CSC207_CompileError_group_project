@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class SellerSelectScheduleController {
     private final SellerSelectScheduleInputBoundary inputBoundary;
 
-    public SellerSelectScheduleController(SellerSelectScheduleInputBoundary inputBoundary, SellerSelectScheduleState state) {
+    public SellerSelectScheduleController(SellerSelectScheduleInputBoundary inputBoundary) {
         this.inputBoundary = inputBoundary;
     }
 
