@@ -6,7 +6,6 @@ import app.shopping_cart_usecase_factory.ShoppingCartUseCaseFactory;
 import app.user_usecase_factory.LoginUseCaseFactory;
 import app.user_usecase_factory.SignupUseCaseFactory;
 import app.search_product_usecase_factory.SearchProductUseCaseFactory;
-import app.search_product_usecase_factory.SearchByTagUseCaseFactory;
 import app.product_usecase_factory.BuyerViewProductUseCaseFactory;
 import app.product_usecase_factory.SellerViewProductUseCaseFactory;
 import app.user_usecase_factory.ModifyProfileUseCaseFactory;
