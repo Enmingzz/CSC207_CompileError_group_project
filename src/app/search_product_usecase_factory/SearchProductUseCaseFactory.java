@@ -33,13 +33,14 @@ import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.profile.view_profile.ViewProfilePresenter;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
-import interface_adapter.search_product.SearchProductByNameController;
-import interface_adapter.search_product.SearchProductByNamePresenter;
-import interface_adapter.search_product.SearchProductViewModel;
+import interface_adapter.schedule.GetBuyerSchedulePagePresenter;
+import interface_adapter.search_product.*;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import interface_adapter.signup.*;
+import use_case.schedule.GetBuyerSchedulePageOutputBoundary;
+import use_case.search_product.*;
 import use_case.signup.*;
 import use_case.login.*;
 import use_case.logout.LogOutInputBoundary;
@@ -48,23 +49,33 @@ import use_case.logout.LogOutOutputBoundary;
 import use_case.main_page.ShowMainPageInputBoundary;
 import use_case.main_page.ShowMainPageInteractor;
 import use_case.main_page.ShowMainPageOutputBoundary;
-import use_case.search_product.SearchProductByNameInputBoundary;
-import use_case.search_product.SearchProductByNameInteractor;
-import use_case.search_product.SearchProductByNameOutputBoundary;
 import use_case.profile.view_profile.ViewProfileInputBoundary;
 import use_case.profile.view_profile.ViewProfileInteractor;
 import use_case.profile.view_profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
+import view.search_product.SearchProductView;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class SearchByNameUseCaseFactory {
+public class SearchProductUseCaseFactory {
 
-    public static SearchByNamePanel create(){
+    public static SearchProductView create(){
         //TODO implements this method
-        return new SearchByNamePanel();
+    }
+
+    private static GetSearchPageController createGetSearchPageController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
+        GetSearchViewOutputBoundary getSearchViewPresenter =
+                new GetSearchPagePresenter(searchProductViewModel, viewManagerModel);
+        DataBaseProductReadAllDataAccessObjectFactoryInterface dataBaseProductReadAllDataAccessObjectFactoryInterface = new DatabaseProductReadAllDataAccessObjectFactory();
+        ProductFactory productFactory = new CommonProductFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+        ProductReadAllDataAccessInterface productReadAllDataAccessObeject =
+                dataBaseProductReadAllDataAccessObjectFactoryInterface.create(productFactory, scheduleFactory);
+        GetSearchViewInputBoundary getSearchViewInteractor =
+                new GetSearchViewInteractor(getSearchViewPresenter, productReadAllDataAccessObeject);
+        return new GetSearchPageController(getSearchViewInteractor);
     }
 
     private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
