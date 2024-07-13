@@ -24,9 +24,7 @@ import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import interface_adapter.schedule.BuyerSelectScheduleController;
 import interface_adapter.schedule.BuyerSelectSchedulePresenter;
 import interface_adapter.schedule.BuyerSelectScheduleViewModel;
-import interface_adapter.search_product.SearchProductByNameController;
-import interface_adapter.search_product.SearchProductByNamePresenter;
-import interface_adapter.search_product.SearchProductViewModel;
+import interface_adapter.search_product.*;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
@@ -36,9 +34,8 @@ import use_case.logout.LogOutOutputBoundary;
 import use_case.main_page.ShowMainPageInputBoundary;
 import use_case.main_page.ShowMainPageInteractor;
 import use_case.main_page.ShowMainPageOutputBoundary;
-import use_case.search_product.SearchProductByNameInputBoundary;
-import use_case.search_product.SearchProductByNameInteractor;
-import use_case.search_product.SearchProductByNameOutputBoundary;
+import use_case.schedule.BuyerSelectScheduleOutputBoundary;
+import use_case.search_product.*;
 import use_case.profile.view_profile.ViewProfileInputBoundary;
 import use_case.profile.view_profile.ViewProfileInteractor;
 import use_case.profile.view_profile.ViewProfileOutputBoundary;
@@ -53,35 +50,42 @@ import java.sql.SQLException;
 
 public class BuyerScheduleUseCaseFactory {
 
-    public static BuyerScheduleView create(ViewManagerModel viewManagerModel) throws SQLException {
-        BuyerSelectScheduleViewModel viewModel = new BuyerSelectScheduleViewModel();
-        BuyerSelectSchedulePresenter presenter = new BuyerSelectSchedulePresenter(viewModel);
+    public static BuyerScheduleView create(BuyerSelectScheduleViewModel buyerSelectScheduleViewModel,
+                                           ShoppingCartViewModel shoppingCartViewModel,
+                                           ViewManagerModel viewManagerModel) throws SQLException {
+        BuyerSelectScheduleController buyerSelectScheduleController =
+                BuyerScheduleUseCaseFactory.createBuyerSelectScheduleController(buyerSelectScheduleViewModel,
+                        viewManagerModel, shoppingCartViewModel);
+        ShoppingCartController shoppingCartController =
+                BuyerScheduleUseCaseFactory.createShoppingCartController(viewManagerModel, shoppingCartViewModel);
+        return new BuyerScheduleView(buyerSelectScheduleViewModel, buyerSelectScheduleController, shoppingCartController);
 
-        DataBaseProductReadByIdDataAccessObjectFactoryInterface readByIdFactory =
-                new DataBaseProductReadByIdDataAccessObjectFactory();
-        DataBaseProductUpdateBuyerScheduleDataAccessObjectFactoryInterface updateBuyerScheduleFactory =
-                new DatabaseProductUpdateBuyerScheduleDataAccessObjectFactory();
-        DatabaseProductUpdateStateDataAccessObjectFactoryInterface updateProductStateFactory =
-                new DatabaseProductUpdateStateDataAccessObjectFactory();
-
-        ProductFactory productFactory = new CommonProductFactory();
-        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
-
-        ProductReadByIdDataAccessInterface readById = readByIdFactory.create(productFactory, scheduleFactory);
-        ProductUpdateBuyerScheduleDataAccessInterface updateBuyerSchedule = updateBuyerScheduleFactory.create();
-        ProductUpdateStateDataAccessInterface updateState = updateProductStateFactory.create();
-
-
-        BuyerSelectScheduleInputBoundary interactor = new BuyerSelectScheduleInteractor(presenter, readById, updateBuyerSchedule, updateState);
-        BuyerSelectScheduleController controller = new BuyerSelectScheduleController(interactor, viewManagerModel);
-
-        BuyerScheduleView view = new BuyerScheduleView(viewModel, controller);
-        viewModel.addPropertyChangeListener(view);
-
-        return view;
     }
 
-
+    private static BuyerSelectScheduleController createBuyerSelectScheduleController
+            (BuyerSelectScheduleViewModel buyerSelectScheduleViewModel, ViewManagerModel viewManagerModel,
+             ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
+        BuyerSelectScheduleOutputBoundary buyerSelectSchedulePresenter =
+                new BuyerSelectSchedulePresenter(buyerSelectScheduleViewModel, viewManagerModel, shoppingCartViewModel);
+        DataBaseProductReadByIdDataAccessObjectFactoryInterface dataBaseProductReadByIdDataAccessObjectFactoryInterface =
+                new DataBaseProductReadByIdDataAccessObjectFactory();
+        ProductFactory productFactory = new CommonProductFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+        ProductReadByIdDataAccessInterface productReadByIdDataAccessObject =
+                dataBaseProductReadByIdDataAccessObjectFactoryInterface.create(productFactory, scheduleFactory);
+        DataBaseProductUpdateBuyerScheduleDataAccessObjectFactoryInterface dataBaseProductUpdateBuyerScheduleDataAccessObjectFactoryInterface =
+                new DatabaseProductUpdateBuyerScheduleDataAccessObjectFactory();
+        ProductUpdateBuyerScheduleDataAccessInterface productUpdateBuyerScheduleDataAccessObject =
+                dataBaseProductUpdateBuyerScheduleDataAccessObjectFactoryInterface.create();
+        DatabaseProductUpdateStateDataAccessObjectFactoryInterface databaseProductUpdateStateDataAccessObjectFactoryInterface =
+                new DatabaseProductUpdateStateDataAccessObjectFactory();
+        ProductUpdateStateDataAccessInterface productUpdateStateDataAccessObject =
+                databaseProductUpdateStateDataAccessObjectFactoryInterface.create();
+        BuyerSelectScheduleInputBoundary buyerSelectScheduleInteractor =
+                new BuyerSelectScheduleInteractor(buyerSelectSchedulePresenter, productReadByIdDataAccessObject,
+                        productUpdateBuyerScheduleDataAccessObject, productUpdateStateDataAccessObject);
+        return new BuyerSelectScheduleController(buyerSelectScheduleInteractor);
+    }
 
     private static MainPageController createMainPageController(MainPageViewModel mainPageViewModel, ViewManagerModel viewManagerModel) throws SQLException {
         ShowMainPageOutputBoundary showMainPagePresenter = new MainPagePresenter(mainPageViewModel, viewManagerModel);
@@ -111,19 +115,17 @@ public class BuyerScheduleUseCaseFactory {
         return new ViewProfileController(viewProfileInteractor);
     }
 
-    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
-        SearchProductByNameOutputBoundary searchProductByNamePresenter =
-                new SearchProductByNamePresenter(viewManagerModel, searchProductViewModel);
-        DatabaseProductReadByNameDataAccessObjectFactoryInterface databaseProductReadByNameDataAccessObjectFactory
-                = new DatabaseProductReadByNameDataAccessObjectFactory();
+    private static GetSearchPageController createGetSearchPageController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
+        GetSearchViewOutputBoundary getSearchViewPresenter =
+                new GetSearchPagePresenter(searchProductViewModel, viewManagerModel);
+        DataBaseProductReadAllDataAccessObjectFactoryInterface dataBaseProductReadAllDataAccessObjectFactoryInterface = new DatabaseProductReadAllDataAccessObjectFactory();
         ProductFactory productFactory = new CommonProductFactory();
         ScheduleFactory scheduleFactory = new CommonScheduleFactory();
-        ProductReadByNameDataAccessInterface productReadByNameDataAccessObject =
-                databaseProductReadByNameDataAccessObjectFactory.create(productFactory, scheduleFactory);
-        SearchProductByNameInputBoundary searchProductByNameInteractor =
-                new SearchProductByNameInteractor(productReadByNameDataAccessObject,
-                        searchProductByNamePresenter);
-        return new SearchProductByNameController(searchProductByNameInteractor);
+        ProductReadAllDataAccessInterface productReadAllDataAccessObeject =
+                dataBaseProductReadAllDataAccessObjectFactoryInterface.create(productFactory, scheduleFactory);
+        GetSearchViewInputBoundary getSearchViewInteractor =
+                new GetSearchViewInteractor(getSearchViewPresenter, productReadAllDataAccessObeject);
+        return new GetSearchPageController(getSearchViewInteractor);
     }
 
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
