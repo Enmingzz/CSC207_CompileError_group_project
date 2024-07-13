@@ -1,0 +1,25 @@
+ .../modify_product/CreateProductController.java    |  3 [32m+[m[31m-[m
+ .../modify_product/ModifyProductController.java    |  7 [32m++++[m
+ .../modify_product/ModifyProductPresenter.java     |  2 [32m++[m
+ .../ViewCreateProductController.java               | 18 [32m++++++++++[m
+ .../modify_product/ViewCreateProductPresenter.java | 15 [32m++++++[m[31m---[m
+ .../ViewModifyProductController.java               | 18 [32m++++++[m[31m----[m
+ .../modify_product/ViewModifyProductPresenter.java | 15 [32m+++++++++[m
+ .../modify_product/ViewModifyProductState.java     |  5 [32m++[m[31m-[m
+ .../modify_product/ViewModifyProductViewModel.java | 32 [32m+++++++++++++++++[m[31m-[m
+ .../ChangeProductDescriptionInteractor.java        | 15 [32m+++++++++[m
+ .../modify_product/ChangeProductInputBoundary.java |  4 [32m+++[m
+ .../modify_product/ChangeProductInputData.java     | 33 [32m+++++++++++++++++++[m
+ .../modify_product/ChangeProductInteractor.java    | 38 [32m+++++++++++++++++++++[m[31m-[m
+ .../ChangeProductOutputBoundary.java               |  5 [32m+++[m
+ .../ChangeProductPictureInteractor.java            | 17 [32m++++++++++[m
+ .../ChangeProductPriceInteractor.java              | 14 [32m++++++++[m
+ .../ViewCreateProductInputBoundary.java            |  2 [32m+[m[31m-[m
+ .../ViewCreateProductOutputBoundary.java           |  3 [32m+[m[31m-[m
+ .../ViewModifyProductInputBoundary.java            |  5 [32m+++[m
+ .../modify_product/ViewModifyProductInputData.java | 17 [32m++++++++++[m
+ .../ViewModifyProductInteractor.java               | 16 [32m+++++++++[m
+ .../ViewModifyProductOutputBoundary.java           |  1 [32m+[m
+ .../ViewModifyProductOutputData.java               | 16 [32m+++++++++[m
+ .../ModifyProfileOutputBoundary.java               |  2 [31m--[m
+ 24 files changed, 284 insertions(+), 19 deletions(-)
