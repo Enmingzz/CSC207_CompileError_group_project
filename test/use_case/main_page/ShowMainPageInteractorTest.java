@@ -1,14 +1,13 @@
 package use_case.main_page;
 
+import data_access.in_memory.product.InMemoryProductReadAllDataAccessObject;
+import data_access.interfaces.product.ProductReadAllDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.Product;
 import entity.product.ProductFactory;
 import entity.schedule.CommonScheduleFactory;
 import entity.schedule.Schedule;
 import entity.schedule.ScheduleFactory;
-import entity.shopping_cart.CommonShoppingCartFactory;
-import entity.shopping_cart.ShoppingCart;
-import entity.shopping_cart.ShoppingCartFactory;
 import entity.user.CommonUserFactory;
 import entity.user.User;
 import entity.user.UserFactory;
@@ -20,6 +19,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -29,6 +29,8 @@ class ShowMainPageInteractorTest {
 
     private User user;
     private ArrayList<Product> databaseProducts;
+    private Product product1;
+    private Product product2;
 
     @BeforeEach
     void setUp() throws IOException {
@@ -116,6 +118,16 @@ class ShowMainPageInteractorTest {
 
         databaseProducts.add(product2);
 
+        this.product1 = productFactory.createProduct(
+                image, description, title, price, rating, state, eTransferEmail, sellerStudentNumber, address,
+                listTags, productID, schedule);
+
+        this.product2 = productFactory.createProduct(
+                image2, description2, title2, price2, rating2, state2, eTransferEmail2, sellerStudentNumber2, address2,
+                listTags2, productID2, schedule2
+        );
+
+
         UserFactory userFactory = new CommonUserFactory();
 
         String name = "username";
@@ -132,13 +144,32 @@ class ShowMainPageInteractorTest {
     }
 
     @Test
-    void showMainPage() {
+    void showMainPage() throws SQLException, IOException {
 
         ShowMainPageOutputBoundary mockPresenter = new ShowMainPageOutputBoundary() {
             @Override
             public void prepareSuccessView(ShowMainPageOutputData response) {
+                User actualUser = response.getUser();
+                assertEquals(user, actualUser);
+
+                ArrayList<Product> actualListProduct = response.getAllProducts();
+                assertEquals(databaseProducts.get(0), actualListProduct.get(0));
+                assertEquals(databaseProducts.get(1), actualListProduct.get(1));
+                assertEquals(actualListProduct.get(0), product1);
+                assertEquals(actualListProduct.get(1), product2);
 
             }
         };
+
+        ShowMainPageInputData inputData =
+                new ShowMainPageInputData(user);
+
+        ProductReadAllDataAccessInterface productReadAllDataAccessInterface =
+                new InMemoryProductReadAllDataAccessObject();
+
+        ShowMainPageInteractor interactor = new ShowMainPageInteractor(mockPresenter,
+                productReadAllDataAccessInterface);
+
+        interactor.showMainPage(inputData);
     }
 }
