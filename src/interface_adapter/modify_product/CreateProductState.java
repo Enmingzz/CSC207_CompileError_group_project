@@ -1,6 +1,5 @@
 package interface_adapter.modify_product;
 
-import javax.swing.text.html.HTML;
 import java.awt.*;
 import java.util.ArrayList;
 
