@@ -6,6 +6,7 @@ import interface_adapter.profile.manage_product.ManageProductViewModel;
 import use_case.modify_product.ChangeProductOutputBoundary;
 import use_case.modify_product.ChangeProductOutputData;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -29,6 +30,8 @@ public class ModifyProductPresenter implements ChangeProductOutputBoundary {
         }
         String message = changeProductOutputData.getMessage();
         //TODO have not yet implemented the message...?
+        JOptionPane.showMessageDialog(null, message, "Product Modification", JOptionPane.INFORMATION_MESSAGE);
+
         manageProductState.setProduct(productList);
         manageProductViewModel.setState(manageProductState);
         manageProductViewModel.firePropertyChanged();
