@@ -17,7 +17,6 @@ import entity.user.UserFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.main_page.ShowMainPageOutputData;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -93,6 +92,7 @@ class ShowShoppingCartInteractorTest {
 
         float totalPrice = 0;
         ArrayList<Product> listProducts = new ArrayList<>();
+        listProducts.add(product);
 
         shoppingCart = shoppingCartFactory.createShoppingCart(totalPrice, studentNumber, listProducts);
 
