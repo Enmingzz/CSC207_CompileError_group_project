@@ -2,14 +2,13 @@ package use_case.shopping_cart;
 
 import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
 import entity.shopping_cart.ShoppingCart;
-import interface_adapter.shopping_cart.ShoppingCartPresenter;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class ShowShoppingCartInteractor implements ShowShoppingCartInputBoundary{
 
-    private final ShoppingCartPresenter presenter;
+    private final ShowShoppingCartOutputBoundary presenter;
     private final ShoppingCartReadDataAccessInterface shoppingCartReadDataAccess;
 
     /**
@@ -17,7 +16,7 @@ public class ShowShoppingCartInteractor implements ShowShoppingCartInputBoundary
      * @param shoppingCartReadDataAccess "Get shopping by using the student number in user"
      */
 
-    public ShowShoppingCartInteractor(ShoppingCartPresenter presenter, ShoppingCartReadDataAccessInterface
+    public ShowShoppingCartInteractor(ShowShoppingCartOutputBoundary presenter, ShoppingCartReadDataAccessInterface
             shoppingCartReadDataAccess) {
         this.presenter = presenter;
         this.shoppingCartReadDataAccess = shoppingCartReadDataAccess;

@@ -24,9 +24,7 @@ import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import interface_adapter.schedule.SellerSelectScheduleController;
 import interface_adapter.schedule.SellerSelectSchedulePresenter;
 import interface_adapter.schedule.SellerSelectScheduleViewModel;
-import interface_adapter.search_product.SearchProductByNameController;
-import interface_adapter.search_product.SearchProductByNamePresenter;
-import interface_adapter.search_product.SearchProductViewModel;
+import interface_adapter.search_product.*;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
@@ -36,9 +34,8 @@ import use_case.logout.LogOutOutputBoundary;
 import use_case.main_page.ShowMainPageInputBoundary;
 import use_case.main_page.ShowMainPageInteractor;
 import use_case.main_page.ShowMainPageOutputBoundary;
-import use_case.search_product.SearchProductByNameInputBoundary;
-import use_case.search_product.SearchProductByNameInteractor;
-import use_case.search_product.SearchProductByNameOutputBoundary;
+import use_case.schedule.SellerSelectScheduleOutputBoundary;
+import use_case.search_product.*;
 import use_case.profile.view_profile.ViewProfileInputBoundary;
 import use_case.profile.view_profile.ViewProfileInteractor;
 import use_case.profile.view_profile.ViewProfileOutputBoundary;
@@ -53,33 +50,41 @@ import java.sql.SQLException;
 
 public class SellerScheduleUseCaseFactory {
 
-    public static SellerScheduleView create(ViewManagerModel viewManagerModel) throws SQLException {
-        SellerSelectScheduleViewModel viewModel = new SellerSelectScheduleViewModel();
-        SellerSelectSchedulePresenter presenter = new SellerSelectSchedulePresenter(viewModel);
+    public static SellerScheduleView create(SellerSelectScheduleViewModel sellerSelectScheduleViewModel,
+                                            ViewManagerModel viewManagerModel,
+                                            ViewProfileViewModel viewProfileViewModel) throws SQLException, IOException {
+        SellerSelectScheduleController sellerSelectScheduleController =
+                SellerScheduleUseCaseFactory.createSellerSelectScheduleController(sellerSelectScheduleViewModel,
+                        viewManagerModel, viewProfileViewModel);
+        ViewProfileController viewProfileController =
+                SellerScheduleUseCaseFactory.createProfileController(viewManagerModel, viewProfileViewModel);
+        return new SellerScheduleView(sellerSelectScheduleController, sellerSelectScheduleViewModel, viewProfileController);
 
-        DataBaseProductReadByIdDataAccessObjectFactoryInterface readByIdFactory =
+    }
+
+    private static SellerSelectScheduleController createSellerSelectScheduleController
+            (SellerSelectScheduleViewModel sellerSelectScheduleViewModel, ViewManagerModel viewManagerModel,
+             ViewProfileViewModel viewProfileViewModel) throws SQLException {
+        SellerSelectScheduleOutputBoundary sellerSelectSchedulePresenter =
+                new SellerSelectSchedulePresenter(sellerSelectScheduleViewModel, viewProfileViewModel, viewManagerModel);
+        DataBaseProductReadByIdDataAccessObjectFactoryInterface dataBaseProductReadByIdDataAccessObjectFactoryInterface =
                 new DataBaseProductReadByIdDataAccessObjectFactory();
-        DataBaseProductUpdateSellerScheduleDataAccessObjectFactoryInterface updateSellerScheduleFactory =
-                new DatabaseProductUpdateSellerScheduleDataAccessObjectFactory();
-        DatabaseProductUpdateStateDataAccessObjectFactoryInterface updateProductStateFactory =
-                new DatabaseProductUpdateStateDataAccessObjectFactory();
-
         ProductFactory productFactory = new CommonProductFactory();
         ScheduleFactory scheduleFactory = new CommonScheduleFactory();
-
-        ProductReadByIdDataAccessInterface readById = readByIdFactory.create(productFactory, scheduleFactory);
-        ProductUpdateSellerScheduleDataAccessInterface updateSellerSchedule = updateSellerScheduleFactory.create();
-        ProductUpdateStateDataAccessInterface updateState = updateProductStateFactory.create();
-
-
-        SellerSelectScheduleInputBoundary interactor = new SellerSelectScheduleInteractor(presenter, readById, updateSellerSchedule, updateState);
-        SellerSelectScheduleController controller = new SellerSelectScheduleController(interactor, viewManagerModel);
-
-        SellerScheduleView view = new SellerScheduleView(controller, viewModel);
-        viewModel.addPropertyChangeListener(view);
-
-        return view;
-
+        ProductReadByIdDataAccessInterface productReadByIdDataAccessObject =
+                dataBaseProductReadByIdDataAccessObjectFactoryInterface.create(productFactory, scheduleFactory);
+        DataBaseProductUpdateSellerScheduleDataAccessObjectFactoryInterface dataBaseProductUpdateSellerScheduleDataAccessObjectFactoryInterface =
+                new DatabaseProductUpdateSellerScheduleDataAccessObjectFactory();
+        ProductUpdateSellerScheduleDataAccessInterface productUpdateSellerScheduleDataAccessObject =
+                dataBaseProductUpdateSellerScheduleDataAccessObjectFactoryInterface.create();
+        DatabaseProductUpdateStateDataAccessObjectFactoryInterface databaseProductUpdateStateDataAccessObjectFactoryInterface =
+                new DatabaseProductUpdateStateDataAccessObjectFactory();
+        ProductUpdateStateDataAccessInterface productUpdateStateDataAccessObject =
+                databaseProductUpdateStateDataAccessObjectFactoryInterface.create();
+        SellerSelectScheduleInputBoundary sellerSelectScheduleInteractor =
+                new SellerSelectScheduleInteractor(sellerSelectSchedulePresenter, productReadByIdDataAccessObject,
+                        productUpdateSellerScheduleDataAccessObject, productUpdateStateDataAccessObject);
+        return new SellerSelectScheduleController(sellerSelectScheduleInteractor);
     }
 
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
@@ -126,19 +131,16 @@ public class SellerScheduleUseCaseFactory {
         return new ViewProfileController(viewProfileInteractor);
     }
 
-    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
-        SearchProductByNameOutputBoundary searchProductByNamePresenter =
-                new SearchProductByNamePresenter(viewManagerModel, searchProductViewModel);
-        DatabaseProductReadByNameDataAccessObjectFactoryInterface databaseProductReadByNameDataAccessObjectFactory
-                = new DatabaseProductReadByNameDataAccessObjectFactory();
+    private static GetSearchPageController createGetSearchPageController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
+        GetSearchViewOutputBoundary getSearchViewPresenter =
+                new GetSearchPagePresenter(searchProductViewModel, viewManagerModel);
+        DataBaseProductReadAllDataAccessObjectFactoryInterface dataBaseProductReadAllDataAccessObjectFactoryInterface = new DatabaseProductReadAllDataAccessObjectFactory();
         ProductFactory productFactory = new CommonProductFactory();
         ScheduleFactory scheduleFactory = new CommonScheduleFactory();
-        ProductReadByNameDataAccessInterface productReadByNameDataAccessObject =
-                databaseProductReadByNameDataAccessObjectFactory.create(productFactory, scheduleFactory);
-        SearchProductByNameInputBoundary searchProductByNameInteractor =
-                new SearchProductByNameInteractor(productReadByNameDataAccessObject,
-                        searchProductByNamePresenter);
-        return new SearchProductByNameController(searchProductByNameInteractor);
+        ProductReadAllDataAccessInterface productReadAllDataAccessObeject =
+                dataBaseProductReadAllDataAccessObjectFactoryInterface.create(productFactory, scheduleFactory);
+        GetSearchViewInputBoundary getSearchViewInteractor =
+                new GetSearchViewInteractor(getSearchViewPresenter, productReadAllDataAccessObeject);
+        return new GetSearchPageController(getSearchViewInteractor);
     }
-
 }

@@ -33,13 +33,14 @@ import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.profile.view_profile.ViewProfilePresenter;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
-import interface_adapter.search_product.SearchProductByNameController;
-import interface_adapter.search_product.SearchProductByNamePresenter;
-import interface_adapter.search_product.SearchProductViewModel;
+import interface_adapter.schedule.GetBuyerSchedulePagePresenter;
+import interface_adapter.search_product.*;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import interface_adapter.signup.*;
+import use_case.schedule.GetBuyerSchedulePageOutputBoundary;
+import use_case.search_product.*;
 import use_case.signup.*;
 import use_case.login.*;
 import use_case.logout.LogOutInputBoundary;
@@ -48,24 +49,56 @@ import use_case.logout.LogOutOutputBoundary;
 import use_case.main_page.ShowMainPageInputBoundary;
 import use_case.main_page.ShowMainPageInteractor;
 import use_case.main_page.ShowMainPageOutputBoundary;
-import use_case.search_product.SearchProductByNameInputBoundary;
-import use_case.search_product.SearchProductByNameInteractor;
-import use_case.search_product.SearchProductByNameOutputBoundary;
 import use_case.profile.view_profile.ViewProfileInputBoundary;
 import use_case.profile.view_profile.ViewProfileInteractor;
 import use_case.profile.view_profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
+import view.search_product.SearchProductView;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class SearchByTagUseCaseFactory {
+public class SearchProductUseCaseFactory {
 
-    public static SearchByTagPanel create(ViewManagerModel viewManagerModel,
-                                          MainPageViewModel mainPageViewModel) throws SQLException {
+    public static SearchProductView create(){
         //TODO implements this method
-        return new SearchByTagPanel(SearchByTagUseCaseFactory.createMainPageController(mainPageViewModel, viewManagerModel));
+    }
+
+    private static GetSearchPageController createGetSearchPageController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
+        GetSearchViewOutputBoundary getSearchViewPresenter =
+                new GetSearchPagePresenter(searchProductViewModel, viewManagerModel);
+        DataBaseProductReadAllDataAccessObjectFactoryInterface dataBaseProductReadAllDataAccessObjectFactoryInterface = new DatabaseProductReadAllDataAccessObjectFactory();
+        ProductFactory productFactory = new CommonProductFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+        ProductReadAllDataAccessInterface productReadAllDataAccessObeject =
+                dataBaseProductReadAllDataAccessObjectFactoryInterface.create(productFactory, scheduleFactory);
+        GetSearchViewInputBoundary getSearchViewInteractor =
+                new GetSearchViewInteractor(getSearchViewPresenter, productReadAllDataAccessObeject);
+        return new GetSearchPageController(getSearchViewInteractor);
+    }
+
+    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
+        SearchProductByNameOutputBoundary searchProductByNamePresenter =
+                new SearchProductByNamePresenter(viewManagerModel, searchProductViewModel);
+        DatabaseProductReadByNameDataAccessObjectFactoryInterface databaseProductReadByNameDataAccessObjectFactory
+                = new DatabaseProductReadByNameDataAccessObjectFactory();
+        ProductFactory productFactory = new CommonProductFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+        ProductReadByNameDataAccessInterface productReadByNameDataAccessObject =
+                databaseProductReadByNameDataAccessObjectFactory.create(productFactory, scheduleFactory);
+        SearchProductByNameInputBoundary searchProductByNameInteractor =
+                new SearchProductByNameInteractor(productReadByNameDataAccessObject,
+                        searchProductByNamePresenter);
+        return new SearchProductByNameController(searchProductByNameInteractor);
+    }
+
+    private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
+        ViewSignupPageOutputBoundary viewSignupPagePresenter =
+                new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
+        ViewSignupPageInputBoundary viewSignupPageInteractor =
+                new ViewSignupPageInteractor(viewSignupPagePresenter);
+        return new ViewSignupPageController(viewSignupPageInteractor);
     }
 
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
@@ -84,14 +117,6 @@ public class SearchByTagUseCaseFactory {
         return new ShoppingCartController(showShoppingCartInteractor);
     }
 
-    private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
-        ViewSignupPageOutputBoundary viewSignupPagePresenter =
-                new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
-        ViewSignupPageInputBoundary viewSignupPageInteractor =
-                new ViewSignupPageInteractor(viewSignupPagePresenter);
-        return new ViewSignupPageController(viewSignupPageInteractor);
-    }
-
     private static MainPageController createMainPageController(MainPageViewModel mainPageViewModel, ViewManagerModel viewManagerModel) throws SQLException {
         ShowMainPageOutputBoundary showMainPagePresenter = new MainPagePresenter(mainPageViewModel, viewManagerModel);
         DataBaseProductReadAllDataAccessObjectFactoryInterface dataBaseProductReadAllDataAccessObjectFactoryInterface = new DatabaseProductReadAllDataAccessObjectFactory();
@@ -106,11 +131,16 @@ public class SearchByTagUseCaseFactory {
 
     private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel) throws IOException, SQLException {
 
-        DatabaseUserCreateDataAccessObjectFactoryInterface databaseUserCreateDataAccessObjectFactory = new DatabaseUserCreateDataAccessObjectFactory();
-        UserCreateDataAccessInterface userCreateDataAccessObject = databaseUserCreateDataAccessObjectFactory.create();
-        SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
-        DatabaseUserReadDataAccessObjectFactoryInterface databaseUserReadDataAccessObjectFactory = new DatabaseUserReadDataAccessObjectFactory();
-        UserReadDataAccessInterface userReadDataAccessInterface = databaseUserReadDataAccessObjectFactory.create(new CommonUserFactory());
+        DatabaseUserCreateDataAccessObjectFactoryInterface databaseUserCreateDataAccessObjectFactory
+                = new DatabaseUserCreateDataAccessObjectFactory();
+        UserCreateDataAccessInterface userCreateDataAccessObject =
+                databaseUserCreateDataAccessObjectFactory.create();
+        SignupOutputBoundary signupOutputBoundary = new
+                SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
+        DatabaseUserReadDataAccessObjectFactoryInterface databaseUserReadDataAccessObjectFactory =
+                new DatabaseUserReadDataAccessObjectFactory();
+        UserReadDataAccessInterface userReadDataAccessInterface =
+                databaseUserReadDataAccessObjectFactory.create(new CommonUserFactory());
 
         UserFactory userFactory = new CommonUserFactory();
 
@@ -128,7 +158,6 @@ public class SearchByTagUseCaseFactory {
         return new ViewLoginPageController(viewLoginPageInteractor);
     }
 
-
     private static LogOutController createLogOutController(ViewManagerModel viewManagerModel,
                                                            MainPageViewModel mainPageViewModel) throws SQLException {
         LogOutOutputBoundary LogOutPresenter = new LogOutPresenter(mainPageViewModel,
@@ -145,19 +174,6 @@ public class SearchByTagUseCaseFactory {
         return new ViewProfileController(viewProfileInteractor);
     }
 
-    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
-        SearchProductByNameOutputBoundary searchProductByNamePresenter =
-                new SearchProductByNamePresenter(viewManagerModel, searchProductViewModel);
-        DatabaseProductReadByNameDataAccessObjectFactoryInterface databaseProductReadByNameDataAccessObjectFactory
-                = new DatabaseProductReadByNameDataAccessObjectFactory();
-        ProductFactory productFactory = new CommonProductFactory();
-        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
-        ProductReadByNameDataAccessInterface productReadByNameDataAccessObject =
-                databaseProductReadByNameDataAccessObjectFactory.create(productFactory, scheduleFactory);
-        SearchProductByNameInputBoundary searchProductByNameInteractor =
-                new SearchProductByNameInteractor(productReadByNameDataAccessObject,
-                        searchProductByNamePresenter);
-        return new SearchProductByNameController(searchProductByNameInteractor);
-    }
+
 
 }

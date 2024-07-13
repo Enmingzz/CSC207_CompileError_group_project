@@ -13,7 +13,7 @@ public class BuyerSelectScheduleController {
     private BuyerSelectScheduleInputBoundary inputBoundary;
 
 
-    public BuyerSelectScheduleController(BuyerSelectScheduleInputBoundary inputBoundary, BuyerSelectScheduleState state) {
+    public BuyerSelectScheduleController(BuyerSelectScheduleInputBoundary inputBoundary) {
         this.inputBoundary = inputBoundary;
     }
 
