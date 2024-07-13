@@ -8,24 +8,24 @@ import java.sql.SQLException;
 
 public class ModifyProfileInteractor implements ModifyProfileInputBoundary {
 
-    private final ModifyProfileNameInteractor modifyProfileNameInteractor;
-    private final ModifyProfilePasswordInteractor modifyProfilePasswordInteractor;
+    private final ModifyProfileNameInterface modifyProfileName;
+    private final ModifyProfilePasswordInterface modifyProfilePassword;
     private final ModifyProfileOutputBoundary modifyProfilePresenter;
 
     public ModifyProfileInteractor(UserUpdateNameDataAccessInterface userUpdateNameDataAccessInterface,
                                    UserUpdatePasswordDataAccessInterface userUpdatePasswordDataAccessInterface,
                                    UserReadDataAccessInterface userReadDataAccessInterface,
                                    ModifyProfileOutputBoundary modifyProfilePresenter) {
-        this.modifyProfileNameInteractor = new ModifyProfileNameInteractor(userUpdateNameDataAccessInterface,
+        this.modifyProfileName = new ModifyProfileName(userUpdateNameDataAccessInterface,
                 userReadDataAccessInterface);
-        this.modifyProfilePasswordInteractor = new ModifyProfilePasswordInteractor(userReadDataAccessInterface,
+        this.modifyProfilePassword = new ModifyProfilePassword(userReadDataAccessInterface,
                 userUpdatePasswordDataAccessInterface);
         this.modifyProfilePresenter = modifyProfilePresenter;
     }
 
     public void execute(ModifyProfileInputData modifyProfileInputData) throws SQLException {
-        boolean passwordFlag = modifyProfilePasswordInteractor.execute(modifyProfileInputData.getUser());
-        boolean userNameFlag = modifyProfileNameInteractor.execute(modifyProfileInputData.getUser());
+        boolean passwordFlag = modifyProfilePassword.execute(modifyProfileInputData.getUser());
+        boolean userNameFlag = modifyProfileName.execute(modifyProfileInputData.getUser());
         if(passwordFlag && userNameFlag){
             ModifyProfileOutputData modifyProfileOutputData = new ModifyProfileOutputData("Have " +
                     "successfully changed username and password");

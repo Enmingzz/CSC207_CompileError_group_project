@@ -46,42 +46,44 @@ public class DatabaseProductReadByIdDataAccessObject implements ProductReadByIdD
         preparedStatement.setString(1, productID);
         preparedStatement = connection.prepareStatement(query);
         resultSet = preparedStatement.executeQuery();
-        resultSet.next();
-
-        String productsID = resultSet.getString("ProductsID");
-        String description = resultSet.getString("Description");
-        String title = resultSet.getString("Title");
-        float price = resultSet.getFloat("Price");
-        int state = resultSet.getInt("State");
-        int rating = resultSet.getInt("Rating");
-        String transferEmail = resultSet.getString("TransferEmail");
-        String sellerID = resultSet.getString("SellerID");
-        String address = resultSet.getString("Address");
-        ArrayList<String> listTags = new ArrayList<String>(List.of(resultSet.getString("ListTags").substring(1
-                , resultSet.getString("ListTags").length() - 1).split(",")));
-        Image image = ImageIO.read(new ByteArrayInputStream(resultSet.getBytes("Image")));
-
-        if (!Objects.equals(resultSet.getString("ListSellerTimes").toLowerCase(), "null")){
-            rowTime = new ArrayList<String>(List.of(resultSet.getString("ListSellerTimes").substring(1
+        if (resultSet.next()){
+            String productsID = resultSet.getString("ProductsID");
+            String description = resultSet.getString("Description");
+            String title = resultSet.getString("Title");
+            float price = resultSet.getFloat("Price");
+            int state = resultSet.getInt("State");
+            int rating = resultSet.getInt("Rating");
+            String transferEmail = resultSet.getString("TransferEmail");
+            String sellerID = resultSet.getString("SellerID");
+            String address = resultSet.getString("Address");
+            ArrayList<String> listTags = new ArrayList<String>(List.of(resultSet.getString("ListTags").substring(1
                     , resultSet.getString("ListTags").length() - 1).split(",")));
-            for(String time: rowTime){
-                listSellerTimes.add(LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")));
+            Image image = ImageIO.read(new ByteArrayInputStream(resultSet.getBytes("Image")));
+
+            if (!Objects.equals(resultSet.getString("ListSellerTimes").toLowerCase(), "null")){
+                rowTime = new ArrayList<String>(List.of(resultSet.getString("ListSellerTimes").substring(1
+                        , resultSet.getString("ListTags").length() - 1).split(",")));
+                for(String time: rowTime){
+                    listSellerTimes.add(LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")));
+                }
             }
+
+            if (!Objects.equals(resultSet.getString("BuyerTime").toLowerCase(), "null")){
+                buyerTime = LocalDateTime.parse(resultSet.getString("BuyerTime"),
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+            }
+
+            Schedule schedule = scheduleFactory.createSchedule(buyerTime, listSellerTimes);
+
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+
+            return productFactory.createProduct(image, description, title, price, rating, state,
+                    transferEmail, sellerID, address, listTags, productsID, schedule);
+        } else {
+            return null;
         }
-
-        if (!Objects.equals(resultSet.getString("BuyerTime").toLowerCase(), "null")){
-            buyerTime = LocalDateTime.parse(resultSet.getString("BuyerTime"),
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
-        }
-
-        Schedule schedule = scheduleFactory.createSchedule(buyerTime, listSellerTimes);
-
-        resultSet.close();
-        preparedStatement.close();
-        connection.close();
-
-        return productFactory.createProduct(image, description, title, price, rating, state,
-                transferEmail, sellerID, address, listTags, productsID, schedule);
     }
 
 }

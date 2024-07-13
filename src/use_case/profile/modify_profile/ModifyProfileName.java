@@ -6,11 +6,11 @@ import entity.user.User;
 
 import java.sql.SQLException;
 
-public class ModifyProfileNameInteractor {
+public class ModifyProfileName implements ModifyProfileNameInterface{
     private final UserUpdateNameDataAccessInterface userUpdateNameDataAccessInterface;
     private final UserReadDataAccessInterface userReadDataAccessInterface;
 
-    public ModifyProfileNameInteractor(UserUpdateNameDataAccessInterface userUpdateNameDataAccessInterface, UserReadDataAccessInterface userReadDataAccessInterface) {
+    public ModifyProfileName(UserUpdateNameDataAccessInterface userUpdateNameDataAccessInterface, UserReadDataAccessInterface userReadDataAccessInterface) {
         this.userUpdateNameDataAccessInterface = userUpdateNameDataAccessInterface;
         this.userReadDataAccessInterface = userReadDataAccessInterface;
     }

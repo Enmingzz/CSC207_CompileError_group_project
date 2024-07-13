@@ -4,5 +4,5 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public interface ViewCreateProductInputBoundary {
-    void exectue(ViewCreateProductInputData viewCreateProductInputData) throws SQLException, IOException;
+    void execute(ViewCreateProductInputData viewCreateProductInputData) throws SQLException, IOException;
 }
