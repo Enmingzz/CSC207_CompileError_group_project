@@ -132,7 +132,6 @@ public class UserProfileUseCaseFactory {
                 new GetSearchViewInteractor(getSearchViewPresenter, productReadAllDataAccessObeject);
         return new GetSearchPageController(getSearchViewInteractor);
     }
-
     private static ViewLoginPageController createViewLoginPageController(LoginViewModel loginViewModel,
                                                                          ViewManagerModel viewManagerModel){
 
