@@ -173,6 +173,8 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
         allProductsPanel = new AllProductsPanel(allProducts, mainPageViewModel, viewProductController);
 
+        // TODO: ADD TOP BAR PROPERTY CHANGE
+
     }
 
 }
