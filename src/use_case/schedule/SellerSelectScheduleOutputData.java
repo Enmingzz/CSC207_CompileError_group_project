@@ -5,16 +5,16 @@ import entity.user.User;
 
 
 public class SellerSelectScheduleOutputData {
-    private User buyer;
+    private User seller;
     private Product product;
 
-    public SellerSelectScheduleOutputData(User buyer, Product product) {
-        this.buyer = buyer;
+    public SellerSelectScheduleOutputData(User seller, Product product) {
+        this.seller = seller;
         this.product = product;
     }
 
-    public User getBuyer() {
-        return buyer;
+    public User getSeller() {
+        return seller;
     }
 
     public Product getProduct() {
