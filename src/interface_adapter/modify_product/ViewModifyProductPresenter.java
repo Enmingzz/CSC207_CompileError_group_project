@@ -1,13 +1,16 @@
 package interface_adapter.modify_product;
 
+import interface_adapter.ViewManagerModel;
 import use_case.modify_product.ViewModifyProductOutputBoundary;
 import use_case.modify_product.ViewModifyProductOutputData;
 
 public class ViewModifyProductPresenter implements ViewModifyProductOutputBoundary {
     private final ViewModifyProductViewModel viewModifyProductViewModel;
+    private final ViewManagerModel viewManagerModel;
 
-    public ViewModifyProductPresenter(ViewModifyProductViewModel viewModifyProductViewModel) {
+    public ViewModifyProductPresenter(ViewModifyProductViewModel viewModifyProductViewModel, ViewManagerModel viewManagerModel) {
         this.viewModifyProductViewModel = viewModifyProductViewModel;
+        this.viewManagerModel = viewManagerModel;
     }
 
     @Override
@@ -15,6 +18,9 @@ public class ViewModifyProductPresenter implements ViewModifyProductOutputBounda
         ViewModifyProductState state = viewModifyProductViewModel.getState();
         viewModifyProductViewModel.setState(state);
         viewModifyProductViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView("Modify product");
+        viewManagerModel.firePropertyChanged();
     }
 
 
