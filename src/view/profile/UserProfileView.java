@@ -7,11 +7,10 @@ import interface_adapter.profile.view_profile.ViewProfileState;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.SignupController;
+import view.profile.ProfileListener.ProfileLabelTextPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -41,7 +40,7 @@ public class UserProfileView extends JFrame implements PropertyChangeListener {
         this.loginController = loginController;
         this.signupController = signupController;
         viewModel.addPropertyChangeListener(this);
-        JLabel title = new JLabel(profileViewModel.TITLE_LABEL);
+        JLabel title = new JLabel(viewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         studentNumberViewField.setText(viewModel.getState().getUser().getStudentNumber());

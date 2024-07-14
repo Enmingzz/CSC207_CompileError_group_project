@@ -6,6 +6,7 @@ import interface_adapter.profile.view_profile.ViewProfileState;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import view.profile.ProfileListener.ManageProductListener;
 import view.profile.ProfileListener.ModifyProfileListener;
+import view.profile.ProfileListener.ProfileLabelTextPanel;
 
 import javax.swing.*;
 import java.awt.*;

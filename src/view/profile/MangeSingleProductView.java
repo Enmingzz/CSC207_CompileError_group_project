@@ -7,11 +7,10 @@ import interface_adapter.profile.manage_product.ManageProductState;
 import interface_adapter.profile.manage_product.ManageProductViewModel;
 import view.profile.ProfileListener.DeleteProductListener;
 import view.profile.ProfileListener.ModifyProductListener;
+import view.profile.ProfileListener.ProfileLabelTextPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.time.LocalDateTime;
