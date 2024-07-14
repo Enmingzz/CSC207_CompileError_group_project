@@ -1,6 +1,8 @@
 package use_case.view_product;
 
+import data_access.in_memory.question.InMemoryQuestionReadDataAccessObject;
 import data_access.in_memory.question.InMemoryQuestionUpdateDataAccessObject;
+import data_access.interfaces.question.QuestionReadDataAccessInterface;
 import data_access.interfaces.question.QuestionUpdateDataAccessInterface;
 import entity.comment.CommonAnswerFactory;
 import entity.comment.CommonQuestion;
@@ -36,6 +38,9 @@ class ReplyQuestionInteractorTest {
     String answerDescription;
     private ArrayList<Question> questions = new ArrayList<>();
     private ArrayList<Product> products = new ArrayList<>();
+    private CommonQuestionFactory questionFactory = new CommonQuestionFactory();
+    private  CommonAnswerFactory answerFactory = new CommonAnswerFactory();
+    private QuestionReadDataAccessInterface questionReadDAO = new InMemoryQuestionReadDataAccessObject();
 
     @BeforeEach
     void setUp() throws IOException {
@@ -85,7 +90,7 @@ class ReplyQuestionInteractorTest {
         };
         ReplyQuestionInputData inputData = new ReplyQuestionInputData(product, seller, question, answerDescription);
         ReplyQuestionInputBoundary interactor = new ReplyQuestionInteractor(questionUpdateData, successPresenter,
-                new CommonAnswerFactory(), new CommonQuestionFactory());
+                questionReadDAO, answerFactory, questionFactory);
 
         interactor.execute(inputData);
     }
