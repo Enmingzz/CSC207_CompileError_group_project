@@ -1,12 +1,16 @@
 package use_case.schedule;
 
 import entity.product.CommonProduct;
+import entity.product.CommonProductFactory;
 import entity.product.Product;
+import entity.product.ProductFactory;
 import entity.schedule.CommonScheduleFactory;
 import entity.schedule.Schedule;
 import entity.schedule.ScheduleFactory;
 import entity.user.CommonUser;
+import entity.user.CommonUserFactory;
 import entity.user.User;
+import entity.user.UserFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,18 +19,19 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SellerSelectScheduleOutputDataTest {
-    private User seller;
+class GetBuyerSchedulePageInteractorTest {
+    private User buyer;
     private Product product;
-    SellerSelectScheduleOutputData sellerSelectScheduleOutputData;
 
     @BeforeEach
     void setUp() throws IOException {
+        ProductFactory productFactory = new CommonProductFactory();
         Image image = ImageIO.read(new File("src/pic/testpic1.png"));
         String des = "This is a description";
         float price = 1;
@@ -34,7 +39,7 @@ class SellerSelectScheduleOutputDataTest {
         int state = 2;
         int rating = 0;
         String eTransferEmail = "example@email.com";
-        String sellerStudentNumber = "1234567890";
+        String sellerStudentNumber = "1111111111";
         String address = "BA 3175";
         LocalDateTime buyerTime = null;
         ArrayList<LocalDateTime> sellerTime = new ArrayList<>();
@@ -46,13 +51,18 @@ class SellerSelectScheduleOutputDataTest {
         listTags.add("Tag 1");
         String productID = "id_1";
 
-        product = new CommonProduct(image, des, title, price, state, rating, eTransferEmail,
+        product =productFactory.createProduct(image, des, title, price, state, rating, eTransferEmail,
                 sellerStudentNumber, address, listTags, productID, schedule);
 
 
-        seller = new CommonUser("tabby cat", "password", "tabby@mail.utoronto.ca", 5, "1234567890");
+        String name = "tabby cat";
+        String password = "password";
+        String email = "tabby@mail.utoronto.ca";
+        float userRating = 5;
+        String studentNumber = "1234567890";
 
-        sellerSelectScheduleOutputData = new SellerSelectScheduleOutputData(seller, product);
+        UserFactory userFactory = new CommonUserFactory();
+        buyer = userFactory.createUser(name, password, email, userRating, studentNumber);
     }
 
     @AfterEach
@@ -60,10 +70,19 @@ class SellerSelectScheduleOutputDataTest {
     }
 
     @Test
-    void getSeller() {assertEquals(seller, sellerSelectScheduleOutputData.getSeller());
-    }
+    void execute() throws SQLException, IOException {
+        GetBuyerSchedulePageOutputBoundary getBuyerSchedulePagePresenter = new GetBuyerSchedulePageOutputBoundary() {
+            @Override
+            public void prepareSuccessfulView(GetBuyerSchedulePageOutputData getBuyerSchedulePageOutputData) {
+                assertEquals(product, getBuyerSchedulePageOutputData.getProduct());
+                assertEquals(buyer, getBuyerSchedulePageOutputData.getBuyer());
+            }
+        };
 
-    @Test
-    void getProduct() {assertEquals(product, sellerSelectScheduleOutputData.getProduct());
+        GetBuyerSchedulePageInputData inputData =
+                new GetBuyerSchedulePageInputData(buyer, product);
+        GetBuyerSchedulePageInteractor interactor =
+                new GetBuyerSchedulePageInteractor(getBuyerSchedulePagePresenter);
+        interactor.execute(inputData);
     }
 }
