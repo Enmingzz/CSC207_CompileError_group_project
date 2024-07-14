@@ -24,7 +24,14 @@ public class ShowMainPageInteractor implements ShowMainPageInputBoundary{
 
         ArrayList<Product> allProducts = productReadAllDataAccessObject.getAllProducts();
 
-        ShowMainPageOutputData showMainPageOutputData = new ShowMainPageOutputData(user, allProducts);
+        ArrayList<Product> filteredProducts = new ArrayList<>();
+        for (Product product : allProducts) {
+            if (product.getState() == 0) {
+                filteredProducts.add(product);
+            }
+        }
+
+        ShowMainPageOutputData showMainPageOutputData = new ShowMainPageOutputData(user, filteredProducts);
         mainPagePresenter.prepareSuccessView(showMainPageOutputData);
 
     }
