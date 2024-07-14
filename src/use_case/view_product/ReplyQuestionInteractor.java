@@ -1,5 +1,6 @@
 package use_case.view_product;
 
+import data_access.interfaces.question.QuestionReadDataAccessInterface;
 import data_access.interfaces.question.QuestionUpdateDataAccessInterface;
 import entity.comment.AnswerFactory;
 import entity.comment.Question;
@@ -12,17 +13,19 @@ import java.sql.SQLException;
 
 public class ReplyQuestionInteractor implements ReplyQuestionInputBoundary {
     private final QuestionUpdateDataAccessInterface questionUpdateDataAccessObject;
-//    private final QuestionReadDataAccessInterface questionReadDataAccessObject;
+    private final QuestionReadDataAccessInterface questionReadDataAccessObject;
     private final ReplyQuestionOutputBoundary replyPresenter;
     private final AnswerFactory answerFactory;
     private final QuestionFactory questionFactory;
 
     public ReplyQuestionInteractor(QuestionUpdateDataAccessInterface questionUpdateDataAccessInterface,
                                    ReplyQuestionOutputBoundary replyQuestionOutputBoundary,
+                                   QuestionReadDataAccessInterface questionReadDataAccessObject,
                                    AnswerFactory answerFactory,
                                    QuestionFactory questionFactory){
         this.questionUpdateDataAccessObject = questionUpdateDataAccessInterface;
         this.replyPresenter = replyQuestionOutputBoundary;
+        this.questionReadDataAccessObject = questionReadDataAccessObject;
         this.answerFactory = answerFactory;
         this.questionFactory = questionFactory;
     }
