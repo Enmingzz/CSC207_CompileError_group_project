@@ -24,7 +24,6 @@ public class AllProductsPanel extends JPanel {
         List<JPanel> listProductPanels = new ArrayList<>();
 
         for (Product product : allProducts) {
-            if (product.getState() == 0) {
 
                 Image image = product.getImage();
                 JLabel paneledImage = new JLabel(new ImageIcon(image));
@@ -77,7 +76,6 @@ public class AllProductsPanel extends JPanel {
 
                 _i++;
 
-            }
 
         }
 
