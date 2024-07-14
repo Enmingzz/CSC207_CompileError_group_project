@@ -63,6 +63,8 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
     private final LogOutController logOutController;
     private final MainPageController mainPageController;
 
+    AllProductsPanel allProductsPanel;
+
     /**
      *
      * @param shoppingCartViewModel the view model that shoppingCartView uses
@@ -102,7 +104,6 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
         this.logOutController = logOutController;
         this.mainPageController = mainPageController;
 
-
         this.shoppingCartViewModel = shoppingCartViewModel;
         shoppingCartViewModel.addPropertyChangeListener(this);
 
@@ -115,9 +116,9 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
 
         this.add(title);
 
-        //TODO: FINISH TOP BAR
+        //TODO: ADD TOP BAR HERE
 
-        AllProductsPanel allProductsPanel = new AllProductsPanel(listProducts,
+        allProductsPanel = new AllProductsPanel(listProducts,
                 shoppingCartViewModel,
                 viewProductController,
                 purchaseController,
@@ -328,7 +329,20 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        // TODO: ADD PROPERTY CHANGE RELATED TO TOP BAR HERE
+
         ShoppingCartState state = (ShoppingCartState) evt.getNewValue();
+
+        ArrayList<Product> listProducts = state.getListProducts();
+
+        allProductsPanel = new AllProductsPanel(listProducts,
+                shoppingCartViewModel,
+                viewProductController,
+                purchaseController,
+                deleteShoppingCartProductController,
+                getBuyerSchedulePageController,
+                confirmController,
+                getRatePageController);
 
 
     }
