@@ -315,6 +315,8 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        ShoppingCartState state = (ShoppingCartState) evt.getNewValue();
+
 
     }
 }
