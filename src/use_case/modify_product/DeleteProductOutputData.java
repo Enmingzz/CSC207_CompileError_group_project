@@ -1,13 +1,13 @@
-package use_case.rate_product;
+package use_case.modify_product;
 
 import entity.product.Product;
 import entity.user.User;
 
-public class RateProductOutputData {
-    private Product product;
-    private User user;
+public class DeleteProductOutputData {
+    private final Product product;
+    private final User user;
 
-    public RateProductOutputData(User user, Product product) {
+    public DeleteProductOutputData(User user, Product product) {
         this.product = product;
         this.user = user;
     }
@@ -15,7 +15,6 @@ public class RateProductOutputData {
     public Product getProduct() {
         return product;
     }
-
     public User getUser() {
         return user;
     }

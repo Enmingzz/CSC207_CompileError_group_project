@@ -35,7 +35,7 @@ public class InMemoryQuestionReadDataAccessObject implements QuestionReadDataAcc
                     Answer copyAnswer = null;
                     Question newQuestion = questionFactory.createQuestion(question.getDescription(),
                             question.getStudentNumber(),
-                            copyAnswer);
+                            copyAnswer, question.getQuestionID());
                     questions.add(newQuestion);
                 }
                 else {
@@ -45,7 +45,7 @@ public class InMemoryQuestionReadDataAccessObject implements QuestionReadDataAcc
                             question.getAnswer().getStudentNumber());
                     Question newQuestion = questionFactory.createQuestion(question.getDescription(),
                             question.getStudentNumber(),
-                            copyAnswer);
+                            copyAnswer, question.getQuestionID());
                     returnedQuestions.add(newQuestion);
                 }
             }

@@ -1,7 +1,9 @@
 package use_case.view_product;
 
 import data_access.in_memory.question.InMemoryQuestionCreateDataAccessObject;
+import data_access.in_memory.question.InMemoryQuestionReadDataAccessObject;
 import data_access.interfaces.question.QuestionCreateDataAccessInterface;
+import data_access.interfaces.question.QuestionReadDataAccessInterface;
 import entity.comment.CommonQuestionFactory;
 import entity.comment.Question;
 import entity.comment.QuestionFactory;
@@ -33,10 +35,12 @@ class PublishQuestionInteractorTest {
     private ScheduleFactory scheduleFactory = new CommonScheduleFactory();
     private QuestionFactory questionFactory = new CommonQuestionFactory();
     private ProductFactory productFactory = new CommonProductFactory();
+    private ArrayList<Question> questions = new ArrayList<>();
+    private ArrayList<Product> products = new ArrayList<>();
 
     @BeforeEach
     void setUp() throws IOException {
-        question  = questionFactory.createQuestion("", "", null);
+        question  = questionFactory.createQuestion("", "", null, "123");
 
         Image image = ImageIO.read(new File("D:/24 summer/csc207/CSC207_CompileError_group_project/src/pic/testpic1.png"));
         String des = " ";
@@ -55,6 +59,7 @@ class PublishQuestionInteractorTest {
 
         product = productFactory.createProduct(image, des, title, price, state, rating, eTransferEmail,
                 sellerStudentNumber, address, listTags, productID, schedule);
+
     }
 
     @AfterEach
@@ -63,14 +68,18 @@ class PublishQuestionInteractorTest {
 
     @Test
     void execute() throws SQLException {
-        QuestionCreateDataAccessInterface questionRepository = new InMemoryQuestionCreateDataAccessObject();// need a new method in DAO, it should be
+
+        QuestionCreateDataAccessInterface questionRepository = new InMemoryQuestionCreateDataAccessObject(questions, products);// need a new method in DAO, it should be
+        QuestionReadDataAccessInterface questionReadDataAccessObjects = new InMemoryQuestionReadDataAccessObject(questions, products);
+
 
         PublishQuestionOutputBoundary successPresenter = new PublishQuestionOutputBoundary() {
             @Override
-            public void prepareSuccessView(PublishQuestionOutputData publishQuestionOutputData) {
+            public void prepareSuccessView(PublishQuestionOutputData publishQuestionOutputData) throws SQLException {
                 assertEquals("question successfully published", publishQuestionOutputData.getOutputStr());
-                //TODO Assert that the question is already stored in InMemoryDAO
-                // assertNotNull();
+                ArrayList<Question> newQuestions = new ArrayList<>();
+                newQuestions.add(question);
+                assertEquals(questionReadDataAccessObjects.getQuestion(product.getProductID()), newQuestions);
             }
         };
 

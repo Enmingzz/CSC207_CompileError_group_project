@@ -34,10 +34,12 @@ class ReplyQuestionInteractorTest {
     Product product;
     User seller;
     String answerDescription;
+    private ArrayList<Question> questions = new ArrayList<>();
+    private ArrayList<Product> products = new ArrayList<>();
 
     @BeforeEach
     void setUp() throws IOException {
-        question  = new CommonQuestion("", "", null);
+        question  = new CommonQuestion("", "", null, "123");
 
         Image image = ImageIO.read(new File("D:/24 summer/csc207/CSC207_CompileError_group_project/src/pic/testpic1.png"));
         String des = " ";

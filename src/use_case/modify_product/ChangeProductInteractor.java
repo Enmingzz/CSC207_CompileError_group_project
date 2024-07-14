@@ -35,26 +35,30 @@ public class ChangeProductInteractor implements ChangeProductInputBoundary{
         if (descriptionFlag & priceFlag) {
             //If the new description and price they inputted are both valid, then update the image and pass on the information
             //that the change has been successfully made.
-            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changeProductInputData.getProduct(),"Successfully modified product");
+            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changeProductInputData.getProduct(),
+                    "Successfully modified product", changeProductInputData.getUser());
             changeProductPictureInterface.execute(changeProductInputData.getProduct(), changeProductInputData.getChangedImage());
             changeProductOutputBoundary.prepareSuccessfulView(changeProductOutputData);
         }
         else if(descriptionFlag) {
             //If only the description was successfully modified
-            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changeProductInputData.getProduct(),"Only the price failed to update");
+            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changeProductInputData.getProduct(),
+                    "Only the price failed to update", changeProductInputData.getUser());
             changeProductPictureInterface.execute(changeProductInputData.getProduct(), changeProductInputData.getChangedImage());
             changeProductOutputBoundary.prepareSuccessfulView(changeProductOutputData);
         }
         else if(priceFlag) {
             //If only the description was successfully modified
-            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changeProductInputData.getProduct(), "Only the description failed to update");
+            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changeProductInputData.getProduct(),
+                    "Only the description failed to update", changeProductInputData.getUser());
             changeProductPictureInterface.execute(changeProductInputData.getProduct(), changeProductInputData.getChangedImage());
             changeProductOutputBoundary.prepareSuccessfulView(changeProductOutputData);
         }
         else {
             //If both of the description and price failed to upload, then don't make the update.
             changeProductPictureInterface.execute(changeProductInputData.getProduct(), changeProductInputData.getChangedImage());
-            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changeProductInputData.getProduct(), "Both the description and price failed to update");
+            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changeProductInputData.getProduct(),
+                    "Both the description and price failed to update", changeProductInputData.getUser());
             changeProductOutputBoundary.prepareSuccessfulView(changeProductOutputData);
         }
     }
