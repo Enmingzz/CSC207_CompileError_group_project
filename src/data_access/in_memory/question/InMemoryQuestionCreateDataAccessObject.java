@@ -37,7 +37,7 @@ public class InMemoryQuestionCreateDataAccessObject implements QuestionCreateDat
             Answer copyAnswer = null;
             Question newQuestion = questionFactory.createQuestion(question.getDescription(),
                     question.getStudentNumber(),
-                    copyAnswer);
+                    copyAnswer, question.getQuestionID());
             questions.add(newQuestion);
         }
         else {
@@ -47,7 +47,7 @@ public class InMemoryQuestionCreateDataAccessObject implements QuestionCreateDat
                     question.getAnswer().getStudentNumber());
             Question newQuestion = questionFactory.createQuestion(question.getDescription(),
                     question.getStudentNumber(),
-                    copyAnswer);
+                    copyAnswer, question.getQuestionID());
             questions.add(newQuestion);
         }
 
