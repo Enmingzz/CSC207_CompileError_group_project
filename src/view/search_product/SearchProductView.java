@@ -2,9 +2,14 @@ package view.search_product;
 
 import entity.product.Product;
 import entity.user.User;
+import interface_adapter.login.ViewLoginPageController;
+import interface_adapter.logout.LogOutController;
+import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.search_product.SearchProductByTagController;
 import interface_adapter.search_product.SearchProductViewModel;
+import interface_adapter.shopping_cart.ShoppingCartController;
+import interface_adapter.signup.ViewSignupPageController;
 import interface_adapter.view_product.ViewProductController;
 
 import javax.swing.*;
@@ -26,6 +31,12 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
     private ViewProductController viewProductController;
     private SearchProductViewModel viewModel;
 
+    private GetSearchPageController getSearchPageController;
+    private ViewSignupPageController viewSignupPageController;
+    private ViewLoginPageController viewLoginPageController;
+    private ShoppingCartController shoppingCartController;
+    private LogOutController logOutController;
+
     private JTextField searchBox;
     private JButton searchButton;
     private final String[] tags = {"Tag1", "Tag2", "Tag3"}; // to be decided later
@@ -33,12 +44,24 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
     public SearchProductView(SearchProductByNameController searchByNameController,
                              SearchProductByTagController searchByTagController,
                              ViewProductController viewProductController,
-                             SearchProductViewModel viewModel) {
+                             SearchProductViewModel viewModel,
+                             GetSearchPageController getSearchPageController,
+                             ViewSignupPageController viewSignupPageController,
+                             ViewLoginPageController viewLoginPageController,
+                             ShoppingCartController shoppingCartController,
+                             LogOutController logOutController) {
 
         this.searchByNameController = searchByNameController;
         this.searchByTagController = searchByTagController;
         this.viewProductController = viewProductController;
         this.viewModel = viewModel;
+        // for top bar
+        this.getSearchPageController = getSearchPageController;
+        this.viewSignupPageController = viewSignupPageController;
+        this.viewLoginPageController = viewLoginPageController;
+        this.shoppingCartController = shoppingCartController;
+        this.logOutController = logOutController;
+
         viewModel.addPropertyChangeListener(this);
 
         JPanel searchPanel = new JPanel();
