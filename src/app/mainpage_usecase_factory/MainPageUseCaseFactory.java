@@ -82,51 +82,54 @@ public class MainPageUseCaseFactory {
                                       ViewProfileViewModel viewProfileViewModel,
                                       SearchProductViewModel searchProductViewModel,
                                       BuyerViewProductViewModel buyerViewProductViewModel,
-                                      SellerViewProductViewModel sellerViewProductViewModel
+                                      SellerViewProductViewModel sellerViewProductViewModel,
+                                      UnloggedInViewModel unloggedInViewModel
                                       ) throws SQLException, IOException {
         //TODO implements this method.
         ViewProductController viewProductController =
                 MainPageUseCaseFactory.createViewProductController(buyerViewProductViewModel,
                         sellerViewProductViewModel,
-                        viewManagerModel);
+                        viewManagerModel,
+                        unloggedInViewModel);
         MainPageController mainPageController =
                 MainPageUseCaseFactory.createMainPageController(mainPageViewModel,
                         viewManagerModel);
         ShoppingCartController shoppingCartController =
                 MainPageUseCaseFactory.createShoppingCartController(viewManagerModel,
                         shoppingCartViewModel);
-        SignupController signupController =
-                MainPageUseCaseFactory.createUserSignupUseCase(viewManagerModel, signupViewModel,
-                        loginViewModel);
         LogOutController logOutController =
                 MainPageUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
-        ViewLoginPageController loginController = MainPageUseCaseFactory.createViewLoginPageController();
         ViewProfileController viewProfileController =
                 MainPageUseCaseFactory.createProfileController(viewManagerModel,
                         viewProfileViewModel);
 
-        SearchProductByNameController searchProductByNameController =
-                MainPageUseCaseFactory.createSearchProductByNameController(viewManagerModel,
+        GetSearchPageController getSearchPageController =
+                MainPageUseCaseFactory.createGetSearchPageController(viewManagerModel,
                         searchProductViewModel);
-        GetSearchPageController getSearchPageController = MainPageUseCaseFactory.createGetSearchPageController();
-        return new MainPageView(mainPageViewModel, viewProductController, shoppingCartController,
+
+        ViewLoginPageController viewLoginPageController =
+                MainPageUseCaseFactory.createViewLoginPageController(loginViewModel,viewManagerModel);
+        ViewSignupPageController viewSignupPageController =
+                MainPageUseCaseFactory.creatViewSignupPageController(viewManagerModel, signupViewModel);
+
+        return new MainPageView(mainPageViewModel,
+                viewProductController,
+                shoppingCartController,
                 viewProfileController,
                 getSearchPageController,
                 logOutController,
-                mainPageController);
-    }
-
-    private static GetSearchPageController createGetSearchPageController(){
-        return new GetSearchPageController();
+                mainPageController,
+                viewSignupPageController,
+                viewLoginPageController);
     }
 
     private static ViewProductController createViewProductController
             (BuyerViewProductViewModel buyerViewProductViewModel, SellerViewProductViewModel
                     sellerViewProductViewModel, ViewManagerModel viewManagerModel,
-             Non_loggedInViewModel non_loggedInProductView) throws SQLException {
+             UnloggedInViewModel unloggedInViewModel) throws SQLException {
         ViewProductOutputBoundary viewProductPresenter =
                 new ViewProductPresenter(buyerViewProductViewModel, sellerViewProductViewModel,
-                        non_loggedInProductView, viewManagerModel);
+                        unloggedInViewModel, viewManagerModel);
         DatabaseQuestionReadDataAccessObjectFactoryInterface databaseQuestionReadDataAccessObjectFactory = new DatabaseQuestionReadDataAccessObjectFactory();
         QuestionFactory commonQuestionFactory = new CommonQuestionFactory();
         AnswerFactory commonAnswerFactory = new CommonAnswerFactory();
