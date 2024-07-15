@@ -80,7 +80,11 @@ public class SearchProductUseCaseFactory {
                                            ViewManagerModel viewManagerModel,
                                            BuyerViewProductViewModel buyerViewProductViewModel,
                                            SellerViewProductViewModel sellerViewProductViewModel,
-                                           UnloggedInViewModel unloggedInViewModel) throws SQLException, IOException {
+                                           UnloggedInViewModel unloggedInViewModel,
+                                           SignupViewModel signupViewModel,
+                                           LoginViewModel loginViewModel,
+                                           ShoppingCartViewModel shoppingCartViewModel,
+                                           MainPageViewModel mainPageViewModel) throws SQLException, IOException {
         SearchProductByNameController searchProductByNameController =
                 SearchProductUseCaseFactory.createSearchProductByNameController(viewManagerModel, searchProductViewModel);
         SearchProductByTagController searchProductByTagController =
@@ -88,8 +92,19 @@ public class SearchProductUseCaseFactory {
         ViewProductController viewProductController =
                 SearchProductUseCaseFactory.createViewProductController
                         (viewManagerModel, buyerViewProductViewModel, sellerViewProductViewModel, unloggedInViewModel);
+        GetSearchPageController getSearchPageController =
+                SearchProductUseCaseFactory.createGetSearchPageController(viewManagerModel, searchProductViewModel);
+        ViewSignupPageController viewSignupPageController =
+                SearchProductUseCaseFactory.creatViewSignupPageController(viewManagerModel, signupViewModel);
+        ViewLoginPageController viewLoginPageController =
+                SearchProductUseCaseFactory.createViewLoginPageController(loginViewModel, viewManagerModel);
+        ShoppingCartController shoppingCartController =
+                SearchProductUseCaseFactory.createShoppingCartController(viewManagerModel, shoppingCartViewModel);
+        LogOutController logOutController =
+                SearchProductUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
         return new SearchProductView(searchProductByNameController, searchProductByTagController,
-                viewProductController, searchProductViewModel);
+                viewProductController, searchProductViewModel,getSearchPageController, viewSignupPageController,
+                viewLoginPageController, shoppingCartController, logOutController);
     }
 
 
@@ -211,9 +226,10 @@ public class SearchProductUseCaseFactory {
         return new SignupController(userSignupInteractor);
     }
 
-    private static ViewLoginPageController createViewLoginPageController(){
+    private static ViewLoginPageController createViewLoginPageController
+            (LoginViewModel loginViewModel, ViewManagerModel viewManagerModel) throws SQLException {
 
-        ViewLoginPageOutputBoundary viewLoginPagePresenter = new ViewLoginPagePresenter();
+        ViewLoginPageOutputBoundary viewLoginPagePresenter = new ViewLoginPagePresenter(loginViewModel, viewManagerModel);
         ViewLoginPageInputBoundary viewLoginPageInteractor =
                 new ViewLoginPageInteractor(viewLoginPagePresenter);
         return new ViewLoginPageController(viewLoginPageInteractor);

@@ -1,5 +1,6 @@
 package app.schedule_usecase_factory;
 
+import app.search_product_usecase_factory.SearchProductUseCaseFactory;
 import data_access.factories.interfaces.product.*;
 import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
 import data_access.factories.objects.product.*;
@@ -13,6 +14,9 @@ import entity.schedule.ScheduleFactory;
 import entity.shopping_cart.CommonShoppingCartFactory;
 import entity.shopping_cart.ShoppingCartFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.login.LoginViewModel;
+import interface_adapter.login.ViewLoginPageController;
+import interface_adapter.login.ViewLoginPagePresenter;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.logout.LogOutPresenter;
 import interface_adapter.main_page.MainPageController;
@@ -28,6 +32,12 @@ import interface_adapter.search_product.*;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
+import interface_adapter.signup.SignupViewModel;
+import interface_adapter.signup.ViewSignupPageController;
+import interface_adapter.signup.ViewSignupPagePresenter;
+import use_case.login.ViewLoginPageInputBoundary;
+import use_case.login.ViewLoginPageInteractor;
+import use_case.login.ViewLoginPageOutputBoundary;
 import use_case.logout.LogOutInputBoundary;
 import use_case.logout.LogOutInteractor;
 import use_case.logout.LogOutOutputBoundary;
@@ -43,6 +53,9 @@ import use_case.schedule.BuyerSelectScheduleInputBoundary;
 import use_case.schedule.BuyerSelectScheduleInteractor;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
+import use_case.signup.ViewSignupPageInputBoundary;
+import use_case.signup.ViewSignupPageInteractor;
+import use_case.signup.ViewSignupPageOutputBoundary;
 import view.schedule.BuyerScheduleView;
 
 import java.io.IOException;
@@ -52,13 +65,26 @@ public class BuyerScheduleUseCaseFactory {
 
     public static BuyerScheduleView create(BuyerSelectScheduleViewModel buyerSelectScheduleViewModel,
                                            ShoppingCartViewModel shoppingCartViewModel,
-                                           ViewManagerModel viewManagerModel) throws SQLException {
+                                           ViewManagerModel viewManagerModel,
+                                           SignupViewModel signupViewModel,
+                                           LoginViewModel loginViewModel,
+                                           SearchProductViewModel searchProductViewModel,
+                                           MainPageViewModel mainPageViewModel) throws SQLException {
         BuyerSelectScheduleController buyerSelectScheduleController =
                 BuyerScheduleUseCaseFactory.createBuyerSelectScheduleController(buyerSelectScheduleViewModel,
                         viewManagerModel, shoppingCartViewModel);
         ShoppingCartController shoppingCartController =
                 BuyerScheduleUseCaseFactory.createShoppingCartController(viewManagerModel, shoppingCartViewModel);
-        return new BuyerScheduleView(buyerSelectScheduleViewModel, buyerSelectScheduleController, shoppingCartController);
+        GetSearchPageController getSearchPageController =
+                BuyerScheduleUseCaseFactory.createGetSearchPageController(viewManagerModel, searchProductViewModel);
+        ViewSignupPageController viewSignupPageController =
+                BuyerScheduleUseCaseFactory.creatViewSignupPageController(viewManagerModel, signupViewModel);
+        ViewLoginPageController viewLoginPageController =
+                BuyerScheduleUseCaseFactory.createViewLoginPageController(loginViewModel, viewManagerModel);
+        LogOutController logOutController =
+                BuyerScheduleUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
+        return new BuyerScheduleView(buyerSelectScheduleViewModel, buyerSelectScheduleController, shoppingCartController,
+                getSearchPageController, viewSignupPageController, viewLoginPageController, logOutController);
 
     }
 
@@ -144,4 +170,21 @@ public class BuyerScheduleUseCaseFactory {
         return new ShoppingCartController(showShoppingCartInteractor);
     }
 
+
+    private static ViewLoginPageController createViewLoginPageController
+            (LoginViewModel loginViewModel, ViewManagerModel viewManagerModel) throws SQLException {
+
+        ViewLoginPageOutputBoundary viewLoginPagePresenter = new ViewLoginPagePresenter(loginViewModel, viewManagerModel);
+        ViewLoginPageInputBoundary viewLoginPageInteractor =
+                new ViewLoginPageInteractor(viewLoginPagePresenter);
+        return new ViewLoginPageController(viewLoginPageInteractor);
+    }
+
+    private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
+        ViewSignupPageOutputBoundary viewSignupPagePresenter =
+                new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
+        ViewSignupPageInputBoundary viewSignupPageInteractor =
+                new ViewSignupPageInteractor(viewSignupPagePresenter);
+        return new ViewSignupPageController(viewSignupPageInteractor);
+    }
 }
