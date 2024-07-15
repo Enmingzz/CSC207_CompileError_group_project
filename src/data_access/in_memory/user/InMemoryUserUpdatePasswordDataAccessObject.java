@@ -13,19 +13,19 @@ public class InMemoryUserUpdatePasswordDataAccessObject implements UserUpdatePas
     private UserFactory userFactory;
 
     public InMemoryUserUpdatePasswordDataAccessObject(ArrayList<User> listUser, UserFactory userFactory) {
+
         users = new ArrayList<>();
         this.userFactory = userFactory;
-        for (User user : listUser) {
-            users.add(user);
-        }
+        users.addAll(listUser);
     }
 
     @Override
     public void updateUserPassword(User user, String password) throws SQLException {
-        for(User user1 : users) {
-            if(user1.getStudentNumber().equals(user.getStudentNumber())) {
+        for(int i = 0; i < users.size(); i++) {
+            if(users.get(i).getStudentNumber().equals(user.getStudentNumber())) {
                 User commonUser = userFactory.createUser(user.getName(), password,
                         user.getEmail(),user.getUserRating(), user.getStudentNumber());
+                users.set(i, commonUser);
             }
         }
     }

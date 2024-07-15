@@ -20,6 +20,8 @@ public class ViewProfilePresenter implements ViewProfileOutputBoundary {
         state.setUser(response.getUser());
         profileViewModel.setState(state);
         profileViewModel.firePropertyChanged();
+        viewManagerModel.setActiveView(profileViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 
 }

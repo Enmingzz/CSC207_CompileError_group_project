@@ -18,8 +18,6 @@ public class CreateProductInputData {
     private final String address;
     private final ArrayList<String> listTags;
 
-
-
     public CreateProductInputData(User user, Image image, String description, String price, String title, String
             eTransferEmail, String address, ArrayList<String> listTags) {
         this.image = image;

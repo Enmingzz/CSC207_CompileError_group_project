@@ -11,22 +11,22 @@ import java.util.ArrayList;
 public class InMemoryUserUpdateNameDataAccessObject implements UserUpdateNameDataAccessInterface {
 
     private ArrayList<User> users;
-   private UserFactory userFactory;
+    private UserFactory userFactory;
 
    public InMemoryUserUpdateNameDataAccessObject(ArrayList<User> listUser,
                                                  UserFactory userFactory) {
+       this.userFactory = userFactory;
        users = new ArrayList<>();
-       for (User user : listUser) {
-           users.add(user);
-       }
+       users.addAll(listUser);
    }
 
     @Override
     public void updateUserName(User user, String name) throws SQLException {
-        for(User user1 : users) {
-            if(user1.getStudentNumber().equals(user.getStudentNumber())) {
+        for(int i = 0; i < users.size(); i++) {
+            if(users.get(i).getStudentNumber().equals(user.getStudentNumber())) {
                 User commonUser = userFactory.createUser(name, user.getPassword(),
                         user.getEmail(),user.getUserRating(), user.getStudentNumber());
+                users.set(i, commonUser);
             }
         }
     }
