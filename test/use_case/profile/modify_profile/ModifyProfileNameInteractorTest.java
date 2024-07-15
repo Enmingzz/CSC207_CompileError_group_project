@@ -13,8 +13,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,7 +52,7 @@ class ModifyProfileNameInteractorTest {
     }
 
     @Test
-    void executeOnlyOneUser() throws SQLException {
+    void executeOneUser() throws SQLException {
         String newName = "Hello";
         User newUser = new CommonUser(newName, "123456", "hanrui@mail", 0, "123456");
         modifyProfileInputData = new ModifyProfileInputData(user);
@@ -63,6 +66,57 @@ class ModifyProfileNameInteractorTest {
             @Override
             public void prepareFailedView(ModifyProfileOutputData modifyProfileOutputData) {
                 System.out.println("This should not happened in this test case!");
+            }
+        };
+
+        modifyProfileInputBoundary = new ModifyProfileInteractor(inMemoryUserUpdateNameDataAccessObject,
+                inMemoryUserUpdatePasswordDataAccessObject, inMemoryUserDataReadAccessObject, modifyProfileOutputBoundary);
+
+        modifyProfileInputBoundary.execute(modifyProfileInputData);
+    }
+
+    @Test
+    void executeMultipleUser() throws SQLException {
+        for (int i = 0; i < 3; i++){
+            byte[] array = new byte[7];
+            new Random().nextBytes(array);
+            String generatedString = new String(array, StandardCharsets.UTF_8);
+            users.add(new CommonUser(generatedString, "123456", "hanrui@mail", 0, "123456"));
+        }
+        String newName = "Hello";
+        User newUser = new CommonUser(newName, "123456", "hanrui@mail", 0, "123456");
+        modifyProfileInputData = new ModifyProfileInputData(user);
+
+        modifyProfileOutputBoundary = new ModifyProfileOutputBoundary() {
+            @Override
+            public void prepareSuccessfulView(ModifyProfileOutputData modifyProfileOutputData) {
+                assertEquals(modifyProfileOutputData.getMessage(), "Have successfully changed username");
+            }
+
+            @Override
+            public void prepareFailedView(ModifyProfileOutputData modifyProfileOutputData) {
+                System.out.println("This should not happened in this test case!");
+            }
+        };
+
+        modifyProfileInputBoundary = new ModifyProfileInteractor(inMemoryUserUpdateNameDataAccessObject,
+                inMemoryUserUpdatePasswordDataAccessObject, inMemoryUserDataReadAccessObject, modifyProfileOutputBoundary);
+
+        modifyProfileInputBoundary.execute(modifyProfileInputData);
+    }
+
+    @Test
+    void executeNoChanged() throws SQLException {
+
+        modifyProfileOutputBoundary = new ModifyProfileOutputBoundary() {
+            @Override
+            public void prepareSuccessfulView(ModifyProfileOutputData modifyProfileOutputData) {
+                System.out.println("This should not happened in this test case!");
+            }
+
+            @Override
+            public void prepareFailedView(ModifyProfileOutputData modifyProfileOutputData) {
+                assertEquals(modifyProfileOutputData.getMessage(), "Did not change anything");
             }
         };
 
