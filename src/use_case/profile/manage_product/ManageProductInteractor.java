@@ -20,7 +20,7 @@ public class ManageProductInteractor implements ManageProductInputBoundary{
     public void execute(ManageProductInputData manageProductInputData) throws SQLException, IOException {
         ArrayList<Product> products = productReadByUserDataAccess.getProductByUser(
                 manageProductInputData.getUser().getStudentNumber());
-        ManageProductOutputData manageProductOutputData = new ManageProductOutputData(products);
+        ManageProductOutputData manageProductOutputData = new ManageProductOutputData(products, manageProductInputData.getUser());
         manageProductPresenter.prepareSuccessfulView(manageProductOutputData);
     }
 

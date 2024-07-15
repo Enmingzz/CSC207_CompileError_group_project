@@ -4,6 +4,8 @@ import entity.product.CommonProduct;
 import entity.product.Product;
 import entity.schedule.CommonSchedule;
 import entity.schedule.Schedule;
+import entity.user.CommonUser;
+import entity.user.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +21,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ManageProductOutputDataTest {
 
+    private ManageProductInputData manageProductInputData;
+    private User user;
+
     ManageProductOutputData manageProductOutputData;
     private ArrayList<Product> productList;
     private Product commonProduct;
@@ -31,6 +36,9 @@ class ManageProductOutputDataTest {
 
     @BeforeEach
     void setUp() throws IOException {
+        user =  new CommonUser("hanrui", "123456", "hanrui@mail", 0, "123456");
+        manageProductInputData = new ManageProductInputData(user);
+
         tags.add("tag1");
         image = ImageIO.read(new File("/src/pic/testpic1"));
         time = LocalDateTime.now();
@@ -41,7 +49,7 @@ class ManageProductOutputDataTest {
                 "hanrui@mail", "123456", "hanrui123456", tags, "123456", commonSchedule);
         productList = new ArrayList<>();
         productList.add(commonProduct);
-        manageProductOutputData = new ManageProductOutputData(productList);
+        manageProductOutputData = new ManageProductOutputData(productList, user);
     }
 
     @AfterEach
