@@ -7,6 +7,12 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class ModifyProfileViewModel extends ViewModel {
+    public final String TITLE_LABEL = "Modify Profile View";
+    public final String USERNAME_LABEL = "Enter Name";
+    public final String PASSWORD_LABEL = "Enter Password";
+
+    public final String CONFIRM_BUTTON_LABEL = "Confirm";
+    public final String BACK_BUTTON_LABEL = "Back";
 
     private ModifyProfileState state;
 

@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ManageProductInteractorTest {
 
-    private ManageProductInteractor manageProductInteractor;
+    private ManageProductInputBoundary manageProductInteractor;
     private ManageProductInputData manageProductInputData;
     private ManageProductOutputData manageProductOutputData;
     private ProductReadByUserDataAccessInterface inMemoryProductReadByUserDataAccessObject;
@@ -43,18 +43,10 @@ class ManageProductInteractorTest {
     void setUp() throws IOException {
         User user =  new CommonUser("hanrui", "123456", "hanrui@mail", 0, "123456");
         manageProductInputData = new ManageProductInputData(user);
-
+        productList = new ArrayList<Product>();
+        tags = new ArrayList<String>();
         tags.add("tag1");
-        image = ImageIO.read(new File("/src/pic/testpic1"));
-        time = LocalDateTime.now();
-        localDateTimeList = new ArrayList<>();
-        localDateTimeList.add(time);
-        commonSchedule = new CommonSchedule(time, localDateTimeList);
-        commonProduct = new CommonProduct(image, "test product", "pro", 10, 5, 0,
-                "hanrui@mail", "123456", "hanrui123456", tags, "123456", commonSchedule);
-        productList = new ArrayList<>();
-        productList.add(commonProduct);
-        manageProductOutputData = new ManageProductOutputData(productList);
+
         inMemoryProductReadByUserDataAccessObject = new InMemoryProductReadByUserDataAccessObject();
     }
 
@@ -63,14 +55,72 @@ class ManageProductInteractorTest {
     }
 
     @Test
-    void execute() throws SQLException, IOException {
-        ArrayList<Product> products = inMemoryProductReadByUserDataAccessObject.getProductByUser(
-            manageProductInputData.getUser().getStudentNumber());
+    void successTestEmptyDataBase() throws SQLException, IOException {
 
-        manageProductOutputData = new ManageProductOutputData(products);
         manageProductOutputBoundary = new ManageProductOutputBoundary() {
             @Override
-            public void prepareSuccessfulView(ManageProductOutputData manageProductOutputData) {}
+            public void prepareSuccessfulView(ManageProductOutputData manageProductOutputData) {
+                assertNull(manageProductOutputData.getProducts());
+            }
+        };
+        manageProductInteractor = new ManageProductInteractor(manageProductOutputBoundary, inMemoryProductReadByUserDataAccessObject);
+        manageProductInteractor.execute(manageProductInputData);
+    }
+
+    @Test
+    void successTestProductsDifferentSellerID() throws SQLException, IOException {
+        for (int i = 0; i < 3; i++){
+            image = ImageIO.read(new File("/src/pic/testpic1"));
+            time = LocalDateTime.now();
+            localDateTimeList = new ArrayList<>();
+            localDateTimeList.add(time);
+            commonSchedule = new CommonSchedule(time, localDateTimeList);
+            commonProduct = new CommonProduct(image, "test product", "pro", 10, 5, 0,
+                    "hanrui@mail", "123456", "hanrui123456",
+                    tags, String.valueOf(i), commonSchedule);
+
+            productList.add(commonProduct);
+        }
+        Product last = new CommonProduct(image, "test product", "pro", 10, 5, 0,
+                "hanrui@mail", "1", "hanrui123456",
+                tags, "4", commonSchedule);
+        productList.add(last);
+
+        inMemoryProductReadByUserDataAccessObject = new InMemoryProductReadByUserDataAccessObject(productList);
+
+        manageProductOutputBoundary = new ManageProductOutputBoundary() {
+            @Override
+            public void prepareSuccessfulView(ManageProductOutputData manageProductOutputData) {
+                assertEquals(manageProductOutputData.getProducts().size(), 3);
+                assert !manageProductOutputData.getProducts().contains(last);
+            }
+        };
+        manageProductInteractor = new ManageProductInteractor(manageProductOutputBoundary, inMemoryProductReadByUserDataAccessObject);
+        manageProductInteractor.execute(manageProductInputData);
+    }
+
+    @Test
+    void successTestNoProducts() throws SQLException, IOException {
+        for (int i = 0; i < 3; i++){
+            image = ImageIO.read(new File("/src/pic/testpic1"));
+            time = LocalDateTime.now();
+            localDateTimeList = new ArrayList<>();
+            localDateTimeList.add(time);
+            commonSchedule = new CommonSchedule(time, localDateTimeList);
+            commonProduct = new CommonProduct(image, "test product", "pro", 10, 5, 0,
+                    "hanrui@mail", "1", "hanrui123456",
+                    tags, String.valueOf(i), commonSchedule);
+
+            productList.add(commonProduct);
+        }
+
+        inMemoryProductReadByUserDataAccessObject = new InMemoryProductReadByUserDataAccessObject(productList);
+
+        manageProductOutputBoundary = new ManageProductOutputBoundary() {
+            @Override
+            public void prepareSuccessfulView(ManageProductOutputData manageProductOutputData) {
+                assertNull(manageProductOutputData.getProducts());
+            }
         };
         manageProductInteractor = new ManageProductInteractor(manageProductOutputBoundary, inMemoryProductReadByUserDataAccessObject);
         manageProductInteractor.execute(manageProductInputData);

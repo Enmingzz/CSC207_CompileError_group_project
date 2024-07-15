@@ -7,23 +7,24 @@ import use_case.profile.manage_product.ManageProductOutputData;
 
 public class ManageProductPresenter implements ManageProductOutputBoundary {
 
-    final private ViewModifyProductViewModel modifyProductViewModel;
+    final private ManageProductViewModel manageProductViewModel;
     final private ViewManagerModel viewManagerModel;
 
-    public ManageProductPresenter(ViewManagerModel viewManagerModel, ViewModifyProductViewModel modifyProductViewModel) {
-        this.modifyProductViewModel = modifyProductViewModel;
+    public ManageProductPresenter(ViewManagerModel viewManagerModel, ManageProductViewModel manageProductViewModel) {
+        this.manageProductViewModel = manageProductViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
     @Override
     public void prepareSuccessfulView(ManageProductOutputData response) {
-        // TODO need to implement this method
-//        ManageProductState manageProductState = modifyProductViewModel.getState();
-//        manageProductState.setListProducts(response.getProducts());
-//        this.modifyProductViewModel.setState(manageProductState);
-//
-//        viewManagerModel.firePropertyChanged();
-//        viewManagerModel.setActiveView(modifyProductViewModel.getViewName());
+        ManageProductState manageProductState = manageProductViewModel.getState();
+        manageProductState.setProduct(response.getProducts());
+        manageProductState.setUser(response.getUser());
+
+        this.manageProductViewModel.setState(manageProductState);
+
+        viewManagerModel.firePropertyChanged();
+        viewManagerModel.setActiveView(manageProductViewModel.getViewName());
 
     }
 }
