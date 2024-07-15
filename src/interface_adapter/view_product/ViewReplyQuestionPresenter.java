@@ -18,7 +18,6 @@ public class ViewReplyQuestionPresenter {
         replyQuestionState.setProduct(viewReplyQuestionOutputData.getProduct());
         replyQuestionState.setUser(viewReplyQuestionOutputData.getSeller());
 
-
         this.replyQuestionViewModel.setState(replyQuestionState);
 
         replyQuestionViewModel.firePropertyChanged();

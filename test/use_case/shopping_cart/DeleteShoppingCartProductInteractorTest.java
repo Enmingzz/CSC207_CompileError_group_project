@@ -126,7 +126,7 @@ class DeleteShoppingCartProductInteractorTest {
                 ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
 
                 ShoppingCart emptyshoppingCart = shoppingCartFactory.createShoppingCart(0, "1234567890", new ArrayList<>());
-                assertEquals(initialShoppingCarts, emptyshoppingCart);
+                assertEquals(initialShoppingCarts.get(0), emptyshoppingCart);
             }
         };
 

@@ -122,7 +122,7 @@ class ShowShoppingCartInteractorTest {
                 new ShowShoppingCartInputData(user);
 
         ShoppingCartReadDataAccessInterface shoppingCartReadDataAccessInterface =
-                new InMemoryShoppingCartReadDataAccessObject();
+                new InMemoryShoppingCartReadDataAccessObject(initialShoppingCarts);
 
         ShowShoppingCartInteractor interactor =
                 new ShowShoppingCartInteractor(mockPresenter, shoppingCartReadDataAccessInterface);

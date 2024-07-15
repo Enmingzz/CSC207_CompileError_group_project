@@ -34,8 +34,7 @@ class PurchaseInteractorTest {
 
     private Product product;
     private User user;
-    private ShoppingCart shoppingCart;
-    private ArrayList<ShoppingCart> initialShoppingCarts;
+    private ArrayList<Product> initialProducts;
 
     @BeforeEach
     void setUp() throws IOException {
@@ -90,15 +89,8 @@ class PurchaseInteractorTest {
 
         user = userFactory.createUser(name, password, email, userRating, studentNumber);
 
-        ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
-
-        float totalPrice = 0;
-        ArrayList<Product> listProducts = new ArrayList<>();
-
-        shoppingCart = shoppingCartFactory.createShoppingCart(totalPrice, studentNumber, listProducts);
-
-        initialShoppingCarts = new ArrayList<>();
-        initialShoppingCarts.add(shoppingCart);
+        initialProducts = new ArrayList<>();
+        initialProducts.add(product);
     }
 
     @AfterEach
@@ -117,6 +109,8 @@ class PurchaseInteractorTest {
 
                 assertEquals("username", actualUser.getName());
                 assertEquals(actualProduct.getState(), 1);
+
+                assertEquals(initialProducts.get(0).getState(), 1);
             }
         };
 
@@ -124,10 +118,10 @@ class PurchaseInteractorTest {
                 new PurchaseInputData(user, product);
 
         ProductUpdateStateDataAccessInterface productUpdateStateDataAccessInterface =
-                new InMemoryProductUpdateStateDataAccessObject();
+                new InMemoryProductUpdateStateDataAccessObject(initialProducts);
 
         ProductReadByIdDataAccessInterface productReadByIdDataAccessInterface =
-                new InMemoryProductReadByIdDataAccessObject();
+                new InMemoryProductReadByIdDataAccessObject(initialProducts);
 
         PurchaseInteractor interactor = new PurchaseInteractor(productUpdateStateDataAccessInterface,
                 productReadByIdDataAccessInterface,

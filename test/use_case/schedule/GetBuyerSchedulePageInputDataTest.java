@@ -20,10 +20,10 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SellerSelectScheduleOutputDataTest {
-    private User seller;
+class GetBuyerSchedulePageInputDataTest {
+    private User buyer;
     private Product product;
-    SellerSelectScheduleOutputData sellerSelectScheduleOutputData;
+    private GetBuyerSchedulePageInputData getBuyerSchedulePageInputData;
 
     @BeforeEach
     void setUp() throws IOException {
@@ -34,7 +34,7 @@ class SellerSelectScheduleOutputDataTest {
         int state = 2;
         int rating = 0;
         String eTransferEmail = "example@email.com";
-        String sellerStudentNumber = "1234567890";
+        String sellerStudentNumber = "1111111111";
         String address = "BA 3175";
         LocalDateTime buyerTime = null;
         ArrayList<LocalDateTime> sellerTime = new ArrayList<>();
@@ -50,9 +50,10 @@ class SellerSelectScheduleOutputDataTest {
                 sellerStudentNumber, address, listTags, productID, schedule);
 
 
-        seller = new CommonUser("tabby cat", "password", "tabby@mail.utoronto.ca", 5, "1234567890");
+        buyer = new CommonUser("tabby cat", "password", "tabby@mail.utoronto.ca", 5, "1234567890");
 
-        sellerSelectScheduleOutputData = new SellerSelectScheduleOutputData(seller, product);
+        getBuyerSchedulePageInputData = new GetBuyerSchedulePageInputData(buyer, product);
+
     }
 
     @AfterEach
@@ -60,10 +61,10 @@ class SellerSelectScheduleOutputDataTest {
     }
 
     @Test
-    void getSeller() {assertEquals(seller, sellerSelectScheduleOutputData.getSeller());
+    void getProduct() {assertEquals(product, getBuyerSchedulePageInputData.getProduct());
     }
 
     @Test
-    void getProduct() {assertEquals(product, sellerSelectScheduleOutputData.getProduct());
+    void getBuyer() {assertEquals(buyer, getBuyerSchedulePageInputData.getBuyer());
     }
 }

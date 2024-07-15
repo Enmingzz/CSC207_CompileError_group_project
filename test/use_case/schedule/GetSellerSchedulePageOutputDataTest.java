@@ -20,10 +20,10 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SellerSelectScheduleOutputDataTest {
+class GetSellerSchedulePageOutputDataTest {
     private User seller;
     private Product product;
-    SellerSelectScheduleOutputData sellerSelectScheduleOutputData;
+    GetSellerSchedulePageOutputData getSellerSchedulePageOutputData;
 
     @BeforeEach
     void setUp() throws IOException {
@@ -31,15 +31,13 @@ class SellerSelectScheduleOutputDataTest {
         String des = "This is a description";
         float price = 1;
         String title = "This is a title";
-        int state = 2;
+        int state = 1;
         int rating = 0;
         String eTransferEmail = "example@email.com";
         String sellerStudentNumber = "1234567890";
         String address = "BA 3175";
         LocalDateTime buyerTime = null;
         ArrayList<LocalDateTime> sellerTime = new ArrayList<>();
-        sellerTime.add(LocalDateTime.parse("2024-07-13T12:00:00"));
-        sellerTime.add(LocalDateTime.parse("2024-07-13T13:00:00"));
         ScheduleFactory scheduleFactory = new CommonScheduleFactory();
         Schedule schedule = scheduleFactory.createSchedule(buyerTime, sellerTime);
         ArrayList<String> listTags = new ArrayList<>();
@@ -49,10 +47,9 @@ class SellerSelectScheduleOutputDataTest {
         product = new CommonProduct(image, des, title, price, state, rating, eTransferEmail,
                 sellerStudentNumber, address, listTags, productID, schedule);
 
-
         seller = new CommonUser("tabby cat", "password", "tabby@mail.utoronto.ca", 5, "1234567890");
 
-        sellerSelectScheduleOutputData = new SellerSelectScheduleOutputData(seller, product);
+        getSellerSchedulePageOutputData = new GetSellerSchedulePageOutputData(seller, product);
     }
 
     @AfterEach
@@ -60,10 +57,10 @@ class SellerSelectScheduleOutputDataTest {
     }
 
     @Test
-    void getSeller() {assertEquals(seller, sellerSelectScheduleOutputData.getSeller());
+    void getSeller() {assertEquals(seller, getSellerSchedulePageOutputData.getSeller());
     }
 
     @Test
-    void getProduct() {assertEquals(product, sellerSelectScheduleOutputData.getProduct());
+    void getProduct() {assertEquals(product, getSellerSchedulePageOutputData.getProduct());
     }
 }
