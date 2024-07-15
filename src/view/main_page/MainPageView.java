@@ -3,6 +3,8 @@ package view.main_page;
 import entity.product.Product;
 import entity.user.User;
 
+import interface_adapter.login.LoginController;
+import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.main_page.MainPageState;
 
@@ -17,6 +19,7 @@ import interface_adapter.main_page.MainPageState;
 
 // Import all controllers related to MainPage
 import interface_adapter.search_product.GetSearchPageController;
+import interface_adapter.signup.ViewSignupPageController;
 import interface_adapter.view_product.ViewProductController;
 
 // Import all Controllers related to the top bar
@@ -56,6 +59,8 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
     private final GetSearchPageController getSearchPageController;
     private final LogOutController logOutController;
     private final MainPageController mainPageController;
+    private final ViewLoginPageController viewLoginPageController;
+    private final ViewSignupPageController viewSignupPageController;
 
     AllProductsPanel allProductsPanel;
 
@@ -65,7 +70,9 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
                         ViewProfileController viewProfileController,
                         GetSearchPageController getSearchPageController,
                         LogOutController logOutController,
-                        MainPageController mainPageController){
+                        MainPageController mainPageController,
+                        ViewSignupPageController viewSignupPageController,
+                        ViewLoginPageController viewLoginPageController){
         // initialize all controllers here
         this.viewProductController = viewProductController;
 
@@ -74,6 +81,8 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
         this.getSearchPageController = getSearchPageController;
         this.logOutController = logOutController;
         this.mainPageController = mainPageController;
+        this.viewLoginPageController = viewLoginPageController;
+        this.viewSignupPageController = viewSignupPageController;
 
         this.mainPageViewModel = mainPageViewModel;
         mainPageViewModel.addPropertyChangeListener(this);
