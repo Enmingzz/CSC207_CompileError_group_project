@@ -64,6 +64,7 @@ class GetSearchViewInteractorTest {
         product1 = productFactory.createProduct(image, des, title, price, state, rating, eTransferEmail,
                 sellerStudentNumber, address, listTags, productID, schedule);
 
+        products = new ArrayList<>();
         products.add(product1);
 
         // product2 is a product that is not on sale, so its state is non-zero
