@@ -21,7 +21,13 @@ public class SearchProductByTagInteractor implements SearchProductByTagInputBoun
     public void execute(SearchProductByTagInputData inputData) throws SQLException, IOException {
         User user = inputData.getUser();
         ArrayList<Product> products = databaseProductReadByTagDataAccessObject.getProductByTag(inputData.getTag());
-        SearchProductByTagOutputData outputData = new SearchProductByTagOutputData(user, products);
+        ArrayList<Product> searchedProducts = new ArrayList<>();
+        for (Product product : products) {
+            if (product.getState() == 0) {
+                searchedProducts.add(product);
+            }
+        }
+        SearchProductByTagOutputData outputData = new SearchProductByTagOutputData(user, searchedProducts);
         searchProductByTagPresenter.prepareSuccessfulView(outputData);
     }
 }
