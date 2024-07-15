@@ -23,7 +23,6 @@ public class CreateProductInteractor implements CreateProductInputBoundary{
         this.createProductPresenter = createProductPresenter;
         this.productFactory = productFactory;
     }
-
     public void execute(CreateProductInputData createProductInputData) throws SQLException, IOException {
         //TODO implement this and ensure the conditions are satisfied before creating the new product
         boolean price;
@@ -38,15 +37,14 @@ public class CreateProductInteractor implements CreateProductInputBoundary{
             }
         } catch (NumberFormatException e) {
             price = false;
-        }
 
+        }
         boolean image = !(createProductInputData.getImage() == null);
 
         boolean title =  !(Objects.equals(createProductInputData.getTitle(), ""));
         boolean eTransferEmail = !(Objects.equals(createProductInputData.geteTransferEmail(), ""));
         boolean address = !(Objects.equals(createProductInputData.getAddress(), ""));
         boolean tags = !(createProductInputData.getListTags().isEmpty());
-
 
         if (!image) {
             createProductPresenter.prepareFailedView("You must upload a valid image of the product.");

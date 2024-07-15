@@ -4,7 +4,6 @@ import data_access.interfaces.product.ProductCreateDataAccessInterface;
 import data_access.interfaces.product.ProductReadByIdDataAccessInterface;
 import entity.product.Product;
 import interface_adapter.modify_product.ModifyProductPresenter;
-import use_case.profile.modify_profile.ModifyProfileNameInteractor;
 
 import java.io.IOException;
 import java.sql.SQLException;

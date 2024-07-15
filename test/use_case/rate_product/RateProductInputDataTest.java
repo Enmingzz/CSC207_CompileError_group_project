@@ -1,4 +1,4 @@
-package use_case.modify_product;
+package use_case.rate_product;
 
 import entity.product.CommonProductFactory;
 import entity.product.Product;
@@ -11,30 +11,26 @@ import entity.user.UserFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import use_case.modify_product.ChangeProductInputData;
 
 import javax.imageio.ImageIO;
-import javax.swing.text.View;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ViewModifyProductInteractorTest {
-    /** the process for testing is:
-     * intoduce input data specifications
-     * consider if need to store anything in data base, then use those InMemory to create Data Access Interfaces
-     * Create OutputBoundary (overriding methods): insert assertions here
-     * Create The Interactor
-     * test Interactor.exectue with initated input data
-     */
-    private User user;
+public class RateProductInputDataTest {
+    private RateProductInputData rateProductInputData;
+
     private Product product;
+    private User user;
+    private String productRating;
 
     @BeforeEach
-    void setUp() throws IOException, IOException {
+    void setUp() throws IOException {
         String name = "Calico";
         String password = "Cat123";
         String email = "calico.cat@mail.utoronto.ca";
@@ -66,23 +62,26 @@ class ViewModifyProductInteractorTest {
         product = productFactory.createProduct(image, description, title, price, state, rating, eTransferEmail, sellerStudentNumber, address,
                 listTags, productID, schedule);
 
+        productRating = "4";
+
+        rateProductInputData = new RateProductInputData(user, productRating, product);
     }
 
-    @AfterEach
-    void tearDown() {
+    @Test
+    void getUser() {
+        assertEquals(user, rateProductInputData.getUser());
+    }
+
+    @Test
+    void getRating() {
+        assertEquals(productRating, rateProductInputData.getRating());
     }
     @Test
-    void prepareSuccessfulViewTest() {
-        ViewModifyProductOutputBoundary viewModifyProductPresenter = new ViewModifyProductOutputBoundary() {
-            @Override
-            public void prepareSuccessfulView(ViewModifyProductOutputData viewModifyProductOutputData) {
-                assertEquals(viewModifyProductOutputData.getProduct(), product);
-                assertEquals(viewModifyProductOutputData.getUser(), user);
-            }
-        };
-        ViewModifyProductInteractor viewModifyProductInteractor = new ViewModifyProductInteractor(viewModifyProductPresenter);
-
-        ViewModifyProductInputData inputData = new ViewModifyProductInputData(user, product);
-        viewModifyProductInteractor.execute(inputData);
+    void getProduct() {
+        assertEquals(product, rateProductInputData.getProduct());
     }
+
+
+
 }
+
