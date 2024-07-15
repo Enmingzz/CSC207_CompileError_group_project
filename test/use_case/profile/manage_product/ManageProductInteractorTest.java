@@ -26,7 +26,6 @@ class ManageProductInteractorTest {
 
     private ManageProductInputBoundary manageProductInteractor;
     private ManageProductInputData manageProductInputData;
-    private ManageProductOutputData manageProductOutputData;
     private ProductReadByUserDataAccessInterface inMemoryProductReadByUserDataAccessObject;
     private ManageProductOutputBoundary manageProductOutputBoundary;
 
