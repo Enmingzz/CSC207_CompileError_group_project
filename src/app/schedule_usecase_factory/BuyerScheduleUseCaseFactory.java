@@ -58,6 +58,8 @@ public class BuyerScheduleUseCaseFactory {
                         viewManagerModel, shoppingCartViewModel);
         ShoppingCartController shoppingCartController =
                 BuyerScheduleUseCaseFactory.createShoppingCartController(viewManagerModel, shoppingCartViewModel);
+
+
         return new BuyerScheduleView(buyerSelectScheduleViewModel, buyerSelectScheduleController, shoppingCartController);
 
     }

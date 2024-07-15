@@ -119,9 +119,10 @@ public class ShoppingCartUseCaseFactory {
                 shoppingCartViewModel,
                 viewManagerModel);
 
-            // TODO: REVIEW GET RATE PAGE CONTROLLER/PRESENTER
         GetRatePageController getRatePageController =
                 ShoppingCartUseCaseFactory.createRateProductController(rateProductViewModel, viewManagerModel);
+
+        // Top bar controllers start here
         ShoppingCartController shoppingCartController = ShoppingCartUseCaseFactory.createShoppingCartController(
                 viewManagerModel,
                 shoppingCartViewModel);
@@ -136,6 +137,7 @@ public class ShoppingCartUseCaseFactory {
         );
         LogOutController logOutController = ShoppingCartUseCaseFactory.createLogOutController(viewManagerModel,
                 mainPageViewModel);
+
         MainPageController mainPageController = ShoppingCartUseCaseFactory.createMainPageController(mainPageViewModel,
                 viewManagerModel);
 
