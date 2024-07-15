@@ -1,27 +1,32 @@
 package view.profile.ProfileListener;
 
 import entity.product.Product;
+import entity.user.User;
 import interface_adapter.modify_product.ModifyProductController;
+import interface_adapter.modify_product.ViewModifyProductController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class ModifyProductListener implements ActionListener {
-    private final ModifyProductController modifyProductController;
+    private final ViewModifyProductController viewModifyProductController;
     private final Product product;
+    private final User user;
 
-    public ModifyProductListener(ModifyProductController modifyProductController, Product product){
-        this.modifyProductController = modifyProductController;
+    public ModifyProductListener(ViewModifyProductController viewModifyProductController, Product product, User user){
+        this.viewModifyProductController = viewModifyProductController;
         this.product = product;
+        this.user = user;
     }
 
     @Override
     public void actionPerformed(ActionEvent e){
-//        try {
-//            modifyProductController.execute(product);
-//        } catch (SQLException | IOException ex) {
-//            throw new RuntimeException(ex);
-//        }
-        System.out.println("modifyProductController.execute(product)");
+        try {
+            viewModifyProductController.execute(user, product);
+        } catch (SQLException | IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 }

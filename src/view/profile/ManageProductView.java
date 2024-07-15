@@ -2,10 +2,9 @@ package view.profile;
 
 import entity.product.Product;
 import interface_adapter.main_page.MainPageController;
-import interface_adapter.modify_product.CreateProductController;
-import interface_adapter.modify_product.DeleteProductController;
-import interface_adapter.modify_product.ModifyProductController;
+import interface_adapter.modify_product.*;
 import interface_adapter.profile.manage_product.ManageProductViewModel;
+import interface_adapter.view_product.ViewProductController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,23 +12,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class ManageProductView extends JFrame implements ActionListener, PropertyChangeListener {
-    public final String viewName = "Mange Your Product";
+    public final String viewName = "Product View";
     private final MainPageController mainPageController;
-    private final CreateProductController createProductController;
+    private final ViewCreateProductController viewCreateProductController;
+    private final ViewModifyProductController viewModifyProductController;
+    private final ViewProductController viewProductController;
     private final DeleteProductController deleteProductController;
-    private final ModifyProductController modifyProductController;
     private final ManageProductViewModel manageProductViewModel;
     private final JPanel mainPanel = new JPanel();
 
     private final JButton addProduct;
 
-    public ManageProductView(MainPageController mainPageController, CreateProductController createProductController, DeleteProductController deleteProductController, ModifyProductController modifyProductController, ManageProductViewModel manageProductViewModel){
+    public ManageProductView(MainPageController mainPageController, ViewCreateProductController viewCreateProductController,
+                             DeleteProductController deleteProductController, ViewModifyProductController viewModifyProductController,
+                             ManageProductViewModel manageProductViewModel, ViewProductController viewProductController){
         this.mainPageController = mainPageController;
-        this.createProductController = createProductController;
+        this.viewCreateProductController = viewCreateProductController;
+        this.viewProductController = viewProductController;
         this.deleteProductController = deleteProductController;
-        this.modifyProductController = modifyProductController;
+        this.viewModifyProductController = viewModifyProductController;
         this.manageProductViewModel = manageProductViewModel;
 
         manageProductViewModel.addPropertyChangeListener(this);
@@ -54,8 +59,9 @@ public class ManageProductView extends JFrame implements ActionListener, Propert
         mainPanel.removeAll();
 
         for (Product product: manageProductViewModel.getState().getProduct()) {
-            MangeSingleProductView panel = new MangeSingleProductView(product, manageProductViewModel,
-                    modifyProductController, deleteProductController);
+            MangeSingleProductView panel = new MangeSingleProductView(manageProductViewModel.getState().getUser(),
+                    product, manageProductViewModel, viewProductController,
+                    viewModifyProductController, deleteProductController);
             mainPanel.add(panel);
             mainPanel.add(Box.createVerticalStrut(10));
         }
@@ -66,12 +72,11 @@ public class ManageProductView extends JFrame implements ActionListener, Propert
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //        try {
-//            modifyProductController.execute(product);
-//        } catch (SQLException | IOException ex) {
-//            throw new RuntimeException(ex);
-//        }
-        System.out.println("createProductController.execute()");
+        try {
+            viewCreateProductController.execute(manageProductViewModel.getState().getUser());
+        } catch (SQLException | IOException ex) {
+            throw new RuntimeException(ex);
+        }
         updateMainPanel();
 
     }

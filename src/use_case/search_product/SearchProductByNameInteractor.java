@@ -36,9 +36,14 @@ public class SearchProductByNameInteractor implements SearchProductByNameInputBo
 //                matchingProducts.add(product);
 //            }
 //        }
+        ArrayList<Product> searchedProducts = new ArrayList<>();
+        for (Product product : products) {
+            if (product.getState() == 0) {
+                searchedProducts.add(product);
+            }
+        }
 
-
-        SearchProductByNameOutputData outputData = new SearchProductByNameOutputData(user, products);
+        SearchProductByNameOutputData outputData = new SearchProductByNameOutputData(user, searchedProducts);
         searchProductByNamePresenter.prepareSuccessfulView(outputData);
     }
 }

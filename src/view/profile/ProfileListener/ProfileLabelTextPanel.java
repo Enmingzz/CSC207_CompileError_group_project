@@ -1,12 +1,12 @@
-package view.profile;
+package view.profile.ProfileListener;
 
 import javax.swing.*;
 
 /**
  * A panel containing a label and a text field.
  */
-class ProfileLabelTextPanel extends JPanel {
-    ProfileLabelTextPanel(JLabel label, JLabel textlable) {
+public class ProfileLabelTextPanel extends JPanel {
+    public ProfileLabelTextPanel(JLabel label, JLabel textlable) {
         this.add(label);
         this.add(textlable);
     }

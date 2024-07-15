@@ -24,8 +24,14 @@ public class GetSearchViewInteractor implements GetSearchViewInputBoundary {
         User user = getSearchViewInputData.getUser();
 
         ArrayList<Product> allProducts = productReadAllDataAccessObject.getAllProducts();
+        ArrayList<Product> searchedProducts = new ArrayList<>();
+        for (Product product : allProducts) {
+            if (product.getState() == 0) {
+                searchedProducts.add(product);
+            }
+        }
 
-        GetSearchViewOutputData getSearchViewOutputData = new GetSearchViewOutputData(user, allProducts);
+        GetSearchViewOutputData getSearchViewOutputData = new GetSearchViewOutputData(user, searchedProducts);
         getSearchViewOutputBoundary.prepareSuccessView(getSearchViewOutputData);
 
     }

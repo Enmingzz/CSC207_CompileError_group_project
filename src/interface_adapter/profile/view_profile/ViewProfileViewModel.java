@@ -19,6 +19,13 @@ public class ViewProfileViewModel extends ViewModel {
     public final String MANAGEPRODUCT_BUTTONLABEL = "Manage product";
     public final String MODIFYPASSWORD_BUTTON_LABEL = "Modify Password";
     public final String MODIFYNAME_BUTTON_LABEL = "Modify Name";
+
+    public final String MAIN_BUTTON_LABEL = "Main";
+    public final String LOGIN_BUTTON_LABEL = "Login";
+    public final String SIGNUP_BUTTON_LABEL = "SignUp";
+    public final String SHOPPING_BUTTON_LABEL = "ShoppingCart";
+    public final String PROFILE_BUTTON_LABEL = "Profile";
+
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     private ViewProfileState state = new ViewProfileState(commonUserFactory);
