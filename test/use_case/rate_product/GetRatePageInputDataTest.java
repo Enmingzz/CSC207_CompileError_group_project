@@ -1,4 +1,4 @@
-package use_case.modify_product;
+package use_case.rate_product;
 
 import entity.product.CommonProductFactory;
 import entity.product.Product;
@@ -13,33 +13,27 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.imageio.ImageIO;
-import javax.swing.text.View;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ViewModifyProductInteractorTest {
-    /** the process for testing is:
-     * intoduce input data specifications
-     * consider if need to store anything in data base, then use those InMemory to create Data Access Interfaces
-     * Create OutputBoundary (overriding methods): insert assertions here
-     * Create The Interactor
-     * test Interactor.exectue with initated input data
-     */
-    private User user;
+public class GetRatePageInputDataTest {
+    private GetRatePageInputData getRatePageInputData;
+
     private Product product;
+    private User user;
 
     @BeforeEach
-    void setUp() throws IOException, IOException {
-        String name = "Calico";
-        String password = "Cat123";
-        String email = "calico.cat@mail.utoronto.ca";
-        float userRating = 4;
-        String studentNumber = "1010101010";
+    void setUp() throws IOException {
+        String name = "Samoyed";
+        String password = "dog123";
+        String email = "samoyed.dog@mail.utoronto.ca";
+        float userRating = 5;
+        String studentNumber = "12345678";
 
         UserFactory userFactory = new CommonUserFactory();
         user = userFactory.createUser(name, password, email, userRating, studentNumber);
@@ -66,23 +60,18 @@ class ViewModifyProductInteractorTest {
         product = productFactory.createProduct(image, description, title, price, state, rating, eTransferEmail, sellerStudentNumber, address,
                 listTags, productID, schedule);
 
+        getRatePageInputData = new GetRatePageInputData(user, product);
+
     }
 
-    @AfterEach
-    void tearDown() {
-    }
     @Test
-    void prepareSuccessfulViewTest() {
-        ViewModifyProductOutputBoundary viewModifyProductPresenter = new ViewModifyProductOutputBoundary() {
-            @Override
-            public void prepareSuccessfulView(ViewModifyProductOutputData viewModifyProductOutputData) {
-                assertEquals(viewModifyProductOutputData.getProduct(), product);
-                assertEquals(viewModifyProductOutputData.getUser(), user);
-            }
-        };
-        ViewModifyProductInteractor viewModifyProductInteractor = new ViewModifyProductInteractor(viewModifyProductPresenter);
-
-        ViewModifyProductInputData inputData = new ViewModifyProductInputData(user, product);
-        viewModifyProductInteractor.execute(inputData);
+    void getUser() {
+        assertEquals(user, getRatePageInputData.getUser());
     }
+
+    @Test
+    void getProduct() {
+        assertEquals(product, getRatePageInputData.getProduct());
+    }
+
 }

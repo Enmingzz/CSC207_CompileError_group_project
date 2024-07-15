@@ -1,6 +1,5 @@
 package use_case.modify_product;
 
-import data_access.interfaces.product.ProductCreateDataAccessInterface;
 import entity.product.Product;
 
 import java.io.IOException;
@@ -9,7 +8,7 @@ import java.sql.SQLException;
 public class ViewModifyProductInteractor implements ViewModifyProductInputBoundary {
     private final ViewModifyProductOutputBoundary viewModifyProductOutputBoundary;
 
-    public ViewModifyProductInteractor(ViewModifyProductOutputBoundary viewModifyProductOutputBoundary, ProductCreateDataAccessInterface productCreateDataAccessInterface) {
+    public ViewModifyProductInteractor(ViewModifyProductOutputBoundary viewModifyProductOutputBoundary) {
         this.viewModifyProductOutputBoundary = viewModifyProductOutputBoundary;
     }
 
