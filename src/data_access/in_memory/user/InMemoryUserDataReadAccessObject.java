@@ -21,9 +21,7 @@ public class InMemoryUserDataReadAccessObject implements UserReadDataAccessInter
 
     public InMemoryUserDataReadAccessObject(ArrayList<User> listUser, UserFactory userFactory) {
         users = new ArrayList<>();
-        for (User user : listUser) {
-            users.add(user);
-        }
+        users.addAll(listUser);
         this.userFactory = userFactory;
     }
 

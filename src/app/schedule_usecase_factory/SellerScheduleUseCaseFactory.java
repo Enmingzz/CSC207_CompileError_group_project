@@ -1,18 +1,30 @@
 package app.schedule_usecase_factory;
 
+import app.search_product_usecase_factory.SearchProductUseCaseFactory;
 import data_access.factories.interfaces.product.*;
 import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.user.DatabaseUserCreateDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.user.DatabaseUserReadDataAccessObjectFactoryInterface;
 import data_access.factories.objects.product.*;
 import data_access.factories.objects.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactory;
+import data_access.factories.objects.user.DatabaseUserCreateDataAccessObjectFactory;
+import data_access.factories.objects.user.DatabaseUserReadDataAccessObjectFactory;
 import data_access.interfaces.product.*;
 import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
+import data_access.interfaces.user.UserCreateDataAccessInterface;
+import data_access.interfaces.user.UserReadDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.ProductFactory;
 import entity.schedule.CommonScheduleFactory;
 import entity.schedule.ScheduleFactory;
 import entity.shopping_cart.CommonShoppingCartFactory;
 import entity.shopping_cart.ShoppingCartFactory;
+import entity.user.CommonUserFactory;
+import entity.user.UserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.login.LoginViewModel;
+import interface_adapter.login.ViewLoginPageController;
+import interface_adapter.login.ViewLoginPagePresenter;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.logout.LogOutPresenter;
 import interface_adapter.main_page.MainPageController;
@@ -28,6 +40,10 @@ import interface_adapter.search_product.*;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
+import interface_adapter.signup.*;
+import use_case.login.ViewLoginPageInputBoundary;
+import use_case.login.ViewLoginPageInteractor;
+import use_case.login.ViewLoginPageOutputBoundary;
 import use_case.logout.LogOutInputBoundary;
 import use_case.logout.LogOutInteractor;
 import use_case.logout.LogOutOutputBoundary;
@@ -43,6 +59,7 @@ import use_case.schedule.SellerSelectScheduleInputBoundary;
 import use_case.schedule.SellerSelectScheduleInteractor;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
+import use_case.signup.*;
 import view.schedule.SellerScheduleView;
 
 import java.io.IOException;
@@ -52,13 +69,29 @@ public class SellerScheduleUseCaseFactory {
 
     public static SellerScheduleView create(SellerSelectScheduleViewModel sellerSelectScheduleViewModel,
                                             ViewManagerModel viewManagerModel,
-                                            ViewProfileViewModel viewProfileViewModel) throws SQLException, IOException {
+                                            ViewProfileViewModel viewProfileViewModel,
+                                            SignupViewModel signupViewModel,
+                                            LoginViewModel loginViewModel,
+                                            ShoppingCartViewModel shoppingCartViewModel,
+                                            MainPageViewModel mainPageViewModel,
+                                            SearchProductViewModel searchProductViewModel) throws SQLException, IOException {
         SellerSelectScheduleController sellerSelectScheduleController =
                 SellerScheduleUseCaseFactory.createSellerSelectScheduleController(sellerSelectScheduleViewModel,
                         viewManagerModel, viewProfileViewModel);
         ViewProfileController viewProfileController =
                 SellerScheduleUseCaseFactory.createProfileController(viewManagerModel, viewProfileViewModel);
-        return new SellerScheduleView(sellerSelectScheduleController, sellerSelectScheduleViewModel, viewProfileController);
+        GetSearchPageController getSearchPageController =
+                SellerScheduleUseCaseFactory.createGetSearchPageController(viewManagerModel, searchProductViewModel);
+        ViewSignupPageController viewSignupPageController =
+                SellerScheduleUseCaseFactory.creatViewSignupPageController(viewManagerModel, signupViewModel);
+        ViewLoginPageController viewLoginPageController =
+                SellerScheduleUseCaseFactory.createViewLoginPageController(loginViewModel, viewManagerModel);
+        ShoppingCartController shoppingCartController =
+                SellerScheduleUseCaseFactory.createShoppingCartController(viewManagerModel, shoppingCartViewModel);
+        LogOutController logOutController =
+                SellerScheduleUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
+        return new SellerScheduleView(sellerSelectScheduleController, sellerSelectScheduleViewModel, viewProfileController,
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
 
     }
 
@@ -142,5 +175,43 @@ public class SellerScheduleUseCaseFactory {
         GetSearchViewInputBoundary getSearchViewInteractor =
                 new GetSearchViewInteractor(getSearchViewPresenter, productReadAllDataAccessObeject);
         return new GetSearchPageController(getSearchViewInteractor);
+    }
+
+    private static ViewLoginPageController createViewLoginPageController
+            (LoginViewModel loginViewModel, ViewManagerModel viewManagerModel) throws SQLException {
+
+        ViewLoginPageOutputBoundary viewLoginPagePresenter = new ViewLoginPagePresenter(loginViewModel, viewManagerModel);
+        ViewLoginPageInputBoundary viewLoginPageInteractor =
+                new ViewLoginPageInteractor(viewLoginPagePresenter);
+        return new ViewLoginPageController(viewLoginPageInteractor);
+    }
+
+    private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel) throws IOException, SQLException {
+
+        DatabaseUserCreateDataAccessObjectFactoryInterface databaseUserCreateDataAccessObjectFactory
+                = new DatabaseUserCreateDataAccessObjectFactory();
+        UserCreateDataAccessInterface userCreateDataAccessObject =
+                databaseUserCreateDataAccessObjectFactory.create();
+        SignupOutputBoundary signupOutputBoundary = new
+                SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
+        DatabaseUserReadDataAccessObjectFactoryInterface databaseUserReadDataAccessObjectFactory =
+                new DatabaseUserReadDataAccessObjectFactory();
+        UserReadDataAccessInterface userReadDataAccessInterface =
+                databaseUserReadDataAccessObjectFactory.create(new CommonUserFactory());
+
+        UserFactory userFactory = new CommonUserFactory();
+
+        SignupInputBoundary userSignupInteractor = new SignupInteractor(
+                userCreateDataAccessObject, userReadDataAccessInterface, signupOutputBoundary, userFactory);
+
+        return new SignupController(userSignupInteractor);
+    }
+
+    private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
+        ViewSignupPageOutputBoundary viewSignupPagePresenter =
+                new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
+        ViewSignupPageInputBoundary viewSignupPageInteractor =
+                new ViewSignupPageInteractor(viewSignupPagePresenter);
+        return new ViewSignupPageController(viewSignupPageInteractor);
     }
 }
