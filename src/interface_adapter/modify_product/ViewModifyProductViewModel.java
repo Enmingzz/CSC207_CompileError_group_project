@@ -12,6 +12,7 @@ public class ViewModifyProductViewModel extends ViewModel {
     private final ProductFactory commonProductFactory = new CommonProductFactory();
 
     public final String TITLE_LABEL = "Product View";
+    public final String PRODUCT_PICTURE = "Product image";
     public final String PRODUCT_TITLE_LABEL = "Product Title";
     public final String PRODUCT_DESCRIPTION_LABEL = "Product Description";
     public final String PRODUCT_PRICE_LABEL = "Product Price";
@@ -20,7 +21,9 @@ public class ViewModifyProductViewModel extends ViewModel {
     public final String PRODUCT_TAGS = "Product tags";
 
     public final String CHANGEPRODUCT_BUTTON_LABEL = "Modify product";
+    public final String CANCEL_BUTTON_LABEL = "Cancel";
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+
 
     private ViewModifyProductState state = new ViewModifyProductState();
 
