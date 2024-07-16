@@ -196,6 +196,8 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
         if (state.getError() != null) {
             JOptionPane.showMessageDialog(this, state.getError());
         }
+        dateComboBox = new JComboBox<>(getDates());
+        hourComboBox = new JComboBox<>(getHours());
 
     }
 }
