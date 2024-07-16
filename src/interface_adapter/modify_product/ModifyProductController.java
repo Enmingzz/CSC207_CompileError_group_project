@@ -18,8 +18,8 @@ public class ModifyProductController {
         this.changeProductInputInteractor = changeProductInputInteractor;
     }
 
-    public void execute(User user, Product product, String changedDescription, String changedPrice, Image changedImage) throws SQLException, IOException {
-        ChangeProductInputData changeProductInputData = new ChangeProductInputData(user, product, changedDescription, changedPrice, changedImage);
+    public void execute(User user, Product product, String changedDescription, String changedPrice) throws SQLException, IOException {
+        ChangeProductInputData changeProductInputData = new ChangeProductInputData(user, product, changedDescription, changedPrice);
         changeProductInputInteractor.execute(changeProductInputData);
     }
 
