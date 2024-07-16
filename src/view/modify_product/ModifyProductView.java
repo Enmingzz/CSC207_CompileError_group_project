@@ -12,12 +12,9 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
     }
-
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
     }
 
 }
