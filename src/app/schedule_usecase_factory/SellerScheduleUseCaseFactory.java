@@ -97,22 +97,14 @@ public class SellerScheduleUseCaseFactory {
                 SellerScheduleUseCaseFactory.createShoppingCartController(viewManagerModel, shoppingCartViewModel);
         LogOutController logOutController =
                 SellerScheduleUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
-
         ViewProfileController viewProfileController =
-                createProfileController(viewManagerModel, viewProfileViewModel);
-        MainPageController mainPageController = createMainPageController(mainPageViewModel, viewManagerModel);
+                SellerScheduleUseCaseFactory.createProfileController(viewManagerModel, viewProfileViewModel);
+        MainPageController mainPageController =
+                SellerScheduleUseCaseFactory.createMainPageController(mainPageViewModel, viewManagerModel);
         return new SellerScheduleView(sellerSelectScheduleController, sellerSelectScheduleViewModel, manageProductController,
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController,
-                logOutController,viewProfileController, mainPageController);
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController,
+                viewProfileController, mainPageController);
 
-    }
-
-    private static ViewProfileController createProfileController(ViewManagerModel viewManagerModel,
-                                                                 ViewProfileViewModel profileViewModel) throws IOException {
-        ViewProfileOutputBoundary viewProfilePresenter = new ViewProfilePresenter(profileViewModel,
-                viewManagerModel);
-        ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfilePresenter);
-        return new ViewProfileController(viewProfileInteractor);
     }
 
     private static SellerSelectScheduleController createSellerSelectScheduleController
@@ -235,11 +227,21 @@ public class SellerScheduleUseCaseFactory {
         return new SignupController(userSignupInteractor);
     }
 
-    private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
+    private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel) {
         ViewSignupPageOutputBoundary viewSignupPagePresenter =
                 new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
         ViewSignupPageInputBoundary viewSignupPageInteractor =
                 new ViewSignupPageInteractor(viewSignupPagePresenter);
         return new ViewSignupPageController(viewSignupPageInteractor);
+
+    }
+
+    private static ViewProfileController createProfileController(ViewManagerModel viewManagerModel,
+                                                                 ViewProfileViewModel profileViewModel) throws IOException {
+        ViewProfileOutputBoundary viewProfilePresenter = new ViewProfilePresenter(profileViewModel,
+                viewManagerModel);
+        ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfilePresenter);
+        return new ViewProfileController(viewProfileInteractor);
+
     }
 }

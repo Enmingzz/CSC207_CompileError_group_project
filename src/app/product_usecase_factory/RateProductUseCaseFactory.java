@@ -94,9 +94,11 @@ public class RateProductUseCaseFactory {
                 RateProductUseCaseFactory.createViewLoginPageController(loginViewModel, viewManagerModel);
         LogOutController logOutController =
                 RateProductUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
-        ViewProfileController viewProfileController = createProfileController(viewManagerModel, viewProfileViewModel);
+        ViewProfileController viewProfileController =
+                RateProductUseCaseFactory.createProfileController(viewManagerModel, viewProfileViewModel);
         return new RateProductView(rateProductViewModel, rateProductController,
-                getSearchPageController, mainPageController, viewSignupPageController, viewLoginPageController, shoppingCartController,logOutController,viewProfileController);
+                getSearchPageController, mainPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController,logOutController, viewProfileController);
     }
 
     private static RateProductController createRateProductController
@@ -191,4 +193,4 @@ public class RateProductUseCaseFactory {
         return new ViewSignupPageController(viewSignupPageInteractor);
     }
 }
-
+}

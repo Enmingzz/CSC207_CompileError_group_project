@@ -85,13 +85,12 @@ public class BuyerScheduleUseCaseFactory {
         LogOutController logOutController =
                 BuyerScheduleUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
         ViewProfileController viewProfileController =
-                createProfileController(viewManagerModel, viewProfileViewModel);
-        MainPageController mainPageController = createMainPageController(mainPageViewModel, viewManagerModel);
-
-
+                BuyerScheduleUseCaseFactory.createProfileController(viewManagerModel, viewProfileViewModel);
+        MainPageController mainPageController =
+                BuyerScheduleUseCaseFactory.createMainPageController(mainPageViewModel, viewManagerModel);
         return new BuyerScheduleView(buyerSelectScheduleViewModel, buyerSelectScheduleController, shoppingCartController,
-                getSearchPageController, viewSignupPageController, viewLoginPageController,logOutController, viewProfileController,
-                mainPageController);
+                getSearchPageController, viewSignupPageController, viewLoginPageController, logOutController,
+                viewProfileController, mainPageController);
 
     }
 
