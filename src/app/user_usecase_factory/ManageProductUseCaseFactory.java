@@ -34,6 +34,7 @@ import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.modify_product.ViewModifyProductViewModel;
 import interface_adapter.profile.manage_product.ManageProductController;
 import interface_adapter.profile.manage_product.ManageProductPresenter;
+import interface_adapter.profile.manage_product.ManageProductViewModel;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.profile.view_profile.ViewProfilePresenter;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
@@ -147,9 +148,9 @@ public class ManageProductUseCaseFactory {
     }
 
     private static ManageProductController createManageProductController(
-            ViewManagerModel viewManagerModel, ViewModifyProductViewModel modifyProductViewModel) throws SQLException {
+            ViewManagerModel viewManagerModel,  ManageProductViewModel manageProductViewModel) throws SQLException {
         ManageProductOutputBoundary manageProductPresenter =
-                new ManageProductPresenter(viewManagerModel, modifyProductViewModel);
+                new ManageProductPresenter(viewManagerModel, manageProductViewModel);
         DatabaseProductReadByUserDataAccessObjectFactoryInterface databaseProductReadByUserDataAccessObjectFactoryInterface
                 = new DatabaseProductReadByUserDataAccessObjectFactory();
         ProductFactory productFactory = new CommonProductFactory();
