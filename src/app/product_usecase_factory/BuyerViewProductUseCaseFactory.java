@@ -85,7 +85,7 @@ public class BuyerViewProductUseCaseFactory {
                                               BuyerViewProductViewModel buyerViewProductViewModel,
                                               SearchProductViewModel searchProductViewModel,
                                               SignupViewModel signupViewModel,
-                                              LoginViewModel loginViewModel) throws SQLException {
+                                              LoginViewModel loginViewModel) throws SQLException, IOException {
         MainPageController mainPageController =
                 BuyerViewProductUseCaseFactory.createMainPageController(mainPageViewModel,
                         viewManagerModel);
@@ -101,8 +101,9 @@ public class BuyerViewProductUseCaseFactory {
         ShoppingCartController shoppingCartController = createShoppingCartController(shoppingCartViewModel, viewManagerModel);
         LogOutController logOutController = createLogOutController(viewManagerModel, mainPageViewModel);
 
+        ViewProfileController viewProfileController = createProfileController(viewManagerModel, profileViewModel);
         return new BuyerViewProductView(buyerViewProductViewModel, addToCartController, publishQuestionController, mainPageController,
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
     }
 
     private  static ViewLoginPageController createViewLoginPageController(LoginViewModel loginViewModel, ViewManagerModel viewManagerModel){

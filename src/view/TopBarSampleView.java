@@ -129,7 +129,6 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
 
 
             //(7) ViewProfile
-
             JButton profile = new JButton();
             ImageIcon imageIcon = new ImageIcon("/src/pic/testpic4.png");
             profile.setIcon(imageIcon);
