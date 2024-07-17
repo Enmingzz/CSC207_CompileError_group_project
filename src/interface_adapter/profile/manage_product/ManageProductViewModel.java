@@ -21,6 +21,7 @@ public class ManageProductViewModel extends ViewModel {
     public final String MODIFY_BUTTON_LABEL = "Modify";
     public final String DELETE_BUTTON_LABEL = "Delete Product";
     public final String SHOW_BUTTON_LABEL = "Show Detail";
+    public final String SELECTTIME_BUTTON_LABEL = "Scheduling Meeting Times";
 
     private ManageProductState manageProductState = new ManageProductState(productFactory);
 

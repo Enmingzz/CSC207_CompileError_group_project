@@ -4,6 +4,7 @@ import entity.user.User;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
+import interface_adapter.main_page.MainPageController;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
@@ -24,13 +25,15 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
     public final String viewName = "top bar sample view";
 
     private final JButton searchButton;
+    private final JButton mainPageButton;
 
     public TopBarSampleView(User user, GetSearchPageController getSearchPageController,
                             ViewSignupPageController viewSignupPageController,
                             ViewLoginPageController viewLoginPageController,
                             ShoppingCartController shoppingCartController,
                             LogOutController logOutController,
-                            ViewProfileController viewProfileController) {
+                            ViewProfileController viewProfileController,
+                            MainPageController mainPageController) {
 
         //(1)search button
         searchButton = new JButton("Search");
@@ -53,9 +56,26 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
         JLabel hi = new JLabel("hi, " + user.getName());
         this.add(hi);
 
+        //(3)jump to main page
+        mainPageButton = new JButton("main page");
+        class MainPageButtonListener implements ActionListener{
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                if(evt.getSource().equals(mainPageButton)){
+                    try{
+                        mainPageController.execute(user);
+                    }catch (Exception e){
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+        mainPageButton.addActionListener(new MainPageButtonListener());
+        this.add(mainPageButton);
+
         //haven't logged in
         if(Objects.equals(user.getName(), "")){
-            //(3)signUp
+            //(4)signUp
             JButton signUp = new JButton("Sign in");
             class SignInListener implements ActionListener{
                 @Override
@@ -72,7 +92,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
             signUp.addActionListener(new SignInListener());
             this.add(signUp);
 
-            //(4)logIn
+            //(5)logIn
             JButton logIn = new JButton("Log in");
             class LogInListener implements ActionListener{
                 @Override
@@ -93,7 +113,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
 
         //already logged in
         if(!Objects.equals(user.getName(), "")){
-            //（5）shoppingCart
+            //（6）shoppingCart
             JButton cart = new JButton("Cart");
             class CartListener implements ActionListener{
                 @Override
@@ -110,7 +130,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
             cart.addActionListener(new CartListener());
             this.add(cart);
 
-            //(6)logOut
+            //(7)logOut
             JButton logOut = new JButton("Log out");
             class LogOutListener implements ActionListener{
                 @Override
@@ -128,8 +148,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
             this.add(logOut);
 
 
-            //(7) ViewProfile
-
+            //(8) ViewProfile
             JButton profile = new JButton();
             ImageIcon imageIcon = new ImageIcon("/src/pic/testpic4.png");
             profile.setIcon(imageIcon);

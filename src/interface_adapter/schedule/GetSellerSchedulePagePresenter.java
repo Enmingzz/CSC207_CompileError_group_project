@@ -8,16 +8,31 @@ import use_case.schedule.GetBuyerSchedulePageOutputData;
 import use_case.schedule.GetSellerSchedulePageOutputBoundary;
 import use_case.schedule.GetSellerSchedulePageOutputData;
 
+/**
+ * The GetSellerSchedulePagePresenter class implements the GetSellerSchedulePageOutputBoundary interface
+ * and handles the preparation of the view for the get seller schedule page use case.
+ */
 public class GetSellerSchedulePagePresenter implements GetSellerSchedulePageOutputBoundary {
     private final SellerSelectScheduleViewModel sellerSelectScheduleViewModel;
     private ViewManagerModel viewManagerModel;
 
+    /**
+     * Constructs a GetSellerSchedulePagePresenter.
+     *
+     * @param sellerSelectScheduleViewModel the view model for the seller select schedule
+     * @param viewManagerModel the view manager model
+     */
     public GetSellerSchedulePagePresenter(SellerSelectScheduleViewModel sellerSelectScheduleViewModel,
                                          ViewManagerModel viewManagerModel) {
         this.sellerSelectScheduleViewModel = sellerSelectScheduleViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
+    /**
+     * Prepares the successful view by updating the state and switching the view to the seller schedule select page.
+     *
+     * @param getSellerSchedulePageOutputData the output data containing the seller and product information
+     */
     public void prepareSuccessfulView(GetSellerSchedulePageOutputData getSellerSchedulePageOutputData) {
         SellerSelectScheduleState sellerSelectScheduleState = sellerSelectScheduleViewModel.getState();
         User seller = getSellerSchedulePageOutputData.getSeller();

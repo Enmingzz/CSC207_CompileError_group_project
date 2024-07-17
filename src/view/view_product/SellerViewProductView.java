@@ -43,6 +43,7 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
     private final ShoppingCartController shoppingCartController;
     private final LogOutController logOutController;
     private final ViewProfileController viewProfileController;
+    private final MainPageController mainPageController;
 
     private final JButton cancel;
 
@@ -67,6 +68,7 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
         this.shoppingCartController = shoppingCartController;
         this.logOutController = logOutController;
         this.viewProfileController = viewProfileController;
+        this.mainPageController = mainPageController;
 
         sellerViewProductViewModel.addPropertyChangeListener(this);
 
@@ -222,7 +224,7 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
             }
 
             JPanel topBar = new TopBarSampleView(newState.getUser(),
-                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
+                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
             this.add(topBar);
 
             newState.setIsChanged(false);

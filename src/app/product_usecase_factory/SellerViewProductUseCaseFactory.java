@@ -81,11 +81,11 @@ public class SellerViewProductUseCaseFactory {
             ViewLoginPageController viewLoginPageController = createLoginPageController(loginViewModel, viewManagerModel);
             ShoppingCartController shoppingCartController = createShoppingCartController(viewManagerModel, shoppingCartViewModel);
             LogOutController logOutController = createLogOutController(viewManagerModel, mainPageViewModel);
-
+            ViewProfileController viewProfileController = createProfileController(viewManagerModel, profileViewModel);
 
             return new SellerViewProductView(sellerViewProductViewModel, viewReplyQuestionController, mainPageController,
-                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
-        } catch (SQLException e) {
+                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
+        } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
     }

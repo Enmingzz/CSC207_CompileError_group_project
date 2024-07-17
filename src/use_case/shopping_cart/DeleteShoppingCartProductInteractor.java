@@ -11,12 +11,23 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Interactor implementation for deleting a product from the shopping cart.
+ * Implements {@link DeleteShoppingCartProductInputBoundary}.
+ */
 
 public class DeleteShoppingCartProductInteractor implements DeleteShoppingCartProductInputBoundary {
     final ShoppingCartUpdateDeleteDataAccessInterface shoppingCartUpdateDeleteDataAccessObject;
     final ShoppingCartReadDataAccessInterface shoppingCartReadDataAccessObject;
     final DeleteShoppingCartProductOutputBoundary deleteShoppingCartProductOutputBoundary;
 
+    /**
+     * Constructs a {@code DeleteShoppingCartProductInteractor} with the specified dependencies.
+     *
+     * @param shoppingCartUpdateDeleteDataAccessObject the data access object for updating the shopping cart by deleting a product
+     * @param shoppingCartReadDataAccessObject         the data access object for reading the shopping cart
+     * @param deleteShoppingCartProductOutputBoundary  the presenter for handling output of deleting a product from the shopping cart
+     */
 
     public DeleteShoppingCartProductInteractor(ShoppingCartUpdateDeleteDataAccessInterface
                                                        shoppingCartUpdateDeleteDataAccessObject,
@@ -27,6 +38,14 @@ public class DeleteShoppingCartProductInteractor implements DeleteShoppingCartPr
         this.deleteShoppingCartProductOutputBoundary = deleteShoppingCartProductOutputBoundary;
         this.shoppingCartReadDataAccessObject = shoppingCartReadDataAccessObject;
     }
+
+    /**
+     * Deletes a product from the shopping cart based on the input data.
+     *
+     * @param deleteShoppingCartProductInputData the input data containing user and product information to delete
+     * @throws SQLException if there's an error accessing the database
+     * @throws IOException  if there's an error handling input/output
+     */
 
     @Override
     public void deleteShoppingCartProduct(DeleteShoppingCartProductInputData deleteShoppingCartProductInputData) throws SQLException, IOException {
