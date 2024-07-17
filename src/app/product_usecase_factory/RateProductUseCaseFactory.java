@@ -1,13 +1,20 @@
 package app.product_usecase_factory;
 
+import app.schedule_usecase_factory.BuyerScheduleUseCaseFactory;
 import data_access.factories.interfaces.product.DataBaseProductReadAllDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.product.DatabaseProductUpdateRatingDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.product.DatabaseProductUpdateStateDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
 import data_access.factories.objects.product.DatabaseProductReadAllDataAccessObjectFactory;
 import data_access.factories.objects.product.DatabaseProductReadByNameDataAccessObjectFactory;
+import data_access.factories.objects.product.DatabaseProductUpdateRatingDataAccessObjectFactory;
+import data_access.factories.objects.product.DatabaseProductUpdateStateDataAccessObjectFactory;
 import data_access.factories.objects.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactory;
 import data_access.interfaces.product.ProductReadAllDataAccessInterface;
 import data_access.interfaces.product.ProductReadByNameDataAccessInterface;
+import data_access.interfaces.product.ProductUpdateRatingDataAccessInterface;
+import data_access.interfaces.product.ProductUpdateStateDataAccessInterface;
 import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.ProductFactory;
@@ -16,6 +23,9 @@ import entity.schedule.ScheduleFactory;
 import entity.shopping_cart.CommonShoppingCartFactory;
 import entity.shopping_cart.ShoppingCartFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.login.LoginViewModel;
+import interface_adapter.login.ViewLoginPageController;
+import interface_adapter.login.ViewLoginPagePresenter;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.logout.LogOutPresenter;
 import interface_adapter.main_page.MainPageController;
@@ -24,22 +34,37 @@ import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.profile.view_profile.ViewProfilePresenter;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
+import interface_adapter.rating.RateProductController;
+import interface_adapter.rating.RateProductPresenter;
+import interface_adapter.rating.RateProductViewModel;
 import interface_adapter.search_product.*;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
+import interface_adapter.signup.SignupViewModel;
+import interface_adapter.signup.ViewSignupPageController;
+import interface_adapter.signup.ViewSignupPagePresenter;
+import use_case.login.ViewLoginPageInputBoundary;
+import use_case.login.ViewLoginPageInteractor;
+import use_case.login.ViewLoginPageOutputBoundary;
 import use_case.logout.LogOutInputBoundary;
 import use_case.logout.LogOutInteractor;
 import use_case.logout.LogOutOutputBoundary;
 import use_case.main_page.ShowMainPageInputBoundary;
 import use_case.main_page.ShowMainPageInteractor;
 import use_case.main_page.ShowMainPageOutputBoundary;
+import use_case.rate_product.RateProductInputBoundary;
+import use_case.rate_product.RateProductInteractor;
+import use_case.rate_product.RateProductOutputBoundary;
 import use_case.search_product.*;
 import use_case.profile.view_profile.ViewProfileInputBoundary;
 import use_case.profile.view_profile.ViewProfileInteractor;
 import use_case.profile.view_profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
+import use_case.signup.ViewSignupPageInputBoundary;
+import use_case.signup.ViewSignupPageInteractor;
+import use_case.signup.ViewSignupPageOutputBoundary;
 import view.rate_product.RateProductView;
 
 import java.io.IOException;
@@ -47,9 +72,47 @@ import java.sql.SQLException;
 
 public class RateProductUseCaseFactory {
 
-    public static RateProductView create(){
-        //TODO implements this method
-        return new RateProductView();
+    public static RateProductView create(RateProductViewModel rateProductViewModel,
+                                         ShoppingCartViewModel shoppingCartViewModel,
+                                         ViewManagerModel viewManagerModel,
+                                         SignupViewModel signupViewModel,
+                                         LoginViewModel loginViewModel,
+                                         SearchProductViewModel searchProductViewModel,
+                                         MainPageViewModel mainPageViewModel) throws SQLException {
+        RateProductController rateProductController =
+                RateProductUseCaseFactory.createRateProductController(rateProductViewModel, viewManagerModel, shoppingCartViewModel);
+        MainPageController mainPageController =
+                RateProductUseCaseFactory.createMainPageController(mainPageViewModel, viewManagerModel);
+        ShoppingCartController shoppingCartController =
+                RateProductUseCaseFactory.createShoppingCartController(viewManagerModel, shoppingCartViewModel);
+        GetSearchPageController getSearchPageController =
+                RateProductUseCaseFactory.createGetSearchPageController(viewManagerModel, searchProductViewModel);
+        ViewSignupPageController viewSignupPageController =
+                RateProductUseCaseFactory.creatViewSignupPageController(viewManagerModel, signupViewModel);
+        ViewLoginPageController viewLoginPageController =
+                RateProductUseCaseFactory.createViewLoginPageController(loginViewModel, viewManagerModel);
+        LogOutController logOutController =
+                RateProductUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
+        return new RateProductView(rateProductViewModel, rateProductController,
+                getSearchPageController, mainPageController, viewSignupPageController, viewLoginPageController, shoppingCartController,logOutController );
+    }
+
+    private static RateProductController createRateProductController
+            (RateProductViewModel rateProductViewModel, ViewManagerModel viewManagerModel,
+             ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
+        RateProductOutputBoundary rateProductPresenter =
+                new RateProductPresenter(rateProductViewModel, viewManagerModel, shoppingCartViewModel);
+        DatabaseProductUpdateStateDataAccessObjectFactoryInterface databaseProductUpdateStateDataAccessObjectFactoryInterface =
+                new DatabaseProductUpdateStateDataAccessObjectFactory();
+        ProductUpdateStateDataAccessInterface productUpdateStateDataAccessObject =
+                databaseProductUpdateStateDataAccessObjectFactoryInterface.create();
+        DatabaseProductUpdateRatingDataAccessObjectFactoryInterface databaseProductUpdateRatingDataAccessObjectFactoryInterface =
+                new DatabaseProductUpdateRatingDataAccessObjectFactory();
+        ProductUpdateRatingDataAccessInterface productUpdateRatingDataAccessObject =
+                databaseProductUpdateRatingDataAccessObjectFactoryInterface.create();
+        RateProductInputBoundary rateProductInteractor =
+                new RateProductInteractor(productUpdateRatingDataAccessObject, productUpdateStateDataAccessObject, rateProductPresenter);
+        return new RateProductController(rateProductInteractor);
     }
 
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
@@ -109,4 +172,21 @@ public class RateProductUseCaseFactory {
         return new GetSearchPageController(getSearchViewInteractor);
     }
 
+    private static ViewLoginPageController createViewLoginPageController
+            (LoginViewModel loginViewModel, ViewManagerModel viewManagerModel) throws SQLException {
+
+        ViewLoginPageOutputBoundary viewLoginPagePresenter = new ViewLoginPagePresenter(loginViewModel, viewManagerModel);
+        ViewLoginPageInputBoundary viewLoginPageInteractor =
+                new ViewLoginPageInteractor(viewLoginPagePresenter);
+        return new ViewLoginPageController(viewLoginPageInteractor);
+    }
+
+    private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
+        ViewSignupPageOutputBoundary viewSignupPagePresenter =
+                new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
+        ViewSignupPageInputBoundary viewSignupPageInteractor =
+                new ViewSignupPageInteractor(viewSignupPagePresenter);
+        return new ViewSignupPageController(viewSignupPageInteractor);
+    }
+}
 }

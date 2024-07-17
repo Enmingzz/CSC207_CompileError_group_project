@@ -32,7 +32,6 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
     private final RateProductViewModel rateProductViewModel;
     private final JTextField ratingInputField = new JTextField(3);
 
-    GetRatePageController getRatePageController;
     RateProductController rateProductController;
 
     MainPageController mainPageController;
@@ -52,7 +51,7 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
     //TODO figure out how cancel works and if anything extra is needed to be done in order to get cancel working
 
     public RateProductView(RateProductViewModel rateProductViewModel, RateProductController rateProductController,
-                           GetRatePageController getRatePageController, GetSearchPageController getSearchPageController,
+                            GetSearchPageController getSearchPageController,
                            MainPageController mainPageController,
                            ViewSignupPageController viewSignupPageController,
                            ViewLoginPageController viewLoginPageController,
