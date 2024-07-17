@@ -4,6 +4,7 @@ import entity.product.Product;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.modify_product.*;
 import interface_adapter.profile.manage_product.ManageProductViewModel;
+import interface_adapter.schedule.GetSellerSchedulePageController;
 import interface_adapter.view_product.ViewProductController;
 
 import javax.swing.*;
@@ -22,6 +23,7 @@ public class ManageProductView extends JFrame implements ActionListener, Propert
     private final ViewModifyProductController viewModifyProductController;
     private final ViewProductController viewProductController;
     private final DeleteProductController deleteProductController;
+    private final GetSellerSchedulePageController getSellerSchedulePageController;
     private final ManageProductViewModel manageProductViewModel;
     private final JPanel mainPanel = new JPanel();
 
@@ -29,12 +31,14 @@ public class ManageProductView extends JFrame implements ActionListener, Propert
 
     public ManageProductView(MainPageController mainPageController, ViewCreateProductController viewCreateProductController,
                              DeleteProductController deleteProductController, ViewModifyProductController viewModifyProductController,
-                             ManageProductViewModel manageProductViewModel, ViewProductController viewProductController){
+                             ManageProductViewModel manageProductViewModel, ViewProductController viewProductController,
+                             GetSellerSchedulePageController getSellerSchedulePageController){
         this.mainPageController = mainPageController;
         this.viewCreateProductController = viewCreateProductController;
         this.viewProductController = viewProductController;
         this.deleteProductController = deleteProductController;
         this.viewModifyProductController = viewModifyProductController;
+        this.getSellerSchedulePageController = getSellerSchedulePageController;
         this.manageProductViewModel = manageProductViewModel;
 
         manageProductViewModel.addPropertyChangeListener(this);
@@ -61,7 +65,7 @@ public class ManageProductView extends JFrame implements ActionListener, Propert
         for (Product product: manageProductViewModel.getState().getProduct()) {
             MangeSingleProductView panel = new MangeSingleProductView(manageProductViewModel.getState().getUser(),
                     product, manageProductViewModel, viewProductController,
-                    viewModifyProductController, deleteProductController);
+                    viewModifyProductController, deleteProductController, getSellerSchedulePageController);
             mainPanel.add(panel);
             mainPanel.add(Box.createVerticalStrut(10));
         }
@@ -83,6 +87,6 @@ public class ManageProductView extends JFrame implements ActionListener, Propert
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        updateMainPanel();
     }
 }

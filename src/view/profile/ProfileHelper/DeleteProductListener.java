@@ -1,4 +1,4 @@
-package view.profile.ProfileListener;
+package view.profile.ProfileHelper;
 
 import entity.product.Product;
 import entity.user.User;
