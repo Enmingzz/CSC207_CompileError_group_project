@@ -27,7 +27,7 @@ public class BuyerSelectScheduleController {
 
 
     /**
-     * Executes the process of selecting a schedule for the given buyer, product, and selected time.
+     * Executes the process of selecting a schedule for the buyer.
      *
      * @param buyer the buyer selecting the schedule
      * @param product the product associated with the schedule

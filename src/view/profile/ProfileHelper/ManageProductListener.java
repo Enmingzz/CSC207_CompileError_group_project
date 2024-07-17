@@ -1,4 +1,4 @@
-package view.profile.ProfileListener;
+package view.profile.ProfileHelper;
 
 import interface_adapter.profile.manage_product.ManageProductController;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;

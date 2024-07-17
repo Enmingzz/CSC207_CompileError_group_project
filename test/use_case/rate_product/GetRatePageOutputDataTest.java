@@ -1,6 +1,4 @@
-package use_case.modify_product;
-
-import static org.junit.jupiter.api.Assertions.*;
+package use_case.rate_product;
 
 import entity.product.CommonProductFactory;
 import entity.product.Product;
@@ -13,7 +11,7 @@ import entity.user.UserFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.rate_product.RateProductOutputData;
+import use_case.modify_product.ChangeProductOutputData;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -22,11 +20,13 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-class ViewModifyProductOutputDataTest {
-    User user;
-    Product product;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    ViewModifyProductOutputData viewModifyProductOutputData;
+public class GetRatePageOutputDataTest {
+    private User user;
+    private Product product;
+    GetRatePageOutputData getRatePageOutputData;
+
     @BeforeEach
     void setUp() throws IOException {
         String name = "Calico";
@@ -60,7 +60,7 @@ class ViewModifyProductOutputDataTest {
         product = productFactory.createProduct(image, description, title, price, state, rating, eTransferEmail, sellerStudentNumber, address,
                 listTags, productID, schedule);
 
-        viewModifyProductOutputData = new ViewModifyProductOutputData(user, product);
+        getRatePageOutputData = new GetRatePageOutputData(user, product);
     }
 
     @AfterEach
@@ -68,11 +68,10 @@ class ViewModifyProductOutputDataTest {
     }
 
     @Test
-    void getSeller() {assertEquals(user, viewModifyProductOutputData.getUser());}
+    void getSeller() {assertEquals(user, getRatePageOutputData.getUser());
+    }
 
     @Test
-    void getProduct() {assertEquals(product, viewModifyProductOutputData.getProduct());}
-
-
-
+    void getProduct() {assertEquals(product, getRatePageOutputData.getProduct());
+    }
 }

@@ -29,7 +29,8 @@ public class SearchProductByTagPresenter implements SearchProductByTagOutputBoun
     }
 
     /**
-     * Prepares the successful view with the given output data.
+     * Prepares the successful view with the given output data, refreshes and displays the matching products with
+     * search tag.
      *
      * @param searchProductByTagOutputData the output data containing the user and list of matching products
      */

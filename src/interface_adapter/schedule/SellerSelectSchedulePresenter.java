@@ -3,6 +3,8 @@ package interface_adapter.schedule;
 
 import entity.product.Product;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.profile.manage_product.ManageProductState;
+import interface_adapter.profile.manage_product.ManageProductViewModel;
 import interface_adapter.profile.view_profile.ViewProfileState;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import use_case.schedule.SellerSelectScheduleOutputBoundary;
@@ -10,43 +12,59 @@ import use_case.schedule.SellerSelectScheduleOutputData;
 
 import java.util.ArrayList;
 
+/**
+ * The SellerSelectSchedulePresenter class implements the SellerSelectScheduleOutputBoundary interface
+ * and handles the preparation of the view for the seller select schedule use case.
+ */
 public class SellerSelectSchedulePresenter implements SellerSelectScheduleOutputBoundary {
     private SellerSelectScheduleViewModel viewModel;
-    private ViewProfileViewModel profileViewModel;
+    private ManageProductViewModel manageProductViewModel;
     private ViewManagerModel viewManagerModel;
 
 
+    /**
+     * Constructs a SellerSelectSchedulePresenter.
+     *
+     * @param viewModel the view model for the seller select schedule
+     * @param manageProductViewModel the view model for managing products
+     * @param viewManagerModel the view manager model
+     */
     public SellerSelectSchedulePresenter(SellerSelectScheduleViewModel viewModel,
-                                         ViewProfileViewModel profileViewModel,
+                                         ManageProductViewModel manageProductViewModel,
                                          ViewManagerModel viewManagerModel) {
         this.viewModel = viewModel;
-        this.profileViewModel = profileViewModel;
+        this.manageProductViewModel = manageProductViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
+    /**
+     * Prepares the successful view by updating the state and switching the view to the manage product view.
+     *
+     * @param outputData the output data containing the updated product
+     */
     @Override
     public void prepareSuccessfulView(SellerSelectScheduleOutputData outputData) {
-        //move to profile view
-        ViewProfileState profileState = profileViewModel.getState();
-        ArrayList<Product> products = profileState.getProducts();
+        //move to manage product view
+        ManageProductState manageProductState = manageProductViewModel.getState();
+        ArrayList<Product> products = manageProductState.getProduct();
         Product updated_product = outputData.getProduct();
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getProductID().equals(updated_product.getProductID())) {
                 products.set(i, updated_product);
             }
         }
-        profileState.setProducts(products);
+        manageProductState.setProduct(products);
 
         //change state error in buyerSchedule
         SellerSelectScheduleState sellerSelectScheduleState = viewModel.getState();
         sellerSelectScheduleState.setError(null);
 
         this.viewModel.setState(sellerSelectScheduleState);
-        this.profileViewModel.setState(profileState);
+        this.manageProductViewModel.setState(manageProductState);
         viewModel.firePropertyChanged();
-        profileViewModel.firePropertyChanged();
+        manageProductViewModel.firePropertyChanged();
 
-        viewManagerModel.setActiveView(profileViewModel.getViewName());
+        viewManagerModel.setActiveView(manageProductViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
