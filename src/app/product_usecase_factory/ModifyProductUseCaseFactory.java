@@ -83,7 +83,7 @@ public class ModifyProductUseCaseFactory {
                                            ViewProfileViewModel viewProfileViewModel,
                                            ManageProductViewModel manageProductViewModel
                                            ) throws SQLException, IOException {
-        ModifyProductController modifyProductController = createmodifyProductController();
+        ModifyProductController modifyProductController = createmodifyProductController(viewManagerModel, manageProductViewModel);
 
 
         ManageProductController manageProductController = createManageProductController(viewManagerModel,
@@ -121,12 +121,14 @@ public class ModifyProductUseCaseFactory {
     private  static ModifyProductController createmodifyProductController(ViewManagerModel viewManagerModel,
                                                                           ManageProductViewModel manageProductViewModel) throws SQLException {
 
+        //TODO might need modification in interactor, since we cannot initialize the
+        // ChangeProductDescriptionInterface, ChangeProductPriceInterface, ChangeProductPictureInterface, by using
+        // databaseinterfaceFactorires?
         ChangeProductOutputBoundary presenter = new ModifyProductPresenter(manageProductViewModel);
-        Database
         ChangeProductDescriptionInterface changeProductDescriptionDAO;
 
 
-        ChangeProductPriceInterface changeProductPriceDAO;
+        ChangeProductPriceInterface changeProductPriceDAO = new
         ChangeProductPictureInterface changeProductPictureDAO;
         ChangeProductInputBoundary interactor = new ChangeProductInteractor(presenter, changeProductDescriptionDAO,
                 changeProductPriceDAO, changeProductPictureDAO);
