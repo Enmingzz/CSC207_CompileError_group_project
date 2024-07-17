@@ -14,6 +14,7 @@ import entity.product.ProductFactory;
 import entity.schedule.CommonScheduleFactory;
 import entity.schedule.ScheduleFactory;
 import entity.shopping_cart.CommonShoppingCartFactory;
+import entity.shopping_cart.ShoppingCart;
 import entity.shopping_cart.ShoppingCartFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logout.LogOutController;
@@ -28,8 +29,7 @@ import interface_adapter.search_product.*;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
-import interface_adapter.view_product.SellerViewProductViewModel;
-import interface_adapter.view_product.ViewReplyQuestionController;
+import interface_adapter.view_product.*;
 import use_case.logout.LogOutInputBoundary;
 import use_case.logout.LogOutInteractor;
 import use_case.logout.LogOutOutputBoundary;
@@ -42,41 +42,46 @@ import use_case.profile.view_profile.ViewProfileInteractor;
 import use_case.profile.view_profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
+import use_case.view_product.ReplyQuestionInteractor;
 import use_case.view_product.ViewReplyQuestionInputBoundary;
+import use_case.view_product.ViewReplyQuestionInteractor;
 import use_case.view_product.ViewReplyQuestionOutputBoundary;
+import view.view_product.SellerReplyView;
 import view.view_product.SellerViewProductView;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class SellerViewProductUseCaseFactory {
 
-    public static SellerViewProductView create(){
-        //TODO need to implement this method
-        SellerViewProductViewModel sellerViewProductViewModel = new SellerViewProductViewModel();
-        ViewReplyQuestionInputBoundary viewReplyQuestionInputBoundary = new ViewReplyQuestionOutputBoundary();
-        ViewReplyQuestionController viewReplyQuestionController = new ViewReplyQuestionController();
-
-        MainPageController mainPageController = new MainPageController();
-
-        return new SellerViewProductView(sellerViewProductViewModel, viewReplyQuestionController, mainPageController);
+    public static SellerViewProductView create(MainPageViewModel mainPageViewModel, ViewManagerModel viewManagerModel,
+                                               SellerViewProductViewModel sellerViewProductViewModel, ViewProfileViewModel profileViewModel,
+                                               ReplyQuestionViewModel replyQuestionViewModel){
+        try{
+            ViewReplyQuestionController viewReplyQuestionController = createViewReplyQuestionController(replyQuestionViewModel, viewManagerModel);
+            MainPageController mainPageController = createMainPageController(mainPageViewModel, viewManagerModel);
+            return new SellerViewProductView(sellerViewProductViewModel, viewReplyQuestionController, mainPageController);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
-        ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
-        ProductFactory productFactory = new CommonProductFactory();
-        ShoppingCartPresenter presenter = new ShoppingCartPresenter(viewManagerModel,
-                shoppingCartViewModel);
-        DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
-                = new DatabaseShoppingCartReadDataAccessObjectFactory();
-        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
-        ShoppingCartReadDataAccessInterface shoppingCartReadDataAccess =
-                databaseShoppingCartReadDataAccessObjectFactory.create(shoppingCartFactory,
-                        productFactory, scheduleFactory);
-        ShowShoppingCartInputBoundary showShoppingCartInteractor =
-                new ShowShoppingCartInteractor(presenter, shoppingCartReadDataAccess);
-        return new ShoppingCartController(showShoppingCartInteractor);
-    }
+//    private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
+//        ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
+//        ProductFactory productFactory = new CommonProductFactory();
+//        ShoppingCartPresenter presenter = new ShoppingCartPresenter(viewManagerModel,
+//                shoppingCartViewModel);
+//        DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
+//                = new DatabaseShoppingCartReadDataAccessObjectFactory();
+//        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+//        ShoppingCartReadDataAccessInterface shoppingCartReadDataAccess =
+//                databaseShoppingCartReadDataAccessObjectFactory.create(shoppingCartFactory,
+//                        productFactory, scheduleFactory);
+//        ShowShoppingCartInputBoundary showShoppingCartInteractor =
+//                new ShowShoppingCartInteractor(presenter, shoppingCartReadDataAccess);
+//        return new ShoppingCartController(showShoppingCartInteractor);
+//    }
 
     private static MainPageController createMainPageController(MainPageViewModel mainPageViewModel, ViewManagerModel viewManagerModel) throws SQLException {
         ShowMainPageOutputBoundary showMainPagePresenter = new MainPagePresenter(mainPageViewModel, viewManagerModel);
@@ -98,25 +103,33 @@ public class SellerViewProductUseCaseFactory {
         return new LogOutController(logOutInteractor);
     }
 
-    private static ViewProfileController createProfileController(ViewManagerModel viewManagerModel,
-                                                                 ViewProfileViewModel profileViewModel) throws IOException {
-        ViewProfileOutputBoundary viewProfilePresenter = new ViewProfilePresenter(profileViewModel,
-                viewManagerModel);
-        ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfilePresenter);
-        return new ViewProfileController(viewProfileInteractor);
-    }
+//    private static ViewProfileController createProfileController(ViewManagerModel viewManagerModel,
+//                                                                 ViewProfileViewModel profileViewModel) throws IOException {
+//        ViewProfileOutputBoundary viewProfilePresenter = new ViewProfilePresenter(profileViewModel,
+//                viewManagerModel);
+//        ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfilePresenter);
+//        return new ViewProfileController(viewProfileInteractor);
+//    }
+//  for top bar??
 
-    private static GetSearchPageController createGetSearchPageController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
-        GetSearchViewOutputBoundary getSearchViewPresenter =
-                new GetSearchPagePresenter(searchProductViewModel, viewManagerModel);
-        DataBaseProductReadAllDataAccessObjectFactoryInterface dataBaseProductReadAllDataAccessObjectFactoryInterface = new DatabaseProductReadAllDataAccessObjectFactory();
-        ProductFactory productFactory = new CommonProductFactory();
-        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
-        ProductReadAllDataAccessInterface productReadAllDataAccessObeject =
-                dataBaseProductReadAllDataAccessObjectFactoryInterface.create(productFactory, scheduleFactory);
-        GetSearchViewInputBoundary getSearchViewInteractor =
-                new GetSearchViewInteractor(getSearchViewPresenter, productReadAllDataAccessObeject);
-        return new GetSearchPageController(getSearchViewInteractor);
-    }
+//    private static GetSearchPageController createGetSearchPageController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
+//        GetSearchViewOutputBoundary getSearchViewPresenter =
+//                new GetSearchPagePresenter(searchProductViewModel, viewManagerModel);
+//        DataBaseProductReadAllDataAccessObjectFactoryInterface dataBaseProductReadAllDataAccessObjectFactoryInterface = new DatabaseProductReadAllDataAccessObjectFactory();
+//        ProductFactory productFactory = new CommonProductFactory();
+//        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+//        ProductReadAllDataAccessInterface productReadAllDataAccessObeject =
+//                dataBaseProductReadAllDataAccessObjectFactoryInterface.create(productFactory, scheduleFactory);
+//        GetSearchViewInputBoundary getSearchViewInteractor =
+//                new GetSearchViewInteractor(getSearchViewPresenter, productReadAllDataAccessObeject);
+//        return new GetSearchPageController(getSearchViewInteractor);
+//    }
 
+    private static ViewReplyQuestionController createViewReplyQuestionController(ReplyQuestionViewModel replyQuestionViewModel,
+                                                                                 ViewManagerModel viewManagerModel) throws SQLException{
+
+        ViewReplyQuestionOutputBoundary viewReplyQuestionPresenter = new ViewReplyQuestionPresenter(replyQuestionViewModel, viewManagerModel);
+        ViewReplyQuestionInputBoundary viewReplyQuestionInteractor = new ViewReplyQuestionInteractor(viewReplyQuestionPresenter);
+        return new ViewReplyQuestionController(viewReplyQuestionInteractor);
+    }
 }
