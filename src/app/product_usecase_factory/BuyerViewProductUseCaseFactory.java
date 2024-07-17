@@ -77,8 +77,7 @@ import java.sql.SQLException;
 
 public class BuyerViewProductUseCaseFactory {
 
-    public static BuyerViewProductView create(Product product,
-                                              ViewManagerModel viewManagerModel,
+    public static BuyerViewProductView create(ViewManagerModel viewManagerModel,
                                               MainPageViewModel mainPageViewModel,
                                               ShoppingCartViewModel shoppingCartViewModel,
                                               ViewProfileViewModel profileViewModel,
@@ -92,7 +91,7 @@ public class BuyerViewProductUseCaseFactory {
         AddToCartController addToCartController =
                 BuyerViewProductUseCaseFactory.createAddToCartController(viewManagerModel, shoppingCartViewModel, buyerViewProductViewModel);
         PublishQuestionController publishQuestionController =
-                BuyerViewProductUseCaseFactory.createPublishQuestionController(product, buyerViewProductViewModel, viewManagerModel);
+                BuyerViewProductUseCaseFactory.createPublishQuestionController(buyerViewProductViewModel, viewManagerModel);
         GetSearchPageController getSearchPageController = createGetSearchPageController(viewManagerModel, searchProductViewModel);
 
         ViewSignupPageController viewSignupPageController = createViewSignupPageController(viewManagerModel, signupViewModel);
@@ -114,13 +113,13 @@ public class BuyerViewProductUseCaseFactory {
         return new ViewLoginPageController(interactor);
     }
 
-    private static PublishQuestionController createPublishQuestionController(Product product, BuyerViewProductViewModel buyerViewProductViewModel, ViewManagerModel viewManagerModel) throws SQLException {
+    private static PublishQuestionController createPublishQuestionController(BuyerViewProductViewModel buyerViewProductViewModel, ViewManagerModel viewManagerModel) throws SQLException {
 
         QuestionCreateDataAccessInterface questionCreateDataAccessObject = new DatabaseQuestionCreateDataAccessObject();
         QuestionFactory questionFactory = new CommonQuestionFactory();
         PublishQuestionOutputBoundary presenter = new PublishQuestionPresenter(buyerViewProductViewModel, viewManagerModel);
 
-        PublishQuestionInputBoundary publishQuestionInteractor = new PublishQuestionInteractor(product, questionCreateDataAccessObject, questionFactory, presenter);
+        PublishQuestionInputBoundary publishQuestionInteractor = new PublishQuestionInteractor(questionCreateDataAccessObject, questionFactory, presenter);
         return new PublishQuestionController(publishQuestionInteractor);
     }
 

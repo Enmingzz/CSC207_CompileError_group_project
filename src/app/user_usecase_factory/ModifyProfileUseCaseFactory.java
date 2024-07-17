@@ -118,7 +118,8 @@ public class ModifyProfileUseCaseFactory {
             LogOutController logOutController = createLogOutController(viewManagerModel, mainPageViewModel);
 
 
-            return new ModifyProfileView(userFactory,  modifyProfileController,
+            return new ModifyProfileView(userFactory,
+                    modifyProfileController,
                      mainPageController,
                      shoppingCartController,
                      searchProductByNameController,
