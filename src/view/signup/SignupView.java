@@ -1,18 +1,20 @@
 package view.signup;
 
+import entity.user.CommonUser;
 import entity.user.CommonUserFactory;
 import entity.user.User;
 import entity.user.UserFactory;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.ViewLoginPageController;
+import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
+import interface_adapter.profile.view_profile.ViewProfileController;
+import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.search_product.SearchProductByTagController;
 import interface_adapter.shopping_cart.ShoppingCartController;
-import interface_adapter.signup.EmailVerificationController;
-import interface_adapter.signup.SignupController;
-import interface_adapter.signup.SignupState;
-import interface_adapter.signup.SignupViewModel;
+import interface_adapter.signup.*;
+import view.TopBarSampleView;
 import view.shopping_cart.ShoppingCartView;
 
 import javax.swing.*;
@@ -56,6 +58,12 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final SearchProductByTagController searchProductByTagController;
     private final ViewLoginPageController viewLoginPageController;
 
+    //Top Bar stuff
+    private final GetSearchPageController getSearchPageController;
+    private final ViewSignupPageController viewSignupPageController;
+    private final LogOutController logOutController;
+    private final ViewProfileController viewProfileController;
+
     private final JButton signUp;
     private final JButton emailVerification;
     private final JButton viewLoginButton;
@@ -76,7 +84,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                               mainPageController, ShoppingCartController shoppingCartController,
                       SearchProductByNameController searchProductByNameController,
                       SearchProductByTagController searchProductByTagController,
-                      ViewLoginPageController viewLoginPageController) {
+                      ViewLoginPageController viewLoginPageController,
+                      GetSearchPageController getSearchPageController,
+                      ViewSignupPageController viewSignupPageController,
+                      LogOutController logOutController,
+                      ViewProfileController viewProfileController) {
 
         this.signupController = controller;
         this.signupViewModel = signupViewModel;
@@ -87,6 +99,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.searchProductByTagController = searchProductByTagController;
         this.viewLoginPageController = viewLoginPageController;
         this.signupViewModel.addPropertyChangeListener(this);
+
+        this.getSearchPageController = getSearchPageController;
+        this.viewSignupPageController  = viewSignupPageController;
+        this.logOutController = logOutController;
+        this.viewProfileController = viewProfileController;
 
         JLabel title = new JLabel(signupViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -274,6 +291,13 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.add(emailInfo);
         this.add(container);
         this.add(buttons);
+
+        UserFactory userFactory = new CommonUserFactory();
+        User user = userFactory.createUser("", "", "", 0, "");
+        JPanel topBar = new TopBarSampleView(user,
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
+        this.add(topBar);
+
     }
 
     public void actionPerformed(ActionEvent evt) {
@@ -292,6 +316,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         if (state.getUsernameError() != null) {
             JOptionPane.showMessageDialog(this, state.getUsernameError());
         }
+        UserFactory userFactory = new CommonUserFactory();
+        User user = userFactory.createUser("", "", "", 0, "");
+        JPanel topBar = new TopBarSampleView(user,
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
+        this.add(topBar);
     }
 
 }
