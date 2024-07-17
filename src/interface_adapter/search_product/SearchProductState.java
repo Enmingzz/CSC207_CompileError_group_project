@@ -5,10 +5,27 @@ import entity.user.User;
 
 import java.util.ArrayList;
 
+/**
+ * The SearchProductState class holds the state information for the search product use case,
+ * including the user and the list of products.
+ */
 public class SearchProductState {
     private User user = null;
     private ArrayList<Product> products = new ArrayList<>();
 
+    /**
+     * Constructs a new SearchProductState object as a copy of the specified state.
+     *
+     * @param copy the state to copy
+     */
+    public SearchProductState(SearchProductState copy) {
+        this.user = copy.user;
+        this.products = copy.products;
+    }
+
+    /**
+     * Constructs a SearchProductState object with default values.
+     */
     public SearchProductState() {
     }
 

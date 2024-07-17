@@ -1,18 +1,22 @@
 package view.profile;
 
 import interface_adapter.login.LoginController;
+import interface_adapter.login.ViewLoginPageController;
+import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.profile.manage_product.ManageProductController;
-import interface_adapter.profile.modify_profile.ModifyProfileController;
 import interface_adapter.profile.modify_profile.ViewModifyProfileController;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.profile.view_profile.ViewProfileState;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
+import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.SignupController;
-import view.profile.ProfileListener.ManageProductListener;
-import view.profile.ProfileListener.ModifyProfileListener;
-import view.profile.ProfileListener.ProfileLabelTextPanel;
+import interface_adapter.signup.ViewSignupPageController;
+import view.TopBarSampleView;
+import view.profile.ProfileHelper.ManageProductListener;
+import view.profile.ProfileHelper.ModifyProfileListener;
+import view.profile.ProfileHelper.ProfileLabelTextPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,6 +39,13 @@ public class ProfileView extends JFrame implements PropertyChangeListener, Actio
     private final LoginController loginController;
     private final SignupController signupController;
 
+    //Top Bar stuff
+    private final GetSearchPageController getSearchPageController;
+    private final ViewSignupPageController viewSignupPageController;
+    private final ViewLoginPageController viewLoginPageController;
+    private final LogOutController logOutController;
+
+
     private final ViewProfileViewModel viewModel;
     private final JButton manageProduct;
     private final JButton modifyName;
@@ -52,13 +63,17 @@ public class ProfileView extends JFrame implements PropertyChangeListener, Actio
     private JLabel studentRatingViewField = new JLabel();
 
     public ProfileView (MainPageController mainPageController,
-                        ShoppingCartController shoppingCartController,
                         ManageProductController manageProductController,
                         ViewModifyProfileController viewModifyProfileController,
-                        ViewProfileController viewProfileController,
                         LoginController loginController,
                         SignupController signupController,
-                        ViewProfileViewModel profileViewModel){
+                        ViewProfileViewModel profileViewModel,
+                        GetSearchPageController getSearchPageController,
+                        ViewSignupPageController viewSignupPageController,
+                        ViewLoginPageController viewLoginPageController,
+                        ShoppingCartController shoppingCartController,
+                        LogOutController logOutController,
+                        ViewProfileController viewProfileController){
 
         this.manageProductController = manageProductController;
         this.viewModifyProfileController = viewModifyProfileController;
@@ -68,10 +83,21 @@ public class ProfileView extends JFrame implements PropertyChangeListener, Actio
         this.mainPageController = mainPageController;
         this.shoppingCartController = shoppingCartController;
 
+        //top bar initialize
+        this.getSearchPageController = getSearchPageController;
+        this.viewSignupPageController  = viewSignupPageController;
+        this.viewLoginPageController = viewLoginPageController;
+        this.logOutController = logOutController;
+
+
         this.viewModel = profileViewModel;
         viewModel.addPropertyChangeListener(this);
         JLabel title = new JLabel(profileViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JPanel topBar = new TopBarSampleView(this.viewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
 
         studentNumberViewField.setText(viewModel.getState().getUser().getStudentNumber());
         studentNameViewField.setText(viewModel.getState().getUser().getName());
@@ -158,6 +184,10 @@ public class ProfileView extends JFrame implements PropertyChangeListener, Actio
         } else{
             System.out.println("Other Method has not implemented yet!");
         }
+        ViewProfileState newState = (ViewProfileState) e.getSource();
 
+        JPanel topBar = new TopBarSampleView(newState.getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
     }
 }

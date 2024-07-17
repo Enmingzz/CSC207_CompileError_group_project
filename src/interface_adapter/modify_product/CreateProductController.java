@@ -16,7 +16,7 @@ public class CreateProductController {
         this.createProductInteractor = createProductInteractor;
     }
 
-    public void execute(User user, Image image, String description, String price, String title, String
+    public static void execute(User user, Image image, String description, String price, String title, String
             eTransferEmail, String address, ArrayList<String> listTags) throws SQLException, IOException {
 
         CreateProductInputData createProductInputData = new CreateProductInputData(user, image, description, price, title,

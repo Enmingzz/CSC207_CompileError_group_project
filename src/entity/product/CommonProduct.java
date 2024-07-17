@@ -27,6 +27,7 @@ public class CommonProduct implements Product{
     private String productID;
 
     /**
+     * Instantiates a new CommonProduct
      *
      * @param image: Image of product in view page and main page
      * @param description: description of product

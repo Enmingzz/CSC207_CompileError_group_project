@@ -9,11 +9,22 @@ import use_case.schedule.BuyerSelectScheduleOutputData;
 
 import java.util.ArrayList;
 
+/**
+ * The BuyerSelectSchedulePresenter class implements the BuyerSelectScheduleOutputBoundary interface
+ * and handles the preparation of the view for the buyer select schedule use case.
+ */
 public class BuyerSelectSchedulePresenter implements BuyerSelectScheduleOutputBoundary {
     private BuyerSelectScheduleViewModel viewModel;
     private ShoppingCartViewModel shoppingCartViewModel;
     private ViewManagerModel viewManagerModel;
 
+    /**
+     * Constructs a BuyerSelectSchedulePresenter with the specified view models and view manager model.
+     *
+     * @param viewModel the view model for the buyer select schedule
+     * @param viewManagerModel the view manager model
+     * @param shoppingCartViewModel the view model for the shopping cart
+     */
     public BuyerSelectSchedulePresenter(BuyerSelectScheduleViewModel viewModel,
                                         ViewManagerModel viewManagerModel,
                                         ShoppingCartViewModel shoppingCartViewModel) {
@@ -22,9 +33,15 @@ public class BuyerSelectSchedulePresenter implements BuyerSelectScheduleOutputBo
         this.shoppingCartViewModel = shoppingCartViewModel;
     }
 
+    /**
+     * Prepares the successful view by updating the shopping cart with the selected schedule and switching the view
+     * back to the shopping cart, with the given output data,
+     *
+     * @param outputData the output data containing the updated product
+     */
     @Override
     public void prepareSuccessfulView(BuyerSelectScheduleOutputData outputData) {
-        //move to shopping_cart_View
+        //back to shopping_cart_View
         ShoppingCartState shoppingCartState = shoppingCartViewModel.getState();
         ArrayList<Product> products = shoppingCartState.getListProducts();
         Product updated_product = outputData.getProduct();

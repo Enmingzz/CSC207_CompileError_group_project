@@ -1,6 +1,5 @@
-package view.profile.ProfileListener;
+package view.profile.ProfileHelper;
 
-import interface_adapter.profile.modify_profile.ModifyProfileController;
 import interface_adapter.profile.modify_profile.ViewModifyProfileController;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
 

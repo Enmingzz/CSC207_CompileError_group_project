@@ -1,11 +1,21 @@
 package view.schedule;
 
+import app.Main;
 import entity.product.Product;
 import entity.user.User;
+import interface_adapter.login.ViewLoginPageController;
+import interface_adapter.logout.LogOutController;
+import interface_adapter.main_page.MainPageController;
+import interface_adapter.profile.manage_product.ManageProductController;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.schedule.SellerSelectScheduleController;
 import interface_adapter.schedule.SellerSelectScheduleState;
 import interface_adapter.schedule.SellerSelectScheduleViewModel;
+import interface_adapter.search_product.GetSearchPageController;
+import interface_adapter.shopping_cart.ShoppingCartController;
+import interface_adapter.signup.ViewSignupPageController;
+import view.TopBarSampleView;
+import view.profile.ManageProductView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,7 +38,16 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
     public final String viewName = "seller_schedule";
     private SellerSelectScheduleController controller;
     private SellerSelectScheduleViewModel viewModel;
-    private ViewProfileController viewProfileController;
+    private ManageProductController manageProductController;
+
+    //Top Bar stuff
+    private final GetSearchPageController getSearchPageController;
+    private final ViewSignupPageController viewSignupPageController;
+    private final ViewLoginPageController viewLoginPageController;
+    private final ShoppingCartController shoppingCartController;
+    private final LogOutController logOutController;
+    private final ViewProfileController viewProfileController;
+    private final MainPageController mainPageController;
 
     private JComboBox<String> dateComboBox;
     private JComboBox<String> hourComboBox;
@@ -44,10 +63,31 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
 
     public SellerScheduleView(SellerSelectScheduleController controller,
                               SellerSelectScheduleViewModel viewModel,
-                              ViewProfileController viewProfileController) {
+                              ManageProductController manageProductController,
+                              GetSearchPageController getSearchPageController,
+                              ViewSignupPageController viewSignupPageController,
+                              ViewLoginPageController viewLoginPageController,
+                              ShoppingCartController shoppingCartController,
+                              LogOutController logOutController,
+                              ViewProfileController viewProfileController,
+                              MainPageController mainPageController) {
         this.controller = controller;
         this.viewModel = viewModel;
+        this.manageProductController = manageProductController;
+
+        // for top bar
+        this.getSearchPageController = getSearchPageController;
+        this.viewSignupPageController = viewSignupPageController;
+        this.viewLoginPageController = viewLoginPageController;
+        this.shoppingCartController = shoppingCartController;
+        this.logOutController = logOutController;
         this.viewProfileController = viewProfileController;
+        this.mainPageController = mainPageController;
+
+        JPanel topBar = new TopBarSampleView(this.viewModel.getState().getSeller(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
+
         viewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(viewModel.TITLE_LABEL);
@@ -133,7 +173,11 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(cancelButton)) {
                     User seller = viewModel.getState().getSeller();
-                    viewProfileController.execute(seller);
+                    try {
+                        manageProductController.execute(seller);
+                    } catch (SQLException | IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         });
@@ -172,6 +216,11 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
         if (state.getError() != null) {
             JOptionPane.showMessageDialog(this, state.getError());
         }
+        dateComboBox = new JComboBox<>(getDates());
+        hourComboBox = new JComboBox<>(getHours());
 
+        JPanel topBar = new TopBarSampleView(state.getSeller(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
     }
 }
