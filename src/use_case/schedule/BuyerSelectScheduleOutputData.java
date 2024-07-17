@@ -24,20 +24,10 @@ public class BuyerSelectScheduleOutputData {
         this.product = product;
     }
 
-    /**
-     * Gets the buyer who selected the schedule.
-     *
-     * @return the buyer
-     */
     public User getBuyer() {
         return buyer;
     }
 
-    /**
-     * Gets the updated product after schedule selection.
-     *
-     * @return the product
-     */
     public Product getProduct() {
         return product;
     }

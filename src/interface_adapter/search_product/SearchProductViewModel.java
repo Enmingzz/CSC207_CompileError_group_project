@@ -8,11 +8,18 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The SearchProductViewModel class manages the state of the search product view
+ * and provides methods to update and listen to changes in the state.
+ */
 public class SearchProductViewModel extends ViewModel {
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     private SearchProductState state = new SearchProductState();
 
+    /**
+     * Constructs a SearchProductViewModel with the view name "search_product_view".
+     */
     public SearchProductViewModel() {
         super("search_product_view");
     }
@@ -25,6 +32,9 @@ public class SearchProductViewModel extends ViewModel {
         this.state = state;
     }
 
+    /**
+     * Fires a property change event to notify listeners that the state has changed.
+     */
     @Override
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
