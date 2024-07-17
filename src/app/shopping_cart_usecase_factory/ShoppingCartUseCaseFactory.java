@@ -118,7 +118,9 @@ public class ShoppingCartUseCaseFactory {
                                           ViewProfileViewModel viewProfileViewModel,
                                           MainPageViewModel mainPageViewModel,
                                           SearchProductViewModel searchProductViewModel,
-                                          ViewManagerModel viewManagerModel) throws SQLException {
+                                          ViewManagerModel viewManagerModel,
+                                          SignupViewModel signupViewModel,
+                                          LoginViewModel loginViewModel) throws SQLException {
         ViewProductController viewProductController =
                 ShoppingCartUseCaseFactory.createViewProductController(buyerViewProductViewModel,
                         sellerViewProductViewModel, viewManagerModel, unloggedInViewModel);
@@ -157,7 +159,8 @@ public class ShoppingCartUseCaseFactory {
 
         MainPageController mainPageController = ShoppingCartUseCaseFactory.createMainPageController(mainPageViewModel,
                 viewManagerModel);
-
+        ViewSignupPageController viewSignupPageController = createViewSignupPageController(viewManagerModel, signupViewModel);
+        ViewLoginPageController viewLoginPageController = createViewLoginPageController(loginViewModel, viewManagerModel);
 
 
         return new ShoppingCartView(shoppingCartViewModel,
@@ -171,7 +174,9 @@ public class ShoppingCartUseCaseFactory {
                 viewProfileController,
                 getSearchPageController,
                 logOutController,
-                mainPageController);
+                mainPageController,
+                viewSignupPageController,
+                viewLoginPageController);
     }
 
     /**
@@ -463,7 +468,7 @@ public class ShoppingCartUseCaseFactory {
      * @return an instance of {@link ViewSignupPageController}
      */
 
-    private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
+    private static ViewSignupPageController createViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
         ViewSignupPageOutputBoundary viewSignupPagePresenter =
                 new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
         ViewSignupPageInputBoundary viewSignupPageInteractor =

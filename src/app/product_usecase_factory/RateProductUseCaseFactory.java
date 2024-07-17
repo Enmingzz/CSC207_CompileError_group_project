@@ -78,7 +78,8 @@ public class RateProductUseCaseFactory {
                                          SignupViewModel signupViewModel,
                                          LoginViewModel loginViewModel,
                                          SearchProductViewModel searchProductViewModel,
-                                         MainPageViewModel mainPageViewModel) throws SQLException {
+                                         MainPageViewModel mainPageViewModel,
+                                         ViewProfileViewModel viewProfileViewModel) throws SQLException, IOException {
         RateProductController rateProductController =
                 RateProductUseCaseFactory.createRateProductController(rateProductViewModel, viewManagerModel, shoppingCartViewModel);
         MainPageController mainPageController =
@@ -93,8 +94,9 @@ public class RateProductUseCaseFactory {
                 RateProductUseCaseFactory.createViewLoginPageController(loginViewModel, viewManagerModel);
         LogOutController logOutController =
                 RateProductUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
+        ViewProfileController viewProfileController = createProfileController(viewManagerModel, viewProfileViewModel);
         return new RateProductView(rateProductViewModel, rateProductController,
-                getSearchPageController, mainPageController, viewSignupPageController, viewLoginPageController, shoppingCartController,logOutController );
+                getSearchPageController, mainPageController, viewSignupPageController, viewLoginPageController, shoppingCartController,logOutController,viewProfileController);
     }
 
     private static RateProductController createRateProductController
@@ -189,4 +191,4 @@ public class RateProductUseCaseFactory {
         return new ViewSignupPageController(viewSignupPageInteractor);
     }
 }
-}
+

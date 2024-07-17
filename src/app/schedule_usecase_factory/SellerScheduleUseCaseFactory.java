@@ -80,7 +80,8 @@ public class SellerScheduleUseCaseFactory {
                                             LoginViewModel loginViewModel,
                                             ShoppingCartViewModel shoppingCartViewModel,
                                             MainPageViewModel mainPageViewModel,
-                                            SearchProductViewModel searchProductViewModel) throws SQLException, IOException {
+                                            SearchProductViewModel searchProductViewModel,
+                                            ViewProfileViewModel viewProfileViewModel) throws SQLException, IOException {
         SellerSelectScheduleController sellerSelectScheduleController =
                 SellerScheduleUseCaseFactory.createSellerSelectScheduleController(sellerSelectScheduleViewModel,
                         viewManagerModel, manageProductViewModel);
@@ -96,9 +97,22 @@ public class SellerScheduleUseCaseFactory {
                 SellerScheduleUseCaseFactory.createShoppingCartController(viewManagerModel, shoppingCartViewModel);
         LogOutController logOutController =
                 SellerScheduleUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
-        return new SellerScheduleView(sellerSelectScheduleController, sellerSelectScheduleViewModel, manageProductController,
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
 
+        ViewProfileController viewProfileController =
+                createProfileController(viewManagerModel, viewProfileViewModel);
+        MainPageController mainPageController = createMainPageController(mainPageViewModel, viewManagerModel);
+        return new SellerScheduleView(sellerSelectScheduleController, sellerSelectScheduleViewModel, manageProductController,
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController,
+                logOutController,viewProfileController, mainPageController);
+
+    }
+
+    private static ViewProfileController createProfileController(ViewManagerModel viewManagerModel,
+                                                                 ViewProfileViewModel profileViewModel) throws IOException {
+        ViewProfileOutputBoundary viewProfilePresenter = new ViewProfilePresenter(profileViewModel,
+                viewManagerModel);
+        ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfilePresenter);
+        return new ViewProfileController(viewProfileInteractor);
     }
 
     private static SellerSelectScheduleController createSellerSelectScheduleController

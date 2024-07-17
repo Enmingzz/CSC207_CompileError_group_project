@@ -69,7 +69,8 @@ public class BuyerScheduleUseCaseFactory {
                                            SignupViewModel signupViewModel,
                                            LoginViewModel loginViewModel,
                                            SearchProductViewModel searchProductViewModel,
-                                           MainPageViewModel mainPageViewModel) throws SQLException {
+                                           MainPageViewModel mainPageViewModel,
+                                           ViewProfileViewModel viewProfileViewModel) throws SQLException, IOException {
         BuyerSelectScheduleController buyerSelectScheduleController =
                 BuyerScheduleUseCaseFactory.createBuyerSelectScheduleController(buyerSelectScheduleViewModel,
                         viewManagerModel, shoppingCartViewModel);
@@ -83,8 +84,14 @@ public class BuyerScheduleUseCaseFactory {
                 BuyerScheduleUseCaseFactory.createViewLoginPageController(loginViewModel, viewManagerModel);
         LogOutController logOutController =
                 BuyerScheduleUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
+        ViewProfileController viewProfileController =
+                createProfileController(viewManagerModel, viewProfileViewModel);
+        MainPageController mainPageController = createMainPageController(mainPageViewModel, viewManagerModel);
+
+
         return new BuyerScheduleView(buyerSelectScheduleViewModel, buyerSelectScheduleController, shoppingCartController,
-                getSearchPageController, viewSignupPageController, viewLoginPageController, logOutController);
+                getSearchPageController, viewSignupPageController, viewLoginPageController,logOutController, viewProfileController,
+                mainPageController);
 
     }
 
