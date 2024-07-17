@@ -5,7 +5,6 @@ import entity.user.User;
 
 import java.sql.*;
 
-//TODO: This is only a testing version for signup DataAccessObject to check the connection of Database!
 public class DatabaseUserCreateDataAccessObject implements UserCreateDataAccessInterface {
     private final Connection connection;
     private PreparedStatement preparedStatement;
