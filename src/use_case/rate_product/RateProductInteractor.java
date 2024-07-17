@@ -3,6 +3,7 @@ package use_case.rate_product;
 import data_access.interfaces.product.ProductUpdateRatingDataAccessInterface;
 import data_access.interfaces.product.ProductUpdateStateDataAccessInterface;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class RateProductInteractor implements RateProductInputBoundary{
@@ -17,7 +18,7 @@ public class RateProductInteractor implements RateProductInputBoundary{
         this.rateProductOutputBoundary = rateProductOutputBoundary;
     }
 
-    public void execute(RateProductInputData rateProductInputData) throws SQLException {
+    public void execute(RateProductInputData rateProductInputData) throws SQLException, IOException {
         boolean validRating;
         int intRating = 0;
         try {

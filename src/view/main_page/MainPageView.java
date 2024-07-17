@@ -3,6 +3,8 @@ package view.main_page;
 import entity.product.Product;
 import entity.user.User;
 
+import interface_adapter.login.LoginController;
+import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.main_page.MainPageState;
 
@@ -17,6 +19,7 @@ import interface_adapter.main_page.MainPageState;
 
 // Import all controllers related to MainPage
 import interface_adapter.search_product.GetSearchPageController;
+import interface_adapter.signup.ViewSignupPageController;
 import interface_adapter.view_product.ViewProductController;
 
 // Import all Controllers related to the top bar
@@ -56,6 +59,10 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
     private final GetSearchPageController getSearchPageController;
     private final LogOutController logOutController;
     private final MainPageController mainPageController;
+    private final ViewLoginPageController viewLoginPageController;
+    private final ViewSignupPageController viewSignupPageController;
+
+    AllProductsPanel allProductsPanel;
 
     public MainPageView(MainPageViewModel mainPageViewModel,
                         ViewProductController viewProductController,
@@ -63,7 +70,9 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
                         ViewProfileController viewProfileController,
                         GetSearchPageController getSearchPageController,
                         LogOutController logOutController,
-                        MainPageController mainPageController){
+                        MainPageController mainPageController,
+                        ViewSignupPageController viewSignupPageController,
+                        ViewLoginPageController viewLoginPageController){
         // initialize all controllers here
         this.viewProductController = viewProductController;
 
@@ -72,6 +81,8 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
         this.getSearchPageController = getSearchPageController;
         this.logOutController = logOutController;
         this.mainPageController = mainPageController;
+        this.viewLoginPageController = viewLoginPageController;
+        this.viewSignupPageController = viewSignupPageController;
 
         this.mainPageViewModel = mainPageViewModel;
         mainPageViewModel.addPropertyChangeListener(this);
@@ -86,72 +97,72 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
         // Products page starts here
 
-        List<Product> allProducts = mainPageViewModel.getState().getAllProducts();
+        ArrayList<Product> allProducts = mainPageViewModel.getState().getAllProducts();
 
-        int _i = 0;
-        List<JPanel> listProductPanels = new ArrayList<>();
-
-        for (Product product: allProducts) {
-            if (product.getState() == 0){
-
-                Image image = product.getImage();
-                JLabel paneledImage = new JLabel(new ImageIcon(image));
-                JLabel productTitle = new JLabel(product.getTitle());
-
-                JLabel productPrice = new JLabel(String.valueOf(product.getPrice()));
-
-                JButton viewButton = new JButton(product.getTitle());
-                // dimension set as this for now but will likely get changed later
-                viewButton.setPreferredSize(new Dimension(100, 50));
-                viewButton.addActionListener(
-                        new ActionListener() {
-                            public void actionPerformed(ActionEvent event) {
-                                if (event.getSource().equals(viewButton)) {
-                                    User user = mainPageViewModel.getState().getUser();
-                                    try {
-                                        viewProductController.execute(product, user) ;
-                                    } catch (SQLException e) {
-                                        throw new RuntimeException(e); //Revisit this in case of bug in viewing a product
-                                    }
-
-                                }
-                            }
-                        }
-                );
-
-                ProductPanel productPanel = new ProductPanel(
-                        paneledImage, productTitle, productPrice, viewButton
-                );
-
-                // Above created one panel for image
-
-                if (_i % 3 == 0){
-                    listProductPanels = new ArrayList<>();
-
-                }
-                listProductPanels.add(productPanel);
-
-                if (_i % 3 == 2){
-                    HorizontalLayoutPanel horizontalLayoutPanel = new HorizontalLayoutPanel(
-                            listProductPanels
-                    );
-                    this.add(horizontalLayoutPanel);
-                }
-                else if (_i + 1 == allProducts.size()){
-                    HorizontalLayoutPanel horizontalLayoutPanel = new HorizontalLayoutPanel(
-                            listProductPanels
-                    );
-                    this.add(horizontalLayoutPanel);
-                }
-
-                _i++;
-
-            }
+        allProductsPanel = new AllProductsPanel(allProducts, mainPageViewModel, viewProductController);
+        this.add(allProductsPanel);
 
 
+//        Wrong implementation of MainPAgeView, left for reference
 
+//        int _i = 0;
+//        ArrayList<JPanel> listProductPanels = new ArrayList<>();
+//
+//        for (Product product: allProducts) {
+//            if (product.getState() == 0){
+//
+//                Image image = product.getImage();
+//                JLabel paneledImage = new JLabel(new ImageIcon(image));
+//                JLabel productTitle = new JLabel(product.getTitle());
+//
+//                JLabel productPrice = new JLabel(String.valueOf(product.getPrice()));
+//
+//                JButton viewButton = new JButton(product.getTitle());
+//                // dimension set as this for now but will likely get changed later
+//                viewButton.setPreferredSize(new Dimension(100, 50));
+//                viewButton.addActionListener(
+//                        new ActionListener() {
+//                            public void actionPerformed(ActionEvent event) {
+//                                if (event.getSource().equals(viewButton)) {
+//                                    User user = mainPageViewModel.getState().getUser();
+//                                    try {
+//                                        viewProductController.execute(product, user) ;
+//                                    } catch (SQLException e) {
+//                                        throw new RuntimeException(e); //Revisit this in case of bug in viewing a product
+//                                    }
+//
+//                                }
+//                            }
+//                        }
+//                );
+//
+//                ProductPanel productPanel = new ProductPanel(
+//                        paneledImage, productTitle, productPrice, viewButton
+//                );
+//
+//                // Above created one panel for image
+//
+//                if (_i % 3 == 0){
+//                    listProductPanels = new ArrayList<>();
+//
+//                }
+//                listProductPanels.add(productPanel);
+//
+//                if (_i % 3 == 2){
+//                    HorizontalLayoutPanel horizontalLayoutPanel = new HorizontalLayoutPanel(
+//                            listProductPanels
+//                    );
+//                    this.add(horizontalLayoutPanel);
+//                }
+//                else if (_i + 1 == allProducts.size()){
+//                    HorizontalLayoutPanel horizontalLayoutPanel = new HorizontalLayoutPanel(
+//                            listProductPanels
+//                    );
+//                    this.add(horizontalLayoutPanel);
+//                }
+//
+//                _i++;
 
-        }
     // Products panel ends here
 
 
@@ -165,6 +176,14 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        MainPageState state = (MainPageState) evt.getNewValue();
+
+        ArrayList<Product> allProducts = state.getAllProducts();
+
+        allProductsPanel = new AllProductsPanel(allProducts, mainPageViewModel, viewProductController);
+
+        // TODO: ADD TOP BAR PROPERTY CHANGE
 
     }
+
 }

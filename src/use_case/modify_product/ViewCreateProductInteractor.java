@@ -12,5 +12,4 @@ public class ViewCreateProductInteractor implements ViewCreateProductInputBounda
     public void execute(ViewCreateProductInputData viewCreateProductInputData){
         ViewCreateProductOutputData viewCreateProductOutputData = new ViewCreateProductOutputData(viewCreateProductInputData.getUser());
     }
-
 }

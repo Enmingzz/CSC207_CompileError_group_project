@@ -2,19 +2,29 @@ package app.search_product_usecase_factory;
 
 import data_access.factories.interfaces.product.DataBaseProductReadAllDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.product.DatabaseProductReadByTagDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.question.DatabaseQuestionReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.user.DatabaseUserCreateDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.user.DatabaseUserReadDataAccessObjectFactoryInterface;
 import data_access.factories.objects.product.DatabaseProductReadAllDataAccessObjectFactory;
 import data_access.factories.objects.product.DatabaseProductReadByNameDataAccessObjectFactory;
+import data_access.factories.objects.product.DatabaseProductReadByTagDataAccessObjectFactory;
+import data_access.factories.objects.question.DatabaseQuestionReadDataAccessObjectFactory;
 import data_access.factories.objects.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactory;
 import data_access.factories.objects.user.DatabaseUserCreateDataAccessObjectFactory;
 import data_access.factories.objects.user.DatabaseUserReadDataAccessObjectFactory;
 import data_access.interfaces.product.ProductReadAllDataAccessInterface;
 import data_access.interfaces.product.ProductReadByNameDataAccessInterface;
+import data_access.interfaces.product.ProductReadByTagDataAccessInterface;
+import data_access.interfaces.question.QuestionReadDataAccessInterface;
 import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
 import data_access.interfaces.user.UserCreateDataAccessInterface;
 import data_access.interfaces.user.UserReadDataAccessInterface;
+import entity.comment.AnswerFactory;
+import entity.comment.CommonAnswerFactory;
+import entity.comment.CommonQuestionFactory;
+import entity.comment.QuestionFactory;
 import entity.product.CommonProductFactory;
 import entity.product.ProductFactory;
 import entity.schedule.CommonScheduleFactory;
@@ -39,6 +49,7 @@ import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import interface_adapter.signup.*;
+import interface_adapter.view_product.*;
 import use_case.schedule.GetBuyerSchedulePageOutputBoundary;
 import use_case.search_product.*;
 import use_case.signup.*;
@@ -54,15 +65,95 @@ import use_case.profile.view_profile.ViewProfileInteractor;
 import use_case.profile.view_profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
+import use_case.view_product.ViewProductInputBoundary;
+import use_case.view_product.ViewProductInteractor;
+import use_case.view_product.ViewProductOutputBoundary;
 import view.search_product.SearchProductView;
+import view.view_product.NonloggedInProductView;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class SearchProductUseCaseFactory {
 
-    public static SearchProductView create(){
-        //TODO implements this method
+    public static SearchProductView create(SearchProductViewModel searchProductViewModel,
+                                           ViewManagerModel viewManagerModel,
+                                           BuyerViewProductViewModel buyerViewProductViewModel,
+                                           SellerViewProductViewModel sellerViewProductViewModel,
+                                           UnloggedInViewModel unloggedInViewModel,
+                                           SignupViewModel signupViewModel,
+                                           LoginViewModel loginViewModel,
+                                           ShoppingCartViewModel shoppingCartViewModel,
+                                           MainPageViewModel mainPageViewModel) throws SQLException, IOException {
+        SearchProductByNameController searchProductByNameController =
+                SearchProductUseCaseFactory.createSearchProductByNameController(viewManagerModel, searchProductViewModel);
+        SearchProductByTagController searchProductByTagController =
+                SearchProductUseCaseFactory.createSearchProductByTagController(viewManagerModel, searchProductViewModel);
+        ViewProductController viewProductController =
+                SearchProductUseCaseFactory.createViewProductController
+                        (viewManagerModel, buyerViewProductViewModel, sellerViewProductViewModel, unloggedInViewModel);
+        GetSearchPageController getSearchPageController =
+                SearchProductUseCaseFactory.createGetSearchPageController(viewManagerModel, searchProductViewModel);
+        ViewSignupPageController viewSignupPageController =
+                SearchProductUseCaseFactory.creatViewSignupPageController(viewManagerModel, signupViewModel);
+        ViewLoginPageController viewLoginPageController =
+                SearchProductUseCaseFactory.createViewLoginPageController(loginViewModel, viewManagerModel);
+        ShoppingCartController shoppingCartController =
+                SearchProductUseCaseFactory.createShoppingCartController(viewManagerModel, shoppingCartViewModel);
+        LogOutController logOutController =
+                SearchProductUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
+        return new SearchProductView(searchProductByNameController, searchProductByTagController,
+                viewProductController, searchProductViewModel,getSearchPageController, viewSignupPageController,
+                viewLoginPageController, shoppingCartController, logOutController);
+    }
+
+
+    private static SearchProductByNameController createSearchProductByNameController
+            (ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
+        SearchProductByNameOutputBoundary searchProductByNamePresenter =
+                new SearchProductByNamePresenter(viewManagerModel, searchProductViewModel);
+        DatabaseProductReadByNameDataAccessObjectFactoryInterface databaseProductReadByNameDataAccessObjectFactory
+                = new DatabaseProductReadByNameDataAccessObjectFactory();
+        ProductFactory productFactory = new CommonProductFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+        ProductReadByNameDataAccessInterface productReadByNameDataAccessObject =
+                databaseProductReadByNameDataAccessObjectFactory.create(productFactory, scheduleFactory);
+        SearchProductByNameInputBoundary searchProductByNameInteractor =
+                new SearchProductByNameInteractor(productReadByNameDataAccessObject,
+                        searchProductByNamePresenter);
+        return new SearchProductByNameController(searchProductByNameInteractor);
+    }
+
+    private static SearchProductByTagController createSearchProductByTagController
+            (ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
+        SearchProductByTagOutputBoundary searchProductByTagPresenter =
+                new SearchProductByTagPresenter(searchProductViewModel, viewManagerModel);
+        DatabaseProductReadByTagDataAccessObjectFactoryInterface databaseProductReadByTagDataAccessObjectFactory =
+                new DatabaseProductReadByTagDataAccessObjectFactory();
+        ProductFactory productFactory = new CommonProductFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+        ProductReadByTagDataAccessInterface productReadByTagDataAccessObject =
+                databaseProductReadByTagDataAccessObjectFactory.create(productFactory, scheduleFactory);
+        SearchProductByTagInputBoundary searchProductByTagInteractor =
+                new SearchProductByTagInteractor(productReadByTagDataAccessObject, searchProductByTagPresenter);
+        return new SearchProductByTagController(searchProductByTagInteractor);
+    }
+
+    private static ViewProductController createViewProductController
+            (ViewManagerModel viewManagerModel, BuyerViewProductViewModel buyerViewProductViewModel,
+             SellerViewProductViewModel sellerViewProductViewModel, UnloggedInViewModel unloggedInViewModel) throws SQLException {
+        ViewProductOutputBoundary viewProductPresenter =
+                new ViewProductPresenter(buyerViewProductViewModel, sellerViewProductViewModel,
+                        unloggedInViewModel, viewManagerModel);
+        DatabaseQuestionReadDataAccessObjectFactoryInterface databaseQuestionReadDataAccessObjectFactory =
+                new DatabaseQuestionReadDataAccessObjectFactory();
+        QuestionFactory questionFactory = new CommonQuestionFactory();
+        AnswerFactory answerFactory = new CommonAnswerFactory();
+        QuestionReadDataAccessInterface questionReadDataAccessObject =
+                databaseQuestionReadDataAccessObjectFactory.create(questionFactory, answerFactory);
+        ViewProductInputBoundary viewProductInteractor =
+                new ViewProductInteractor(viewProductPresenter, questionReadDataAccessObject);
+        return new ViewProductController(viewProductInteractor);
     }
 
     private static GetSearchPageController createGetSearchPageController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
@@ -76,21 +167,6 @@ public class SearchProductUseCaseFactory {
         GetSearchViewInputBoundary getSearchViewInteractor =
                 new GetSearchViewInteractor(getSearchViewPresenter, productReadAllDataAccessObeject);
         return new GetSearchPageController(getSearchViewInteractor);
-    }
-
-    private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
-        SearchProductByNameOutputBoundary searchProductByNamePresenter =
-                new SearchProductByNamePresenter(viewManagerModel, searchProductViewModel);
-        DatabaseProductReadByNameDataAccessObjectFactoryInterface databaseProductReadByNameDataAccessObjectFactory
-                = new DatabaseProductReadByNameDataAccessObjectFactory();
-        ProductFactory productFactory = new CommonProductFactory();
-        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
-        ProductReadByNameDataAccessInterface productReadByNameDataAccessObject =
-                databaseProductReadByNameDataAccessObjectFactory.create(productFactory, scheduleFactory);
-        SearchProductByNameInputBoundary searchProductByNameInteractor =
-                new SearchProductByNameInteractor(productReadByNameDataAccessObject,
-                        searchProductByNamePresenter);
-        return new SearchProductByNameController(searchProductByNameInteractor);
     }
 
     private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
@@ -150,9 +226,10 @@ public class SearchProductUseCaseFactory {
         return new SignupController(userSignupInteractor);
     }
 
-    private static ViewLoginPageController createViewLoginPageController(){
+    private static ViewLoginPageController createViewLoginPageController
+            (LoginViewModel loginViewModel, ViewManagerModel viewManagerModel) throws SQLException {
 
-        ViewLoginPageOutputBoundary viewLoginPagePresenter = new ViewLoginPagePresenter();
+        ViewLoginPageOutputBoundary viewLoginPagePresenter = new ViewLoginPagePresenter(loginViewModel, viewManagerModel);
         ViewLoginPageInputBoundary viewLoginPageInteractor =
                 new ViewLoginPageInteractor(viewLoginPagePresenter);
         return new ViewLoginPageController(viewLoginPageInteractor);

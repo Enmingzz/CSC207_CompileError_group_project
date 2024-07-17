@@ -44,17 +44,25 @@ import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.profile.view_profile.ViewProfilePresenter;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import interface_adapter.rating.GetRatePageController;
+import interface_adapter.rating.GetRatePagePresenter;
 import interface_adapter.rating.RateProductController;
 import interface_adapter.rating.RateProductViewModel;
 import interface_adapter.schedule.BuyerSelectScheduleController;
 import interface_adapter.schedule.BuyerSelectScheduleViewModel;
 import interface_adapter.schedule.GetBuyerSchedulePageController;
+import interface_adapter.schedule.GetBuyerSchedulePagePresenter;
 import interface_adapter.search_product.*;
 import interface_adapter.shopping_cart.*;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.signup.ViewSignupPageController;
 import interface_adapter.signup.ViewSignupPagePresenter;
 import interface_adapter.view_product.*;
+import use_case.rate_product.GetRatePageInputBoundary;
+import use_case.rate_product.GetRatePageInteractor;
+import use_case.rate_product.GetRatePageOutputBoundary;
+import use_case.schedule.GetBuyerSchedulePageInputBoundary;
+import use_case.schedule.GetBuyerSchedulePageInteractor;
+import use_case.schedule.GetBuyerSchedulePageOutputBoundary;
 import use_case.search_product.*;
 import use_case.signup.ViewSignupPageInputBoundary;
 import use_case.signup.ViewSignupPageInteractor;
@@ -91,6 +99,7 @@ public class ShoppingCartUseCaseFactory {
                                           RateProductViewModel rateProductViewModel,
                                           ViewProfileViewModel viewProfileViewModel,
                                           MainPageViewModel mainPageViewModel,
+                                          SearchProductViewModel searchProductViewModel,
                                           ViewManagerModel viewManagerModel) throws SQLException {
         //TODO need to implement this method
         ViewProductController viewProductController =
@@ -103,12 +112,34 @@ public class ShoppingCartUseCaseFactory {
                 ShoppingCartUseCaseFactory.createDeleteShoppingCartProductController(
                         shoppingCartViewModel, viewManagerModel);
         GetBuyerSchedulePageController getBuyerSelectScheduleController =
-                ShoppingCartUseCaseFactory.createBuyerSelectScheduleController();
-        //TODO: ADD CONTROLLER INPUT
-        ConfirmController confirmController = ShoppingCartUseCaseFactory.createConfirmController();
+                ShoppingCartUseCaseFactory.createGetBuyerSelectPageScheduleController(buyerSelectScheduleViewModel,
+                        viewManagerModel);
+
+        ConfirmController confirmController = ShoppingCartUseCaseFactory.createConfirmController(rateProductViewModel,
+                shoppingCartViewModel,
+                viewManagerModel);
+
         GetRatePageController getRatePageController =
-                ShoppingCartUseCaseFactory.createRateProductController();
-        ShoppingCartController shoppingCartController = ShoppingCartUseCaseFactory.createShoppingCartController();
+                ShoppingCartUseCaseFactory.createRateProductController(rateProductViewModel, viewManagerModel);
+
+        // Top bar controllers start here
+        ShoppingCartController shoppingCartController = ShoppingCartUseCaseFactory.createShoppingCartController(
+                viewManagerModel,
+                shoppingCartViewModel);
+
+        ViewProfileController viewProfileController = ShoppingCartUseCaseFactory.createviewProfileController(
+                viewProfileViewModel,
+                viewManagerModel
+        );
+        GetSearchPageController getSearchPageController = ShoppingCartUseCaseFactory.createGetSearchPageController(
+                viewManagerModel,
+                searchProductViewModel
+        );
+        LogOutController logOutController = ShoppingCartUseCaseFactory.createLogOutController(viewManagerModel,
+                mainPageViewModel);
+
+        MainPageController mainPageController = ShoppingCartUseCaseFactory.createMainPageController(mainPageViewModel,
+                viewManagerModel);
 
 
 
@@ -118,7 +149,22 @@ public class ShoppingCartUseCaseFactory {
                 deleteShoppingCartProductController,
                 getBuyerSelectScheduleController,
                 confirmController,
-                getRatePageController,);
+                getRatePageController,
+                shoppingCartController,
+                viewProfileController,
+                getSearchPageController,
+                logOutController,
+                mainPageController);
+    }
+
+    private static ViewProfileController createviewProfileController(ViewProfileViewModel profileViewModel,
+                                                                     ViewManagerModel viewManagerModel) {
+
+        ViewProfileOutputBoundary viewProfilePresenter = new
+                ViewProfilePresenter(profileViewModel, viewManagerModel);
+        ViewProfileInputBoundary viewProfileInteractor =
+                new ViewProfileInteractor(viewProfilePresenter);
+        return new ViewProfileController(viewProfileInteractor);
     }
 
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
@@ -222,19 +268,52 @@ public class ShoppingCartUseCaseFactory {
         return new MainPageController(showMainPageInteractor);
     }
 
-    public static GetBuyerSchedulePageController createBuyerSelectScheduleController(){
-        //TODO  need to implement this method
-        return new BuyerSelectScheduleController();
+    public static GetBuyerSchedulePageController createGetBuyerSelectPageScheduleController(
+            BuyerSelectScheduleViewModel buyerSelectScheduleViewModel,
+            ViewManagerModel viewManagerModel){
+
+
+        GetBuyerSchedulePageOutputBoundary getBuyerSelectSchedulePagePresenter =
+                new GetBuyerSchedulePagePresenter(buyerSelectScheduleViewModel, viewManagerModel);
+        GetBuyerSchedulePageInputBoundary getBuyerSchedulePageInteractor =
+                new GetBuyerSchedulePageInteractor(getBuyerSelectSchedulePagePresenter);
+        return new GetBuyerSchedulePageController(getBuyerSchedulePageInteractor);
     }
 
-    public static ConfirmController createConfirmController(){
-        //TODO need to implement this method
-        return new ConfirmController();
+    public static ConfirmController createConfirmController(RateProductViewModel rateProductViewModel,
+                                                            ShoppingCartViewModel shoppingCartViewModel,
+                                                            ViewManagerModel viewManagerModel) throws SQLException {
+
+        ConfirmOutputBoundary confirmPresenter = new
+                ConfirmPresenter(rateProductViewModel, shoppingCartViewModel, viewManagerModel);
+
+        ProductFactory productFactory = new CommonProductFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+        DataBaseProductReadByIdDataAccessObjectFactoryInterface productReadByIdDataAccessObjectFactory =
+                new DataBaseProductReadByIdDataAccessObjectFactory();
+        ProductReadByIdDataAccessInterface productReadByIdDataAccessObject =
+                productReadByIdDataAccessObjectFactory.create(productFactory, scheduleFactory);
+
+        DatabaseProductUpdateStateDataAccessObjectFactoryInterface productUpdateStateDataAccessObjectFactory =
+                new DatabaseProductUpdateStateDataAccessObjectFactory();
+        ProductUpdateStateDataAccessInterface productUpdateStateDataAccessObject =
+                productUpdateStateDataAccessObjectFactory.create();
+
+        ConfirmInputBoundary confirmInteractor =
+                new ConfirmInteractor(confirmPresenter,
+                        productUpdateStateDataAccessObject,
+                        productReadByIdDataAccessObject);
+        return new ConfirmController(confirmInteractor);
     }
 
-    public static GetRatePageController createRateProductController(){
-        //TODO need to implement this method
-        return new GetRatePageController();
+    public static GetRatePageController createRateProductController(RateProductViewModel rateProductViewModel,
+                                                                    ViewManagerModel viewManagerModel){
+
+        GetRatePageOutputBoundary getRatePagePresenter =
+                new GetRatePagePresenter(rateProductViewModel, viewManagerModel);
+        GetRatePageInputBoundary getRatePageInteractor =
+                new GetRatePageInteractor(getRatePagePresenter);
+        return new GetRatePageController(getRatePageInteractor);
     }
 
     private static LogOutController createLogOutController(ViewManagerModel viewManagerModel,

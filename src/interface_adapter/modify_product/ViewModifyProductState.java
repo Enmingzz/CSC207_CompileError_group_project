@@ -10,13 +10,20 @@ import java.beans.PropertyChangeSupport;
 public class ViewModifyProductState {
     private User user;
     private Product product;
+    private String description;
+    private String price;
 
-    public ViewModifyProductState(User user, Product product) {
+    public ViewModifyProductState(User user, Product product, String description, String price) {
         this.user = user;
         this.product = product;
+        this.description = description;
+        this.price = price;
     }
 
-    public ViewModifyProductState() {}
+    public ViewModifyProductState(String description, String price) {
+        this.description = description;
+        this.price = price;
+    }
 
     public User getUser() {
         return user;
@@ -32,5 +39,19 @@ public class ViewModifyProductState {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+    public void setPrice(String price) {
+        this.price = price;
     }
 }

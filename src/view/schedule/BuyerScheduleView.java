@@ -2,10 +2,14 @@ package view.schedule;
 
 import entity.product.Product;
 import entity.user.User;
+import interface_adapter.login.ViewLoginPageController;
+import interface_adapter.logout.LogOutController;
 import interface_adapter.schedule.BuyerSelectScheduleController;
 import interface_adapter.schedule.BuyerSelectScheduleState;
 import interface_adapter.schedule.BuyerSelectScheduleViewModel;
+import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
+import interface_adapter.signup.ViewSignupPageController;
 
 
 import javax.swing.*;
@@ -27,16 +31,32 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
     private BuyerSelectScheduleController controller;
     private ShoppingCartController shoppingCartController;
 
+    private GetSearchPageController getSearchPageController;
+    private ViewSignupPageController viewSignupPageController;
+    private ViewLoginPageController viewLoginPageController;
+    private LogOutController logOutController;
+
     private JComboBox<LocalDateTime> availableTimesComboBox;
     private final JButton selectButton;
     private final JButton cancelButton;
 
     public BuyerScheduleView(BuyerSelectScheduleViewModel viewModel,
                              BuyerSelectScheduleController controller,
-                             ShoppingCartController shoppingCartController) {
+                             ShoppingCartController shoppingCartController,
+                             GetSearchPageController getSearchPageController,
+                             ViewSignupPageController viewSignupPageController,
+                             ViewLoginPageController viewLoginPageController,
+                             LogOutController logOutController) {
         this.viewModel = viewModel;
         this.controller = controller;
         this.shoppingCartController = shoppingCartController;
+
+        // for top bar
+        this.getSearchPageController = getSearchPageController;
+        this.viewSignupPageController = viewSignupPageController;
+        this.viewLoginPageController = viewLoginPageController;
+        this.logOutController = logOutController;
+
         viewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(viewModel.TITLE_LABEL);
@@ -106,6 +126,11 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
         BuyerSelectScheduleState state = (BuyerSelectScheduleState) evt.getNewValue();
         if (state.getError() != null) {
             JOptionPane.showMessageDialog(this, state.getError());
+        }
+        availableTimesComboBox = new JComboBox<>();
+        ArrayList<LocalDateTime> availableTimes = state .getProduct().getSchedule().getSellerTime();
+        for (LocalDateTime time : availableTimes) {
+            availableTimesComboBox.addItem(time);
         }
     }
 }

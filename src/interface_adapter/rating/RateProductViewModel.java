@@ -11,8 +11,9 @@ public class RateProductViewModel extends ViewModel {
     public final String PRODUCT_IMAGE = "Product image";
     public final String PRODUCT_TITLE_LABEL = "Product Title";
 
-    public final String PRODUCT_RATING_LABEL = "rate the product";
+    public final String PRODUCT_RATING_LABEL = "Rate the product";
     public final String CREATE_RATING_BUTTON_LABEL = "Complete Rating";
+    public final String CANCEL_BUTTON_LABEL = "Cancel";
 
     private RateProductState state = new RateProductState();
 

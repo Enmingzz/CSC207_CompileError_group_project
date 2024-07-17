@@ -2,10 +2,15 @@ package view.schedule;
 
 import entity.product.Product;
 import entity.user.User;
+import interface_adapter.login.ViewLoginPageController;
+import interface_adapter.logout.LogOutController;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.schedule.SellerSelectScheduleController;
 import interface_adapter.schedule.SellerSelectScheduleState;
 import interface_adapter.schedule.SellerSelectScheduleViewModel;
+import interface_adapter.search_product.GetSearchPageController;
+import interface_adapter.shopping_cart.ShoppingCartController;
+import interface_adapter.signup.ViewSignupPageController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,6 +35,12 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
     private SellerSelectScheduleViewModel viewModel;
     private ViewProfileController viewProfileController;
 
+    private GetSearchPageController getSearchPageController;
+    private ViewSignupPageController viewSignupPageController;
+    private ViewLoginPageController viewLoginPageController;
+    private ShoppingCartController shoppingCartController;
+    private LogOutController logOutController;
+
     private JComboBox<String> dateComboBox;
     private JComboBox<String> hourComboBox;
     private DefaultListModel<String> timesListModel;
@@ -44,10 +55,23 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
 
     public SellerScheduleView(SellerSelectScheduleController controller,
                               SellerSelectScheduleViewModel viewModel,
-                              ViewProfileController viewProfileController) {
+                              ViewProfileController viewProfileController,
+                              GetSearchPageController getSearchPageController,
+                              ViewSignupPageController viewSignupPageController,
+                              ViewLoginPageController viewLoginPageController,
+                              ShoppingCartController shoppingCartController,
+                              LogOutController logOutController) {
         this.controller = controller;
         this.viewModel = viewModel;
         this.viewProfileController = viewProfileController;
+
+        // for top bar
+        this.getSearchPageController = getSearchPageController;
+        this.viewSignupPageController = viewSignupPageController;
+        this.viewLoginPageController = viewLoginPageController;
+        this.shoppingCartController = shoppingCartController;
+        this.logOutController = logOutController;
+
         viewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(viewModel.TITLE_LABEL);
@@ -172,6 +196,8 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
         if (state.getError() != null) {
             JOptionPane.showMessageDialog(this, state.getError());
         }
+        dateComboBox = new JComboBox<>(getDates());
+        hourComboBox = new JComboBox<>(getHours());
 
     }
 }

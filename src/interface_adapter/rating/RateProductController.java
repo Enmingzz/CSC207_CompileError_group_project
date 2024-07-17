@@ -5,6 +5,7 @@ import entity.user.User;
 import use_case.rate_product.RateProductInputBoundary;
 import use_case.rate_product.RateProductInputData;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class RateProductController {
@@ -14,7 +15,7 @@ public class RateProductController {
         this.rateProductInputBoundary = rateProductInputBoundary;
     }
 
-    public void execute(User user, Product product, String rating) throws SQLException {
+    public void execute(User user, Product product, String rating) throws SQLException, IOException {
         RateProductInputData rateProductInputData = new RateProductInputData(user, rating, product);
         rateProductInputBoundary.execute(rateProductInputData);
     }
