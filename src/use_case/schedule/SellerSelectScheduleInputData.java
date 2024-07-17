@@ -28,29 +28,14 @@ public class SellerSelectScheduleInputData {
         this.availableTimes = availableTimes;
     }
 
-    /**
-     * Gets the seller selecting the schedule.
-     *
-     * @return the seller
-     */
     public User getSeller() {
         return seller;
     }
 
-    /**
-     * Gets the product associated with the schedule.
-     *
-     * @return the product
-     */
     public Product getProduct () {
         return product;
     }
 
-    /**
-     * Returns the list of available schedule times.
-     *
-     * @return the available times
-     */
     public ArrayList<LocalDateTime> getAvailableTimes() {
         return availableTimes;
     }

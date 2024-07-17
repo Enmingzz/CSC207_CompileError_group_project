@@ -30,9 +30,9 @@ public class GetSearchViewInteractor implements GetSearchViewInputBoundary {
     }
 
     /**
-     * Executes the process of retrieving the search view.
+     * Executes the process of getting all products that are on sale and retrieving the search page.
      *
-     * @param getSearchViewInputData the input data containing necessary information to retrieve the search view
+     * @param getSearchViewInputData the input data containing necessary information to retrieve the search page
      * @throws SQLException if a database access error occurs
      * @throws IOException if an I/O error occurs
      */
@@ -40,6 +40,7 @@ public class GetSearchViewInteractor implements GetSearchViewInputBoundary {
     public void getSearchView(GetSearchViewInputData getSearchViewInputData) throws SQLException, IOException {
         User user = getSearchViewInputData.getUser();
 
+        // get all products that are on sale
         ArrayList<Product> allProducts = productReadAllDataAccessObject.getAllProducts();
         ArrayList<Product> searchedProducts = new ArrayList<>();
         for (Product product : allProducts) {

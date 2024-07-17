@@ -1,6 +1,5 @@
 package use_case.search_product;
 
-import data_access.interfaces.product.ProductReadAllDataAccessInterface;
 import data_access.interfaces.product.ProductReadByNameDataAccessInterface;
 import entity.product.Product;
 import entity.user.User;
@@ -9,12 +8,22 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * The SearchProductByNameInteractor class implements the SearchProductByNameInputBoundary interface
+ * and provides the implementation for searching products by name.
+ */
 public class SearchProductByNameInteractor implements SearchProductByNameInputBoundary{
 
 //    final private ProductReadAllDataAccessInterface productReadAllDataAccessInterface;
     final private SearchProductByNameOutputBoundary searchProductByNamePresenter;
     private ProductReadByNameDataAccessInterface productReadByNameDataAccessInterface;
 
+    /**
+     * Constructs a SearchProductByNameInteractor with the specified data access interface and presenter.
+     *
+     * @param productReadByNameDataAccessInterface the data access interface to read products by name
+     * @param searchProductByNamePresenter the output boundary to handle the output data
+     */
     public SearchProductByNameInteractor( ProductReadByNameDataAccessInterface productReadByNameDataAccessInterface, SearchProductByNameOutputBoundary searchProductByNamePresenter) {
 //        this.productReadAllDataAccessInterface = productReadAllDataAccessInterface;
         this.searchProductByNamePresenter = searchProductByNamePresenter;
