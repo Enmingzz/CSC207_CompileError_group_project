@@ -13,10 +13,11 @@ public class ViewCreateProductViewModel extends ViewModel {
     public final String PRODUCT_DESCRIPTION_LABEL = "Product Description";
     public final String PRODUCT_PRICE_LABEL = "Product Price";
     public final String PRODUCT_ETRANSFER_EMAIL_LABEL = "Product eTransfer Email";
-    public final String PRODUCT_ADDRESS = "Product Pickup Address";
-    public final String PRODUCT_TAGS = "Product tags";
+    public final String PRODUCT_ADDRESS_LABEL = "Product Pickup Address";
+    public final String PRODUCT_TAGS_LABEL = "Product tags";
 
     public final String CREATE_PRODUCT_BUTTON_LABEL = "Create Product";
+    public final String CANCEL_BUTTON_LABEL = "Cancel";
 
 
     private CreateProductState state = new CreateProductState();
