@@ -30,6 +30,9 @@ import interface_adapter.logout.LogOutPresenter;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.main_page.MainPagePresenter;
 import interface_adapter.main_page.MainPageViewModel;
+import interface_adapter.profile.manage_product.ManageProductController;
+import interface_adapter.profile.manage_product.ManageProductPresenter;
+import interface_adapter.profile.manage_product.ManageProductViewModel;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.profile.view_profile.ViewProfilePresenter;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
@@ -50,6 +53,9 @@ import use_case.logout.LogOutOutputBoundary;
 import use_case.main_page.ShowMainPageInputBoundary;
 import use_case.main_page.ShowMainPageInteractor;
 import use_case.main_page.ShowMainPageOutputBoundary;
+import use_case.profile.manage_product.ManageProductInputBoundary;
+import use_case.profile.manage_product.ManageProductInteractor;
+import use_case.profile.manage_product.ManageProductOutputBoundary;
 import use_case.schedule.SellerSelectScheduleOutputBoundary;
 import use_case.search_product.*;
 import use_case.profile.view_profile.ViewProfileInputBoundary;
@@ -69,7 +75,7 @@ public class SellerScheduleUseCaseFactory {
 
     public static SellerScheduleView create(SellerSelectScheduleViewModel sellerSelectScheduleViewModel,
                                             ViewManagerModel viewManagerModel,
-                                            ViewProfileViewModel viewProfileViewModel,
+                                            ManageProductViewModel manageProductViewModel,
                                             SignupViewModel signupViewModel,
                                             LoginViewModel loginViewModel,
                                             ShoppingCartViewModel shoppingCartViewModel,
@@ -77,9 +83,9 @@ public class SellerScheduleUseCaseFactory {
                                             SearchProductViewModel searchProductViewModel) throws SQLException, IOException {
         SellerSelectScheduleController sellerSelectScheduleController =
                 SellerScheduleUseCaseFactory.createSellerSelectScheduleController(sellerSelectScheduleViewModel,
-                        viewManagerModel, viewProfileViewModel);
-        ViewProfileController viewProfileController =
-                SellerScheduleUseCaseFactory.createProfileController(viewManagerModel, viewProfileViewModel);
+                        viewManagerModel, manageProductViewModel);
+        ManageProductController manageProductController =
+                SellerScheduleUseCaseFactory.createManageProductController(viewManagerModel, manageProductViewModel);
         GetSearchPageController getSearchPageController =
                 SellerScheduleUseCaseFactory.createGetSearchPageController(viewManagerModel, searchProductViewModel);
         ViewSignupPageController viewSignupPageController =
@@ -90,16 +96,16 @@ public class SellerScheduleUseCaseFactory {
                 SellerScheduleUseCaseFactory.createShoppingCartController(viewManagerModel, shoppingCartViewModel);
         LogOutController logOutController =
                 SellerScheduleUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
-        return new SellerScheduleView(sellerSelectScheduleController, sellerSelectScheduleViewModel, viewProfileController,
+        return new SellerScheduleView(sellerSelectScheduleController, sellerSelectScheduleViewModel, manageProductController,
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
 
     }
 
     private static SellerSelectScheduleController createSellerSelectScheduleController
             (SellerSelectScheduleViewModel sellerSelectScheduleViewModel, ViewManagerModel viewManagerModel,
-             ViewProfileViewModel viewProfileViewModel) throws SQLException {
+             ManageProductViewModel manageProductViewModel) throws SQLException {
         SellerSelectScheduleOutputBoundary sellerSelectSchedulePresenter =
-                new SellerSelectSchedulePresenter(sellerSelectScheduleViewModel, viewProfileViewModel, viewManagerModel);
+                new SellerSelectSchedulePresenter(sellerSelectScheduleViewModel, manageProductViewModel, viewManagerModel);
         DataBaseProductReadByIdDataAccessObjectFactoryInterface dataBaseProductReadByIdDataAccessObjectFactoryInterface =
                 new DataBaseProductReadByIdDataAccessObjectFactory();
         ProductFactory productFactory = new CommonProductFactory();
@@ -156,18 +162,26 @@ public class SellerScheduleUseCaseFactory {
         return new LogOutController(logOutInteractor);
     }
 
-    private static ViewProfileController createProfileController(ViewManagerModel viewManagerModel,
-                                                                 ViewProfileViewModel profileViewModel) throws IOException {
-        ViewProfileOutputBoundary viewProfilePresenter = new ViewProfilePresenter(profileViewModel,
-                viewManagerModel);
-        ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfilePresenter);
-        return new ViewProfileController(viewProfileInteractor);
+    private static ManageProductController createManageProductController(ViewManagerModel viewManagerModel,
+                                                                         ManageProductViewModel manageProductViewModel) throws SQLException {
+        ManageProductOutputBoundary manageProductPresenter =
+                new ManageProductPresenter(viewManagerModel, manageProductViewModel);
+        DatabaseProductReadByUserDataAccessObjectFactoryInterface databaseProductReadByUserDataAccessObjectFactoryInterface =
+                new DatabaseProductReadByUserDataAccessObjectFactory();
+        ProductFactory productFactory = new CommonProductFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+        ProductReadByUserDataAccessInterface productReadByUserDataAccessObject =
+                databaseProductReadByUserDataAccessObjectFactoryInterface.create(productFactory, scheduleFactory);
+        ManageProductInputBoundary manageProductInteractor =
+                new ManageProductInteractor(manageProductPresenter, productReadByUserDataAccessObject);
+        return new ManageProductController(manageProductInteractor);
     }
 
     private static GetSearchPageController createGetSearchPageController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
         GetSearchViewOutputBoundary getSearchViewPresenter =
                 new GetSearchPagePresenter(searchProductViewModel, viewManagerModel);
-        DataBaseProductReadAllDataAccessObjectFactoryInterface dataBaseProductReadAllDataAccessObjectFactoryInterface = new DatabaseProductReadAllDataAccessObjectFactory();
+        DataBaseProductReadAllDataAccessObjectFactoryInterface dataBaseProductReadAllDataAccessObjectFactoryInterface =
+                new DatabaseProductReadAllDataAccessObjectFactory();
         ProductFactory productFactory = new CommonProductFactory();
         ScheduleFactory scheduleFactory = new CommonScheduleFactory();
         ProductReadAllDataAccessInterface productReadAllDataAccessObeject =

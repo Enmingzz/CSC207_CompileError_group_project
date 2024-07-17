@@ -6,7 +6,7 @@ import entity.user.User;
 import java.util.ArrayList;
 
 /**
- * The SearchProductState class holds the state information for the search product page,
+ * The SearchProductState class holds the state information for the search product use case,
  * including the user and the list of products.
  */
 public class SearchProductState {

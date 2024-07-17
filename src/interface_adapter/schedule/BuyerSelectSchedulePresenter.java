@@ -33,9 +33,15 @@ public class BuyerSelectSchedulePresenter implements BuyerSelectScheduleOutputBo
         this.shoppingCartViewModel = shoppingCartViewModel;
     }
 
+    /**
+     * Prepares the successful view by updating the shopping cart with the selected schedule and switching the view
+     * back to the shopping cart, with the given output data,
+     *
+     * @param outputData the output data containing the updated product
+     */
     @Override
     public void prepareSuccessfulView(BuyerSelectScheduleOutputData outputData) {
-        //move to shopping_cart_View
+        //back to shopping_cart_View
         ShoppingCartState shoppingCartState = shoppingCartViewModel.getState();
         ArrayList<Product> products = shoppingCartState.getListProducts();
         Product updated_product = outputData.getProduct();

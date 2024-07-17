@@ -30,7 +30,7 @@ public class GetSearchPagePresenter implements GetSearchViewOutputBoundary {
     }
 
     /**
-     * Prepares the successful view with the given output data.
+     * Prepares the successful view with the given output data and navigates to the search page.
      *
      * @param getSearchViewOutputData the output data containing the user and list of all on sale products
      */
