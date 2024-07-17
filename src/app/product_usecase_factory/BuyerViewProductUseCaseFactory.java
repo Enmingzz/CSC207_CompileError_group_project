@@ -4,21 +4,38 @@ import data_access.factories.interfaces.product.DataBaseProductReadAllDataAccess
 import data_access.factories.interfaces.product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartUpdateAddDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.user.DatabaseUserReadDataAccessObjectFactoryInterface;
 import data_access.factories.objects.product.DatabaseProductReadAllDataAccessObjectFactory;
 import data_access.factories.objects.product.DatabaseProductReadByNameDataAccessObjectFactory;
 import data_access.factories.objects.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactory;
 import data_access.factories.objects.shopping_cart.DatabaseShoppingCartUpdateAddDataAccessObjectFactory;
+import data_access.factories.objects.user.DatabaseUserReadDataAccessObjectFactory;
 import data_access.interfaces.product.ProductReadAllDataAccessInterface;
 import data_access.interfaces.product.ProductReadByNameDataAccessInterface;
+import data_access.interfaces.question.QuestionCreateDataAccessInterface;
 import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
 import data_access.interfaces.shopping_cart.ShoppingCartUpdateAddDataAccessInterface;
+import data_access.interfaces.user.UserCreateDataAccessInterface;
+import data_access.interfaces.user.UserReadDataAccessInterface;
+import data_access.objects.question.DatabaseQuestionCreateDataAccessObject;
+import data_access.objects.user.DatabaseUserCreateDataAccessObject;
+import data_access.objects.user.DatabaseUserReadDataAccessObject;
+import entity.comment.CommonQuestionFactory;
+import entity.comment.QuestionFactory;
 import entity.product.CommonProductFactory;
+import entity.product.Product;
 import entity.product.ProductFactory;
 import entity.schedule.CommonScheduleFactory;
 import entity.schedule.ScheduleFactory;
 import entity.shopping_cart.CommonShoppingCartFactory;
+import entity.shopping_cart.ShoppingCart;
 import entity.shopping_cart.ShoppingCartFactory;
+import entity.user.CommonUserFactory;
+import entity.user.UserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.login.LoginViewModel;
+import interface_adapter.login.ViewLoginPageController;
+import interface_adapter.login.ViewLoginPagePresenter;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.logout.LogOutPresenter;
 import interface_adapter.main_page.MainPageController;
@@ -31,10 +48,11 @@ import interface_adapter.search_product.*;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
-import interface_adapter.view_product.AddToCartController;
-import interface_adapter.view_product.AddToCartPresenter;
-import interface_adapter.view_product.BuyerViewProductViewModel;
-import interface_adapter.view_product.PublishQuestionController;
+import interface_adapter.signup.*;
+import interface_adapter.view_product.*;
+import use_case.login.ViewLoginPageInputBoundary;
+import use_case.login.ViewLoginPageInteractor;
+import use_case.login.ViewLoginPageOutputBoundary;
 import use_case.logout.LogOutInputBoundary;
 import use_case.logout.LogOutInteractor;
 import use_case.logout.LogOutOutputBoundary;
@@ -46,8 +64,12 @@ import use_case.profile.view_profile.ViewProfileInputBoundary;
 import use_case.profile.view_profile.ViewProfileInteractor;
 import use_case.profile.view_profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.*;
+import use_case.signup.*;
 import use_case.view_product.PublishQuestionInputBoundary;
 import use_case.view_product.PublishQuestionInteractor;
+import use_case.view_product.PublishQuestionOutputBoundary;
+import view.login.LoginView;
+import view.signup.SignupView;
 import view.view_product.BuyerViewProductView;
 
 import java.io.IOException;
@@ -55,24 +77,49 @@ import java.sql.SQLException;
 
 public class BuyerViewProductUseCaseFactory {
 
-    public static BuyerViewProductView create(ViewManagerModel viewManagerModel,
+    public static BuyerViewProductView create(Product product,
+                                              ViewManagerModel viewManagerModel,
                                               MainPageViewModel mainPageViewModel,
                                               ShoppingCartViewModel shoppingCartViewModel,
                                               ViewProfileViewModel profileViewModel,
-                                              BuyerViewProductViewModel buyerViewProductViewModel) throws SQLException {
+                                              BuyerViewProductViewModel buyerViewProductViewModel,
+                                              SearchProductViewModel searchProductViewModel,
+                                              SignupViewModel signupViewModel,
+                                              LoginViewModel loginViewModel) throws SQLException {
         MainPageController mainPageController =
                 BuyerViewProductUseCaseFactory.createMainPageController(mainPageViewModel,
                         viewManagerModel);
         AddToCartController addToCartController =
-                BuyerViewProductUseCaseFactory.createAddToCartController(viewManagerModel,
-                        shoppingCartViewModel, buyerViewProductViewModel);
+                BuyerViewProductUseCaseFactory.createAddToCartController(viewManagerModel, shoppingCartViewModel, buyerViewProductViewModel);
         PublishQuestionController publishQuestionController =
-                BuyerViewProductUseCaseFactory.createPublishQuestionController();
-        return new BuyerViewProductView(buyerViewProductViewModel, addToCartController, publishQuestionController, mainPageController, );
+                BuyerViewProductUseCaseFactory.createPublishQuestionController(product, buyerViewProductViewModel, viewManagerModel);
+        GetSearchPageController getSearchPageController = createGetSearchPageController(viewManagerModel, searchProductViewModel);
+
+        ViewSignupPageController viewSignupPageController = createViewSignupPageController(viewManagerModel, signupViewModel);
+
+        ViewLoginPageController viewLoginPageController = createViewLoginPageController(loginViewModel, viewManagerModel);
+        ShoppingCartController shoppingCartController = createShoppingCartController(shoppingCartViewModel, viewManagerModel);
+        LogOutController logOutController = createLogOutController(viewManagerModel, mainPageViewModel);
+
+        return new BuyerViewProductView(buyerViewProductViewModel, addToCartController, publishQuestionController, mainPageController,
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
     }
 
-    private static PublishQuestionController createPublishQuestionController(){
-        PublishQuestionInputBoundary publishQuestionInteractor = new PublishQuestionInteractor();
+    private  static ViewLoginPageController createViewLoginPageController(LoginViewModel loginViewModel, ViewManagerModel viewManagerModel){
+
+
+        ViewLoginPageOutputBoundary presenter = new ViewLoginPagePresenter(loginViewModel, viewManagerModel);
+        ViewLoginPageInputBoundary interactor = new ViewLoginPageInteractor(presenter);
+        return new ViewLoginPageController(interactor);
+    }
+
+    private static PublishQuestionController createPublishQuestionController(Product product, BuyerViewProductViewModel buyerViewProductViewModel, ViewManagerModel viewManagerModel) throws SQLException {
+
+        QuestionCreateDataAccessInterface questionCreateDataAccessObject = new DatabaseQuestionCreateDataAccessObject();
+        QuestionFactory questionFactory = new CommonQuestionFactory();
+        PublishQuestionOutputBoundary presenter = new PublishQuestionPresenter(buyerViewProductViewModel, viewManagerModel);
+
+        PublishQuestionInputBoundary publishQuestionInteractor = new PublishQuestionInteractor(product, questionCreateDataAccessObject, questionFactory, presenter);
         return new PublishQuestionController(publishQuestionInteractor);
     }
 
@@ -100,15 +147,16 @@ public class BuyerViewProductUseCaseFactory {
         return new AddToCartController(addShoppingCartProductInteractor);
     }
 
-    private static ShoppingCartController createShoppingCartController(ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
+    private static ShoppingCartController createShoppingCartController(ShoppingCartViewModel shoppingCartViewModel, ViewManagerModel viewManagerModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
-        ShoppingCartPresenter presenter = new ShoppingCartPresenter(shoppingCartViewModel);
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+        ShoppingCartPresenter presenter = new ShoppingCartPresenter(viewManagerModel, shoppingCartViewModel);
         DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
                 = new DatabaseShoppingCartReadDataAccessObjectFactory();
         ShoppingCartReadDataAccessInterface shoppingCartReadDataAccess =
                 databaseShoppingCartReadDataAccessObjectFactory.create(shoppingCartFactory,
-                        productFactory);
+                        productFactory, scheduleFactory);
         ShowShoppingCartInputBoundary showShoppingCartInteractor =
                 new ShowShoppingCartInteractor(presenter, shoppingCartReadDataAccess);
         return new ShoppingCartController(showShoppingCartInteractor);
@@ -153,6 +201,14 @@ public class BuyerViewProductUseCaseFactory {
         GetSearchViewInputBoundary getSearchViewInteractor =
                 new GetSearchViewInteractor(getSearchViewPresenter, productReadAllDataAccessObeject);
         return new GetSearchPageController(getSearchViewInteractor);
+    }
+
+    private static ViewSignupPageController createViewSignupPageController(ViewManagerModel viewManagerModel,
+                                                               SignupViewModel signupViewModel) throws SQLException{
+        ViewSignupPageOutputBoundary preseter = new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
+
+        ViewSignupPageInputBoundary interactor = new ViewSignupPageInteractor(preseter);
+        return new ViewSignupPageController(interactor);
     }
 
 }

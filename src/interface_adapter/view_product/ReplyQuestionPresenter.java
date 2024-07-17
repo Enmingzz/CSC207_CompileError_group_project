@@ -2,12 +2,13 @@ package interface_adapter.view_product;
 
 import entity.comment.Question;
 import interface_adapter.ViewManagerModel;
+import use_case.view_product.ReplyQuestionOutputBoundary;
 import use_case.view_product.ReplyQuestionOutputData;
 
 import java.util.ArrayList;
 
 
-public class ReplyQuestionPresenter {
+public class ReplyQuestionPresenter implements ReplyQuestionOutputBoundary {
     private final ReplyQuestionViewModel replyQuestionViewModel;
     private final SellerViewProductViewModel sellerViewProductViewModel;
     ViewManagerModel viewManagerModel;

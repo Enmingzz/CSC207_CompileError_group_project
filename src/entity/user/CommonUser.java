@@ -15,9 +15,19 @@ public class CommonUser implements User{
     float userRating;
     String studentNumber;
 
-    public CommonUser(String name, String Password, String email, float userRating, String studentNumber){
+    /**
+     * Constructs a {@code CommonUser} object with the specified name, password, email, user rating, and student number.
+     *
+     * @param name         the name of the user
+     * @param password     the password of the user
+     * @param email        the email address of the user
+     * @param userRating   the rating of the user
+     * @param studentNumber the student number associated with the user
+     */
+
+    public CommonUser(String name, String password, String email, float userRating, String studentNumber){
         this.name = name;
-        this.password = Password;
+        this.password = password;
         this.email = email;
         this.userRating = userRating;
         this.studentNumber = studentNumber;

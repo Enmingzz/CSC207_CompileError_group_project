@@ -7,6 +7,7 @@ import entity.user.User;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
+import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.ViewSignupPageController;
@@ -48,11 +49,14 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
 
     final JTextField questionInputField = new JTextField(15);
 
-    GetSearchPageController getSearchPageController;
-    ViewSignupPageController viewSignupPageController;
-    ViewLoginPageController viewLoginPageController;
-    ShoppingCartController shoppingCartController;
-    LogOutController logOutController;
+    //Top Bar stuff
+    private final GetSearchPageController getSearchPageController;
+    private final ViewSignupPageController viewSignupPageController;
+    private final ViewLoginPageController viewLoginPageController;
+    private final ShoppingCartController shoppingCartController;
+    private final LogOutController logOutController;
+    private final ViewProfileController viewProfileController;
+
 
     private final JButton cancel;
     private final JButton addToCart;
@@ -69,8 +73,16 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
                                 ViewSignupPageController viewSignupPageController,
                                 ViewLoginPageController viewLoginPageController,
                                 ShoppingCartController shoppingCartController,
-                                LogOutController logOutController){
+                                LogOutController logOutController,
+                                ViewProfileController viewProfileController){
         this.buyerViewProductViewModel = buyerViewProductViewModel;
+
+        this.getSearchPageController = getSearchPageController;
+        this.viewSignupPageController  = viewSignupPageController;
+        this.viewLoginPageController = viewLoginPageController;
+        this.shoppingCartController = shoppingCartController;
+        this.logOutController = logOutController;
+        this.viewProfileController = viewProfileController;
 
         this.buyerViewProductViewModel.addPropertyChangeListener(this);
 
@@ -228,7 +240,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         this.add(buttons);
 
         JPanel topBar = new TopBarSampleView(this.buyerViewProductViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
         //TODO implement the shared top bar
         this.add(topBar);
 
@@ -289,7 +301,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
             qAInfo.add(qA_TextPanel);
 
             JPanel topBar = new TopBarSampleView(newState.getUser(),
-                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
+                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
             this.add(topBar);// TODO need to add this to all view
 
             newState.setIsChanged(false);

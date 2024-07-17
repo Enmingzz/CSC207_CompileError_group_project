@@ -1,17 +1,14 @@
 package app.product_usecase_factory;
 
 import data_access.factories.interfaces.product.DataBaseProductReadAllDataAccessObjectFactoryInterface;
-import data_access.factories.interfaces.product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.user.DatabaseUserCreateDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.user.DatabaseUserReadDataAccessObjectFactoryInterface;
 import data_access.factories.objects.product.DatabaseProductReadAllDataAccessObjectFactory;
-import data_access.factories.objects.product.DatabaseProductReadByNameDataAccessObjectFactory;
 import data_access.factories.objects.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactory;
 import data_access.factories.objects.user.DatabaseUserCreateDataAccessObjectFactory;
 import data_access.factories.objects.user.DatabaseUserReadDataAccessObjectFactory;
 import data_access.interfaces.product.ProductReadAllDataAccessInterface;
-import data_access.interfaces.product.ProductReadByNameDataAccessInterface;
 import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
 import data_access.interfaces.user.UserCreateDataAccessInterface;
 import data_access.interfaces.user.UserReadDataAccessInterface;
@@ -38,6 +35,7 @@ import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import interface_adapter.signup.*;
+import interface_adapter.view_product.UnloggedInViewModel;
 import use_case.search_product.*;
 import use_case.signup.*;
 import use_case.login.*;
@@ -63,22 +61,19 @@ public class NonLoggedInViewProductUseFactory {
                                                 ShoppingCartViewModel shoppingCartViewModel,
                                                 SearchProductViewModel searchProductViewModel,
                                                 LoginViewModel loginViewModel,
-                                                SignupViewModel signupViewModel) throws SQLException, IOException {
-        try {
-            LoginController loginController =
-                    NonLoggedInViewProductUseFactory.createUserLoginUseCase(viewManagerModel,
-                            loginViewModel, mainPageViewModel);
-            MainPageController mainPageController =
-                    NonLoggedInViewProductUseFactory.createMainPageController(mainPageViewModel,
-                            viewManagerModel);
-            ShoppingCartController shoppingCartController =
-                    NonLoggedInViewProductUseFactory.createShoppingCartController(viewManagerModel, shoppingCartViewModel);
-            return new NonloggedInProductView();
-        }catch(IOException e){
-            //TODO write some message here
-        }catch(SQLException e){
-            //TODO write some message here
-        }
+                                                SignupViewModel signupViewModel,
+                                                UnloggedInViewModel unloggedInViewModel,
+                                                ViewProfileViewModel profileViewModel) throws SQLException, IOException {
+        ViewLoginPageController viewLoginPageController = createViewLoginPageController(loginViewModel, viewManagerModel);
+        MainPageController mainPageController =
+                NonLoggedInViewProductUseFactory.createMainPageController(mainPageViewModel, viewManagerModel);
+        GetSearchPageController getSearchPageController = createGetSearchPageController(viewManagerModel, searchProductViewModel);
+        ViewSignupPageController viewSignupPageController = creatViewSignupPageController(viewManagerModel,signupViewModel);
+        LogOutController logOutController = createLogOutController(viewManagerModel, mainPageViewModel);
+        ShoppingCartController shoppingCartController = createShoppingCartController(viewManagerModel, shoppingCartViewModel);
+        ViewProfileController viewProfileController = createProfileController(viewManagerModel, profileViewModel);
+
+        return new NonloggedInProductView(unloggedInViewModel, viewLoginPageController, mainPageController, getSearchPageController, viewSignupPageController, shoppingCartController, logOutController, viewProfileController);
     }
 
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {

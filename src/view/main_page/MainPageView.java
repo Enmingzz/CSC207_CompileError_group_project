@@ -28,6 +28,7 @@ import interface_adapter.profile.view_profile.ViewProfileController;
 // import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
+import view.TopBarSampleView;
 
 
 import javax.swing.*;
@@ -62,6 +63,7 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
     private final ViewLoginPageController viewLoginPageController;
     private final ViewSignupPageController viewSignupPageController;
 
+
     AllProductsPanel allProductsPanel;
 
     public MainPageView(MainPageViewModel mainPageViewModel,
@@ -72,7 +74,8 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
                         LogOutController logOutController,
                         MainPageController mainPageController,
                         ViewSignupPageController viewSignupPageController,
-                        ViewLoginPageController viewLoginPageController){
+                        ViewLoginPageController viewLoginPageController
+                        ){
         // initialize all controllers here
         this.viewProductController = viewProductController;
 
@@ -93,7 +96,10 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         this.add(title);
 
-        //TODO: FINISH TOP BAR
+        //TODO: check if the top bar is correct
+        JPanel topBar = new TopBarSampleView(this.mainPageViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
+        this.add(topBar);
 
         // Products page starts here
 
@@ -182,7 +188,9 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
         allProductsPanel = new AllProductsPanel(allProducts, mainPageViewModel, viewProductController);
 
-        // TODO: ADD TOP BAR PROPERTY CHANGE
+        JPanel topBar = new TopBarSampleView(state.getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
+        this.add(topBar);
 
     }
 
