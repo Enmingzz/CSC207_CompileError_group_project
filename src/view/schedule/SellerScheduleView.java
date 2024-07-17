@@ -4,6 +4,7 @@ import entity.product.Product;
 import entity.user.User;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
+import interface_adapter.profile.manage_product.ManageProductController;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.schedule.SellerSelectScheduleController;
 import interface_adapter.schedule.SellerSelectScheduleState;
@@ -11,6 +12,7 @@ import interface_adapter.schedule.SellerSelectScheduleViewModel;
 import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.ViewSignupPageController;
+import view.profile.ManageProductView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +35,7 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
     public final String viewName = "seller_schedule";
     private SellerSelectScheduleController controller;
     private SellerSelectScheduleViewModel viewModel;
-    private ViewProfileController viewProfileController;
+    private ManageProductController manageProductController;
 
     private GetSearchPageController getSearchPageController;
     private ViewSignupPageController viewSignupPageController;
@@ -55,7 +57,7 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
 
     public SellerScheduleView(SellerSelectScheduleController controller,
                               SellerSelectScheduleViewModel viewModel,
-                              ViewProfileController viewProfileController,
+                              ManageProductController manageProductController,
                               GetSearchPageController getSearchPageController,
                               ViewSignupPageController viewSignupPageController,
                               ViewLoginPageController viewLoginPageController,
@@ -63,7 +65,7 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
                               LogOutController logOutController) {
         this.controller = controller;
         this.viewModel = viewModel;
-        this.viewProfileController = viewProfileController;
+        this.manageProductController = manageProductController;
 
         // for top bar
         this.getSearchPageController = getSearchPageController;
@@ -157,7 +159,11 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(cancelButton)) {
                     User seller = viewModel.getState().getSeller();
-                    viewProfileController.execute(seller);
+                    try {
+                        manageProductController.execute(seller);
+                    } catch (SQLException | IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         });

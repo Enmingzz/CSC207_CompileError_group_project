@@ -31,7 +31,8 @@ public class SearchProductByNamePresenter implements SearchProductByNameOutputBo
 
 
     /**
-     * Prepares the successful view with the given output data.
+     * Prepares the successful view with the given output data, refreshes the search page,
+     * and displays the matching products with the search name.
      *
      * @param searchProductByNameOutputData the output data containing the user and list of matching products
      */
