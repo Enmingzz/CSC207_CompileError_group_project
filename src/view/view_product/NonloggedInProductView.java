@@ -6,9 +6,14 @@ import entity.user.CommonUserFactory;
 import entity.user.User;
 import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
+import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
+import interface_adapter.search_product.GetSearchPageController;
+import interface_adapter.shopping_cart.ShoppingCartController;
+import interface_adapter.signup.ViewSignupPageController;
 import interface_adapter.view_product.UnloggedInState;
 import interface_adapter.view_product.UnloggedInViewModel;
+import view.TopBarSampleView;
 
 
 import javax.swing.*;
@@ -23,13 +28,16 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
     public final String viewName = "non login view product view";
     private final UnloggedInViewModel nonLoggedInViewModel;
 
+    //Top Bar stuff
+    private final GetSearchPageController getSearchPageController;
+    private final ViewSignupPageController viewSignupPageController;
+    private final ViewLoginPageController viewLoginPageController;
+    private final ShoppingCartController shoppingCartController;
+    private final LogOutController logOutController;
+
 
     private final JButton cancel;
     private final JButton addToCart;
-
-
-    private final ViewLoginPageController viewLoginPageController;
-    private final MainPageController mainPageController;
 
     private ProductInfoLabelTextPanel productInfo;
     private JPanel qAInfo;
@@ -37,10 +45,18 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
 
     public NonloggedInProductView(UnloggedInViewModel nonLoggedInViewModel,
                                   ViewLoginPageController viewLoginPageController,
-                                  MainPageController mainPageController) {
+                                  MainPageController mainPageController,
+                                  GetSearchPageController getSearchPageController,
+                                  ViewSignupPageController viewSignupPageController,
+                                  ShoppingCartController shoppingCartController,
+                                  LogOutController logOutController) {
         this.nonLoggedInViewModel = nonLoggedInViewModel;
+
+        this.getSearchPageController = getSearchPageController;
+        this.viewSignupPageController  = viewSignupPageController;
         this.viewLoginPageController = viewLoginPageController;
-        this.mainPageController = mainPageController;
+        this.shoppingCartController = shoppingCartController;
+        this.logOutController = logOutController;
 
         this.nonLoggedInViewModel.addPropertyChangeListener(this);
 
@@ -182,6 +198,10 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
 
             qAInfo.add(qA_title);
             qAInfo.add(qA_TextPanel);
+
+            JPanel topBar = new TopBarSampleView(newState.getUser(),
+                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
+            this.add(topBar);
 
             newState.setIsChanged(false);
         }
