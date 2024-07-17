@@ -22,20 +22,10 @@ public class SellerSelectScheduleOutputData {
         this.product = product;
     }
 
-    /**
-     * Returns the seller selecting the schedule.
-     *
-     * @return the seller
-     */
     public User getSeller() {
         return seller;
     }
 
-    /**
-     * Returns the updated product information after schedule selection.
-     *
-     * @return the product
-     */
     public Product getProduct() {
         return product;
     }

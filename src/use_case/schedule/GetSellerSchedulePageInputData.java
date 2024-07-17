@@ -23,20 +23,10 @@ public class GetSellerSchedulePageInputData {
         this.seller = seller;
     }
 
-    /**
-     * Gets the product associated with the schedule.
-     *
-     * @return the product
-     */
     public Product getProduct(){
         return product;
     }
 
-    /**
-     * Gets the seller requesting the schedule page.
-     *
-     * @return the seller
-     */
     public User getSeller(){
         return seller;
     }

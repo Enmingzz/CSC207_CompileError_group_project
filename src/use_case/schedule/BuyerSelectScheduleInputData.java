@@ -27,29 +27,14 @@ public class BuyerSelectScheduleInputData {
         this.selectedTime = selectedTime;
     }
 
-    /**
-     * Gets the buyer selecting the schedule.
-     *
-     * @return the buyer
-     */
     public User getBuyer() {
         return buyer;
     }
 
-    /**
-     * Gets the product associated with the schedule.
-     *
-     * @return the product
-     */
     public Product getProduct() {
         return product;
     }
 
-    /**
-     * Gets the selected schedule time.
-     *
-     * @return the selected schedule time
-     */
     public LocalDateTime getSelectedTime() {
         return selectedTime;
     }

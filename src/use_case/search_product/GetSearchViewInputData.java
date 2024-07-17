@@ -18,11 +18,6 @@ public class GetSearchViewInputData {
         this.user = user;
     }
 
-    /**
-     * Returns the user requesting the search page.
-     *
-     * @return the user
-     */
     User getUser() {
         return user;
     }
