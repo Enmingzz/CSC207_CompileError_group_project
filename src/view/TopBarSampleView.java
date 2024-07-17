@@ -4,6 +4,7 @@ import entity.user.User;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
+import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.SignupController;
@@ -28,7 +29,8 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
                             ViewSignupPageController viewSignupPageController,
                             ViewLoginPageController viewLoginPageController,
                             ShoppingCartController shoppingCartController,
-                            LogOutController logOutController) {
+                            LogOutController logOutController,
+                            ViewProfileController viewProfileController) {
 
         //(1)search button
         searchButton = new JButton("Search");
@@ -124,6 +126,28 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
             }
             logOut.addActionListener(new LogOutListener());
             this.add(logOut);
+
+
+            //(7) ViewProfile
+
+            JButton profile = new JButton();
+            ImageIcon imageIcon = new ImageIcon("/src/pic/testpic4.png");
+            profile.setIcon(imageIcon);
+            class ViewProfileListener implements ActionListener{
+                @Override
+                public void actionPerformed(ActionEvent evt){
+                    if(evt.getSource().equals(profile)){
+                        try{
+                            viewProfileController.execute(user);
+                        }catch (Exception e){
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+            }
+
+            profile.addActionListener(new ViewProfileListener());
+            this.add(profile);
         }
     }
 

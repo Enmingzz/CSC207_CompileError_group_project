@@ -15,6 +15,13 @@ public class CommonSchedule implements Schedule{
     private LocalDateTime buyerTime;
     private ArrayList<LocalDateTime> sellerTime;
 
+    /**
+     * Constructs a {@code CommonSchedule} object with the specified buyer time and seller times.
+     *
+     * @param buyerTime   the date and time for the buyer
+     * @param sellerTime  the list of dates and times for the seller
+     */
+
     public CommonSchedule(LocalDateTime buyerTime, ArrayList<LocalDateTime> sellerTime) {
         this.buyerTime = buyerTime;
         this.sellerTime = sellerTime;

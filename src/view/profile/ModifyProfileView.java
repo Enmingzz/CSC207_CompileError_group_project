@@ -9,7 +9,7 @@ import interface_adapter.profile.modify_profile.ModifyProfileViewModel;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.shopping_cart.ShoppingCartController;
-import view.profile.ProfileListener.ModifyLabelTextPanel;
+import view.profile.ProfileHelper.ModifyLabelTextPanel;
 
 import javax.swing.*;
 import java.awt.*;

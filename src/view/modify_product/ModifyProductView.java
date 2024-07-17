@@ -57,6 +57,8 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 
         //(1) show the product information while
         Product product = viewModifyProductViewModel.getState().getProduct();
+        LabelTextPanel title = new LabelTextPanel(
+                new JLabel("Title"), titleInputField);
         final JLabel titleLabel =new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
         final JLabel title = new JLabel(product.getTitle());
         final JLabel descriptionLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
@@ -172,8 +174,12 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-            ViewModifyProductState state = (ViewModifyProductState) evt.getNewValue();
-            //TODO complete this part to see if new implementation is needed
+        ViewModifyProductState state = (ViewModifyProductState) evt.getNewValue();
+        setFields(state);
+    }
+
+    private void setFields(ViewModifyProductState state) {
+        description
     }
 }
 

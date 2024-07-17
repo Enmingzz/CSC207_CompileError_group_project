@@ -10,6 +10,13 @@ public class CommonComment implements Comment{
     private String description;
     private String studentNumber;
 
+    /**
+     * Constructs a {@code CommonComment} object with the specified description and student number.
+     *
+     * @param description   the description of the comment
+     * @param studentNumber the student number associated with the comment
+     */
+
     public CommonComment(String description, String studentNumber) {
         this.description = description;
         this.studentNumber = studentNumber;

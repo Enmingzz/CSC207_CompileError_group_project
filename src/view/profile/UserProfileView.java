@@ -7,7 +7,7 @@ import interface_adapter.profile.view_profile.ViewProfileState;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.SignupController;
-import view.profile.ProfileListener.ProfileLabelTextPanel;
+import view.profile.ProfileHelper.ProfileLabelTextPanel;
 
 import javax.swing.*;
 import java.awt.*;
