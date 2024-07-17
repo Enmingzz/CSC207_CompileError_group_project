@@ -2,10 +2,18 @@ package view.modify_product;
 
 import entity.product.Product;
 import entity.user.User;
+import interface_adapter.login.ViewLoginPageController;
+import interface_adapter.logout.LogOutController;
+import interface_adapter.main_page.MainPageController;
 import interface_adapter.modify_product.ModifyProductController;
 import interface_adapter.modify_product.ViewModifyProductState;
 import interface_adapter.modify_product.ViewModifyProductViewModel;
 import interface_adapter.profile.manage_product.ManageProductController;
+import interface_adapter.profile.view_profile.ViewProfileController;
+import interface_adapter.search_product.GetSearchPageController;
+import interface_adapter.shopping_cart.ShoppingCartController;
+import interface_adapter.signup.ViewSignupPageController;
+import view.TopBarSampleView;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -31,6 +39,15 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
     ModifyProductController modifyProductController;
     ManageProductController manageProductController;
 
+    //Top Bar stuff
+    private final GetSearchPageController getSearchPageController;
+    private final ViewSignupPageController viewSignupPageController;
+    private final ViewLoginPageController viewLoginPageController;
+    private final ShoppingCartController shoppingCartController;
+    private final LogOutController logOutController;
+    private final ViewProfileController viewProfileController;
+    private final MainPageController mainPageController;
+
     private final JButton changeProduct;
     private final JButton cancel;
 
@@ -39,12 +56,33 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
     JPanel productModification;
 
     public ModifyProductView( ViewModifyProductViewModel viewModifyProductViewModel,
-                              ModifyProductController modifyProductController, ManageProductController manageProductController
+                              ModifyProductController modifyProductController,
+                              ManageProductController manageProductController,
+                              MainPageController mainPageController,
+                              GetSearchPageController getSearchPageController,
+                              ViewSignupPageController viewSignupPageController,
+                              ViewLoginPageController viewLoginPageController,
+                              ShoppingCartController shoppingCartController,
+                              LogOutController logOutController,
+                              ViewProfileController viewProfileController
                               ) {
         this.viewModifyProductViewModel = viewModifyProductViewModel;
         viewModifyProductViewModel.addPropertyChangeListener(this);
         this.modifyProductController = modifyProductController;
         this.manageProductController = manageProductController;
+
+        //top bar initialize
+        this.getSearchPageController = getSearchPageController;
+        this.viewSignupPageController  = viewSignupPageController;
+        this.viewLoginPageController = viewLoginPageController;
+        this.shoppingCartController = shoppingCartController;
+        this.logOutController = logOutController;
+        this.viewProfileController = viewProfileController;
+        this.mainPageController = mainPageController;
+
+        JPanel topBar = new TopBarSampleView(this.viewModifyProductViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
 
         JLabel _title = new JLabel(viewModifyProductViewModel.TITLE_LABEL);
         _title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -176,6 +214,10 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
     public void propertyChange(PropertyChangeEvent evt) {
         ViewModifyProductState state = (ViewModifyProductState) evt.getNewValue();
         setFields(state);
+
+        JPanel topBar = new TopBarSampleView(state.getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
     }
 
     private void setFields(ViewModifyProductState state) {

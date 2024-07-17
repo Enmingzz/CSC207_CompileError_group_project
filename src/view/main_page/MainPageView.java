@@ -98,7 +98,7 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
         //TODO: check if the top bar is correct
         JPanel topBar = new TopBarSampleView(this.mainPageViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
 
         // Products page starts here
@@ -189,7 +189,7 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
         allProductsPanel = new AllProductsPanel(allProducts, mainPageViewModel, viewProductController);
 
         JPanel topBar = new TopBarSampleView(state.getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
 
     }

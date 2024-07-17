@@ -2,13 +2,18 @@ package view.profile;
 
 import entity.user.User;
 import entity.user.UserFactory;
+import interface_adapter.login.ViewLoginPageController;
+import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.profile.modify_profile.ModifyProfileController;
 import interface_adapter.profile.modify_profile.ModifyProfileState;
 import interface_adapter.profile.modify_profile.ModifyProfileViewModel;
 import interface_adapter.profile.view_profile.ViewProfileController;
+import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.search_product.SearchProductByNameController;
 import interface_adapter.shopping_cart.ShoppingCartController;
+import interface_adapter.signup.ViewSignupPageController;
+import view.TopBarSampleView;
 import view.profile.ProfileHelper.ModifyLabelTextPanel;
 
 import javax.swing.*;
@@ -30,6 +35,12 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
     private final SearchProductByNameController searchProductByNameController;
     private final  ViewProfileController viewProfileController;
 
+    //Top Bar stuff
+    private final GetSearchPageController getSearchPageController;
+    private final ViewSignupPageController viewSignupPageController;
+    private final ViewLoginPageController viewLoginPageController;
+        private final LogOutController logOutController;
+
     private final UserFactory userFactory;
 
     public final String viewName = "modify profile";
@@ -40,14 +51,30 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
     final JButton backButton;
 
     public ModifyProfileView(UserFactory userFactory, ModifyProfileController modifyProfileController,
-                             MainPageController mainPageController, ShoppingCartController shoppingCartController,
-                             SearchProductByNameController searchProductByNameController, ViewProfileController viewProfileController) {
+                             MainPageController mainPageController,
+                             ShoppingCartController shoppingCartController,
+                             SearchProductByNameController searchProductByNameController,
+                             ViewProfileController viewProfileController,
+                             GetSearchPageController getSearchPageController,
+                             ViewSignupPageController viewSignupPageController,
+                             ViewLoginPageController viewLoginPageController,
+                             LogOutController logOutController) {
         this.modifyProfileController = modifyProfileController;
         this.mainPageController = mainPageController;
         this.shoppingCartController = shoppingCartController;
         this.searchProductByNameController = searchProductByNameController;
         this.viewProfileController = viewProfileController;
         this.userFactory = userFactory;
+
+        //top bar initialize
+        this.getSearchPageController = getSearchPageController;
+        this.viewSignupPageController  = viewSignupPageController;
+        this.viewLoginPageController = viewLoginPageController;
+        this.logOutController = logOutController;
+
+        JPanel topBar = new TopBarSampleView(this.modifyProfileViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
 
         modifyProfileViewModel.addPropertyChangeListener(this);
         JLabel title = new JLabel(modifyProfileViewModel.TITLE_LABEL);
@@ -93,5 +120,9 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
     public void propertyChange(PropertyChangeEvent evt) {
         ModifyProfileState state = (ModifyProfileState) evt.getNewValue();
         modifyProfileViewModel.setState(state);
+
+        JPanel topBar = new TopBarSampleView(state.getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
     }
 }
