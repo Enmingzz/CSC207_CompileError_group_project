@@ -33,6 +33,7 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
     private final ShoppingCartController shoppingCartController;
     private final LogOutController logOutController;
     private final ViewProfileController viewProfileController;
+    private final MainPageController mainPageController;
 
     public final String viewName = "seller reply page";
 
@@ -57,6 +58,7 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
         this.shoppingCartController = shoppingCartController;
         this.logOutController = logOutController;
         this.viewProfileController = viewProfileController;
+        this.mainPageController = mainPageController;
 
         JLabel page_title = new JLabel(replyQuestionViewModel.TITLE_LABEL);
         page_title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -147,7 +149,7 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
         this.add(cancel);
 
         JPanel topBar = new TopBarSampleView(replyQuestionViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
 
     }
@@ -162,7 +164,7 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
 
         question_to_be_answered = new JLabel(newState.getQuestion().getDescription());
         JPanel topBar = new TopBarSampleView(newState.getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
     }
 }

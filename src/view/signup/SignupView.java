@@ -295,7 +295,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         UserFactory userFactory = new CommonUserFactory();
         User user = userFactory.createUser("", "", "", 0, "");
         JPanel topBar = new TopBarSampleView(user,
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
 
     }
@@ -319,7 +319,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         UserFactory userFactory = new CommonUserFactory();
         User user = userFactory.createUser("", "", "", 0, "");
         JPanel topBar = new TopBarSampleView(user,
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
     }
 

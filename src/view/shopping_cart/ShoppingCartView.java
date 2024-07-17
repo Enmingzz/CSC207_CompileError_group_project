@@ -21,6 +21,7 @@ import interface_adapter.profile.view_profile.ViewProfileController;
 // import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.main_page.MainPageController;
+import view.TopBarSampleView;
 
 
 import javax.swing.*;
@@ -329,7 +330,6 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        // TODO: ADD PROPERTY CHANGE RELATED TO TOP BAR HERE
 
         ShoppingCartState state = (ShoppingCartState) evt.getNewValue();
 
@@ -344,6 +344,10 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
                 confirmController,
                 getRatePageController);
 
-
+        JPanel topBar = new TopBarSampleView(state.getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
     }
+
+
 }

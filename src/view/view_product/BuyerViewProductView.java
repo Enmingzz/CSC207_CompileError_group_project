@@ -56,6 +56,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
     private final ShoppingCartController shoppingCartController;
     private final LogOutController logOutController;
     private final ViewProfileController viewProfileController;
+    private final MainPageController mainPageController;
 
 
     private final JButton cancel;
@@ -83,6 +84,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         this.shoppingCartController = shoppingCartController;
         this.logOutController = logOutController;
         this.viewProfileController = viewProfileController;
+        this.mainPageController = mainPageController;
 
         this.buyerViewProductViewModel.addPropertyChangeListener(this);
 
@@ -240,7 +242,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         this.add(buttons);
 
         JPanel topBar = new TopBarSampleView(this.buyerViewProductViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
         //TODO implement the shared top bar
         this.add(topBar);
 
@@ -301,7 +303,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
             qAInfo.add(qA_TextPanel);
 
             JPanel topBar = new TopBarSampleView(newState.getUser(),
-                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
+                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
             this.add(topBar);// TODO need to add this to all view
 
             newState.setIsChanged(false);

@@ -1,5 +1,6 @@
 package view.view_product;
 
+import app.Main;
 import entity.comment.Question;
 import entity.product.Product;
 import entity.user.CommonUserFactory;
@@ -36,6 +37,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
     private final ShoppingCartController shoppingCartController;
     private final LogOutController logOutController;
     private final ViewProfileController viewProfileController;
+    private final MainPageController mainPageController;
 
 
     private final JButton cancel;
@@ -61,6 +63,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
         this.shoppingCartController = shoppingCartController;
         this.logOutController = logOutController;
         this.viewProfileController = viewProfileController;
+        this.mainPageController = mainPageController;
 
         this.nonLoggedInViewModel.addPropertyChangeListener(this);
 
@@ -204,7 +207,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
             qAInfo.add(qA_TextPanel);
 
             JPanel topBar = new TopBarSampleView(newState.getUser(),
-                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
+                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
             this.add(topBar);
 
             newState.setIsChanged(false);
