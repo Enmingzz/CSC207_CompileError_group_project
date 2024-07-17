@@ -1,5 +1,7 @@
 package interface_adapter.modify_product;
 
+import entity.user.User;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -19,6 +21,8 @@ public class CreateProductState {
     private ArrayList<String> listTags = new ArrayList<String>();
     private String listTagsError = null;
 
+    private User user = null;
+
     public CreateProductState(CreateProductState copy) {
         image = copy.image;
         imageError = copy.imageError;
@@ -35,6 +39,8 @@ public class CreateProductState {
 
         listTags = copy.listTags;
         listTagsError = copy.listTagsError;
+
+        user = copy.user;
     }
 
     //A default constructor where the fields can be set later
@@ -82,6 +88,7 @@ public class CreateProductState {
     public String getListTagsError() {
         return listTagsError;
     }
+    public User getUser() {return user;}
 
     public void setImageError(String error) {
         imageError = error;
@@ -103,6 +110,28 @@ public class CreateProductState {
     }
     public void setListTagsError(String error) {
         listTagsError = error;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+    public void setDescription(String des) {
+        description = des;
+    }
+    public void setPrice(String pri) {
+        price = pri;
+    }
+    public void setTitle(String titl) {
+        title = titl;
+    }
+    public void seteTransferEmail(String email) {
+        eTransferEmail = email;
+    }
+    public void setAddress(String add) {
+        address = add;
+    }
+    public void setListTags(ArrayList<String> tags) {
+        listTags = tags;
     }
 
 }
