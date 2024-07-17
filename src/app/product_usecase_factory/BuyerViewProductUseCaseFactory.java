@@ -97,7 +97,7 @@ public class BuyerViewProductUseCaseFactory {
         ViewSignupPageController viewSignupPageController = createViewSignupPageController(viewManagerModel, signupViewModel);
 
         ViewLoginPageController viewLoginPageController = createViewLoginPageController(loginViewModel, viewManagerModel);
-        ShoppingCartController shoppingCartController = createShoppingCartController(shoppingCartViewModel, viewManagerModel);
+        ShoppingCartController shoppingCartController = createShoppingCartController(viewManagerModel, shoppingCartViewModel);
         LogOutController logOutController = createLogOutController(viewManagerModel, mainPageViewModel);
 
         ViewProfileController viewProfileController = createProfileController(viewManagerModel, profileViewModel);
@@ -147,13 +147,23 @@ public class BuyerViewProductUseCaseFactory {
         return new AddToCartController(addShoppingCartProductInteractor);
     }
 
-    private static ShoppingCartController createShoppingCartController(ShoppingCartViewModel shoppingCartViewModel, ViewManagerModel viewManagerModel) throws SQLException {
+    /**
+     * Creates an instance of {@link ShoppingCartController}.
+     *
+     * @param viewManagerModel     the view manager model
+     * @param shoppingCartViewModel the shopping cart view model
+     * @return an instance of {@link ShoppingCartController}
+     * @throws SQLException if a database access error occurs
+     */
+
+    private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
-        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
-        ShoppingCartPresenter presenter = new ShoppingCartPresenter(viewManagerModel, shoppingCartViewModel);
+        ShowShoppingCartOutputBoundary presenter = new ShoppingCartPresenter(viewManagerModel,
+                shoppingCartViewModel);
         DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
                 = new DatabaseShoppingCartReadDataAccessObjectFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
         ShoppingCartReadDataAccessInterface shoppingCartReadDataAccess =
                 databaseShoppingCartReadDataAccessObjectFactory.create(shoppingCartFactory,
                         productFactory, scheduleFactory);

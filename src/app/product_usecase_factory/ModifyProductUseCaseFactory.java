@@ -1,17 +1,11 @@
 package app.product_usecase_factory;
 
 import app.search_product_usecase_factory.SearchProductUseCaseFactory;
-import data_access.factories.interfaces.product.DataBaseProductReadAllDataAccessObjectFactoryInterface;
-import data_access.factories.interfaces.product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
-import data_access.factories.interfaces.product.DatabaseProductReadByUserDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.product.*;
 import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
-import data_access.factories.objects.product.DatabaseProductReadAllDataAccessObjectFactory;
-import data_access.factories.objects.product.DatabaseProductReadByNameDataAccessObjectFactory;
-import data_access.factories.objects.product.DatabaseProductReadByUserDataAccessObjectFactory;
+import data_access.factories.objects.product.*;
 import data_access.factories.objects.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactory;
-import data_access.interfaces.product.ProductReadAllDataAccessInterface;
-import data_access.interfaces.product.ProductReadByNameDataAccessInterface;
-import data_access.interfaces.product.ProductReadByUserDataAccessInterface;
+import data_access.interfaces.product.*;
 import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.ProductFactory;
@@ -125,13 +119,25 @@ public class ModifyProductUseCaseFactory {
         // ChangeProductDescriptionInterface, ChangeProductPriceInterface, ChangeProductPictureInterface, by using
         // databaseinterfaceFactorires?
         ChangeProductOutputBoundary presenter = new ModifyProductPresenter(manageProductViewModel);
-        ChangeProductDescriptionInterface changeProductDescriptionDAO;
 
 
-        ChangeProductPriceInterface changeProductPriceDAO = new
-        ChangeProductPictureInterface changeProductPictureDAO;
-        ChangeProductInputBoundary interactor = new ChangeProductInteractor(presenter, changeProductDescriptionDAO,
-                changeProductPriceDAO, changeProductPictureDAO);
+        DatabaseProductUpdateDescriptionDataAccessObjectFactoryInterface databaseProductUpdateDescriptionDataAccessObjectFactory
+                = new DatabaseProductUpdateDescriptionDataAccessObjectFactory();
+        ProductUpdateDescriptionDataAccessInterface productUpdateDescriptionDataAccessObject =
+                databaseProductUpdateDescriptionDataAccessObjectFactory.create();
+
+        ChangeProductDescriptionInterface changeProductDescription =
+                new ChangeProductDescription(productUpdateDescriptionDataAccessObject);
+
+        DatabaseProductUpdatePriceDataAccessObjectFactoryInterface databaseProductUpdatePriceDataAccessObjectFactory
+                = new DatabaseProductUpdatePriceDataAccessObjectFactory();
+        ProductUpdatePriceDataAccessInterface productUpdatePriceDataAccessObject =
+                databaseProductUpdatePriceDataAccessObjectFactory.create();
+
+        ChangeProductPriceInterface changeProductPrice = new ChangeProductPrice(productUpdatePriceDataAccessObject);
+
+        ChangeProductInputBoundary interactor = new ChangeProductInteractor(presenter, changeProductDescription,
+                changeProductPrice);
         return new ModifyProductController(interactor);
     }
 
