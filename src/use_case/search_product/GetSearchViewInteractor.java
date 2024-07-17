@@ -9,16 +9,33 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * The GetSearchViewInteractor class implements the GetSearchViewInputBoundary interface
+ * and provides the implementation for retrieving the search page.
+ */
 public class GetSearchViewInteractor implements GetSearchViewInputBoundary {
     final GetSearchViewOutputBoundary getSearchViewOutputBoundary;
     final ProductReadAllDataAccessInterface productReadAllDataAccessObject;
 
+    /**
+     * Constructs a GetSearchViewInteractor with the specified output boundary and data access object.
+     *
+     * @param getSearchViewOutputBoundary the output boundary to handle the output data
+     * @param productReadAllDataAccessObject the data access object to read all products
+     */
     public GetSearchViewInteractor(GetSearchViewOutputBoundary getSearchViewOutputBoundary,
                                   ProductReadAllDataAccessInterface productReadAllDataAccessObject) {
         this.getSearchViewOutputBoundary = getSearchViewOutputBoundary;
         this.productReadAllDataAccessObject = productReadAllDataAccessObject;
     }
 
+    /**
+     * Executes the process of retrieving the search view.
+     *
+     * @param getSearchViewInputData the input data containing necessary information to retrieve the search view
+     * @throws SQLException if a database access error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     public void getSearchView(GetSearchViewInputData getSearchViewInputData) throws SQLException, IOException {
         User user = getSearchViewInputData.getUser();
