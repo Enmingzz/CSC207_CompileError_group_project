@@ -61,7 +61,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
         class MainPageButtonListener implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent evt) {
-                if(evt.getSource().equals(searchButton)){
+                if(evt.getSource().equals(mainPageButton)){
                     try{
                         mainPageController.execute(user);
                     }catch (Exception e){
@@ -70,8 +70,8 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
                 }
             }
         }
-        searchButton.addActionListener(new MainPageButtonListener());
-        this.add(searchButton);
+        mainPageButton.addActionListener(new MainPageButtonListener());
+        this.add(mainPageButton);
 
         //haven't logged in
         if(Objects.equals(user.getName(), "")){

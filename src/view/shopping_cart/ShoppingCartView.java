@@ -3,6 +3,7 @@ package view.shopping_cart;
 import entity.product.Product;
 import entity.user.User;
 
+import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartState;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
@@ -10,6 +11,7 @@ import interface_adapter.shopping_cart.ShoppingCartViewModel;
 // Import all controllers related to shopping_cart
 import interface_adapter.shopping_cart.PurchaseController;
 import interface_adapter.schedule.GetBuyerSchedulePageController;
+import interface_adapter.signup.ViewSignupPageController;
 import interface_adapter.view_product.ViewProductController;
 import interface_adapter.shopping_cart.DeleteShoppingCartProductController;
 import interface_adapter.shopping_cart.ConfirmController;
@@ -63,6 +65,8 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
     private final GetSearchPageController getSearchPageController;
     private final LogOutController logOutController;
     private final MainPageController mainPageController;
+    private final ViewSignupPageController viewSignupPageController;
+    private final ViewLoginPageController viewLoginPageController;
 
     AllProductsPanel allProductsPanel;
 
@@ -89,7 +93,9 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
                             ViewProfileController viewProfileController,
                             GetSearchPageController getSearchPageController,
                             LogOutController logOutController,
-                            MainPageController mainPageController) {
+                            MainPageController mainPageController,
+                            ViewSignupPageController viewSignupPageController,
+                            ViewLoginPageController viewLoginPageController) {
 
         // Initialize all controllers here
         this.viewProductController = viewProductController;
@@ -105,6 +111,9 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
         this.logOutController = logOutController;
         this.mainPageController = mainPageController;
 
+        this.viewSignupPageController = viewSignupPageController;
+        this.viewLoginPageController = viewLoginPageController;
+
         this.shoppingCartViewModel = shoppingCartViewModel;
         shoppingCartViewModel.addPropertyChangeListener(this);
 
@@ -117,7 +126,9 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
 
         this.add(title);
 
-        //TODO: ADD TOP BAR HERE
+        JPanel topBar = new TopBarSampleView(shoppingCartViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
 
         allProductsPanel = new AllProductsPanel(listProducts,
                 shoppingCartViewModel,

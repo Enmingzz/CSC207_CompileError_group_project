@@ -69,6 +69,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
 
     public BuyerViewProductView(BuyerViewProductViewModel buyerViewProductViewModel,
                                 AddToCartController addToCartController, PublishQuestionController publishQuestionController,
+
                                 MainPageController mainPageController,
                                 GetSearchPageController getSearchPageController,
                                 ViewSignupPageController viewSignupPageController,
@@ -78,6 +79,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
                                 ViewProfileController viewProfileController){
         this.buyerViewProductViewModel = buyerViewProductViewModel;
 
+        //top bar initialize
         this.getSearchPageController = getSearchPageController;
         this.viewSignupPageController  = viewSignupPageController;
         this.viewLoginPageController = viewLoginPageController;
@@ -86,11 +88,18 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
 
+        JPanel topBar = new TopBarSampleView(this.buyerViewProductViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
+        //TODO implement the shared top bar
+
         this.buyerViewProductViewModel.addPropertyChangeListener(this);
 
 
         JLabel title = new JLabel(buyerViewProductViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
 
         //(1)product_info
         Product wtv_product = buyerViewProductViewModel.getState().getProduct();
@@ -241,10 +250,6 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         this.add(addQuestionInfo);
         this.add(buttons);
 
-        JPanel topBar = new TopBarSampleView(this.buyerViewProductViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        //TODO implement the shared top bar
-        this.add(topBar);
 
     }
 

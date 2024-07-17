@@ -1,15 +1,20 @@
 package view.search_product;
 
+import app.Main;
 import entity.product.Product;
 import entity.user.User;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
+import interface_adapter.main_page.MainPageController;
+import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.search_product.*;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.ViewSignupPageController;
 import interface_adapter.view_product.ViewProductController;
+import view.TopBarSampleView;
 
 import javax.swing.*;
+import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,17 +30,19 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
 
     private SearchProductByNameController searchByNameController;
     private SearchProductByTagController searchByTagController;
-    private ViewProductController viewProductController;
-    private SearchProductViewModel viewModel;
+    private final ViewProductController viewProductController;
+    private final SearchProductViewModel viewModel;
 
-    private GetSearchPageController getSearchPageController;
-    private ViewSignupPageController viewSignupPageController;
-    private ViewLoginPageController viewLoginPageController;
-    private ShoppingCartController shoppingCartController;
-    private LogOutController logOutController;
+    private final GetSearchPageController getSearchPageController;
+    private final ViewSignupPageController viewSignupPageController;
+    private final ViewLoginPageController viewLoginPageController;
+    private final ShoppingCartController shoppingCartController;
+    private final LogOutController logOutController;
+    private final ViewProfileController viewProfileController;
+    private final MainPageController mainPageController;
 
-    private JTextField searchBox;
-    private JButton searchButton;
+    private final JTextField searchBox;
+    private final JButton searchButton;
     private final String[] tags = {"Tag1", "Tag2", "Tag3"}; // to be decided later
     AllProductsPanel allProductsPanel;
 
@@ -47,7 +54,9 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
                              ViewSignupPageController viewSignupPageController,
                              ViewLoginPageController viewLoginPageController,
                              ShoppingCartController shoppingCartController,
-                             LogOutController logOutController) {
+                             LogOutController logOutController,
+                             ViewProfileController viewProfileController,
+                             MainPageController mainPageController) {
 
         this.searchByNameController = searchByNameController;
         this.searchByTagController = searchByTagController;
@@ -59,6 +68,12 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
         this.viewLoginPageController = viewLoginPageController;
         this.shoppingCartController = shoppingCartController;
         this.logOutController = logOutController;
+        this.viewProfileController = viewProfileController;
+        this.mainPageController = mainPageController;
+
+        JPanel topBar = new TopBarSampleView(this.viewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
 
         viewModel.addPropertyChangeListener(this);
 
@@ -190,6 +205,9 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
         ArrayList<Product> products = searchProductState.getProducts();
         allProductsPanel = new AllProductsPanel(products, viewModel, viewProductController);
 
+        JPanel topBar = new TopBarSampleView(searchProductState.getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
     }
 
 }

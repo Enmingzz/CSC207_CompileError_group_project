@@ -4,12 +4,15 @@ import entity.product.Product;
 import entity.user.User;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
+import interface_adapter.main_page.MainPageController;
+import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.schedule.BuyerSelectScheduleController;
 import interface_adapter.schedule.BuyerSelectScheduleState;
 import interface_adapter.schedule.BuyerSelectScheduleViewModel;
 import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.ViewSignupPageController;
+import view.TopBarSampleView;
 
 
 import javax.swing.*;
@@ -29,12 +32,15 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
 
     private BuyerSelectScheduleViewModel viewModel;
     private BuyerSelectScheduleController controller;
-    private ShoppingCartController shoppingCartController;
 
-    private GetSearchPageController getSearchPageController;
-    private ViewSignupPageController viewSignupPageController;
-    private ViewLoginPageController viewLoginPageController;
-    private LogOutController logOutController;
+    //Top Bar stuff
+    private final GetSearchPageController getSearchPageController;
+    private final ViewSignupPageController viewSignupPageController;
+    private final ViewLoginPageController viewLoginPageController;
+    private final ShoppingCartController shoppingCartController;
+    private final LogOutController logOutController;
+    private final ViewProfileController viewProfileController;
+    private final MainPageController mainPageController;
 
     private JComboBox<LocalDateTime> availableTimesComboBox;
     private final JButton selectButton;
@@ -46,7 +52,9 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
                              GetSearchPageController getSearchPageController,
                              ViewSignupPageController viewSignupPageController,
                              ViewLoginPageController viewLoginPageController,
-                             LogOutController logOutController) {
+                             LogOutController logOutController,
+                             ViewProfileController viewProfileController,
+                             MainPageController mainPageController) {
         this.viewModel = viewModel;
         this.controller = controller;
         this.shoppingCartController = shoppingCartController;
@@ -56,6 +64,13 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
         this.viewSignupPageController = viewSignupPageController;
         this.viewLoginPageController = viewLoginPageController;
         this.logOutController = logOutController;
+        this.viewProfileController = viewProfileController;
+        this.mainPageController = mainPageController;
+
+
+        JPanel topBar = new TopBarSampleView(this.viewModel.getState().getBuyer(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
 
         viewModel.addPropertyChangeListener(this);
 
@@ -128,9 +143,13 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
             JOptionPane.showMessageDialog(this, state.getError());
         }
         availableTimesComboBox = new JComboBox<>();
-        ArrayList<LocalDateTime> availableTimes = state .getProduct().getSchedule().getSellerTime();
+        ArrayList<LocalDateTime> availableTimes = state.getProduct().getSchedule().getSellerTime();
         for (LocalDateTime time : availableTimes) {
             availableTimesComboBox.addItem(time);
         }
+
+        JPanel topBar = new TopBarSampleView(state.getBuyer(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
     }
 }

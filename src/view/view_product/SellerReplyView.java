@@ -151,7 +151,6 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
         JPanel topBar = new TopBarSampleView(replyQuestionViewModel.getState().getUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
-
     }
 
     @Override

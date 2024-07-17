@@ -6,6 +6,7 @@ import interface_adapter.ViewModel;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
+import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.rating.GetRatePageController;
 import interface_adapter.rating.RateProductController;
 import interface_adapter.rating.RateProductState;
@@ -13,6 +14,7 @@ import interface_adapter.rating.RateProductViewModel;
 import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.ViewSignupPageController;
+import view.TopBarSampleView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,12 +36,14 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
 
     RateProductController rateProductController;
 
-    MainPageController mainPageController;
-    GetSearchPageController getSearchPageController;
-    ViewSignupPageController viewSignupPageController;
-    ViewLoginPageController viewLoginPageController;
-    ShoppingCartController shoppingCartController;
-    LogOutController logOutController;
+    //Top Bar stuff
+    private final GetSearchPageController getSearchPageController;
+    private final ViewSignupPageController viewSignupPageController;
+    private final ViewLoginPageController viewLoginPageController;
+    private final ShoppingCartController shoppingCartController;
+    private final LogOutController logOutController;
+    private final ViewProfileController viewProfileController;
+    private final MainPageController mainPageController;
 
     private final JButton createRating;
     private final JButton cancel;
@@ -49,15 +53,31 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
 
 
     //TODO figure out how cancel works and if anything extra is needed to be done in order to get cancel working
+    //maybe we don't need cancel button? since we already have main page button in the top bar --from Freya
 
-    public RateProductView(RateProductViewModel rateProductViewModel, RateProductController rateProductController,
-                            GetSearchPageController getSearchPageController,
+    public RateProductView(RateProductViewModel rateProductViewModel,
+                           RateProductController rateProductController,
+                           GetSearchPageController getSearchPageController,
                            MainPageController mainPageController,
                            ViewSignupPageController viewSignupPageController,
                            ViewLoginPageController viewLoginPageController,
                            ShoppingCartController shoppingCartController,
-                           LogOutController logOutController) {
+                           LogOutController logOutController,
+                           ViewProfileController viewProfileController
+                           ) {
         this.rateProductViewModel = rateProductViewModel;
+        this.getSearchPageController = getSearchPageController;
+        this.mainPageController = mainPageController;
+        this.viewSignupPageController = viewSignupPageController;
+        this.viewLoginPageController = viewLoginPageController;
+        this.shoppingCartController = shoppingCartController;
+        this.logOutController = logOutController;
+        this.viewProfileController = viewProfileController;
+
+        JPanel topBar = new TopBarSampleView(this.rateProductViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
+
         rateProductViewModel.addPropertyChangeListener(this);
         this.rateProductController = rateProductController;
 
@@ -159,6 +179,9 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
         if(state.getRatingError() != null) {
             JOptionPane.showMessageDialog(this, state.getRatingError());
         }
+        JPanel topBar = new TopBarSampleView(state.getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
     }
 }
 
