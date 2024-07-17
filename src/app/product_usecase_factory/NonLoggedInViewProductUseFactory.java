@@ -66,8 +66,12 @@ public class NonLoggedInViewProductUseFactory {
         ViewLoginPageController viewLoginPageController = createViewLoginPageController(loginViewModel, viewManagerModel);
         MainPageController mainPageController =
                 NonLoggedInViewProductUseFactory.createMainPageController(mainPageViewModel, viewManagerModel);
+        GetSearchPageController getSearchPageController = createGetSearchPageController(viewManagerModel, searchProductViewModel);
+        ViewSignupPageController viewSignupPageController = creatViewSignupPageController(viewManagerModel,signupViewModel);
+        LogOutController logOutController = createLogOutController(viewManagerModel, mainPageViewModel);
+        ShoppingCartController shoppingCartController = createShoppingCartController(viewManagerModel, shoppingCartViewModel);
 
-        return new NonloggedInProductView(unloggedInViewModel, viewLoginPageController, mainPageController);
+        return new NonloggedInProductView(unloggedInViewModel, viewLoginPageController, mainPageController, getSearchPageController, viewSignupPageController, shoppingCartController, logOutController);
     }
 
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
