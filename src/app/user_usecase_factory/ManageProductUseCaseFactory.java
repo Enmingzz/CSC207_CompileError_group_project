@@ -140,8 +140,6 @@ public class ManageProductUseCaseFactory {
                 viewProfileController);
     }
 
-
-
     private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
         ViewSignupPageOutputBoundary viewSignupPagePresenter =
                 new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
