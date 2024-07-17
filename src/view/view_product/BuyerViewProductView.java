@@ -48,11 +48,13 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
 
     final JTextField questionInputField = new JTextField(15);
 
-    GetSearchPageController getSearchPageController;
-    ViewSignupPageController viewSignupPageController;
-    ViewLoginPageController viewLoginPageController;
-    ShoppingCartController shoppingCartController;
-    LogOutController logOutController;
+    //Top Bar stuff
+    private final GetSearchPageController getSearchPageController;
+    private final ViewSignupPageController viewSignupPageController;
+    private final ViewLoginPageController viewLoginPageController;
+    private final ShoppingCartController shoppingCartController;
+    private final LogOutController logOutController;
+
 
     private final JButton cancel;
     private final JButton addToCart;
@@ -71,6 +73,12 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
                                 ShoppingCartController shoppingCartController,
                                 LogOutController logOutController){
         this.buyerViewProductViewModel = buyerViewProductViewModel;
+
+        this.getSearchPageController = getSearchPageController;
+        this.viewSignupPageController  = viewSignupPageController;
+        this.viewLoginPageController = viewLoginPageController;
+        this.shoppingCartController = shoppingCartController;
+        this.logOutController = logOutController;
 
         this.buyerViewProductViewModel.addPropertyChangeListener(this);
 

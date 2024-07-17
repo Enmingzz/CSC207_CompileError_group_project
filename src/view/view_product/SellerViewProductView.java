@@ -3,8 +3,14 @@ package view.view_product;
 import entity.comment.Question;
 import entity.product.Product;
 import entity.user.User;
+import interface_adapter.login.ViewLoginPageController;
+import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
+import interface_adapter.search_product.GetSearchPageController;
+import interface_adapter.shopping_cart.ShoppingCartController;
+import interface_adapter.signup.ViewSignupPageController;
 import interface_adapter.view_product.*;
+import view.TopBarSampleView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,14 +33,16 @@ import java.util.Objects;
 
 public class SellerViewProductView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    public final String viewName = "seller_view_product view";// useless??
+    public final String viewName = "seller_view_product view";
 
-    private final SellerViewProductViewModel sellerViewProductViewModel;
+    //Top Bar stuff
+    private final GetSearchPageController getSearchPageController;
+    private final ViewSignupPageController viewSignupPageController;
+    private final ViewLoginPageController viewLoginPageController;
+    private final ShoppingCartController shoppingCartController;
+    private final LogOutController logOutController;
 
     private final JButton cancel;
-
-    private final ViewReplyQuestionController replyQuestionController;
-    private final MainPageController mainPageController;
 
     ProductInfoLabelTextPanel productInfo;
     JPanel qAInfo;
@@ -43,12 +51,20 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
 
     public SellerViewProductView(SellerViewProductViewModel sellerViewProductViewModel,
                                 ViewReplyQuestionController replyQuestionController,
-                                MainPageController mainPageController){
-        this.sellerViewProductViewModel = sellerViewProductViewModel;
-        this.replyQuestionController = replyQuestionController;
-        this.mainPageController = mainPageController;
+                                MainPageController mainPageController,
+                                 GetSearchPageController getSearchPageController,
+                                 ViewSignupPageController viewSignupPageController,
+                                 ViewLoginPageController viewLoginPageController,
+                                 ShoppingCartController shoppingCartController,
+                                 LogOutController logOutController){
 
-        this.sellerViewProductViewModel.addPropertyChangeListener(this);
+        this.getSearchPageController = getSearchPageController;
+        this.viewSignupPageController  = viewSignupPageController;
+        this.viewLoginPageController = viewLoginPageController;
+        this.shoppingCartController = shoppingCartController;
+        this.logOutController = logOutController;
+
+        sellerViewProductViewModel.addPropertyChangeListener(this);
 
 
         JLabel title = new JLabel(sellerViewProductViewModel.TITLE_LABEL);
@@ -200,6 +216,11 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
                 qAInfo.add(qA_title);
                 qAInfo.add(qA_TextPanel);
             }
+
+            JPanel topBar = new TopBarSampleView(newState.getUser(),
+                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
+            this.add(topBar);
+
             newState.setIsChanged(false);
         }
     }

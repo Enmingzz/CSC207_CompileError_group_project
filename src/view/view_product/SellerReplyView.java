@@ -3,8 +3,14 @@ package view.view_product;
 import entity.comment.*;
 import entity.product.Product;
 import entity.user.User;
+import interface_adapter.login.ViewLoginPageController;
+import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
+import interface_adapter.search_product.GetSearchPageController;
+import interface_adapter.shopping_cart.ShoppingCartController;
+import interface_adapter.signup.ViewSignupPageController;
 import interface_adapter.view_product.*;
+import view.TopBarSampleView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,30 +25,41 @@ import java.util.Objects;
 
 public class SellerReplyView extends JPanel implements ActionListener, PropertyChangeListener {
 
+    //Top Bar stuff
+    private final GetSearchPageController getSearchPageController;
+    private final ViewSignupPageController viewSignupPageController;
+    private final ViewLoginPageController viewLoginPageController;
+    private final ShoppingCartController shoppingCartController;
+    private final LogOutController logOutController;
+
     public final String viewName = "seller reply page";
 
-    private final ReplyQuestionViewModel replyQuestionViewModel;
+    private JLabel question_to_be_answered;
 
     final JTextField answerInputField = new JTextField(15);
 
 
-    private final ReplyQuestionController replyQuestionController;
-    private final MainPageController mainPageController;
-
     public SellerReplyView (ReplyQuestionViewModel replyQuestionViewModel,
                             ReplyQuestionController replyQuestionController,
-                            MainPageController mainPageController){
+                            MainPageController mainPageController,
+                            GetSearchPageController getSearchPageController,
+                            ViewSignupPageController viewSignupPageController,
+                            ViewLoginPageController viewLoginPageController,
+                            ShoppingCartController shoppingCartController,
+                            LogOutController logOutController){
 
-        this.replyQuestionViewModel = replyQuestionViewModel;
-        this.replyQuestionController = replyQuestionController;
-        this.mainPageController = mainPageController;
+        this.getSearchPageController = getSearchPageController;
+        this.viewSignupPageController = viewSignupPageController;
+        this.viewLoginPageController = viewLoginPageController;
+        this.shoppingCartController = shoppingCartController;
+        this.logOutController = logOutController;
 
         JLabel page_title = new JLabel(replyQuestionViewModel.TITLE_LABEL);
         page_title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 
         JLabel question_title = new JLabel(replyQuestionViewModel.QUESTION_LABEL);
-        JLabel question_to_be_answered = new JLabel(replyQuestionViewModel.getState().getQuestion().getDescription());
+        question_to_be_answered = new JLabel(replyQuestionViewModel.getState().getQuestion().getDescription());
 
         JLabel answerPlaceLabel = new JLabel(replyQuestionViewModel.ANSWER_LABEL);
         JButton publishAnswer = new JButton(replyQuestionViewModel.REPLY_BUTTON_LABEL);
@@ -125,15 +142,23 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
         this.add(publishAnswer);
         this.add(cancel);
 
+        JPanel topBar = new TopBarSampleView(replyQuestionViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
+        this.add(topBar);
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        ReplyQuestionState newState = (ReplyQuestionState) evt.getNewValue();
 
+        question_to_be_answered = new JLabel(newState.getQuestion().getDescription());
+        JPanel topBar = new TopBarSampleView(newState.getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
+        this.add(topBar);
     }
 }
