@@ -36,8 +36,6 @@ public class ProfileView extends JFrame implements PropertyChangeListener, Actio
     private final ViewProfileController viewProfileController;
     private final MainPageController mainPageController;
     private final ShoppingCartController shoppingCartController;
-    private final LoginController loginController;
-    private final SignupController signupController;
 
     //Top Bar stuff
     private final GetSearchPageController getSearchPageController;
@@ -65,8 +63,6 @@ public class ProfileView extends JFrame implements PropertyChangeListener, Actio
     public ProfileView (MainPageController mainPageController,
                         ManageProductController manageProductController,
                         ViewModifyProfileController viewModifyProfileController,
-                        LoginController loginController,
-                        SignupController signupController,
                         ViewProfileViewModel profileViewModel,
                         GetSearchPageController getSearchPageController,
                         ViewSignupPageController viewSignupPageController,
@@ -78,8 +74,6 @@ public class ProfileView extends JFrame implements PropertyChangeListener, Actio
         this.manageProductController = manageProductController;
         this.viewModifyProfileController = viewModifyProfileController;
         this.viewProfileController = viewProfileController;
-        this.loginController = loginController;
-        this.signupController = signupController;
         this.mainPageController = mainPageController;
         this.shoppingCartController = shoppingCartController;
 
