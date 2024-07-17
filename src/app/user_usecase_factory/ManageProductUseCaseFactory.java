@@ -74,7 +74,7 @@ public class ManageProductUseCaseFactory {
     private static ViewProductController createViewProductController
             (BuyerViewProductViewModel buyerViewProductViewModel, SellerViewProductViewModel
                     sellerViewProductViewModel, ViewManagerModel viewManagerModel,
-             Non_loggedInViewModel non_loggedInProductView) throws SQLException {
+             UnloggedInViewModel non_loggedInProductView) throws SQLException {
         ViewProductOutputBoundary viewProductPresenter =
                 new ViewProductPresenter(buyerViewProductViewModel, sellerViewProductViewModel,
                         non_loggedInProductView, viewManagerModel);

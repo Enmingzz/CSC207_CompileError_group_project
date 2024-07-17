@@ -1,9 +1,10 @@
 package interface_adapter.view_product;
 
 import interface_adapter.ViewManagerModel;
+import use_case.view_product.ViewReplyQuestionOutputBoundary;
 import use_case.view_product.ViewReplyQuestionOutputData;
 
-public class ViewReplyQuestionPresenter {
+public class ViewReplyQuestionPresenter implements ViewReplyQuestionOutputBoundary {
     private final ReplyQuestionViewModel replyQuestionViewModel;
     ViewManagerModel viewManagerModel;
 
