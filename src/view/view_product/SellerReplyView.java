@@ -6,6 +6,7 @@ import entity.user.User;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
+import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.ViewSignupPageController;
@@ -31,6 +32,7 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
     private final ViewLoginPageController viewLoginPageController;
     private final ShoppingCartController shoppingCartController;
     private final LogOutController logOutController;
+    private final ViewProfileController viewProfileController;
 
     public final String viewName = "seller reply page";
 
@@ -46,13 +48,15 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
                             ViewSignupPageController viewSignupPageController,
                             ViewLoginPageController viewLoginPageController,
                             ShoppingCartController shoppingCartController,
-                            LogOutController logOutController){
+                            LogOutController logOutController,
+                            ViewProfileController viewProfileController){
 
         this.getSearchPageController = getSearchPageController;
         this.viewSignupPageController = viewSignupPageController;
         this.viewLoginPageController = viewLoginPageController;
         this.shoppingCartController = shoppingCartController;
         this.logOutController = logOutController;
+        this.viewProfileController = viewProfileController;
 
         JLabel page_title = new JLabel(replyQuestionViewModel.TITLE_LABEL);
         page_title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -143,7 +147,7 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
         this.add(cancel);
 
         JPanel topBar = new TopBarSampleView(replyQuestionViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
         this.add(topBar);
 
     }
@@ -158,7 +162,7 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
 
         question_to_be_answered = new JLabel(newState.getQuestion().getDescription());
         JPanel topBar = new TopBarSampleView(newState.getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
         this.add(topBar);
     }
 }

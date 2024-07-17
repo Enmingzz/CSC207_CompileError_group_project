@@ -8,6 +8,7 @@ import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
+import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.ViewSignupPageController;
@@ -34,6 +35,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
     private final ViewLoginPageController viewLoginPageController;
     private final ShoppingCartController shoppingCartController;
     private final LogOutController logOutController;
+    private final ViewProfileController viewProfileController;
 
 
     private final JButton cancel;
@@ -49,7 +51,8 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
                                   GetSearchPageController getSearchPageController,
                                   ViewSignupPageController viewSignupPageController,
                                   ShoppingCartController shoppingCartController,
-                                  LogOutController logOutController) {
+                                  LogOutController logOutController,
+                                  ViewProfileController viewProfileController){
         this.nonLoggedInViewModel = nonLoggedInViewModel;
 
         this.getSearchPageController = getSearchPageController;
@@ -57,6 +60,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
         this.viewLoginPageController = viewLoginPageController;
         this.shoppingCartController = shoppingCartController;
         this.logOutController = logOutController;
+        this.viewProfileController = viewProfileController;
 
         this.nonLoggedInViewModel.addPropertyChangeListener(this);
 
@@ -200,7 +204,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
             qAInfo.add(qA_TextPanel);
 
             JPanel topBar = new TopBarSampleView(newState.getUser(),
-                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
+                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
             this.add(topBar);
 
             newState.setIsChanged(false);

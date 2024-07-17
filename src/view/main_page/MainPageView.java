@@ -63,6 +63,7 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
     private final ViewLoginPageController viewLoginPageController;
     private final ViewSignupPageController viewSignupPageController;
 
+
     AllProductsPanel allProductsPanel;
 
     public MainPageView(MainPageViewModel mainPageViewModel,
@@ -73,7 +74,8 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
                         LogOutController logOutController,
                         MainPageController mainPageController,
                         ViewSignupPageController viewSignupPageController,
-                        ViewLoginPageController viewLoginPageController){
+                        ViewLoginPageController viewLoginPageController
+                        ){
         // initialize all controllers here
         this.viewProductController = viewProductController;
 
@@ -96,7 +98,7 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
         //TODO: check if the top bar is correct
         JPanel topBar = new TopBarSampleView(this.mainPageViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
         this.add(topBar);
 
         // Products page starts here
@@ -187,7 +189,7 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
         allProductsPanel = new AllProductsPanel(allProducts, mainPageViewModel, viewProductController);
 
         JPanel topBar = new TopBarSampleView(state.getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
         this.add(topBar);
 
     }

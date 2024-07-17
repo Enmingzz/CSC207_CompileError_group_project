@@ -62,7 +62,8 @@ public class NonLoggedInViewProductUseFactory {
                                                 SearchProductViewModel searchProductViewModel,
                                                 LoginViewModel loginViewModel,
                                                 SignupViewModel signupViewModel,
-                                                UnloggedInViewModel unloggedInViewModel) throws SQLException, IOException {
+                                                UnloggedInViewModel unloggedInViewModel,
+                                                ViewProfileViewModel profileViewModel) throws SQLException, IOException {
         ViewLoginPageController viewLoginPageController = createViewLoginPageController(loginViewModel, viewManagerModel);
         MainPageController mainPageController =
                 NonLoggedInViewProductUseFactory.createMainPageController(mainPageViewModel, viewManagerModel);
@@ -70,8 +71,9 @@ public class NonLoggedInViewProductUseFactory {
         ViewSignupPageController viewSignupPageController = creatViewSignupPageController(viewManagerModel,signupViewModel);
         LogOutController logOutController = createLogOutController(viewManagerModel, mainPageViewModel);
         ShoppingCartController shoppingCartController = createShoppingCartController(viewManagerModel, shoppingCartViewModel);
+        ViewProfileController viewProfileController = createProfileController(viewManagerModel, profileViewModel);
 
-        return new NonloggedInProductView(unloggedInViewModel, viewLoginPageController, mainPageController, getSearchPageController, viewSignupPageController, shoppingCartController, logOutController);
+        return new NonloggedInProductView(unloggedInViewModel, viewLoginPageController, mainPageController, getSearchPageController, viewSignupPageController, shoppingCartController, logOutController, viewProfileController);
     }
 
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {

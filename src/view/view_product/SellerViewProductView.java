@@ -6,6 +6,7 @@ import entity.user.User;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
+import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.ViewSignupPageController;
@@ -41,6 +42,7 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
     private final ViewLoginPageController viewLoginPageController;
     private final ShoppingCartController shoppingCartController;
     private final LogOutController logOutController;
+    private final ViewProfileController viewProfileController;
 
     private final JButton cancel;
 
@@ -56,13 +58,15 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
                                  ViewSignupPageController viewSignupPageController,
                                  ViewLoginPageController viewLoginPageController,
                                  ShoppingCartController shoppingCartController,
-                                 LogOutController logOutController){
+                                 LogOutController logOutController,
+                                 ViewProfileController viewProfileController){
 
         this.getSearchPageController = getSearchPageController;
         this.viewSignupPageController  = viewSignupPageController;
         this.viewLoginPageController = viewLoginPageController;
         this.shoppingCartController = shoppingCartController;
         this.logOutController = logOutController;
+        this.viewProfileController = viewProfileController;
 
         sellerViewProductViewModel.addPropertyChangeListener(this);
 
@@ -218,7 +222,7 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
             }
 
             JPanel topBar = new TopBarSampleView(newState.getUser(),
-                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
+                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController);
             this.add(topBar);
 
             newState.setIsChanged(false);
