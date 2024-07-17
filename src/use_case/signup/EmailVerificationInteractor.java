@@ -8,28 +8,37 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 /**
- * Use the Java Mail API to implement email verification.
+ * Implements email verification using the Java Mail API.
  */
 
-public class EmailVerificationInteractor implements EmailVerificationInputBoundary{
+public class EmailVerificationInteractor implements EmailVerificationInputBoundary {
 
     final EmailVerificationOutputBoundary emailVerificationPresenter;
 
+    /**
+     * Constructs an EmailVerificationInteractor with the given presenter.
+     *
+     * @param emailVerificationPresenter the presenter for email verification
+     */
     public EmailVerificationInteractor(EmailVerificationOutputBoundary emailVerificationPresenter) {
         this.emailVerificationPresenter = emailVerificationPresenter;
     }
 
+    /**
+     * Executes the email verification process.
+     * Configures and sends a verification email with a generated code to the specified email address.
+     *
+     * @param email the input data containing the email address to send the verification to
+     * @throws Exception if an error occurs during email sending
+     */
+    @Override
     public void execute(EmailVerificationInputData email) throws Exception {
 
-        /**
-         * Sending email configuration.
-         * Send email from QQ smtp
-         */
+        // Sending email configuration. Send email from QQ smtp
         Properties props = new Properties();
         props.setProperty("mail.transport.protocol", "smtp");
         props.setProperty("mail.smtp.host", "smtp.qq.com");
         props.setProperty("mail.smtp.auth", "true");
-
 
         final String smtpPort = "465";
         props.setProperty("mail.smtp.port", smtpPort);
@@ -38,14 +47,13 @@ public class EmailVerificationInteractor implements EmailVerificationInputBounda
         props.setProperty("mail.smtp.socketFactory.port", smtpPort);
 
         Session session = Session.getInstance(props);
-        session.setDebug(true);                                 // Set to debug mode, view detailed sending log
+        session.setDebug(true); // Set to debug mode, view detailed sending log
 
         Random rand = new Random();
         int code = rand.nextInt(900000) + 100000;
         String messagetosend = Integer.toString(code);
 
-        MimeMessage message = createMimeMessage(session, "3232085039@qq.com", email.getEmail(), "Verify",
-                messagetosend);
+        MimeMessage message = createMimeMessage(session, "3232085039@qq.com", email.getEmail(), "Verify", messagetosend);
 
         Transport transport = session.getTransport();
 
@@ -60,16 +68,16 @@ public class EmailVerificationInteractor implements EmailVerificationInputBounda
     }
 
     /**
-     * Create a message used to sent to user.
-     * @param session
-     * @param sendMail
-     * @param receiveMail
-     * @param subject
-     * @param content
-     * @return
-     * @throws Exception
+     * Creates a message to be sent to the user.
+     *
+     * @param session the mail session
+     * @param sendMail the sender's email address
+     * @param receiveMail the recipient's email address
+     * @param subject the subject of the email
+     * @param content the content of the email
+     * @return the created MimeMessage
+     * @throws Exception if an error occurs during message creation
      */
-
     public static MimeMessage createMimeMessage(Session session, String sendMail, String receiveMail, String subject, String content) throws Exception {
         MimeMessage message = new MimeMessage(session);
 
@@ -89,4 +97,3 @@ public class EmailVerificationInteractor implements EmailVerificationInputBounda
     }
 
 }
-

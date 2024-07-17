@@ -8,64 +8,72 @@ import entity.user.UserFactory;
 import java.sql.SQLException;
 
 /**
- *Receive Student's information from the SignUpView, then process those information and executes
- * different actions.
- * If user does not exist, password does match and validation code does match, then execute the
+ * Receives student's information from the SignUpView, processes the information, and executes
+ * different actions based on the validation results.
+ * If the user does not exist, the passwords match, and the verification code matches, then executes the
  * successful view presenter.
- * Otherwise, executes failed view presenter, with different error message.
+ * Otherwise, executes the failed view presenter with different error messages.
  */
-
-public class SignupInteractor implements SignupInputBoundary{
+public class SignupInteractor implements SignupInputBoundary {
     final UserCreateDataAccessInterface userCreateDataAccessObject;
     final UserReadDataAccessInterface userReadDataAccessObject;
     final SignupOutputBoundary signupPresenter;
     final UserFactory userFactory;
 
     /**
-     * @param userCreateDataAccessObject A DAO used to save a user into databases.
-     * @param userReadDataAccessObject A DAO used to read users from database.
-     * @param signupPresenter initialize userPresenter with a signupPresenter but with upcasting
-     *                        to SignupOutputBoundary
-     * @param userFactory Used to create a commonUser.
+     * Constructs a SignupInteractor with the given data access objects, presenter, and user factory.
+     *
+     * @param userCreateDataAccessObject A DAO used to save a user into the database.
+     * @param userReadDataAccessObject A DAO used to read users from the database.
+     * @param signupPresenter The presenter for handling the signup output.
+     * @param userFactory The factory for creating user objects.
      */
-
     public SignupInteractor(UserCreateDataAccessInterface userCreateDataAccessObject, UserReadDataAccessInterface userReadDataAccessObject,
                             SignupOutputBoundary signupPresenter,
                             UserFactory userFactory) {
-            this.userCreateDataAccessObject = userCreateDataAccessObject;
-            this.userReadDataAccessObject = userReadDataAccessObject;
-            this.signupPresenter = signupPresenter;
-            this.userFactory = userFactory;
-        }
-
-
-    public boolean existsByStudentNumber(SignupInputData signupInputData) throws SQLException {
-        User user = userReadDataAccessObject.getUser(signupInputData.getStudentNumber());
-        if (user == null) {
-            return false;
-        }
-        return true;
+        this.userCreateDataAccessObject = userCreateDataAccessObject;
+        this.userReadDataAccessObject = userReadDataAccessObject;
+        this.signupPresenter = signupPresenter;
+        this.userFactory = userFactory;
     }
 
+    /**
+     * Checks if a user exists by their student number.
+     *
+     * @param signupInputData the signup input data
+     * @return true if the user exists, false otherwise
+     * @throws SQLException if a database access error occurs
+     */
+    public boolean existsByStudentNumber(SignupInputData signupInputData) throws SQLException {
+        User user = userReadDataAccessObject.getUser(signupInputData.getStudentNumber());
+        return user != null;
+    }
+
+    /**
+     * Executes the signup process.
+     * Validates the input data and either creates a new user or returns an error message.
+     *
+     * @param signupInputData the signup input data
+     * @throws SQLException if a database access error occurs
+     */
     @Override
     public void execute(SignupInputData signupInputData) throws SQLException {
         User user = userFactory.createUser(signupInputData.getUsername(), signupInputData.getPassword(),
                 signupInputData.getEmailAddress(), 0, signupInputData.getStudentNumber());
-        //System.out.println(signupInputData.getGeneratedVerificationCode());
+
         if (existsByStudentNumber(signupInputData)) {
             SignupOutputData signupOutputData = new SignupOutputData(user, "user already exists");
             signupPresenter.presentFailedView(signupOutputData);
         } else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
-            SignupOutputData signupOutputData = new SignupOutputData(user, "user already exists");
+            SignupOutputData signupOutputData = new SignupOutputData(user, "passwords do not match");
             signupPresenter.presentFailedView(signupOutputData);
-        }else if(signupInputData.getGeneratedVerificationCode() == ""){
-            SignupOutputData signupOutputData = new SignupOutputData(user, "Need to send verification code fist");
+        } else if (signupInputData.getGeneratedVerificationCode().isEmpty()) {
+            SignupOutputData signupOutputData = new SignupOutputData(user, "need to send verification code first");
             signupPresenter.presentFailedView(signupOutputData);
-        }
-        else if (!signupInputData.getInputVerificationCode().equals(signupInputData.getGeneratedVerificationCode())){
-            SignupOutputData signupOutputData = new SignupOutputData(user, "Wrong verification code");
+        } else if (!signupInputData.getInputVerificationCode().equals(signupInputData.getGeneratedVerificationCode())) {
+            SignupOutputData signupOutputData = new SignupOutputData(user, "wrong verification code");
             signupPresenter.presentFailedView(signupOutputData);
-        }else {
+        } else {
             userCreateDataAccessObject.saveUser(user);
             SignupOutputData signupOutputData = new SignupOutputData(user, "successful");
             signupPresenter.presentSuccessfulView(signupOutputData);
