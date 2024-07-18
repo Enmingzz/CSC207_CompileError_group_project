@@ -224,28 +224,38 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         ViewModifyProductState state = (ViewModifyProductState) evt.getNewValue();
-        JOptionPane.showMessageDialog(this, state.get)
+        JOptionPane.showMessageDialog(this, state.getDescription());
 
+        Product product = state.getProduct();
+        final JLabel titleLabel =new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
+        final JLabel title = new JLabel(product.getTitle());
+        final JLabel descriptionLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
+        final JTextField description = new JTextField(product.getDescription());
+        final JLabel priceLabel = new JLabel(viewModifyProductViewModel.PRODUCT_PRICE_LABEL);
+        final JTextField price = new JTextField(String.valueOf(product.getPrice()));
+        final JLabel eTransferEmailLabel = new JLabel(viewModifyProductViewModel.PRODUCT_ETRANSFER_EMAIL_LABEL);
+        final JLabel eTransferEmail = new JLabel(product.geteTransferEmail());
+        final JLabel addressLabel = new JLabel(viewModifyProductViewModel.PRODUCT_ADDRESS);
+        final JLabel address = new JLabel(product.getAddress());
+        final JLabel tagsLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TAGS);
+        String tagsString = String.join(", ", product.getListTags());
+        final JLabel tags = new JLabel(tagsString);
 
+        productInformation = new ModifyProductTextPanel( titleLabel,  title,
+                descriptionLabel,  description,  priceLabel,  price,
+                eTransferEmailLabel,  eTransferEmail,  addressLabel,  address,
+                tagsLabel,  tags);
 
-
-
-
-
-
-
-
-        ViewModifyProductState state = (ViewModifyProductState) evt.getNewValue();
-        setFields(state);
+//        setFields(state);
 
         JPanel topBar = new TopBarSampleView(state.getUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
     }
 
-    private void setFields(ViewModifyProductState state) {
-        description
-    }
+//    private void setFields(ViewModifyProductState state) {
+//        description
+//    }
 }
 
 
