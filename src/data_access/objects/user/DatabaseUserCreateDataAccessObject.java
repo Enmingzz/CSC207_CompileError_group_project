@@ -5,37 +5,33 @@ import entity.user.User;
 
 import java.sql.*;
 
+/**
+ * DatabaseUserCreateDataAccessObject is responsible for creating and saving a user in the database.
+ * It implements the UserCreateDataAccessInterface.
+ */
 public class DatabaseUserCreateDataAccessObject implements UserCreateDataAccessInterface {
     private final Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
     private String query;
 
+    /**
+     * Constructs a DatabaseUserCreateDataAccessObject and establishes a connection to the database.
+     *
+     * @throws SQLException if a database access error occurs
+     */
     public DatabaseUserCreateDataAccessObject() throws SQLException {
         this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
                 "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
                 "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
-
     }
-//    @Override
-//    public boolean existsByUTorID(String identifier) throws SQLException {
-//        query = "SELECT UserID FROM Users WHERE UserID = ?";
-//        preparedStatement = connection.prepareStatement(query);
-//        preparedStatement.setString(1, identifier);
-//
-//        resultSet = preparedStatement.executeQuery();
-//        if (resultSet.next()) {
-//            resultSet.close();
-//            preparedStatement.close();
-//            connection.close();
-//            return true;
-//        }
-//        resultSet.close();
-//        preparedStatement.close();
-//        connection.close();
-//        return false;
-//    }
 
+    /**
+     * Saves the specified user in the database.
+     *
+     * @param user the user to be saved
+     * @throws SQLException if a database access error occurs
+     */
     @Override
     public void saveUser(User user) throws SQLException {
         query = "INSERT INTO Users (UserID, Name, Email, Password) VALUES (?,?,?,?)";
