@@ -265,15 +265,15 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
 
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        LoginState state
-
-        CreateProductState newState = (CreateProductState) evt.getSource();
-
-        JPanel topBar = new TopBarSampleView(newState.getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
-
-    }
+//    @Override
+//    public void propertyChange(PropertyChangeEvent evt) {
+//        LoginState state
+//
+//        CreateProductState newState = (CreateProductState) evt.getSource();
+//
+//        JPanel topBar = new TopBarSampleView(newState.getUser(),
+//                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+//        this.add(topBar);
+//
+//    }
 }
