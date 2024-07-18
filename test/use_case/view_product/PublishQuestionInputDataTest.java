@@ -26,7 +26,7 @@ class PublishQuestionInputDataTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        Question question  = new CommonQuestion("", "", null);
+        Question question  = new CommonQuestion("", "", null, "1234");
 
         Image image = ImageIO.read(new File("D:/24 summer/csc207/CSC207_CompileError_group_project/src/pic/testpic1.png"));
         String des = " ";
@@ -56,7 +56,7 @@ class PublishQuestionInputDataTest {
 
     @Test
     void getQuestion() {
-        Question question  = new CommonQuestion("", "", null);
+        Question question  = new CommonQuestion("", "", null, "1234");
         assertEquals(question, publishQuestionInputData.getQuestion());
     }
 

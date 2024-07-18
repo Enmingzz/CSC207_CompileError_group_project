@@ -42,7 +42,7 @@ class PublishQuestionInteractorTest {
     void setUp() throws IOException {
         question  = questionFactory.createQuestion("", "", null, "123");
 
-        Image image = ImageIO.read(new File("D:/24 summer/csc207/CSC207_CompileError_group_project/src/pic/testpic1.png"));
+        Image image = ImageIO.read(new File("src.pic.testpic1.png"));
         String des = " ";
         float price = 1;
         String title = "ginger_cat";
@@ -84,7 +84,7 @@ class PublishQuestionInteractorTest {
         };
 
         PublishQuestionInputData inputData = new PublishQuestionInputData(question, product);
-        PublishQuestionInputBoundary interactor = new PublishQuestionInteractor(product, questionRepository,
+        PublishQuestionInputBoundary interactor = new PublishQuestionInteractor(questionRepository,
                 new CommonQuestionFactory(), successPresenter);
 
         interactor.execute(inputData);
