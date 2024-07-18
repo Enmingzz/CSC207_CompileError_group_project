@@ -33,5 +33,4 @@ public class ViewManager implements PropertyChangeListener {
         }
     }
 
-
 }

@@ -98,7 +98,9 @@ public class ManageProductView extends JFrame implements ActionListener, Propert
         for (Product product: manageProductViewModel.getState().getProduct()) {
             MangeSingleProductView panel = new MangeSingleProductView(manageProductViewModel.getState().getUser(),
                     product, manageProductViewModel, viewProductController,
-                    viewModifyProductController, deleteProductController, getSellerSchedulePageController);
+                    viewModifyProductController, deleteProductController, getSellerSchedulePageController, getSearchPageController,
+                    viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController,
+                    mainPageController);
             mainPanel.add(panel);
             mainPanel.add(Box.createVerticalStrut(10));
         }
