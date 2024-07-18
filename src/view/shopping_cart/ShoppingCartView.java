@@ -71,17 +71,23 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
     AllProductsPanel allProductsPanel;
 
     /**
+     * Constructor for the ShoppingCartView class.
      *
-     * @param shoppingCartViewModel the view model that shoppingCartView uses
-     * @param viewProductController the controller responsible for the viewProduct use case
-     * @param purchaseController the controller responsible for the purchaseProduct use case
-     * @param deleteShoppingCartProductController the controller responsible for the deleteShoppingCart use case
-     * @param getSearchPageController the controller responsible for getting the buyerSelectSchedule view page use case
-     * @param confirmController the controller responsible for the confirmProductReceived use case
-     * @param getRatePageController the controller responsible for the rateProduct use case
-     *
+     * @param shoppingCartViewModel the view model for the shopping cart view
+     * @param viewProductController the controller for viewing products
+     * @param purchaseController the controller for handling purchases
+     * @param deleteShoppingCartProductController the controller for deleting products from the shopping cart
+     * @param getBuyerSchedulePageController the controller for navigating to the buyer's schedule page
+     * @param confirmController the controller for confirming actions
+     * @param getRatePageController the controller for navigating to the rate page
+     * @param shoppingCartController the controller for managing the shopping cart
+     * @param viewProfileController the controller for viewing the profile page
+     * @param getSearchPageController the controller for navigating to the search page
+     * @param logOutController the controller for logging out
+     * @param mainPageController the controller for navigating to the main page
+     * @param viewSignupPageController the controller for navigating to the signup page
+     * @param viewLoginPageController the controller for navigating to the login page
      */
-
     public ShoppingCartView(ShoppingCartViewModel shoppingCartViewModel,
                             ViewProductController viewProductController,
                             PurchaseController purchaseController,

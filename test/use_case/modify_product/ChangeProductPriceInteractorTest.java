@@ -73,7 +73,7 @@ class ChangeProductPriceInteractorTest {
         ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
                 new InMemoryProductReadByIdDataAccessObject(productsList);
         changeProductPrice.execute(product, changedPrice);
-        float floatChangedPrice = Float.parseFloat(changedPrice)
+        float floatChangedPrice = Float.parseFloat(changedPrice);
         assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(product.getProductID()).getPrice(), floatChangedPrice);
     }
 

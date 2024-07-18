@@ -239,8 +239,9 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
                 if (evt.getSource().equals(createProduct)) {
                     try {
                         CreateProductState state = new CreateProductState();
-                        CreateProductController.execute(state.getUser(), image, description, price, title, eTransferEmail,
+                        CreateProductController.execute(state.getUser(), image, description, price.getText(), title, eTransferEmail,
                                 address, arrayListTags);
+                        //TODO fix this part
                     } catch (SQLException | IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -262,7 +263,6 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
     }
 
 //    @Override
