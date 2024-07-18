@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 public class SearchProductByNamePresenter implements SearchProductByNameOutputBoundary{
 
-    final private ViewManagerModel viewManagerModel;
-    final private SearchProductViewModel searchProductViewModel;
+    final ViewManagerModel viewManagerModel;
+    final SearchProductViewModel searchProductViewModel;
 
     /**
      * Constructs a SearchProductByNamePresenter.

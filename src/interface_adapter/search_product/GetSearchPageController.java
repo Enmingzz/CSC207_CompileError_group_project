@@ -13,7 +13,7 @@ import java.sql.SQLException;
  * It interacts with the use case layer to perform the necessary operations.
  */
 public class GetSearchPageController {
-    GetSearchViewInputBoundary getSearchViewInputBoundary;
+    final GetSearchViewInputBoundary getSearchViewInputBoundary;
 
     /**
      * Constructs a GetSearchPageController with the specified input boundary.

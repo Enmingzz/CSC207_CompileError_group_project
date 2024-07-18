@@ -193,4 +193,3 @@ public class RateProductUseCaseFactory {
         return new ViewSignupPageController(viewSignupPageInteractor);
     }
 }
-}

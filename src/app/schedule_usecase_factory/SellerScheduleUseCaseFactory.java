@@ -206,26 +206,6 @@ public class SellerScheduleUseCaseFactory {
         return new ViewLoginPageController(viewLoginPageInteractor);
     }
 
-    private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel) throws IOException, SQLException {
-
-        DatabaseUserCreateDataAccessObjectFactoryInterface databaseUserCreateDataAccessObjectFactory
-                = new DatabaseUserCreateDataAccessObjectFactory();
-        UserCreateDataAccessInterface userCreateDataAccessObject =
-                databaseUserCreateDataAccessObjectFactory.create();
-        SignupOutputBoundary signupOutputBoundary = new
-                SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
-        DatabaseUserReadDataAccessObjectFactoryInterface databaseUserReadDataAccessObjectFactory =
-                new DatabaseUserReadDataAccessObjectFactory();
-        UserReadDataAccessInterface userReadDataAccessInterface =
-                databaseUserReadDataAccessObjectFactory.create(new CommonUserFactory());
-
-        UserFactory userFactory = new CommonUserFactory();
-
-        SignupInputBoundary userSignupInteractor = new SignupInteractor(
-                userCreateDataAccessObject, userReadDataAccessInterface, signupOutputBoundary, userFactory);
-
-        return new SignupController(userSignupInteractor);
-    }
 
     private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel) {
         ViewSignupPageOutputBoundary viewSignupPagePresenter =
