@@ -27,8 +27,8 @@ public class PurchasePresenter implements PurchaseOutputBoundary {
         Product purchasedProduct = response.getProduct();
         String purchasedProductId = purchasedProduct.getProductID();
 
-        List<Product> listProducts = shoppingCartState.getListProducts();
-        List<Product> newListProducts = new ArrayList<>();
+        ArrayList<Product> listProducts = shoppingCartState.getListProducts();
+        ArrayList<Product> newListProducts = new ArrayList<>();
 
         for (Product product: listProducts) {
             if (product.getProductID().equals(purchasedProductId)) {

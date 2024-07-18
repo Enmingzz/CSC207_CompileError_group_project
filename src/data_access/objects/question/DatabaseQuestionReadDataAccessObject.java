@@ -46,7 +46,7 @@ public class DatabaseQuestionReadDataAccessObject implements QuestionReadDataAcc
             answerDescription = resultSet.getString("AnswerDescription");
 
             answer = answerFactory.createAnswer(answerDescription, answerUserID);
-            listQuestions.add(questionFactory.createQuestion(questionDescription, questionUserID, answer));
+            listQuestions.add(questionFactory.createQuestion(questionDescription, questionUserID, answer, questionUserID));
         }
         return listQuestions;
     }
