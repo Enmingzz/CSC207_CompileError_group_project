@@ -16,7 +16,6 @@ public class ViewModifyProductController {
     public ViewModifyProductController(ViewModifyProductInputBoundary modifyProductInputBoundary) {
         this.viewModifyProductInputBoundary = modifyProductInputBoundary;
     }
-
     public void execute(User user, Product product) throws SQLException, IOException {
         ViewModifyProductInputData viewModifyProductInputData = new ViewModifyProductInputData(user, product);
         viewModifyProductInputBoundary.execute(viewModifyProductInputData);

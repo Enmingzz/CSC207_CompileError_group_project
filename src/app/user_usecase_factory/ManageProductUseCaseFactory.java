@@ -1,6 +1,7 @@
 package app.user_usecase_factory;
 
 import app.search_product_usecase_factory.SearchProductUseCaseFactory;
+import data_access.factories.interfaces.product.DataBaseProductDeleteByIDDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.product.DataBaseProductReadAllDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.product.DatabaseProductReadByUserDataAccessObjectFactoryInterface;
@@ -8,6 +9,7 @@ import data_access.factories.interfaces.question.DatabaseQuestionReadDataAccessO
 import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.user.DatabaseUserCreateDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.user.DatabaseUserReadDataAccessObjectFactoryInterface;
+import data_access.factories.objects.product.DataBaseProductDeleteByIDDataAccessObjectFactory;
 import data_access.factories.objects.product.DatabaseProductReadAllDataAccessObjectFactory;
 import data_access.factories.objects.product.DatabaseProductReadByNameDataAccessObjectFactory;
 import data_access.factories.objects.product.DatabaseProductReadByUserDataAccessObjectFactory;
@@ -15,6 +17,7 @@ import data_access.factories.objects.question.DatabaseQuestionReadDataAccessObje
 import data_access.factories.objects.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactory;
 import data_access.factories.objects.user.DatabaseUserCreateDataAccessObjectFactory;
 import data_access.factories.objects.user.DatabaseUserReadDataAccessObjectFactory;
+import data_access.interfaces.product.ProductDeleteDataAccessByIDInterface;
 import data_access.interfaces.product.ProductReadAllDataAccessInterface;
 import data_access.interfaces.product.ProductReadByNameDataAccessInterface;
 import data_access.interfaces.product.ProductReadByUserDataAccessInterface;
@@ -43,10 +46,7 @@ import interface_adapter.logout.LogOutPresenter;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.main_page.MainPagePresenter;
 import interface_adapter.main_page.MainPageViewModel;
-import interface_adapter.modify_product.DeleteProductController;
-import interface_adapter.modify_product.ViewCreateProductController;
-import interface_adapter.modify_product.ViewModifyProductController;
-import interface_adapter.modify_product.ViewModifyProductViewModel;
+import interface_adapter.modify_product.*;
 import interface_adapter.profile.manage_product.ManageProductController;
 import interface_adapter.profile.manage_product.ManageProductPresenter;
 import interface_adapter.profile.manage_product.ManageProductViewModel;
@@ -54,6 +54,8 @@ import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.profile.view_profile.ViewProfilePresenter;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import interface_adapter.schedule.GetSellerSchedulePageController;
+import interface_adapter.schedule.GetSellerSchedulePagePresenter;
+import interface_adapter.schedule.SellerSelectScheduleViewModel;
 import interface_adapter.search_product.*;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
@@ -69,6 +71,9 @@ import use_case.logout.LogOutOutputBoundary;
 import use_case.main_page.ShowMainPageInputBoundary;
 import use_case.main_page.ShowMainPageInteractor;
 import use_case.main_page.ShowMainPageOutputBoundary;
+import use_case.modify_product.*;
+import use_case.profile.modify_profile.ViewModifyProfileOutputBoundary;
+import use_case.schedule.*;
 import use_case.search_product.*;
 import use_case.profile.manage_product.ManageProductInputBoundary;
 import use_case.profile.manage_product.ManageProductInteractor;
@@ -88,7 +93,32 @@ import view.profile.ManageProductView;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * This class is responsible for creating and managing the product view.
+ */
+
 public class ManageProductUseCaseFactory {
+
+    /**
+     * Creates an instance of ManageProductView.
+     *
+     * @param searchProductViewModel      the search product view model
+     * @param manageProductViewModel      the manage product view model
+     * @param viewManagerModel            the view manager model
+     * @param buyerViewProductViewModel   the buyer view product view model
+     * @param sellerViewProductViewModel  the seller view product view model
+     * @param unloggedInViewModel         the unlogged-in view model
+     * @param signupViewModel             the signup view model
+     * @param loginViewModel              the login view model
+     * @param shoppingCartViewModel       the shopping cart view model
+     * @param mainPageViewModel           the main page view model
+     * @param viewProfileViewModel        the view profile view model
+     * @param viewCreateProductViewModel  the view create product view model
+     * @param viewModifyProductViewModel  the view modify product view model
+     * @param sellerSelectScheduleViewModel the seller select schedule view model
+     * @return an instance of ManageProductView
+     * @throws SQLException if a database access error occurs
+     */
 
     public static ManageProductView create(SearchProductViewModel searchProductViewModel,
                                            ManageProductViewModel manageProductViewModel,
@@ -100,16 +130,22 @@ public class ManageProductUseCaseFactory {
                                            LoginViewModel loginViewModel,
                                            ShoppingCartViewModel shoppingCartViewModel,
                                            MainPageViewModel mainPageViewModel,
-                                           ViewProfileViewModel viewProfileViewModel) throws SQLException {
-        //TODO implements this method
+                                           ViewProfileViewModel viewProfileViewModel,
+                                           ViewCreateProductViewModel viewCreateProductViewModel,
+                                           ViewModifyProductViewModel viewModifyProductViewModel,
+                                           SellerSelectScheduleViewModel sellerSelectScheduleViewModel) throws SQLException {
 
         MainPageController mainPageController = createMainPageController(mainPageViewModel, viewManagerModel);
-        ViewCreateProductController viewCreateProductController = createViewCreateProductController();
-        DeleteProductController deleteProductController = createDeleteProductController();
-        ViewModifyProductController viewModifyProductController = createViewModifyProductController();
+        ViewCreateProductController viewCreateProductController = createViewCreateProductController(
+                viewCreateProductViewModel, viewManagerModel);
+        DeleteProductController deleteProductController = createDeleteProductController(
+                manageProductViewModel, viewManagerModel);
+        ViewModifyProductController viewModifyProductController = createViewModifyProductController(
+                viewModifyProductViewModel, viewManagerModel);
         ViewProductController viewProductController = createViewProductController(buyerViewProductViewModel,
                 sellerViewProductViewModel, viewManagerModel,unloggedInViewModel);
-        GetSellerSchedulePageController getSellerSchedulePageController = createGetSellerSchedulePageController();
+        GetSellerSchedulePageController getSellerSchedulePageController = createGetSellerSchedulePageController(
+                sellerSelectScheduleViewModel, viewManagerModel);
         GetSearchPageController getSearchPageController =
                 createGetSearchPageController(viewManagerModel, searchProductViewModel);
         ViewSignupPageController viewSignupPageController =
@@ -122,8 +158,6 @@ public class ManageProductUseCaseFactory {
                 createLogOutController(viewManagerModel, mainPageViewModel);
         ViewProfileController viewProfileController =
                 createProfileController(viewManagerModel, viewProfileViewModel);
-
-
 
         return new ManageProductView(mainPageController,
                 viewCreateProductController,
@@ -140,6 +174,14 @@ public class ManageProductUseCaseFactory {
                 viewProfileController);
     }
 
+    /**
+     * Creates an instance of ViewSignupPageController.
+     *
+     * @param viewManagerModel the view manager model
+     * @param signupViewModel  the signup view model
+     * @return an instance of ViewSignupPageController
+     */
+
     private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
         ViewSignupPageOutputBoundary viewSignupPagePresenter =
                 new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
@@ -148,7 +190,16 @@ public class ManageProductUseCaseFactory {
         return new ViewSignupPageController(viewSignupPageInteractor);
     }
 
-
+    /**
+     * Creates an instance of SignupController.
+     *
+     * @param viewManagerModel the view manager model
+     * @param signupViewModel  the signup view model
+     * @param loginViewModel   the login view model
+     * @return an instance of SignupController
+     * @throws IOException   if an I/O error occurs
+     * @throws SQLException  if a database access error occurs
+     */
 
     private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel) throws IOException, SQLException {
 
@@ -171,6 +222,15 @@ public class ManageProductUseCaseFactory {
         return new SignupController(userSignupInteractor);
     }
 
+    /**
+     * Creates an instance of ViewLoginPageController.
+     *
+     * @param loginViewModel   the login view model
+     * @param viewManagerModel the view manager model
+     * @return an instance of ViewLoginPageController
+     * @throws SQLException if a database access error occurs
+     */
+
     private static ViewLoginPageController createViewLoginPageController
             (LoginViewModel loginViewModel, ViewManagerModel viewManagerModel) throws SQLException {
 
@@ -180,6 +240,16 @@ public class ManageProductUseCaseFactory {
         return new ViewLoginPageController(viewLoginPageInteractor);
     }
 
+    /**
+     * Creates an instance of ViewProductController.
+     *
+     * @param buyerViewProductViewModel the buyer view product view model
+     * @param sellerViewProductViewModel the seller view product view model
+     * @param viewManagerModel           the view manager model
+     * @param non_loggedInProductView    the unlogged-in view model
+     * @return an instance of ViewProductController
+     * @throws SQLException if a database access error occurs
+     */
 
     private static ViewProductController createViewProductController
             (BuyerViewProductViewModel buyerViewProductViewModel, SellerViewProductViewModel
@@ -198,6 +268,15 @@ public class ManageProductUseCaseFactory {
                 new ViewProductInteractor(viewProductPresenter, questionReadDataAccess);
         return new ViewProductController(viewProductInteractor);
     }
+
+    /**
+     * Creates an instance of MainPageController.
+     *
+     * @param mainPageViewModel the main page view model
+     * @param viewManagerModel  the view manager model
+     * @return an instance of MainPageController
+     * @throws SQLException if a database access error occurs
+     */
 
     private static MainPageController createMainPageController(MainPageViewModel mainPageViewModel, ViewManagerModel viewManagerModel) throws SQLException {
         ShowMainPageOutputBoundary showMainPagePresenter = new MainPagePresenter(mainPageViewModel, viewManagerModel);
@@ -236,6 +315,15 @@ public class ManageProductUseCaseFactory {
         return new ShoppingCartController(showShoppingCartInteractor);
     }
 
+    /**
+     * Factory method to create a LogOutController.
+     *
+     * @param viewManagerModel The view manager model.
+     * @param mainPageViewModel The main page view model.
+     * @return A new instance of LogOutController.
+     * @throws SQLException if a database access error occurs.
+     */
+
     private static LogOutController createLogOutController(ViewManagerModel viewManagerModel,
                                                            MainPageViewModel mainPageViewModel) throws SQLException {
         LogOutOutputBoundary LogOutPresenter = new LogOutPresenter(mainPageViewModel,
@@ -244,6 +332,14 @@ public class ManageProductUseCaseFactory {
         return new LogOutController(logOutInteractor);
     }
 
+    /**
+     * Factory method to create a ViewProfileController.
+     *
+     * @param viewManagerModel The view manager model.
+     * @param profileViewModel The profile view model.
+     * @return A new instance of ViewProfileController.
+     */
+
     private static ViewProfileController createProfileController(ViewManagerModel viewManagerModel,
                                                                  ViewProfileViewModel profileViewModel){
         ViewProfileOutputBoundary viewProfilePresenter = new ViewProfilePresenter(profileViewModel,
@@ -251,6 +347,15 @@ public class ManageProductUseCaseFactory {
         ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfilePresenter);
         return new ViewProfileController(viewProfileInteractor);
     }
+
+    /**
+     * Factory method to create a GetSearchPageController.
+     *
+     * @param viewManagerModel The view manager model.
+     * @param searchProductViewModel The search product view model.
+     * @return A new instance of GetSearchPageController.
+     * @throws SQLException if a database access error occurs.
+     */
 
     private static GetSearchPageController createGetSearchPageController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
         GetSearchViewOutputBoundary getSearchViewPresenter =
@@ -264,6 +369,15 @@ public class ManageProductUseCaseFactory {
                 new GetSearchViewInteractor(getSearchViewPresenter, productReadAllDataAccessObeject);
         return new GetSearchPageController(getSearchViewInteractor);
     }
+
+    /**
+     * Factory method to create a ManageProductController.
+     *
+     * @param viewManagerModel The view manager model.
+     * @param manageProductViewModel The manage product view model.
+     * @return A new instance of ManageProductController.
+     * @throws SQLException if a database access error occurs.
+     */
 
     private static ManageProductController createManageProductController(
             ViewManagerModel viewManagerModel,  ManageProductViewModel manageProductViewModel) throws SQLException {
@@ -279,5 +393,88 @@ public class ManageProductUseCaseFactory {
         ManageProductInputBoundary manageProductInteractor =
                 new ManageProductInteractor(manageProductPresenter, productReadByUserDataAccessObject);
         return new ManageProductController(manageProductInteractor);
+    }
+
+    /**
+     * Factory method to create a ViewCreateProductController.
+     *
+     * @param viewCreateProductViewModel The view model for creating a product.
+     * @param viewManagerModel The view manager model.
+     * @return A new instance of ViewCreateProductController.
+     */
+
+    private static ViewCreateProductController createViewCreateProductController(
+            ViewCreateProductViewModel viewCreateProductViewModel,
+            ViewManagerModel viewManagerModel) {
+        ViewCreateProductOutputBoundary viewCreateProductPresenter =
+                new ViewCreateProductPresenter(viewCreateProductViewModel, viewManagerModel);
+        ViewCreateProductInputBoundary viewCreateProductInteractor =
+                new ViewCreateProductInteractor(viewCreateProductPresenter);
+        return new ViewCreateProductController(viewCreateProductInteractor);
+    }
+
+    /**
+     * Factory method to create a DeleteProductController.
+     *
+     * @param manageProductViewModel The manage product view model.
+     * @param viewManagerModel The view manager model.
+     * @return A new instance of DeleteProductController.
+     * @throws SQLException if a database access error occurs.
+     */
+
+    private static DeleteProductController createDeleteProductController(
+            ManageProductViewModel manageProductViewModel,
+            ViewManagerModel viewManagerModel
+    ) throws SQLException {
+
+        DataBaseProductDeleteByIDDataAccessObjectFactoryInterface databaseProductDeleteByIDDataAccessObjectFactoryObject =
+                new DataBaseProductDeleteByIDDataAccessObjectFactory();
+
+        DeleteProductOutputBoundary deleteProductPresenter =
+                new DeleteProductPresenter(
+                        manageProductViewModel,
+                        viewManagerModel);
+
+        ProductDeleteDataAccessByIDInterface productDeleteDataAccessObject =
+                databaseProductDeleteByIDDataAccessObjectFactoryObject.create();
+
+        DeleteProductInputBoundary deleteProductInteractor = new DeleteProductInteractor(
+                deleteProductPresenter,
+                productDeleteDataAccessObject);
+        return new DeleteProductController(deleteProductInteractor);
+    }
+
+    /**
+     * Factory method to create a ViewModifyProductController.
+     *
+     * @param viewModifyProductViewModel The view model for modifying a product.
+     * @param viewManagerModel The view manager model.
+     * @return A new instance of ViewModifyProductController.
+     */
+
+    private static ViewModifyProductController createViewModifyProductController (
+            ViewModifyProductViewModel viewModifyProductViewModel, ViewManagerModel viewManagerModel) {
+        ViewModifyProductOutputBoundary viewModifyProductPresenter =
+                new ViewModifyProductPresenter(viewModifyProductViewModel, viewManagerModel);
+        ViewModifyProductInputBoundary viewModifyProductInteractor =
+                new ViewModifyProductInteractor(viewModifyProductPresenter);
+        return new ViewModifyProductController(viewModifyProductInteractor);
+    }
+
+    /**
+     * Factory method to create a GetSellerSchedulePageController.
+     *
+     * @param sellerSelectScheduleViewModel The view model for the seller's schedule selection.
+     * @param viewManagerModel The view manager model.
+     * @return A new instance of GetSellerSchedulePageController.
+     */
+
+    private static GetSellerSchedulePageController createGetSellerSchedulePageController(
+            SellerSelectScheduleViewModel sellerSelectScheduleViewModel, ViewManagerModel viewManagerModel) {
+        GetSellerSchedulePageOutputBoundary presenter =
+                new GetSellerSchedulePagePresenter(sellerSelectScheduleViewModel, viewManagerModel);
+        GetSellerSchedulePageInputBoundary interactor =
+                new GetSellerSchedulePageInteractor(presenter);
+        return new GetSellerSchedulePageController(interactor);
     }
 }

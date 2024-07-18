@@ -33,15 +33,6 @@ public class MangeSingleProductView extends JPanel implements PropertyChangeList
     private final DeleteProductController deleteProductController;
     private final GetSellerSchedulePageController getSellerSchedulePageController;
 
-    //Top Bar stuff
-    private final GetSearchPageController getSearchPageController;
-    private final ViewSignupPageController viewSignupPageController;
-    private final ViewLoginPageController viewLoginPageController;
-    private final ShoppingCartController shoppingCartController;
-    private final LogOutController logOutController;
-    private final ViewProfileController viewProfileController;
-    private final MainPageController mainPageController;
-
     private JLabel titleViewField = new JLabel();
     private JLabel ratingViewField = new JLabel();
     private JLabel stateViewField = new JLabel();
@@ -57,14 +48,7 @@ public class MangeSingleProductView extends JPanel implements PropertyChangeList
                                   ViewProductController viewProductController,
                                   ViewModifyProductController viewModifyProductController,
                                   DeleteProductController deleteProductController,
-                                  GetSellerSchedulePageController getSellerSchedulePageController,
-                                  GetSearchPageController getSearchPageController,
-                                  ViewSignupPageController viewSignupPageController,
-                                  ViewLoginPageController viewLoginPageController,
-                                  ShoppingCartController shoppingCartController,
-                                  LogOutController logOutController,
-                                  ViewProfileController viewProfileController,
-                                  MainPageController mainPageController) {
+                                  GetSellerSchedulePageController getSellerSchedulePageController) {
         this.setLayout(new BorderLayout());
         this.product = product;
         this.user = user;
@@ -72,20 +56,8 @@ public class MangeSingleProductView extends JPanel implements PropertyChangeList
         this.viewModifyProductController = viewModifyProductController;
         this.viewProductController = viewProductController;
         this.deleteProductController = deleteProductController;
-
-        //top bar initialize
         this.getSellerSchedulePageController = getSellerSchedulePageController;
-        this.getSearchPageController = getSearchPageController;
-        this.viewSignupPageController  = viewSignupPageController;
-        this.viewLoginPageController = viewLoginPageController;
-        this.shoppingCartController = shoppingCartController;
-        this.logOutController = logOutController;
-        this.viewProfileController = viewProfileController;
-        this.mainPageController = mainPageController;
 
-        JPanel topBar = new TopBarSampleView(this.manageProductViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
 
         titleViewField.setText(product.getTitle());
         ratingViewField.setText(String.valueOf(product.getRating()));
@@ -166,9 +138,5 @@ public class MangeSingleProductView extends JPanel implements PropertyChangeList
     public void propertyChange(PropertyChangeEvent evt) {
         ManageProductState state = (ManageProductState) evt.getNewValue();
         manageProductViewModel.setState(state);
-
-        JPanel topBar = new TopBarSampleView(state.getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
     }
 }

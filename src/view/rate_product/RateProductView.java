@@ -164,9 +164,13 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
         ratingInputField.addKeyListener(new RatingInputFieldListener());
         cancel.addActionListener(new CancelButtonListener());
 
-        this.setLayout(new BoxLayout(this, ));
-
         //TODO write how the layout will be
+        this.setLayout(new BorderLayout());
+        this.add(topBar, BorderLayout.NORTH);
+        this.add(title, BorderLayout.CENTER);
+        this.add(showProduct, BorderLayout.WEST);
+        this.add(getRating, BorderLayout.EAST);
+        this.add(buttons, BorderLayout.SOUTH);
     }
 
     @Override
@@ -179,6 +183,7 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
         if(state.getRatingError() != null) {
             JOptionPane.showMessageDialog(this, state.getRatingError());
         }
+
         JPanel topBar = new TopBarSampleView(state.getUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);

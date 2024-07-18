@@ -16,11 +16,16 @@ import entity.schedule.ScheduleFactory;
 import entity.shopping_cart.CommonShoppingCartFactory;
 import entity.shopping_cart.ShoppingCartFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.login.LoginViewModel;
+import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.logout.LogOutPresenter;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.main_page.MainPagePresenter;
 import interface_adapter.main_page.MainPageViewModel;
+import interface_adapter.modify_product.ModifyProductController;
+import interface_adapter.modify_product.ViewModifyProductViewModel;
+import interface_adapter.profile.manage_product.ManageProductController;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.profile.view_profile.ViewProfilePresenter;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
@@ -28,6 +33,8 @@ import interface_adapter.search_product.*;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
+import interface_adapter.signup.SignupViewModel;
+import interface_adapter.signup.ViewSignupPageController;
 import use_case.logout.LogOutInputBoundary;
 import use_case.logout.LogOutInteractor;
 import use_case.logout.LogOutOutputBoundary;
@@ -40,11 +47,42 @@ import use_case.profile.view_profile.ViewProfileInteractor;
 import use_case.profile.view_profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
+import view.modify_product.ModifyProductView;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class CreateProductUseCaseFactory {
+
+    public static ModifyProductView Create(ViewModifyProductViewModel viewModifyProductViewModel,
+                                           ShoppingCartViewModel shoppingCartViewModel,
+                                           ViewManagerModel viewManagerModel,
+                                           SignupViewModel signupViewModel,
+                                           LoginViewModel loginViewModel,
+                                           SearchProductViewModel searchProductViewModel,
+                                           MainPageViewModel mainPageViewModel) throws SQLException {
+        //TODO implements this method
+        ModifyProductController modifyProductController =
+                new ModifyProductUseCaseFactory.createModifyProductController();
+        ManageProductController manageProductController = new ModifyProductUseCaseFactory.createManageProductController();
+        MainPageController mainPageController =
+                ModifyProductUseCaseFactory.createMainPageController(mainPageViewModel, viewManagerModel);
+        ShoppingCartController shoppingCartController =
+                ModifyProductUseCaseFactory.createShoppingCartController(viewManagerModel, shoppingCartViewModel);
+        GetSearchPageController getSearchPageController =
+                ModifyProductUseCaseFactory.createGetSearchPageController(viewManagerModel, searchProductViewModel);
+        ViewSignupPageController viewSignupPageController =
+                ModifyProductUseCaseFactory.creatViewSignupPageController(viewManagerModel, signupViewModel);
+        ViewLoginPageController viewLoginPageController =
+                ModifyProductUseCaseFactory.createViewLoginPageController(loginViewModel, viewManagerModel);
+        LogOutController logOutController =
+                ModifyProductUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
+        ViewProfileController viewProfileController = new ModifyProductUseCaseFactory.createProfileController(viewManagerModel, profileViewModel);
+
+        return new ModifyProductView(viewModifyProductViewModel, modifyProductController, manageProductController,
+                mainPageController, getSearchPageController,viewSignupPageController, viewLoginPageController,
+                shoppingCartController,logOutController, viewProfileController);
+    }
 
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
