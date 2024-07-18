@@ -4,8 +4,8 @@ import interface_adapter.modify_product.ModifyProductController;
 
 import javax.swing.*;
 
-public class ModifyProductTextLabel extends JPanel {
-    ModifyProductTextLabel(JLabel titleLabel, JLabel title,
+public class ModifyProductTextPanel extends JPanel {
+    ModifyProductTextPanel(JLabel titleLabel, JLabel title,
                            JLabel descriptionLabel, JTextField description, JLabel priceLabel, JTextField price,
                            JLabel eTransferEmailLabel, JLabel eTransferEmail, JLabel addressLabel, JLabel address,
                            JLabel tagsLabel, JLabel tags) {

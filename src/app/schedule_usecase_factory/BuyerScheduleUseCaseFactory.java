@@ -53,6 +53,7 @@ import use_case.schedule.BuyerSelectScheduleInputBoundary;
 import use_case.schedule.BuyerSelectScheduleInteractor;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
+import use_case.shopping_cart.ShowShoppingCartOutputBoundary;
 import use_case.signup.ViewSignupPageInputBoundary;
 import use_case.signup.ViewSignupPageInteractor;
 import use_case.signup.ViewSignupPageOutputBoundary;
@@ -231,7 +232,7 @@ public class BuyerScheduleUseCaseFactory {
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
-        ShoppingCartPresenter presenter = new ShoppingCartPresenter(viewManagerModel,
+        ShowShoppingCartOutputBoundary presenter = new ShoppingCartPresenter(viewManagerModel,
                 shoppingCartViewModel);
         DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
                 = new DatabaseShoppingCartReadDataAccessObjectFactory();

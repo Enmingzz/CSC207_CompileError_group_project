@@ -1,5 +1,6 @@
 package use_case.modify_product;
 
+import data_access.interfaces.product.ProductDeleteDataAccessByIDInterface;
 import data_access.interfaces.product.ProductReadAllDataAccessInterface;
 import entity.product.Product;
 

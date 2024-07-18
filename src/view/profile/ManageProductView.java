@@ -23,7 +23,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.sql.SQLException;
-
+/**
+ * A view for managing products, which extends JFrame and implements ActionListener and PropertyChangeListener.
+ */
 public class ManageProductView extends JFrame implements ActionListener, PropertyChangeListener {
     public final String viewName = "Product View";
     private final MainPageController mainPageController;
@@ -44,6 +46,24 @@ public class ManageProductView extends JFrame implements ActionListener, Propert
     private final ViewProfileController viewProfileController;
 
     private final JButton addProduct;
+
+    /**
+     * Constructs a ManageProductView with the specified controllers and view models.
+     *
+     * @param mainPageController              the main page controller
+     * @param viewCreateProductController     the controller for creating a product
+     * @param deleteProductController         the controller for deleting a product
+     * @param viewModifyProductController     the controller for modifying a product
+     * @param manageProductViewModel          the view model for managing products
+     * @param viewProductController           the controller for viewing a product
+     * @param getSellerSchedulePageController the controller for getting the seller's schedule page
+     * @param getSearchPageController         the controller for getting the search page
+     * @param viewSignupPageController        the controller for viewing the signup page
+     * @param viewLoginPageController         the controller for viewing the login page
+     * @param shoppingCartController          the controller for managing the shopping cart
+     * @param logOutController                the controller for logging out
+     * @param viewProfileController           the controller for viewing the profile
+     */
 
     public ManageProductView(MainPageController mainPageController, ViewCreateProductController viewCreateProductController,
                              DeleteProductController deleteProductController, ViewModifyProductController viewModifyProductController,
@@ -92,13 +112,19 @@ public class ManageProductView extends JFrame implements ActionListener, Propert
 
     }
 
+    /**
+     * Updates the main panel to reflect the current state of the manageProductViewModel.
+     */
+
     public void updateMainPanel(){
         mainPanel.removeAll();
 
         for (Product product: manageProductViewModel.getState().getProduct()) {
             MangeSingleProductView panel = new MangeSingleProductView(manageProductViewModel.getState().getUser(),
                     product, manageProductViewModel, viewProductController,
-                    viewModifyProductController, deleteProductController, getSellerSchedulePageController);
+                    viewModifyProductController, deleteProductController, getSellerSchedulePageController, getSearchPageController,
+                    viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController,
+                    mainPageController);
             mainPanel.add(panel);
             mainPanel.add(Box.createVerticalStrut(10));
         }
@@ -120,8 +146,8 @@ public class ManageProductView extends JFrame implements ActionListener, Propert
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        updateMainPanel();
         ManageProductState newState = (ManageProductState) evt.getNewValue();
+        updateMainPanel();
         JPanel topBar = new TopBarSampleView(newState.getUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);

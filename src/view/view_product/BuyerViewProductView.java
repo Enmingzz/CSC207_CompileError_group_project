@@ -66,6 +66,20 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
     ProductInfoLabelTextPanel productInfo;
     JPanel qAInfo;
 
+    /**
+     * Constructs a BuyerViewProductView with specific controllers and view model.
+     *
+     * @param buyerViewProductViewModel the view model containing state and operations for product viewing.
+     * @param addToCartController the controller for adding a product to the shopping cart.
+     * @param publishQuestionController the controller for publishing questions about the product.
+     * @param mainPageController the controller for navigating back to the main page.
+     * @param getSearchPageController the controller for accessing the search page.
+     * @param viewSignupPageController the controller for the signup page view.
+     * @param viewLoginPageController the controller for the login page view.
+     * @param shoppingCartController the controller for managing the shopping cart.
+     * @param logOutController the controller for handling logout process.
+     * @param viewProfileController the controller for viewing user profile.
+     */
 
     public BuyerViewProductView(BuyerViewProductViewModel buyerViewProductViewModel,
                                 AddToCartController addToCartController, PublishQuestionController publishQuestionController,
