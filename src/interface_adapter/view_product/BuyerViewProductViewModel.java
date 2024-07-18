@@ -1,5 +1,9 @@
 package interface_adapter.view_product;
 
+import entity.product.CommonProductFactory;
+import entity.product.ProductFactory;
+import entity.user.CommonUserFactory;
+import entity.user.UserFactory;
 import interface_adapter.ViewModel;
 
 import java.beans.PropertyChangeListener;

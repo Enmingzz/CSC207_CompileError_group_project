@@ -2,7 +2,9 @@ package interface_adapter.view_product;
 
 import entity.comment.Question;
 import entity.product.Product;
+import entity.product.ProductFactory;
 import entity.user.User;
+import entity.user.UserFactory;
 
 import java.util.ArrayList;
 
@@ -23,6 +25,7 @@ public class BuyerViewProductState {
         this.user = user;
         this.isChanged = isChanged;
     }
+
     //getter methods
     public Product getProduct(){return product;}
 

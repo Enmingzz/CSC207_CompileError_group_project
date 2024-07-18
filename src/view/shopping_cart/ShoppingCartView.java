@@ -134,7 +134,7 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
 
         JPanel topBar = new TopBarSampleView(shoppingCartViewModel.getState().getUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
+        this.add(topBar, BorderLayout.SOUTH);
 
         allProductsPanel = new AllProductsPanel(listProducts,
                 shoppingCartViewModel,
@@ -360,10 +360,10 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
                 getBuyerSchedulePageController,
                 confirmController,
                 getRatePageController);
-
-        JPanel topBar = new TopBarSampleView(state.getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
+//
+//        JPanel topBar = new TopBarSampleView(state.getUser(),
+//                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+//        this.add(topBar);
     }
 
 

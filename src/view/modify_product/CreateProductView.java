@@ -90,7 +90,7 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
 
         JPanel topBar = new TopBarSampleView(this.viewCreateProductViewModel.getState().getUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
+        this.add(topBar, BorderLayout.SOUTH);
 
         this.viewCreateProductViewModel.addPropertyChangeListener(this);
 
@@ -267,7 +267,7 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
                 if (evt.getSource().equals(createProduct)) {
                     try {
                         CreateProductState state = new CreateProductState();
-                        CreateProductController.execute(state.getUser(), uploadedImage, descriptionInputField.getText(),
+                        createProductController.execute(state.getUser(), uploadedImage, descriptionInputField.getText(),
                                 priceInputField.getText(), titleInputField.getText(), eTransferEmailInputField.getText(),
                                 addressInputField.getText(), arrayListTags);
                     } catch (SQLException | IOException e) {
@@ -312,9 +312,9 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
 
         CreateProductState newState = (CreateProductState) evt.getSource();
 
-        JPanel topBar = new TopBarSampleView(newState.getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
+//        JPanel topBar = new TopBarSampleView(newState.getUser(),
+//                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+//        this.add(topBar);
 
     }
 }

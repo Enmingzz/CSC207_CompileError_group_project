@@ -1,5 +1,7 @@
 package interface_adapter.profile.modify_profile;
 
+import entity.user.CommonUserFactory;
+import entity.user.UserFactory;
 import interface_adapter.ViewModel;
 import interface_adapter.signup.SignupState;
 
@@ -14,7 +16,9 @@ public class ModifyProfileViewModel extends ViewModel {
     public final String CONFIRM_BUTTON_LABEL = "Confirm";
     public final String BACK_BUTTON_LABEL = "Back";
 
-    private ModifyProfileState state;
+    private UserFactory userFactory = new CommonUserFactory();
+
+    private ModifyProfileState state = new ModifyProfileState(userFactory);
 
     public ModifyProfileViewModel() {
         super("modify profile");
