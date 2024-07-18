@@ -8,7 +8,7 @@ import entity.user.User;
  * schedule page for a buyer.
  */
 public class GetBuyerSchedulePageInputData {
-    private User buyer;
+    private final User buyer;
     private final Product product;
 
 

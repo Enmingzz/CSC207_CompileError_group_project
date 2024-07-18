@@ -8,8 +8,8 @@ import entity.user.User;
  * of the schedule selection process for a seller, including the seller and updated product information.
  */
 public class SellerSelectScheduleOutputData {
-    private User seller;
-    private Product product;
+    private final User seller;
+    private final Product product;
 
     /**
      * Constructs a SellerSelectScheduleOutputData object.
