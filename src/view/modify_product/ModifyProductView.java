@@ -13,6 +13,7 @@ import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.ViewSignupPageController;
+import interface_adapter.view_product.BuyerViewProductState;
 import view.TopBarSampleView;
 
 import javax.imageio.ImageIO;
@@ -27,6 +28,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class ModifyProductView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -51,8 +53,8 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
     private final JButton changeProduct;
     private final JButton cancel;
 
-    ModifyProductTextLabel productInformation;
-
+    ModifyProductTextPanel productInformation;
+    ImagePanel displayImage;
     JPanel productModification;
 
     public ModifyProductView( ViewModifyProductViewModel viewModifyProductViewModel,
@@ -84,6 +86,10 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
 
+
+        //TODO check if this image works
+        displayImage = new ImagePanel(viewModifyProductViewModel.getState().getProduct().getImage());
+
         JLabel _title = new JLabel(viewModifyProductViewModel.TITLE_LABEL);
         _title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -95,8 +101,6 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 
         //(1) show the product information while
         Product product = viewModifyProductViewModel.getState().getProduct();
-        LabelTextPanel title = new LabelTextPanel(
-                new JLabel("Title"), titleInputField);
         final JLabel titleLabel =new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
         final JLabel title = new JLabel(product.getTitle());
         final JLabel descriptionLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
@@ -111,27 +115,12 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         String tagsString = String.join(", ", product.getListTags());
         final JLabel tags = new JLabel(tagsString);
 
-        productInformation = new ModifyProductTextLabel( titleLabel,  title,
+        productInformation = new ModifyProductTextPanel( titleLabel,  title,
                  descriptionLabel,  description,  priceLabel,  price,
                  eTransferEmailLabel,  eTransferEmail,  addressLabel,  address,
                  tagsLabel,  tags);
 
-
         //create all the different panels
-        //TODO rethink loading image
-        JFrame frame = new JFrame("Image Display Example");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-        final JLabel image = new JLabel();
-        frame.add(image, BorderLayout.CENTER);
-        try {
-            BufferedImage image = ImageIO.read(product.getImage()); // Replace with your image path
-            ImageIcon icon = new ImageIcon(image);
-            image.setIcon(icon);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
 
         class DescriptionInputFieldListener implements KeyListener{
             @Override
@@ -205,6 +194,28 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 
         //TODO think about the input fields and display fields
 
+
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BorderLayout());
+
+        // Create product information panel
+
+        // Add product modification controls
+        JPanel controlPanel = new JPanel();
+        controlPanel.setLayout(new FlowLayout());
+        controlPanel.add(changeProduct);
+        controlPanel.add(cancel);
+
+
+        // Assemble the UI
+        contentPanel.add(displayImage, BorderLayout.WEST);
+        contentPanel.add(productInformation, BorderLayout.CENTER);
+        contentPanel.add(controlPanel, BorderLayout.SOUTH);
+
+        this.setLayout(new BorderLayout());
+        this.add(contentPanel, BorderLayout.CENTER);
+
+
     }
 
     @Override
@@ -212,6 +223,18 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        ViewModifyProductState state = (ViewModifyProductState) evt.getNewValue();
+        JOptionPane.showMessageDialog(this, state.get)
+
+
+
+
+
+
+
+
+
+
         ViewModifyProductState state = (ViewModifyProductState) evt.getNewValue();
         setFields(state);
 

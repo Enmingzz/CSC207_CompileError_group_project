@@ -9,7 +9,7 @@ public class ViewCreateProductPresenter implements ViewCreateProductOutputBounda
     private final ViewCreateProductViewModel viewCreateProductViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    public ViewCreateProductPresenter(ViewCreateProductOutputData viewCreateProductOutputData, ViewCreateProductViewModel viewCreateProductViewModel, ViewManagerModel viewManagerModel) {
+    public ViewCreateProductPresenter(ViewCreateProductViewModel viewCreateProductViewModel, ViewManagerModel viewManagerModel) {
         this.viewCreateProductViewModel = viewCreateProductViewModel;
         this.viewManagerModel = viewManagerModel;
     }
