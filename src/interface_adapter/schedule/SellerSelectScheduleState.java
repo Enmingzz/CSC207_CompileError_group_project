@@ -6,17 +6,29 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The SellerSelectScheduleState class holds the state information for the seller select schedule use case,
+ * including the seller, product, and any error messages.
+ */
 public class SellerSelectScheduleState {
     private User seller = null;
     private Product product = null;
     private String error = null;
 
+    /**
+     * Constructs a new SellerSelectScheduleState object as a copy of the specified state.
+     *
+     * @param copy the state to copy
+     */
     public SellerSelectScheduleState(SellerSelectScheduleState copy) {
         seller = copy.seller;
         product = copy.product;
         error = copy.error;
     }
 
+    /**
+     * Constructs a SellerSelectScheduleState object with default values.
+     */
     public SellerSelectScheduleState () {}
 
     public User getSeller() {

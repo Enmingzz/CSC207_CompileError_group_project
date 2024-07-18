@@ -26,12 +26,16 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * The BuyerScheduleView class represents the UI for selecting a schedule as a buyer.
+ * It displays available times, allows selection of a time, and provides buttons to confirm or cancel the selection.
+ */
 public class BuyerScheduleView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "buyer_schedule";
 
     private BuyerSelectScheduleViewModel viewModel;
-    private BuyerSelectScheduleController controller;
+    private  BuyerSelectScheduleController controller;
 
     //Top Bar stuff
     private final GetSearchPageController getSearchPageController;
@@ -46,6 +50,19 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
     private final JButton selectButton;
     private final JButton cancelButton;
 
+    /**
+     * Constructs a BuyerScheduleView with the specified view model, controller, and top bar controllers.
+     *
+     * @param viewModel the view model for buyer select schedule
+     * @param controller the controller for buyer select schedule
+     * @param shoppingCartController the controller for the shopping cart
+     * @param getSearchPageController the controller for the search page
+     * @param viewSignupPageController the controller for the signup page
+     * @param viewLoginPageController the controller for the login page
+     * @param logOutController the controller for logging out
+     * @param viewProfileController the controller for the profile view
+     * @param mainPageController the controller for the main page
+     */
     public BuyerScheduleView(BuyerSelectScheduleViewModel viewModel,
                              BuyerSelectScheduleController controller,
                              ShoppingCartController shoppingCartController,
@@ -91,6 +108,11 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
 
         selectButton.addActionListener(
                 new ActionListener() {
+                    /**
+                     * Handles the action event when the select button is clicked.
+                     *
+                     * @param evt the action event
+                     */
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(selectButton)) {
                             User buyer = viewModel.getState().getBuyer();
@@ -108,6 +130,12 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
 
         cancelButton.addActionListener(
                 new ActionListener() {
+                    /**
+                     * Handles the action event when the cancel button is clicked.
+                     * Navigates back to the shopping cart view
+                     *
+                     * @param evt the action event
+                     */
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(cancelButton)) {
                             User buyer = viewModel.getState().getBuyer();

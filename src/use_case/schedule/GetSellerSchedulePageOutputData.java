@@ -9,7 +9,7 @@ import entity.user.User;
  */
 public class GetSellerSchedulePageOutputData {
     private final User seller;
-    private Product product;
+    private final Product product;
 
     /**
      * Constructs a GetSellerSchedulePageOutputData object.

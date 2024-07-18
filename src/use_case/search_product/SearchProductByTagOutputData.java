@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * of searching products by tag, including the user and the list of matching products.
  */
 public class SearchProductByTagOutputData {
-    private User user;
+    private final User user;
     private final ArrayList<Product> products;
 
     /**
