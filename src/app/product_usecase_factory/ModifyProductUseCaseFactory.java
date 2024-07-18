@@ -118,7 +118,7 @@ public class ModifyProductUseCaseFactory {
         //TODO might need modification in interactor, since we cannot initialize the
         // ChangeProductDescriptionInterface, ChangeProductPriceInterface, ChangeProductPictureInterface, by using
         // databaseinterfaceFactorires?
-        ChangeProductOutputBoundary presenter = new ModifyProductPresenter(manageProductViewModel);
+        ChangeProductOutputBoundary presenter = new ModifyProductPresenter(manageProductViewModel, viewManagerModel);
 
 
         DatabaseProductUpdateDescriptionDataAccessObjectFactoryInterface databaseProductUpdateDescriptionDataAccessObjectFactory
