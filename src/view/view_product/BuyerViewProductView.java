@@ -286,7 +286,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
             JOptionPane.showMessageDialog(this, newState.getPrompt_words());
         }else if(newState.getIsChanged()){
             Product wtv_product = newState.getProduct();
-            final JLabel image = new JLabel(String.valueOf(wtv_product.getImage()));//image???
+            JLabel image = new JLabel(String.valueOf(wtv_product.getImage()));//image???
             final JLabel description = new JLabel(wtv_product.getDescription());
             final JLabel price = new JLabel(String.valueOf(wtv_product.getPrice()));
             final JLabel _title = new JLabel(wtv_product.getTitle());
