@@ -49,6 +49,7 @@ import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import interface_adapter.signup.*;
 import interface_adapter.view_product.*;
 import use_case.search_product.*;
+import use_case.shopping_cart.ShowShoppingCartOutputBoundary;
 import use_case.signup.*;
 import use_case.login.ViewLoginPageInputBoundary;
 import use_case.login.ViewLoginPageInteractor;
@@ -187,6 +188,7 @@ public class MainPageUseCaseFactory {
 
     private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel) throws IOException, SQLException {
 
+        //TODO: CHECK WHETHER THIS CAN BE DELETED OR NOT
         DatabaseUserCreateDataAccessObjectFactoryInterface databaseUserCreateDataAccessObjectFactory = new DatabaseUserCreateDataAccessObjectFactory();
         UserCreateDataAccessInterface userCreateDataAccessObject = databaseUserCreateDataAccessObjectFactory.create();
         SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
@@ -250,7 +252,7 @@ public class MainPageUseCaseFactory {
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
-        ShoppingCartPresenter presenter = new ShoppingCartPresenter(viewManagerModel,
+        ShowShoppingCartOutputBoundary presenter = new ShoppingCartPresenter(viewManagerModel,
                 shoppingCartViewModel);
         DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
                 = new DatabaseShoppingCartReadDataAccessObjectFactory();

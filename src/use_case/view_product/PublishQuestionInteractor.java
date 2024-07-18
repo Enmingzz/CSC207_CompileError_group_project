@@ -14,11 +14,10 @@ public class PublishQuestionInteractor implements PublishQuestionInputBoundary{
     QuestionFactory questionFactory;
     PublishQuestionOutputBoundary publishPresenter;
 
-    public PublishQuestionInteractor(Product product,
+    public PublishQuestionInteractor(
                                      QuestionCreateDataAccessInterface questionSaveDataAccessInterface,
                                      QuestionFactory questionFactory,
                                      PublishQuestionOutputBoundary publishQuestionOutputBoundary){
-        this.product = product;
         this.questionCreateDataAccessObject = questionSaveDataAccessInterface;
         this.questionFactory = questionFactory;
         this.publishPresenter = publishQuestionOutputBoundary;

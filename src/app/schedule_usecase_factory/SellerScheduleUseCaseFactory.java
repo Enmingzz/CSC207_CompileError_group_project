@@ -65,6 +65,7 @@ import use_case.schedule.SellerSelectScheduleInputBoundary;
 import use_case.schedule.SellerSelectScheduleInteractor;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
+import use_case.shopping_cart.ShowShoppingCartOutputBoundary;
 import use_case.signup.*;
 import view.schedule.SellerScheduleView;
 
@@ -80,7 +81,8 @@ public class SellerScheduleUseCaseFactory {
                                             LoginViewModel loginViewModel,
                                             ShoppingCartViewModel shoppingCartViewModel,
                                             MainPageViewModel mainPageViewModel,
-                                            SearchProductViewModel searchProductViewModel) throws SQLException, IOException {
+                                            SearchProductViewModel searchProductViewModel,
+                                            ViewProfileViewModel viewProfileViewModel) throws SQLException, IOException {
         SellerSelectScheduleController sellerSelectScheduleController =
                 SellerScheduleUseCaseFactory.createSellerSelectScheduleController(sellerSelectScheduleViewModel,
                         viewManagerModel, manageProductViewModel);
@@ -96,8 +98,13 @@ public class SellerScheduleUseCaseFactory {
                 SellerScheduleUseCaseFactory.createShoppingCartController(viewManagerModel, shoppingCartViewModel);
         LogOutController logOutController =
                 SellerScheduleUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
+        ViewProfileController viewProfileController =
+                SellerScheduleUseCaseFactory.createProfileController(viewManagerModel, viewProfileViewModel);
+        MainPageController mainPageController =
+                SellerScheduleUseCaseFactory.createMainPageController(mainPageViewModel, viewManagerModel);
         return new SellerScheduleView(sellerSelectScheduleController, sellerSelectScheduleViewModel, manageProductController,
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController);
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController,
+                viewProfileController, mainPageController);
 
     }
 
@@ -126,10 +133,19 @@ public class SellerScheduleUseCaseFactory {
         return new SellerSelectScheduleController(sellerSelectScheduleInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ShoppingCartController}.
+     *
+     * @param viewManagerModel     the view manager model
+     * @param shoppingCartViewModel the shopping cart view model
+     * @return an instance of {@link ShoppingCartController}
+     * @throws SQLException if a database access error occurs
+     */
+
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
-        ShoppingCartPresenter presenter = new ShoppingCartPresenter(viewManagerModel,
+        ShowShoppingCartOutputBoundary presenter = new ShoppingCartPresenter(viewManagerModel,
                 shoppingCartViewModel);
         DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
                 = new DatabaseShoppingCartReadDataAccessObjectFactory();
@@ -221,11 +237,21 @@ public class SellerScheduleUseCaseFactory {
         return new SignupController(userSignupInteractor);
     }
 
-    private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
+    private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel) {
         ViewSignupPageOutputBoundary viewSignupPagePresenter =
                 new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
         ViewSignupPageInputBoundary viewSignupPageInteractor =
                 new ViewSignupPageInteractor(viewSignupPagePresenter);
         return new ViewSignupPageController(viewSignupPageInteractor);
+
+    }
+
+    private static ViewProfileController createProfileController(ViewManagerModel viewManagerModel,
+                                                                 ViewProfileViewModel profileViewModel) throws IOException {
+        ViewProfileOutputBoundary viewProfilePresenter = new ViewProfilePresenter(profileViewModel,
+                viewManagerModel);
+        ViewProfileInputBoundary viewProfileInteractor = new ViewProfileInteractor(viewProfilePresenter);
+        return new ViewProfileController(viewProfileInteractor);
+
     }
 }

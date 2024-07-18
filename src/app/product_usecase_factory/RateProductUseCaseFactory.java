@@ -79,7 +79,8 @@ public class RateProductUseCaseFactory {
                                          SignupViewModel signupViewModel,
                                          LoginViewModel loginViewModel,
                                          SearchProductViewModel searchProductViewModel,
-                                         MainPageViewModel mainPageViewModel) throws SQLException {
+                                         MainPageViewModel mainPageViewModel,
+                                         ViewProfileViewModel viewProfileViewModel) throws SQLException, IOException {
         RateProductController rateProductController =
                 RateProductUseCaseFactory.createRateProductController(rateProductViewModel, viewManagerModel, shoppingCartViewModel);
         MainPageController mainPageController =
@@ -94,8 +95,11 @@ public class RateProductUseCaseFactory {
                 RateProductUseCaseFactory.createViewLoginPageController(loginViewModel, viewManagerModel);
         LogOutController logOutController =
                 RateProductUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
+        ViewProfileController viewProfileController =
+                RateProductUseCaseFactory.createProfileController(viewManagerModel, viewProfileViewModel);
         return new RateProductView(rateProductViewModel, rateProductController,
-                getSearchPageController, mainPageController, viewSignupPageController, viewLoginPageController, shoppingCartController,logOutController );
+                getSearchPageController, mainPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController,logOutController, viewProfileController);
     }
 
     private static RateProductController createRateProductController
@@ -115,6 +119,15 @@ public class RateProductUseCaseFactory {
                 new RateProductInteractor(productUpdateRatingDataAccessObject, productUpdateStateDataAccessObject, rateProductPresenter);
         return new RateProductController(rateProductInteractor);
     }
+
+    /**
+     * Creates an instance of {@link ShoppingCartController}.
+     *
+     * @param viewManagerModel     the view manager model
+     * @param shoppingCartViewModel the shopping cart view model
+     * @return an instance of {@link ShoppingCartController}
+     * @throws SQLException if a database access error occurs
+     */
 
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
@@ -190,4 +203,4 @@ public class RateProductUseCaseFactory {
         return new ViewSignupPageController(viewSignupPageInteractor);
     }
 }
-}
+

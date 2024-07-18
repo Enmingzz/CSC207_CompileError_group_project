@@ -1,24 +1,18 @@
 package app.product_usecase_factory;
 
-import data_access.factories.interfaces.product.DataBaseProductReadAllDataAccessObjectFactoryInterface;
-import data_access.factories.interfaces.product.DataBaseProductReadByIdDataAccessObjectFactoryInterface;
-import data_access.factories.interfaces.product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
-import data_access.factories.interfaces.product.DatabaseProductUpdateDescriptionDataAccessObjectFactoryInterface;
+import app.search_product_usecase_factory.SearchProductUseCaseFactory;
+import data_access.factories.interfaces.product.*;
 import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
-import data_access.factories.objects.product.DataBaseProductReadByIdDataAccessObjectFactory;
-import data_access.factories.objects.product.DatabaseProductReadAllDataAccessObjectFactory;
-import data_access.factories.objects.product.DatabaseProductReadByNameDataAccessObjectFactory;
-import data_access.factories.objects.product.DatabaseProductUpdateDescriptionDataAccessObjectFactory;
+import data_access.factories.objects.product.*;
 import data_access.factories.objects.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactory;
-import data_access.interfaces.product.ProductReadAllDataAccessInterface;
-import data_access.interfaces.product.ProductReadByNameDataAccessInterface;
+import data_access.interfaces.product.*;
 import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
-import data_access.objects.product.DatabaseProductReadByIdDataAccessObject;
 import entity.product.CommonProductFactory;
 import entity.product.ProductFactory;
 import entity.schedule.CommonScheduleFactory;
 import entity.schedule.ScheduleFactory;
 import entity.shopping_cart.CommonShoppingCartFactory;
+import entity.shopping_cart.ShoppingCart;
 import entity.shopping_cart.ShoppingCartFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
@@ -33,11 +27,11 @@ import interface_adapter.modify_product.ModifyProductController;
 import interface_adapter.modify_product.ModifyProductPresenter;
 import interface_adapter.modify_product.ViewModifyProductViewModel;
 import interface_adapter.profile.manage_product.ManageProductController;
+import interface_adapter.profile.manage_product.ManageProductPresenter;
 import interface_adapter.profile.manage_product.ManageProductViewModel;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.profile.view_profile.ViewProfilePresenter;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
-import interface_adapter.rating.RateProductViewModel;
 import interface_adapter.search_product.*;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
@@ -55,76 +49,132 @@ import use_case.main_page.ShowMainPageInputBoundary;
 import use_case.main_page.ShowMainPageInteractor;
 import use_case.main_page.ShowMainPageOutputBoundary;
 import use_case.modify_product.*;
+import use_case.profile.manage_product.ManageProductInputBoundary;
+import use_case.profile.manage_product.ManageProductInteractor;
+import use_case.profile.manage_product.ManageProductOutputBoundary;
 import use_case.search_product.*;
 import use_case.profile.view_profile.ViewProfileInputBoundary;
 import use_case.profile.view_profile.ViewProfileInteractor;
 import use_case.profile.view_profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInputBoundary;
 import use_case.shopping_cart.ShowShoppingCartInteractor;
-import use_case.shopping_cart.ShowShoppingCartOutputBoundary;
 import use_case.signup.ViewSignupPageInputBoundary;
 import use_case.signup.ViewSignupPageInteractor;
 import use_case.signup.ViewSignupPageOutputBoundary;
 import view.modify_product.ModifyProductView;
-import app.product_usecase_factory.ModifyProductUseCaseFactory;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class ModifyProductUseCaseFactory {
     public static ModifyProductView Create(ViewModifyProductViewModel viewModifyProductViewModel,
-                                           ShoppingCartViewModel shoppingCartViewModel,
                                            ViewManagerModel viewManagerModel,
+                                           SearchProductViewModel searchProductViewModel,
                                            SignupViewModel signupViewModel,
                                            LoginViewModel loginViewModel,
-                                           SearchProductViewModel searchProductViewModel,
-                                           MainPageViewModel mainPageViewModel) throws SQLException {
-        //TODO implements this method
-        ModifyProductController modifyProductController =
-                new ModifyProductUseCaseFactory.createModifyProductController();
-        ManageProductController manageProductController = new ModifyProductUseCaseFactory.createManageProductController();
-        MainPageController mainPageController =
-                ModifyProductUseCaseFactory.createMainPageController(mainPageViewModel, viewManagerModel);
-        ShoppingCartController shoppingCartController =
-                ModifyProductUseCaseFactory.createShoppingCartController(viewManagerModel, shoppingCartViewModel);
-        GetSearchPageController getSearchPageController =
-                ModifyProductUseCaseFactory.createGetSearchPageController(viewManagerModel, searchProductViewModel);
-        ViewSignupPageController viewSignupPageController =
-                ModifyProductUseCaseFactory.creatViewSignupPageController(viewManagerModel, signupViewModel);
-        ViewLoginPageController viewLoginPageController =
-                ModifyProductUseCaseFactory.createViewLoginPageController(loginViewModel, viewManagerModel);
-        LogOutController logOutController =
-                ModifyProductUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
-        ViewProfileController viewProfileController = new ModifyProductUseCaseFactory.createProfileController(viewManagerModel, profileViewModel);
+                                           ShoppingCartViewModel shoppingCartViewModel,
+                                           MainPageViewModel mainPageViewModel,
+                                           ViewProfileViewModel viewProfileViewModel,
+                                           ManageProductViewModel manageProductViewModel
+                                           ) throws SQLException, IOException {
+        ModifyProductController modifyProductController = createmodifyProductController(viewManagerModel, manageProductViewModel);
 
-        return new ModifyProductView(viewModifyProductViewModel, modifyProductController, manageProductController,
-                mainPageController, getSearchPageController,viewSignupPageController, viewLoginPageController,
-                shoppingCartController,logOutController, viewProfileController);
+
+        ManageProductController manageProductController = createManageProductController(viewManagerModel,
+                manageProductViewModel);
+
+        GetSearchPageController getSearchPageController =
+                createGetSearchPageController(viewManagerModel, searchProductViewModel);
+        ViewSignupPageController viewSignupPageController =
+                creatViewSignupPageController(viewManagerModel, signupViewModel);
+        ViewLoginPageController viewLoginPageController =
+                createViewLoginPageController(loginViewModel, viewManagerModel);
+        ShoppingCartController shoppingCartController =
+                createShoppingCartController(viewManagerModel, shoppingCartViewModel);
+        LogOutController logOutController =
+                createLogOutController(viewManagerModel, mainPageViewModel);
+        ViewProfileController viewProfileController =
+                createProfileController(viewManagerModel, viewProfileViewModel);
+        MainPageController mainPageController = createMainPageController(mainPageViewModel, viewManagerModel);
+
+
+        //TODO implements this method
+        return new ModifyProductView(viewModifyProductViewModel,
+                modifyProductController,
+                manageProductController,
+                mainPageController,
+                getSearchPageController,
+                viewSignupPageController,
+                viewLoginPageController,
+                shoppingCartController,
+                logOutController,
+                viewProfileController);
     }
 
-    //TODO CHANGE THIS OR DO THIS
-    private static ModifyProductController createModifyProductController(ManageProductViewModel manageProductViewModel) throws SQLException {
+
+    private  static ModifyProductController createmodifyProductController(ViewManagerModel viewManagerModel,
+                                                                          ManageProductViewModel manageProductViewModel) throws SQLException {
+
+        //TODO might need modification in interactor, since we cannot initialize the
+        // ChangeProductDescriptionInterface, ChangeProductPriceInterface, ChangeProductPictureInterface, by using
+        // databaseinterfaceFactorires?
+        ChangeProductOutputBoundary presenter = new ModifyProductPresenter(manageProductViewModel);
+
+
+        DatabaseProductUpdateDescriptionDataAccessObjectFactoryInterface databaseProductUpdateDescriptionDataAccessObjectFactory
+                = new DatabaseProductUpdateDescriptionDataAccessObjectFactory();
+        ProductUpdateDescriptionDataAccessInterface productUpdateDescriptionDataAccessObject =
+                databaseProductUpdateDescriptionDataAccessObjectFactory.create();
+
+        ChangeProductDescriptionInterface changeProductDescription =
+                new ChangeProductDescription(productUpdateDescriptionDataAccessObject);
+
+        DatabaseProductUpdatePriceDataAccessObjectFactoryInterface databaseProductUpdatePriceDataAccessObjectFactory
+                = new DatabaseProductUpdatePriceDataAccessObjectFactory();
+        ProductUpdatePriceDataAccessInterface productUpdatePriceDataAccessObject =
+                databaseProductUpdatePriceDataAccessObjectFactory.create();
+
+        ChangeProductPriceInterface changeProductPrice = new ChangeProductPrice(productUpdatePriceDataAccessObject);
+
+        ChangeProductInputBoundary interactor = new ChangeProductInteractor(presenter, changeProductDescription,
+                changeProductPrice);
+        return new ModifyProductController(interactor);
+    }
+
+    private  static ManageProductController createManageProductController(ViewManagerModel viewManagerModel,
+                                                                          ManageProductViewModel manageProductViewModel) throws SQLException {
+
+        DatabaseProductReadByUserDataAccessObjectFactoryInterface factoryInterface =
+                new DatabaseProductReadByUserDataAccessObjectFactory();
         ProductFactory productFactory = new CommonProductFactory();
         ScheduleFactory scheduleFactory = new CommonScheduleFactory();
-        ChangeProductOutputBoundary presenter = new ModifyProductPresenter(manageProductViewModel);
-//        DatabaseProductUpdateDescriptionDataAccessObjectFactoryInterface dataBaseProductUpdateDescriptionDataAccessFactory
-//                = new DatabaseProductUpdateDescriptionDataAccessObjectFactory();
-//        ChangeProductDescriptionInterface changeProductDescriptionInterface
-//                = dataBaseProductUpdateDescriptionDataAccessFactory.create();
-        ChangeProductDescriptionInterface changeProductDescriptionInterface = ;
-
-        ChangeProductInputBoundary changeProductInteractor = new ChangeProductInteractor(presenter, );
-        return new ModifyProductController(changeProductInteractor);
+        ProductReadByUserDataAccessInterface productReadByUserDAO = factoryInterface.create(productFactory, scheduleFactory);
+        ManageProductOutputBoundary presenter = new ManageProductPresenter(viewManagerModel, manageProductViewModel);
+        ManageProductInputBoundary interactor = new ManageProductInteractor(presenter,productReadByUserDAO);
+        return new ManageProductController(interactor);
     }
 
-    private static ManageProductController createManageProductController() {
+    private static ViewLoginPageController createViewLoginPageController
+            (LoginViewModel loginViewModel, ViewManagerModel viewManagerModel) throws SQLException {
+
+        ViewLoginPageOutputBoundary viewLoginPagePresenter = new ViewLoginPagePresenter(loginViewModel, viewManagerModel);
+        ViewLoginPageInputBoundary viewLoginPageInteractor =
+                new ViewLoginPageInteractor(viewLoginPagePresenter);
+        return new ViewLoginPageController(viewLoginPageInteractor);
     }
 
+    private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
+        ViewSignupPageOutputBoundary viewSignupPagePresenter =
+                new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
+        ViewSignupPageInputBoundary viewSignupPageInteractor =
+                new ViewSignupPageInteractor(viewSignupPagePresenter);
+        return new ViewSignupPageController(viewSignupPageInteractor);
+    }
 
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
-        ShowShoppingCartOutputBoundary presenter = new ShoppingCartPresenter(viewManagerModel,
+        ShoppingCartPresenter presenter = new ShoppingCartPresenter(viewManagerModel,
                 shoppingCartViewModel);
         DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
                 = new DatabaseShoppingCartReadDataAccessObjectFactory();
@@ -178,21 +228,5 @@ public class ModifyProductUseCaseFactory {
         return new GetSearchPageController(getSearchViewInteractor);
     }
 
-    private static ViewLoginPageController createViewLoginPageController
-            (LoginViewModel loginViewModel, ViewManagerModel viewManagerModel) throws SQLException {
-
-        ViewLoginPageOutputBoundary viewLoginPagePresenter = new ViewLoginPagePresenter(loginViewModel, viewManagerModel);
-        ViewLoginPageInputBoundary viewLoginPageInteractor =
-                new ViewLoginPageInteractor(viewLoginPagePresenter);
-        return new ViewLoginPageController(viewLoginPageInteractor);
-    }
-
-    private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
-        ViewSignupPageOutputBoundary viewSignupPagePresenter =
-                new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
-        ViewSignupPageInputBoundary viewSignupPageInteractor =
-                new ViewSignupPageInteractor(viewSignupPagePresenter);
-        return new ViewSignupPageController(viewSignupPageInteractor);
-    }
 
 }

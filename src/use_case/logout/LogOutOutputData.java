@@ -1,9 +1,10 @@
 package use_case.logout;
 
 /**
- * No output data for LogOutPresenter, just for encapsulation
- * @author CompileError group
+ * Represents the output data for the logout process.
+ * This class is used for encapsulation purposes and does not contain any data.
  */
 
 public class LogOutOutputData {
+    // No fields required, serves as a placeholder for logout output data
 }

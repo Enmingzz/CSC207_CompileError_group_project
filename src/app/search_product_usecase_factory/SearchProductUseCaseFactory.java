@@ -1,5 +1,6 @@
 package app.search_product_usecase_factory;
 
+import app.schedule_usecase_factory.SellerScheduleUseCaseFactory;
 import data_access.factories.interfaces.product.DataBaseProductReadAllDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.product.DatabaseProductReadByTagDataAccessObjectFactoryInterface;
@@ -52,6 +53,7 @@ import interface_adapter.signup.*;
 import interface_adapter.view_product.*;
 import use_case.schedule.GetBuyerSchedulePageOutputBoundary;
 import use_case.search_product.*;
+import use_case.shopping_cart.ShowShoppingCartOutputBoundary;
 import use_case.signup.*;
 import use_case.login.*;
 import use_case.logout.LogOutInputBoundary;
@@ -84,7 +86,8 @@ public class SearchProductUseCaseFactory {
                                            SignupViewModel signupViewModel,
                                            LoginViewModel loginViewModel,
                                            ShoppingCartViewModel shoppingCartViewModel,
-                                           MainPageViewModel mainPageViewModel) throws SQLException, IOException {
+                                           MainPageViewModel mainPageViewModel,
+                                           ViewProfileViewModel viewProfileViewModel) throws SQLException, IOException {
         SearchProductByNameController searchProductByNameController =
                 SearchProductUseCaseFactory.createSearchProductByNameController(viewManagerModel, searchProductViewModel);
         SearchProductByTagController searchProductByTagController =
@@ -102,9 +105,13 @@ public class SearchProductUseCaseFactory {
                 SearchProductUseCaseFactory.createShoppingCartController(viewManagerModel, shoppingCartViewModel);
         LogOutController logOutController =
                 SearchProductUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
+        ViewProfileController viewProfileController =
+                SearchProductUseCaseFactory.createProfileController(viewManagerModel, viewProfileViewModel);
+        MainPageController mainPageController =
+                SearchProductUseCaseFactory.createMainPageController(mainPageViewModel, viewManagerModel);
         return new SearchProductView(searchProductByNameController, searchProductByTagController,
                 viewProductController, searchProductViewModel,getSearchPageController, viewSignupPageController,
-                viewLoginPageController, shoppingCartController, logOutController);
+                viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
     }
 
 
@@ -177,10 +184,19 @@ public class SearchProductUseCaseFactory {
         return new ViewSignupPageController(viewSignupPageInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ShoppingCartController}.
+     *
+     * @param viewManagerModel     the view manager model
+     * @param shoppingCartViewModel the shopping cart view model
+     * @return an instance of {@link ShoppingCartController}
+     * @throws SQLException if a database access error occurs
+     */
+
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
-        ShoppingCartPresenter presenter = new ShoppingCartPresenter(viewManagerModel,
+        ShowShoppingCartOutputBoundary presenter = new ShoppingCartPresenter(viewManagerModel,
                 shoppingCartViewModel);
         DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
                 = new DatabaseShoppingCartReadDataAccessObjectFactory();

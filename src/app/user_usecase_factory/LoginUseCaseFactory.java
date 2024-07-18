@@ -38,7 +38,9 @@ import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import interface_adapter.signup.*;
+import interface_adapter.view_product.BuyerViewProductViewModel;
 import use_case.search_product.*;
+import use_case.shopping_cart.ShowShoppingCartOutputBoundary;
 import use_case.signup.*;
 import use_case.login.*;
 import use_case.logout.LogOutInputBoundary;
@@ -62,11 +64,39 @@ public class LoginUseCaseFactory {
 
     private LoginUseCaseFactory() {}
 
-    public static LoginView create(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, MainPageViewModel mainPageViewModel) {
+    public static LoginView create(ViewManagerModel viewManagerModel,
+                                   LoginViewModel loginViewModel,
+                                   MainPageViewModel mainPageViewModel,
+                                   ShoppingCartViewModel shoppingCartViewModel,
+                                   ViewProfileViewModel profileViewModel,
+                                   BuyerViewProductViewModel buyerViewProductViewModel,
+                                   SearchProductViewModel searchProductViewModel,
+                                   SignupViewModel signupViewModel) {
 
         try {
             LoginController loginController = createUserLoginUseCase(viewManagerModel, loginViewModel, mainPageViewModel);
-            return new LoginView(loginViewModel, loginController);
+
+            GetSearchPageController getSearchPageController = createGetSearchPageController(viewManagerModel, searchProductViewModel);
+
+            ViewSignupPageController viewSignupPageController = createViewSignupPageController(viewManagerModel, signupViewModel);
+
+            ViewLoginPageController viewLoginPageController = createViewLoginPageController(loginViewModel, viewManagerModel);
+            ShoppingCartController shoppingCartController = createShoppingCartController(viewManagerModel, shoppingCartViewModel);
+            LogOutController logOutController = createLogOutController(viewManagerModel, mainPageViewModel);
+
+            ViewProfileController viewProfileController = createProfileController(viewManagerModel, profileViewModel);
+
+            MainPageController mainPageController = createMainPageController(mainPageViewModel, viewManagerModel);
+            return new LoginView( loginViewModel,
+                    loginController,
+                    mainPageController,
+                    getSearchPageController,
+                    viewSignupPageController,
+                    viewLoginPageController,
+                    shoppingCartController,
+                    logOutController,
+                    viewProfileController);
+
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         } catch (SQLException e) {
@@ -75,6 +105,13 @@ public class LoginUseCaseFactory {
         return null;
     }
 
+    private static ViewSignupPageController createViewSignupPageController(ViewManagerModel viewManagerModel,
+                                                                           SignupViewModel signupViewModel) throws SQLException{
+        ViewSignupPageOutputBoundary preseter = new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
+
+        ViewSignupPageInputBoundary interactor = new ViewSignupPageInteractor(preseter);
+        return new ViewSignupPageController(interactor);
+    }
     private static LoginController createUserLoginUseCase(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, MainPageViewModel mainPageViewModel) throws IOException, SQLException {
 
         LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel, loginViewModel, mainPageViewModel);
@@ -88,10 +125,19 @@ public class LoginUseCaseFactory {
         return new LoginController(userLoginInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ShoppingCartController}.
+     *
+     * @param viewManagerModel     the view manager model
+     * @param shoppingCartViewModel the shopping cart view model
+     * @return an instance of {@link ShoppingCartController}
+     * @throws SQLException if a database access error occurs
+     */
+
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
-        ShoppingCartPresenter presenter = new ShoppingCartPresenter(viewManagerModel,
+        ShowShoppingCartOutputBoundary presenter = new ShoppingCartPresenter(viewManagerModel,
                 shoppingCartViewModel);
         DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
                 = new DatabaseShoppingCartReadDataAccessObjectFactory();

@@ -105,6 +105,8 @@ public class ShoppingCartUseCaseFactory {
      * @param mainPageViewModel: the view model associated with MainPageView
      * @param searchProductViewModel: the view model associated with SearchProductView
      * @param viewManagerModel: module responsible for switching between view pages when the app runs.
+     * @param loginViewModel: view model associated with LoginView
+     * @param signupViewModel: view model associated with SignupView
      * @return shoppingCartView: returns a new view page of instance ShoppingCartView
      * @throws SQLException: throws any exception related to the remote SQL database
      */
@@ -118,7 +120,9 @@ public class ShoppingCartUseCaseFactory {
                                           ViewProfileViewModel viewProfileViewModel,
                                           MainPageViewModel mainPageViewModel,
                                           SearchProductViewModel searchProductViewModel,
-                                          ViewManagerModel viewManagerModel) throws SQLException {
+                                          ViewManagerModel viewManagerModel,
+                                          SignupViewModel signupViewModel,
+                                          LoginViewModel loginViewModel) throws SQLException {
         ViewProductController viewProductController =
                 ShoppingCartUseCaseFactory.createViewProductController(buyerViewProductViewModel,
                         sellerViewProductViewModel, viewManagerModel, unloggedInViewModel);
@@ -157,7 +161,8 @@ public class ShoppingCartUseCaseFactory {
 
         MainPageController mainPageController = ShoppingCartUseCaseFactory.createMainPageController(mainPageViewModel,
                 viewManagerModel);
-
+        ViewSignupPageController viewSignupPageController = createViewSignupPageController(viewManagerModel, signupViewModel);
+        ViewLoginPageController viewLoginPageController = createViewLoginPageController(loginViewModel, viewManagerModel);
 
 
         return new ShoppingCartView(shoppingCartViewModel,
@@ -171,7 +176,9 @@ public class ShoppingCartUseCaseFactory {
                 viewProfileController,
                 getSearchPageController,
                 logOutController,
-                mainPageController);
+                mainPageController,
+                viewSignupPageController,
+                viewLoginPageController);
     }
 
     /**
@@ -192,17 +199,18 @@ public class ShoppingCartUseCaseFactory {
     }
 
     /**
-     * Helper function that returns a new ShoppingCartController
-     * @param viewManagerModel: module responsible for switching between view pages when the app runs.
-     * @param shoppingCartViewModel: view model associated with ShoppingCartView
-     * @return shoppingCartController: returns an instance of ShoppingCartController
-     * @throws SQLException: throws any exception related to the database
+     * Creates an instance of {@link ShoppingCartController}.
+     *
+     * @param viewManagerModel     the view manager model
+     * @param shoppingCartViewModel the shopping cart view model
+     * @return an instance of {@link ShoppingCartController}
+     * @throws SQLException if a database access error occurs
      */
 
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
-        ShoppingCartPresenter presenter = new ShoppingCartPresenter(viewManagerModel,
+        ShowShoppingCartOutputBoundary presenter = new ShoppingCartPresenter(viewManagerModel,
                 shoppingCartViewModel);
         DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
                 = new DatabaseShoppingCartReadDataAccessObjectFactory();
@@ -463,7 +471,7 @@ public class ShoppingCartUseCaseFactory {
      * @return an instance of {@link ViewSignupPageController}
      */
 
-    private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
+    private static ViewSignupPageController createViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
         ViewSignupPageOutputBoundary viewSignupPagePresenter =
                 new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
         ViewSignupPageInputBoundary viewSignupPageInteractor =
