@@ -80,7 +80,6 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
      * @param logOutController the controller for handling logout process.
      * @param viewProfileController the controller for viewing user profile.
      */
-
     public BuyerViewProductView(BuyerViewProductViewModel buyerViewProductViewModel,
                                 AddToCartController addToCartController, PublishQuestionController publishQuestionController,
 

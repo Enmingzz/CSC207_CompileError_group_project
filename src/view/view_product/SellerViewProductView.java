@@ -31,7 +31,6 @@ import java.util.Objects;
  *
  */
 
-
 public class SellerViewProductView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "seller_view_product view";
@@ -50,8 +49,19 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
     ProductInfoLabelTextPanel productInfo;
     JPanel qAInfo;
 
-
-
+    /**
+     * Constructor for the SellerViewProductView class.
+     *
+     * @param sellerViewProductViewModel the view model for the seller view product
+     * @param replyQuestionController the controller for replying to questions
+     * @param mainPageController the controller for navigating to the main page
+     * @param getSearchPageController the controller for searching products
+     * @param viewSignupPageController the controller for navigating to the signup page
+     * @param viewLoginPageController the controller for navigating to the login page
+     * @param shoppingCartController the controller for managing the shopping cart
+     * @param logOutController the controller for logging out
+     * @param viewProfileController the controller for viewing the profile page
+     */
     public SellerViewProductView(SellerViewProductViewModel sellerViewProductViewModel,
                                 ViewReplyQuestionController replyQuestionController,
                                 MainPageController mainPageController,

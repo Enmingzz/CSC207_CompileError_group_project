@@ -34,7 +34,7 @@ class ViewProductInteractorTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        Image image = ImageIO.read(new File("D:/24 summer/csc207/CSC207_CompileError_group_project/src/pic/testpic1.png"));
+        Image image = ImageIO.read(new File("src/pic/testpic1.png"));
         String des = " ";
         float price = 1;
         String title = "ginger_cat";
@@ -74,7 +74,7 @@ class ViewProductInteractorTest {
                 if(Objects.equals(user.getStudentNumber(), product.getSellerStudentNumber())){
                     assertEquals("seller", viewProductOutputData.getUser_type());
                 } else if (Objects.equals(user.getStudentNumber(), "")) {
-                    assertEquals("", viewProductOutputData.getUser_type());//TODO check the default unlogged in user type
+                    assertEquals("", viewProductOutputData.getUser_type());
                 }else {
                     assertEquals("buyer", viewProductOutputData.getUser_type());
                 }

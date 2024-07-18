@@ -102,8 +102,8 @@ public class Main {
                 searchProductViewModel,
                 signupViewModel);
         ProfileView profileView = ProfileUseCaseFactory.create(viewManagerModel, signupViewModel
-                , loginViewModel, mainPageViewModel, profileViewModel,
-                shoppingCartViewModel, manageProductViewModel);
+                , loginViewModel, mainPageViewModel, shoppingCartViewModel, manageProductViewModel,
+                searchProductViewModel, viewProfileViewModel, modifyProfileViewModel);
         ModifyProfileView modifyProfileView = ModifyProfileUseCaseFactory.create(viewManagerModel
                 , mainPageViewModel,shoppingCartViewModel, searchProductViewModel, viewProfileViewModel, signUpViewModel,
                 loginViewModel,modifyProfileViewModel);
