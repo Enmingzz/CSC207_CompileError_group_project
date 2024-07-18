@@ -36,8 +36,8 @@ public class ConfirmPresenter implements ConfirmOutputBoundary {
         Product confirmedProduct = response.getProduct();
         String confirmedProductId = confirmedProduct.getProductID();
 
-        List<Product> listProducts = shoppingCartState.getListProducts();
-        List<Product> newListProducts = new ArrayList<>();
+        ArrayList<Product> listProducts = shoppingCartState.getListProducts();
+        ArrayList<Product> newListProducts = new ArrayList<>();
 
         for (Product product: listProducts) {
             if (product.getProductID().equals(confirmedProductId)) {
