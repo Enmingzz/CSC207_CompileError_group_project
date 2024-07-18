@@ -100,7 +100,7 @@ class ChangeProductInteractorTest {
             public void prepareSuccessfulView(ChangeProductOutputData changeProductOutputData) throws SQLException, IOException {
                 //First test if the required changes have been made and correctly outputted
                 assertEquals(changedDescription, changeProductOutputData.getProduct().getDescription());
-]                assertEquals(changedPriceFloat, changeProductOutputData.getProduct().getPrice());
+                assertEquals(changedPriceFloat, changeProductOutputData.getProduct().getPrice());
                 assertEquals("Successfully modified product", changeProductOutputData.getMessage());
 
                 //TODO figure out if the ones above is necessary??? It seems redundant
@@ -115,15 +115,12 @@ class ChangeProductInteractorTest {
         };
         //mock database
 
+        ProductUpdatePriceDataAccessInterface productUpdatePriceDataAccessObject = new InMemoryProductUpdatePriceDataAccessObject(productsList);
         ProductUpdateDescriptionDataAccessInterface productUpdateDescriptionDataAccessInterface = new InMemoryProductUpdateDescriptionDataAccessObject(productsList);
-        ProductUpdatePictureDataAccessInterface productUpdatePictureDataAccessInterface = new InMemoryProductUpdatePictureDataAccessObject(productsList);
-        ProductUpdatePriceDataAccessInterface productUpdatePriceDataAccessInterface = new InMemoryProductUpdatePriceDataAccessObject(productsList);
 
-        ChangeProductDescriptionInterface changeProductDescriptionInterface = new ChangeProductDescription(productUpdateDescriptionDataAccessInterface);
-        ChangeProductPriceInterface changeProductPriceInterface = new ChangeProductPrice(productUpdatePriceDataAccessInterface);
+        ChangeProductInteractor changeProductInteractor = new ChangeProductInteractor(changeProductPresenter, productUpdatePriceDataAccessObject,
+                productUpdateDescriptionDataAccessInterface);
 
-        ChangeProductInteractor changeProductInteractor = new ChangeProductInteractor(changeProductPresenter, changeProductDescriptionInterface,
-                changeProductPriceInterface);
 
         ChangeProductInputData inputData = new ChangeProductInputData(user, product, changedDescription, changedPrice);
         changeProductInteractor.execute(inputData); //This sends Output Data to the successPresenter
@@ -158,15 +155,11 @@ class ChangeProductInteractorTest {
         };
         //mock database
 
+        ProductUpdatePriceDataAccessInterface productUpdatePriceDataAccessObject = new InMemoryProductUpdatePriceDataAccessObject(productsList);
         ProductUpdateDescriptionDataAccessInterface productUpdateDescriptionDataAccessInterface = new InMemoryProductUpdateDescriptionDataAccessObject(productsList);
-        ProductUpdatePictureDataAccessInterface productUpdatePictureDataAccessInterface = new InMemoryProductUpdatePictureDataAccessObject(productsList);
-        ProductUpdatePriceDataAccessInterface productUpdatePriceDataAccessInterface = new InMemoryProductUpdatePriceDataAccessObject(productsList);
 
-        ChangeProductDescriptionInterface changeProductDescriptionInterface = new ChangeProductDescription(productUpdateDescriptionDataAccessInterface);
-        ChangeProductPriceInterface changeProductPriceInterface = new ChangeProductPrice(productUpdatePriceDataAccessInterface);
-
-        ChangeProductInteractor changeProductInteractor = new ChangeProductInteractor(changeProductPresenter, changeProductDescriptionInterface,
-                changeProductPriceInterface);
+        ChangeProductInteractor changeProductInteractor = new ChangeProductInteractor(changeProductPresenter, productUpdatePriceDataAccessObject,
+                productUpdateDescriptionDataAccessInterface);
 
         ChangeProductInputData inputData = new ChangeProductInputData(user, product, changedDescription, changedPrice);
         changeProductInteractor.execute(inputData); //This sends Output Data to the successPresenter
@@ -202,15 +195,11 @@ class ChangeProductInteractorTest {
         };
         //mock database
 
+        ProductUpdatePriceDataAccessInterface productUpdatePriceDataAccessObject = new InMemoryProductUpdatePriceDataAccessObject(productsList);
         ProductUpdateDescriptionDataAccessInterface productUpdateDescriptionDataAccessInterface = new InMemoryProductUpdateDescriptionDataAccessObject(productsList);
-        ProductUpdatePictureDataAccessInterface productUpdatePictureDataAccessInterface = new InMemoryProductUpdatePictureDataAccessObject(productsList);
-        ProductUpdatePriceDataAccessInterface productUpdatePriceDataAccessInterface = new InMemoryProductUpdatePriceDataAccessObject(productsList);
 
-        ChangeProductDescriptionInterface changeProductDescriptionInterface = new ChangeProductDescription(productUpdateDescriptionDataAccessInterface);
-        ChangeProductPriceInterface changeProductPriceInterface = new ChangeProductPrice(productUpdatePriceDataAccessInterface);
-
-        ChangeProductInteractor changeProductInteractor = new ChangeProductInteractor(changeProductPresenter, changeProductDescriptionInterface,
-                changeProductPriceInterface);
+        ChangeProductInteractor changeProductInteractor = new ChangeProductInteractor(changeProductPresenter, productUpdatePriceDataAccessObject,
+                productUpdateDescriptionDataAccessInterface);
 
         ChangeProductInputData inputData = new ChangeProductInputData(user, product, changedDescription, changedPrice);
         changeProductInteractor.execute(inputData); //This sends Output Data to the successPresenter
@@ -246,14 +235,11 @@ class ChangeProductInteractorTest {
         };
         //mock database
 
+        ProductUpdatePriceDataAccessInterface productUpdatePriceDataAccessObject = new InMemoryProductUpdatePriceDataAccessObject(productsList);
         ProductUpdateDescriptionDataAccessInterface productUpdateDescriptionDataAccessInterface = new InMemoryProductUpdateDescriptionDataAccessObject(productsList);
-        ProductUpdatePriceDataAccessInterface productUpdatePriceDataAccessInterface = new InMemoryProductUpdatePriceDataAccessObject(productsList);
 
-        ChangeProductDescriptionInterface changeProductDescriptionInterface = new ChangeProductDescription(productUpdateDescriptionDataAccessInterface);
-        ChangeProductPriceInterface changeProductPriceInterface = new ChangeProductPrice(productUpdatePriceDataAccessInterface);
-
-        ChangeProductInteractor changeProductInteractor = new ChangeProductInteractor(changeProductPresenter, changeProductDescriptionInterface,
-                changeProductPriceInterface);
+        ChangeProductInteractor changeProductInteractor = new ChangeProductInteractor(changeProductPresenter, productUpdatePriceDataAccessObject,
+                productUpdateDescriptionDataAccessInterface);
 
         ChangeProductInputData inputData = new ChangeProductInputData(user, product, changedDescription, changedPrice);
         changeProductInteractor.execute(inputData); //This sends Output Data to the successPresenter

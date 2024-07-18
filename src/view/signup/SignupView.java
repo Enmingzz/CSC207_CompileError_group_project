@@ -73,10 +73,20 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JButton searchProductByTagButton;
 
     /**
-     * Initialized this in SignupUsecaseFactory
-     * @param controller SignUpController
-     * @param signupViewModel SignupViewModel
-     * @param emailVerificationController EmailVerificationController
+     * Constructor for the SignupView class.
+     *
+     * @param controller the controller for handling signup operations
+     * @param signupViewModel the view model for the signup view
+     * @param emailVerificationController the controller for handling email verification
+     * @param mainPageController the controller for navigating to the main page
+     * @param shoppingCartController the controller for managing the shopping cart
+     * @param searchProductByNameController the controller for searching products by name
+     * @param searchProductByTagController the controller for searching products by tag
+     * @param viewLoginPageController the controller for navigating to the login page
+     * @param getSearchPageController the controller for navigating to the search page
+     * @param viewSignupPageController the controller for navigating to the signup page
+     * @param logOutController the controller for logging out
+     * @param viewProfileController the controller for viewing the profile page
      */
 
     public SignupView(SignupController controller, SignupViewModel signupViewModel,

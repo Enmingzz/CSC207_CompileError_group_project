@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- * Provide the interface for CommonSchedule.
+ * Provide the interface for CommonScheduleFactory.
  * Provide one method createSchedule()
  * @author CompileError group
  */

@@ -11,7 +11,7 @@ import use_case.schedule.GetBuyerSchedulePageOutputData;
  * and handles the preparation of the view for the get buyer schedule page use case.
  */
 public class GetBuyerSchedulePagePresenter implements GetBuyerSchedulePageOutputBoundary {
-    private final BuyerSelectScheduleViewModel buyerSelectScheduleViewModel;
+    private BuyerSelectScheduleViewModel buyerSelectScheduleViewModel;
     private ViewManagerModel viewManagerModel;
 
     /**

@@ -13,7 +13,7 @@ import java.sql.SQLException;
  * It interacts with the use case layer to perform the necessary operations.
  */
 public class GetSellerSchedulePageController {
-    private GetSellerSchedulePageInputBoundary inputBoundary;
+    private final GetSellerSchedulePageInputBoundary inputBoundary;
 
     /**
      * Constructs a GetSellerSchedulePageController.

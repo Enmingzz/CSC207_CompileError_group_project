@@ -2,6 +2,8 @@ package use_case.modify_product;
 
 import data_access.interfaces.product.ProductCreateDataAccessInterface;
 import data_access.interfaces.product.ProductReadByIdDataAccessInterface;
+import data_access.interfaces.product.ProductUpdateDescriptionDataAccessInterface;
+import data_access.interfaces.product.ProductUpdatePriceDataAccessInterface;
 import entity.product.Product;
 import interface_adapter.modify_product.ModifyProductPresenter;
 
@@ -16,14 +18,15 @@ public class ChangeProductInteractor implements ChangeProductInputBoundary{
     private final ChangeProductPriceInterface changeProductPriceInterface;
 
     public ChangeProductInteractor(ChangeProductOutputBoundary changeProductOutputBoundary,
-                                   ChangeProductDescriptionInterface changeProductDescriptionInterface,
-                                   ChangeProductPriceInterface changeProductPriceInterface) {
+                                   ProductUpdatePriceDataAccessInterface productUpdatePriceDataAccessInterface,
+                                   ProductUpdateDescriptionDataAccessInterface productUpdateDescriptionDataAccessInterface){
         this.changeProductOutputBoundary = changeProductOutputBoundary;
-        this.changeProductDescriptionInterface = changeProductDescriptionInterface;
-        this.changeProductPriceInterface = changeProductPriceInterface;
+        this.changeProductDescriptionInterface = new ChangeProductDescription(productUpdateDescriptionDataAccessInterface);
+        this.changeProductPriceInterface = new ChangeProductPrice(productUpdatePriceDataAccessInterface);
     }
 
     public void execute(ChangeProductInputData changeProductInputData) throws SQLException, IOException {
+
         boolean descriptionFlag = changeProductDescriptionInterface.execute(changeProductInputData.getProduct(), changeProductInputData.getChangedDescription());
         boolean priceFlag = changeProductPriceInterface.execute(changeProductInputData.getProduct(), changeProductInputData.getChangedPrice());
 

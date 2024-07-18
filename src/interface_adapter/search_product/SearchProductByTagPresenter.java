@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * and handles the preparation of the successful view for searching products by tag.
  */
 public class SearchProductByTagPresenter implements SearchProductByTagOutputBoundary {
-    private final SearchProductViewModel viewModel;
+    private SearchProductViewModel viewModel;
     private ViewManagerModel viewManagerModel;
 
     /**

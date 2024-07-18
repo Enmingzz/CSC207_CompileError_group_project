@@ -20,6 +20,10 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit test class for the ViewProductOutputData class.
+ */
+
 class ViewProductOutputDataTest {
     private ViewProductOutputData viewProductOutputData;
     private Product product;
@@ -27,9 +31,15 @@ class ViewProductOutputDataTest {
     private String user_type;
     private User user;
 
+    /**
+     * Sets up the test environment before each test.
+     *
+     * @throws IOException if an error occurs while reading the image file
+     */
+
     @BeforeEach
     void setUp() throws IOException {
-        Image image = ImageIO.read(new File("D:/24 summer/csc207/CSC207_CompileError_group_project/src/pic/testpic1.png"));
+        Image image = ImageIO.read(new File("src/pic/testpic1.png"));
         String des = " ";
         float price = 1;
         String title = "ginger cat";

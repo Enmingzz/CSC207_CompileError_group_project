@@ -25,6 +25,9 @@ public class ViewModifyProductState {
         this.price = price;
     }
 
+    public ViewModifyProductState() {
+    }
+
     public User getUser() {
         return user;
     }

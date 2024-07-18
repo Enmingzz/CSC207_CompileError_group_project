@@ -51,8 +51,6 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
 
     ArrayList<String> arrayListTags = new ArrayList<>();
 
-    private final ViewCreateProductViewModel viewCreateProductViewModel;
-
     private final JTextField titleInputField = new JTextField(40);
     //TODO input image ...?
     private final JTextField descriptionInputField = new JTextField(200);
@@ -237,14 +235,14 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(createProduct)) {
-                    try {
-                        CreateProductState state = new CreateProductState();
-                        CreateProductController.execute(state.getUser(), image, description, price.getText(), title, eTransferEmail,
-                                address, arrayListTags);
-                        //TODO fix this part
-                    } catch (SQLException | IOException e) {
-                        throw new RuntimeException(e);
-                    }
+//                    try {
+//                        CreateProductState state = new CreateProductState();
+//                        CreateProductController.execute(state.getUser(), image, description, price, title, eTransferEmail,
+//                                address, arrayListTags);
+//                        //TODO fix this part
+//                    } catch (SQLException | IOException e) {
+//                        throw new RuntimeException(e);
+//                    }
                 }
             }
         }
@@ -267,7 +265,6 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        LoginState state
 
         CreateProductState newState = (CreateProductState) evt.getSource();
 

@@ -224,19 +224,10 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         ViewModifyProductState state = (ViewModifyProductState) evt.getNewValue();
-        JOptionPane.showMessageDialog(this, state.get)
 
 
+//        setFields(state);
 
-
-
-
-
-
-
-
-        ViewModifyProductState state = (ViewModifyProductState) evt.getNewValue();
-        setFields(state);
 
         JPanel topBar = new TopBarSampleView(state.getUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
@@ -244,7 +235,6 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
     }
 
     private void setFields(ViewModifyProductState state) {
-        description
     }
 }
 
