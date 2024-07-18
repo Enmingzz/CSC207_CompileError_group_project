@@ -45,7 +45,7 @@ class AddShoppingCartProductInteractorTest {
         ProductFactory productFactory = new CommonProductFactory();
         ScheduleFactory scheduleFactory = new CommonScheduleFactory();
 
-        Image image = ImageIO.read(new File("src.pic.testpic1.png"));
+        Image image = ImageIO.read(new File("src/pic/testpic1.png"));
 
         String description = "This is a description";
 
