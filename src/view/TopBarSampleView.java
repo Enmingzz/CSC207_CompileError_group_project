@@ -63,7 +63,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
         this.add(hi, BorderLayout.WEST);
 
         //(3)jump to main page
-        mainPageButton = new JButton("main page");
+        mainPageButton = new JButton("To Main Page");
         class MainPageButtonListener implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -82,7 +82,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
         //haven't logged in
         if(Objects.equals(user, null)){
             //(4)signUp
-            JButton signUp = new JButton("Sign in");
+            JButton signUp = new JButton("Sign Up Page");
             class SignInListener implements ActionListener{
                 @Override
                 public void actionPerformed(ActionEvent evt) {
@@ -99,7 +99,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
             this.add(signUp);
 
             //(5)logIn
-            JButton logIn = new JButton("Log in");
+            JButton logIn = new JButton("Login Page");
             class LogInListener implements ActionListener{
                 @Override
                 public void actionPerformed(ActionEvent evt){
@@ -120,7 +120,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
         //already logged in
         if(!Objects.equals(user, null)){
             //（6）shoppingCart
-            JButton cart = new JButton("Cart");
+            JButton cart = new JButton("Shopping Cart");
             class CartListener implements ActionListener{
                 @Override
                 public void actionPerformed(ActionEvent evt) {
@@ -137,7 +137,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
             this.add(cart);
 
             //(7)logOut
-            JButton logOut = new JButton("Log out");
+            JButton logOut = new JButton("Log Out");
             class LogOutListener implements ActionListener{
                 @Override
                 public void actionPerformed(ActionEvent evt) {

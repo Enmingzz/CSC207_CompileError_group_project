@@ -72,7 +72,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         User user = userFactory.createUser("", "", "", 0, "");
         JPanel topBar = new TopBarSampleView(user,
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar, BorderLayout.SOUTH);
+        this.add(topBar, BorderLayout.NORTH);
 
         this.loginViewModel.addPropertyChangeListener(this);
         this.logInButton = new JButton(loginViewModel.LOGIN_BUTTON_LABEL);
@@ -90,12 +90,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         class LoginButtonListener implements ActionListener {
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(logInButton)) {
-                    try {
-                        loginController.execute(studentNumberField.getText(),
-                                String.valueOf(passwordField.getPassword()));
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
+                        viewLoginPageController.execute();
                 }
             }
         }
@@ -119,10 +114,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         if (state.getStudentNumberError() != null) {
             JOptionPane.showMessageDialog(this, state.getStudentNumberError());
         }
-//        UserFactory userFactory = new CommonUserFactory();
-//        User user = userFactory.createUser("", "", "", 0, "");
-//        JPanel topBar = new TopBarSampleView(user,
-//                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-//        this.add(topBar);
+        UserFactory userFactory = new CommonUserFactory();
+        User user = userFactory.createUser("", "", "", 0, "");
+        JPanel topBar = new TopBarSampleView(user,
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
     }
 }
