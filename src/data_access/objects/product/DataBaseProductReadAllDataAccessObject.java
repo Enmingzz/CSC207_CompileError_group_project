@@ -17,6 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * DataBaseProductReadAllDataAccessObject is responsible for retrieving all product data from the database.
+ * It implements the ProductReadAllDataAccessInterface.
+ */
 public class DataBaseProductReadAllDataAccessObject implements ProductReadAllDataAccessInterface {
     private final ProductFactory productFactory;
     private final ScheduleFactory scheduleFactory;
@@ -25,6 +29,13 @@ public class DataBaseProductReadAllDataAccessObject implements ProductReadAllDat
     private ResultSet resultSet;
     private String query;
 
+    /**
+     * Constructs a DataBaseProductReadAllDataAccessObject and establishes a connection to the database.
+     *
+     * @param productFactory  a factory for creating Product objects
+     * @param scheduleFactory a factory for creating Schedule objects
+     * @throws SQLException if a database access error occurs
+     */
     public DataBaseProductReadAllDataAccessObject(ProductFactory productFactory, ScheduleFactory scheduleFactory) throws SQLException {
         this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
                 "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
@@ -33,6 +44,13 @@ public class DataBaseProductReadAllDataAccessObject implements ProductReadAllDat
         this.scheduleFactory = scheduleFactory;
     }
 
+    /**
+     * Retrieves all products from the database and returns them as a list.
+     *
+     * @return a list of all products from the database
+     * @throws SQLException if a database access error occurs
+     * @throws IOException  if an error occurs during image processing
+     */
     @Override
     public ArrayList<Product> getAllProducts() throws SQLException, IOException {
         this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
@@ -51,11 +69,11 @@ public class DataBaseProductReadAllDataAccessObject implements ProductReadAllDat
         ArrayList<String> listTags;
         Image image;
         ArrayList<String> rowTime;
-        ArrayList<LocalDateTime> listSellerTimes = new ArrayList<LocalDateTime>();
+        ArrayList<LocalDateTime> listSellerTimes = new ArrayList<>();
         LocalDateTime buyerTime = null;
         Schedule schedule;
         Product product;
-        ArrayList<Product> listProducts = new ArrayList<Product>();
+        ArrayList<Product> listProducts = new ArrayList<>();
 
         query = "SELECT * FROM Products";
         preparedStatement = connection.prepareStatement(query);
@@ -71,27 +89,23 @@ public class DataBaseProductReadAllDataAccessObject implements ProductReadAllDat
             rating = resultSet.getInt("Rating");
             transferEmail = resultSet.getString("TransferEmail");
             address = resultSet.getString("Address");
-            listTags = new ArrayList<String>(java.util.List.of(resultSet.getString("ListTags").substring(1
-                    , resultSet.getString("ListTags").length() - 1).split(",")));
+            listTags = new ArrayList<>(List.of(resultSet.getString("ListTags").substring(1, resultSet.getString("ListTags").length() - 1).split(",")));
             image = ImageIO.read(new ByteArrayInputStream(resultSet.getBytes("Image")));
 
-            if (!Objects.equals(resultSet.getString("ListSellerTimes").toLowerCase(), "null")){
-                rowTime = new ArrayList<String>(List.of(resultSet.getString("ListSellerTimes").substring(1
-                        , resultSet.getString("ListTags").length() - 1).split(",")));
-                for(String time: rowTime){
+            if (!Objects.equals(resultSet.getString("ListSellerTimes").toLowerCase(), "null")) {
+                rowTime = new ArrayList<>(List.of(resultSet.getString("ListSellerTimes").substring(1, resultSet.getString("ListTags").length() - 1).split(",")));
+                for (String time : rowTime) {
                     listSellerTimes.add(LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")));
                 }
             }
 
-            if (!Objects.equals(resultSet.getString("BuyerTime").toLowerCase(), "null")){
-                buyerTime = LocalDateTime.parse(resultSet.getString("BuyerTime"),
-                        DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+            if (!Objects.equals(resultSet.getString("BuyerTime").toLowerCase(), "null")) {
+                buyerTime = LocalDateTime.parse(resultSet.getString("BuyerTime"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
             }
 
             schedule = scheduleFactory.createSchedule(buyerTime, listSellerTimes);
 
-            product = productFactory.createProduct(image, description, title, price, rating, state,
-                    transferEmail, sellerID, address, listTags, productsID, schedule);
+            product = productFactory.createProduct(image, description, title, price, rating, state, transferEmail, sellerID, address, listTags, productsID, schedule);
             listProducts.add(product);
         }
 
@@ -102,3 +116,4 @@ public class DataBaseProductReadAllDataAccessObject implements ProductReadAllDat
         return listProducts;
     }
 }
+

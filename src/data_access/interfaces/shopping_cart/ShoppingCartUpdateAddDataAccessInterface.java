@@ -5,7 +5,17 @@ import entity.user.User;
 
 import java.sql.SQLException;
 
+/**
+ * ShoppingCartUpdateAddDataAccessInterface provides an abstraction for updating a shopping cart by adding a product to it in the database.
+ */
 public interface ShoppingCartUpdateAddDataAccessInterface {
-    // To be implemented to get the UtorID in shoppingCart and ProductID in modify_product to be written in database
+
+    /**
+     * Updates the shopping cart for the specified user by adding the specified product to it in the database.
+     *
+     * @param user    the user whose shopping cart is to be updated
+     * @param product the product to be added to the shopping cart
+     * @throws SQLException if a database access error occurs
+     */
     void updateShoppingCart(User user, Product product) throws SQLException;
 }
