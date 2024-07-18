@@ -16,6 +16,7 @@ import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.ViewSignupPageController;
 import view.TopBarSampleView;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,6 +25,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -48,11 +50,14 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
 
     private final JButton createProduct;
     private final JButton cancel;
+    private final JButton uploadImageButton;
+    private JLabel imageLabel;
+    private Image uploadedImage;
 
     ArrayList<String> arrayListTags = new ArrayList<>();
 
+
     private final JTextField titleInputField = new JTextField(40);
-    //TODO input image ...?
     private final JTextField descriptionInputField = new JTextField(200);
     private final JTextField priceInputField = new JTextField(10);
     private final JTextField eTransferEmailInputField = new JTextField(30);
@@ -114,6 +119,11 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
         buttons.add(createProduct);
         cancel = new JButton(viewCreateProductViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
+
+        uploadImageButton = new JButton("Upload Image");
+        buttons.add(uploadImageButton);
+        uploadImageButton.addActionListener(this);
+
 
         createProduct.addActionListener(this);
         cancel.addActionListener(this);
@@ -231,30 +241,64 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
             }
         }
 
+        class uploadImageButtonListener implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(uploadImageButton)) {
+                    JFileChooser fileChooser = new JFileChooser();
+                    fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                    int returnValue = fileChooser.showOpenDialog(null);
+                    if (returnValue == JFileChooser.APPROVE_OPTION) {
+                        File selectedFile = fileChooser.getSelectedFile();
+                        try {
+                            uploadedImage = ImageIO.read(selectedFile);
+                            imageLabel.setIcon(new ImageIcon(uploadedImage));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+
         class CreateProductListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(createProduct)) {
-//                    try {
-//                        CreateProductState state = new CreateProductState();
-//                        CreateProductController.execute(state.getUser(), image, description, price, title, eTransferEmail,
-//                                address, arrayListTags);
-//                        //TODO fix this part
-//                    } catch (SQLException | IOException e) {
-//                        throw new RuntimeException(e);
-//                    }
+                    try {
+                        CreateProductState state = new CreateProductState();
+                        CreateProductController.execute(state.getUser(), uploadedImage, descriptionInputField.getText(),
+                                priceInputField.getText(), titleInputField.getText(), eTransferEmailInputField.getText(),
+                                addressInputField.getText(), arrayListTags);
+                    } catch (SQLException | IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         }
 
         createProduct.addActionListener(new CreateProductListener());
         cancel.addActionListener(new CancelButtonListener());
-        //TODO image
+        uploadImageButton.addActionListener(new uploadImageButtonListener());
         title.addKeyListener(new TitleInputFieldListener());
         description.addKeyListener(new DescriptionInputFieldListener());
         price.addKeyListener(new PriceInputFieldListener());
         eTransferEmail.addKeyListener(new ETransferEmailInputFieldListener());
         address.addKeyListener(new AddressInputFieldListener());
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.add(_title);
+        this.add(title);
+        this.add(description);
+        this.add(price);
+        this.add(eTransferEmail);
+        this.add(address);
+        this.add(listTagsLabel);
+        this.add(new JScrollPane(listTags));
+        this.add(buttons);
+
+        imageLabel = new JLabel();
+        this.add(imageLabel);
     }
 
 

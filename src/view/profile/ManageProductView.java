@@ -145,7 +145,7 @@ public class ManageProductView extends JFrame implements ActionListener, Propert
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         ManageProductState newState = (ManageProductState) evt.getNewValue();
-        updateMainPanel();
+
         JPanel topBar = new TopBarSampleView(newState.getUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
