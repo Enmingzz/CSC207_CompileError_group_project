@@ -17,7 +17,7 @@ public class CreateProductPresenter implements CreateProductOutputBoundary {
     private final ViewCreateProductViewModel viewCreateProductViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    public CreateProductPresenter(CreateProductOutputData createProductOutputData, ManageProductViewModel manageProductViewModel, CreateProductState createProductState, ViewCreateProductViewModel viewCreateProductViewModel, ViewManagerModel viewManagerModel) {
+    public CreateProductPresenter(ManageProductViewModel manageProductViewModel, ViewCreateProductViewModel viewCreateProductViewModel, ViewManagerModel viewManagerModel) {
         this.manageProductViewModel = manageProductViewModel;
         this.viewCreateProductViewModel = viewCreateProductViewModel;
         this.viewManagerModel = viewManagerModel;
