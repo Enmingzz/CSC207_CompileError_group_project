@@ -11,7 +11,6 @@ public class RateProductInteractor implements RateProductInputBoundary{
     private final ProductUpdateStateDataAccessInterface productUpdateStateDataAccessInterface;
     private final RateProductOutputBoundary rateProductOutputBoundary;
 
-
     public RateProductInteractor(ProductUpdateRatingDataAccessInterface productUpdateRatingDataAccessInterface, ProductUpdateStateDataAccessInterface productUpdateStateDataAccessInterface, RateProductOutputBoundary rateProductOutputBoundary) {
         this.productUpdateRatingDataAccessInterface = productUpdateRatingDataAccessInterface;
         this.productUpdateStateDataAccessInterface = productUpdateStateDataAccessInterface;
@@ -32,7 +31,6 @@ public class RateProductInteractor implements RateProductInputBoundary{
         } catch (NumberFormatException e) {
             validRating = false;
             rateProductOutputBoundary.prepareFailedView("You must input a valid integral rating from 1 to 5.");
-
         }
 
         if(validRating) {
