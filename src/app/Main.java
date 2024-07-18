@@ -22,6 +22,7 @@ import interface_adapter.rating.RateProductViewModel;
 import interface_adapter.schedule.BuyerSelectScheduleViewModel;
 import interface_adapter.schedule.SellerSelectScheduleViewModel;
 import interface_adapter.search_product.SearchProductViewModel;
+//import interface_adapter.search_product.SearchProductByTagViewModel;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
@@ -83,8 +84,10 @@ public class Main {
         SellerSelectScheduleViewModel sellerSelectScheduleViewModel = new SellerSelectScheduleViewModel();
         BuyerSelectScheduleViewModel buyerSelectScheduleViewModel = new BuyerSelectScheduleViewModel();
         SearchProductViewModel searchProductViewModel = new SearchProductViewModel();
+//        SearchProductByTagViewModel searchProductByTagViewModel = new SearchProductByTagViewModel();
         ViewProfileViewModel viewProfileViewModel = new ViewProfileViewModel();
         UnloggedInViewModel unloggedInViewModel = new UnloggedInViewModel();
+        SignupViewModel signUpViewModel = new SignupViewModel();
         ReplyQuestionViewModel replyQuestionViewModel = new ReplyQuestionViewModel();
         RateProductViewModel rateProductViewModel = new RateProductViewModel();
 
@@ -99,10 +102,10 @@ public class Main {
                 searchProductViewModel,
                 signupViewModel);
         ProfileView profileView = ProfileUseCaseFactory.create(viewManagerModel, signupViewModel
-                , loginViewModel, mainPageViewModel, shoppingCartViewModel
-                , manageProductViewModel, searchProductViewModel, viewProfileViewModel, modifyProfileViewModel);
+                , loginViewModel, mainPageViewModel, shoppingCartViewModel, manageProductViewModel,
+                searchProductViewModel, viewProfileViewModel, modifyProfileViewModel);
         ModifyProfileView modifyProfileView = ModifyProfileUseCaseFactory.create(viewManagerModel
-                , mainPageViewModel,shoppingCartViewModel, searchProductViewModel, viewProfileViewModel, signupViewModel,
+                , mainPageViewModel,shoppingCartViewModel, searchProductViewModel, viewProfileViewModel, signUpViewModel,
                 loginViewModel,modifyProfileViewModel);
         BuyerViewProductView buyerViewProductView =
                 BuyerViewProductUseCaseFactory.create(viewManagerModel, mainPageViewModel, shoppingCartViewModel,
