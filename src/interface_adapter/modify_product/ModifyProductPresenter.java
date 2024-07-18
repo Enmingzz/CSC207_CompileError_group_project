@@ -1,6 +1,7 @@
 package interface_adapter.modify_product;
 
 import entity.product.Product;
+import interface_adapter.ViewManagerModel;
 import interface_adapter.profile.manage_product.ManageProductState;
 import interface_adapter.profile.manage_product.ManageProductViewModel;
 import use_case.modify_product.ChangeProductOutputBoundary;
@@ -12,9 +13,11 @@ import java.util.Objects;
 
 public class ModifyProductPresenter implements ChangeProductOutputBoundary {
     private final ManageProductViewModel manageProductViewModel;
+    private final ViewManagerModel viewManagerModel;
 
-    public ModifyProductPresenter(ManageProductViewModel manageProductViewModel) {
+    public ModifyProductPresenter(ManageProductViewModel manageProductViewModel, ViewManagerModel viewManagerModel) {
         this.manageProductViewModel = manageProductViewModel;
+        this.viewManagerModel = viewManagerModel;
     }
 
     public void prepareSuccessfulView(ChangeProductOutputData changeProductOutputData) {
@@ -28,12 +31,14 @@ public class ModifyProductPresenter implements ChangeProductOutputBoundary {
                 break;
             }
         }
-        String message = changeProductOutputData.getMessage();
-        //TODO have not yet implemented the message...?
-        JOptionPane.showMessageDialog(null, message, "Product Modification", JOptionPane.INFORMATION_MESSAGE);
-
         manageProductState.setProduct(productList);
+
+        String message = changeProductOutputData.getMessage();
+        manageProductState.setModifyProductMessage(message);
         manageProductViewModel.setState(manageProductState);
         manageProductViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView(manageProductViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 }

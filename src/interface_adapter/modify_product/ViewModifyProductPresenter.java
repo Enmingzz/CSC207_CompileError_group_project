@@ -19,7 +19,7 @@ public class ViewModifyProductPresenter implements ViewModifyProductOutputBounda
         viewModifyProductViewModel.setState(state);
         viewModifyProductViewModel.firePropertyChanged();
 
-        viewManagerModel.setActiveView("Modify product");
+        viewManagerModel.setActiveView(viewModifyProductViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 

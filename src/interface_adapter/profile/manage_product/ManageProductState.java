@@ -10,6 +10,7 @@ public class ManageProductState {
     private Product product;
     private User user;
     private ArrayList<Product> products = new ArrayList<Product>();
+    private String modifyProductMessage = null;
 
     public ManageProductState(ProductFactory productFactory) {
         this.product = productFactory.createProduct(null,"","",0,0,
@@ -26,4 +27,6 @@ public class ManageProductState {
 
     public void setProduct(ArrayList<Product> products) {this.products = products;}
 
+    public String getModifyProductMessage() {return modifyProductMessage;}
+    public void setModifyProductMessage(String message) {this.modifyProductMessage = message;}
 }

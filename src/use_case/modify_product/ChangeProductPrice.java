@@ -19,7 +19,7 @@ public class ChangeProductPrice implements ChangeProductPriceInterface {
         float floatPrice = 0;
         try {
             floatPrice = Float.parseFloat(price);
-            if(floatPrice >= 0 & ) {
+            if(floatPrice >= 0) {
                 validPrice = true;
             }
             else{

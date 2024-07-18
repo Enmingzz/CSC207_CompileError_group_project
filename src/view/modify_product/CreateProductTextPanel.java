@@ -2,8 +2,8 @@ package view.modify_product;
 
 import javax.swing.*;
 
-public class CreateProductTextLabel extends JPanel {
-    CreateProductTextLabel(JLabel titleLabel,
+public class CreateProductTextPanel extends JPanel {
+    CreateProductTextPanel(JLabel titleLabel,
                            JLabel descriptionLabel, JLabel priceLabel,
                            JLabel eTransferEmailLabel, JLabel addressLabel, JLabel address,
                            JLabel tagsLabel) {
