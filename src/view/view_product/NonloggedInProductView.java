@@ -26,6 +26,16 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
+/**
+ * This class provides a view for non-logged-in users to explore product details. It includes functionality
+ * to display product information, questions and answers related to the product, and options to navigate
+ * to other parts of the application like login or signup pages.
+ *
+ * The class uses several controllers to manage user interaction with the application and to update the view
+ * according to user actions and application state changes.
+ */
+
+
 public class NonloggedInProductView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "non login view product view";
     private final UnloggedInViewModel nonLoggedInViewModel;
@@ -46,6 +56,18 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
     private ProductInfoLabelTextPanel productInfo;
     private JPanel qAInfo;
 
+    /**
+     * Constructs a NonloggedInProductView with specific controllers and view model to manage the view's state and interactions.
+     *
+     * @param nonLoggedInViewModel the view model containing state and operations specific to non-logged-in users.
+     * @param viewLoginPageController controller to manage login operations.
+     * @param mainPageController controller to navigate to the main page.
+     * @param getSearchPageController controller to access the search page functionality.
+     * @param viewSignupPageController controller to manage signup operations.
+     * @param shoppingCartController controller to handle shopping cart operations.
+     * @param logOutController controller to manage logout operations.
+     * @param viewProfileController controller to view user profiles.
+     */
 
     public NonloggedInProductView(UnloggedInViewModel nonLoggedInViewModel,
                                   ViewLoginPageController viewLoginPageController,
@@ -167,6 +189,13 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
     public void actionPerformed(ActionEvent e) {
 
     }
+
+    /**
+     * Responds to property changes and updates the UI accordingly. This method ensures that the view reflects
+     * the current state of the model after changes occur.
+     *
+     * @param evt the property change event, indicating changes in the model state that may affect the view.
+     */
 
     @Override
     public void propertyChange(PropertyChangeEvent evt){

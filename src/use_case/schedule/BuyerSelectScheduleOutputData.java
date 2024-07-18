@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
  * of the schedule selection process.
  */
 public class BuyerSelectScheduleOutputData {
-    private User buyer;
-    private Product product;
+    private final User buyer;
+    private final Product product;
 
     /**
      * Constructs a BuyerSelectScheduleOutputData object.

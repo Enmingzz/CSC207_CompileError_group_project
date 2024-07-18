@@ -22,7 +22,7 @@ import interface_adapter.rating.RateProductViewModel;
 import interface_adapter.schedule.BuyerSelectScheduleViewModel;
 import interface_adapter.schedule.SellerSelectScheduleViewModel;
 import interface_adapter.search_product.SearchProductViewModel;
-import interface_adapter.search_product.SearchProductByTagViewModel;
+//import interface_adapter.search_product.SearchProductByTagViewModel;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
@@ -102,8 +102,8 @@ public class Main {
                 searchProductViewModel,
                 signupViewModel);
         ProfileView profileView = ProfileUseCaseFactory.create(viewManagerModel, signupViewModel
-                , loginViewModel, mainPageViewModel, profileViewModel,
-                shoppingCartViewModel, manageProductViewModel);
+                , loginViewModel, mainPageViewModel, shoppingCartViewModel, manageProductViewModel,
+                searchProductViewModel, viewProfileViewModel, modifyProfileViewModel);
         ModifyProfileView modifyProfileView = ModifyProfileUseCaseFactory.create(viewManagerModel
                 , mainPageViewModel,shoppingCartViewModel, searchProductViewModel, viewProfileViewModel, signUpViewModel,
                 loginViewModel,modifyProfileViewModel);

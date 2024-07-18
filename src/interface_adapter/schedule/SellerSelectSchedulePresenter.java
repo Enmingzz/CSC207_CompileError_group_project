@@ -68,6 +68,11 @@ public class SellerSelectSchedulePresenter implements SellerSelectScheduleOutput
         viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * Prepares the failed view with the given error message.
+     *
+     * @param error the error message to display
+     */
     public void prepareFailedView(String error) {
         SellerSelectScheduleState sellerSelectScheduleState = viewModel.getState();
         sellerSelectScheduleState.setError(error);

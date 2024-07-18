@@ -25,11 +25,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The SearchProductView class represents the UI for searching products.
+ * It allows users to search products by name, filter by tags, and view the list of products.
+ */
 public class SearchProductView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "search_product_view";
 
-    private SearchProductByNameController searchByNameController;
-    private SearchProductByTagController searchByTagController;
+    private final SearchProductByNameController searchByNameController;
+    private final SearchProductByTagController searchByTagController;
     private final ViewProductController viewProductController;
     private final SearchProductViewModel viewModel;
 
@@ -46,6 +50,21 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
     private final String[] tags = {"Tag1", "Tag2", "Tag3"}; // to be decided later
     AllProductsPanel allProductsPanel;
 
+    /**
+     * Constructs a SearchProductView with the specified controllers and view model.
+     *
+     * @param searchByNameController the controller for searching products by name
+     * @param searchByTagController the controller for searching products by tag
+     * @param viewProductController the controller for viewing products
+     * @param viewModel the view model for search products
+     * @param getSearchPageController the controller for the search page
+     * @param viewSignupPageController the controller for the signup page
+     * @param viewLoginPageController the controller for the login page
+     * @param shoppingCartController the controller for the shopping cart
+     * @param logOutController the controller for logging out
+     * @param viewProfileController the controller for the profile view
+     * @param mainPageController the controller for the main page
+     */
     public SearchProductView(SearchProductByNameController searchByNameController,
                              SearchProductByTagController searchByTagController,
                              ViewProductController viewProductController,
@@ -89,6 +108,12 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
         for (String tag : tags) {
             JButton tagButton = new JButton(tag);
             tagButton.addActionListener(new ActionListener() {
+                /**
+                 * Handles the action event when a tag button is clicked.
+                 * Searches for products by the selected tag.
+                 *
+                 * @param evt the action event
+                 */
                 @Override
                 public void actionPerformed(ActionEvent evt) {
                     if (evt.getSource().equals(tagButton)) {
@@ -104,6 +129,12 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
         }
 
         searchButton.addActionListener(new ActionListener() {
+            /**
+             * Handles the action event when the search button is clicked.
+             * Searches for products by the entered name.
+             *
+             * @param evt the action event
+             */
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(searchButton)) {

@@ -11,9 +11,9 @@ import java.util.ArrayList;
  * for a seller.
  */
 public class SellerSelectScheduleInputData {
-    private User seller;
-    private Product product;
-    private ArrayList<LocalDateTime> availableTimes;
+    private final User seller;
+    private final Product product;
+    private final ArrayList<LocalDateTime> availableTimes;
 
     /**
      * Constructs a SellerSelectScheduleInputData object.

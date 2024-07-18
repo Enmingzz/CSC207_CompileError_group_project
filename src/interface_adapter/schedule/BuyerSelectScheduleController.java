@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  * It interacts with the use case layer to perform the necessary operations.
  */
 public class BuyerSelectScheduleController {
-    private BuyerSelectScheduleInputBoundary inputBoundary;
+    private final BuyerSelectScheduleInputBoundary inputBoundary;
 
     /**
      * Constructs a BuyerSelectScheduleController with the specified input boundary.
