@@ -16,7 +16,7 @@ public class SearchProductByNameInteractor implements SearchProductByNameInputBo
 
 //    final private ProductReadAllDataAccessInterface productReadAllDataAccessInterface;
     final private SearchProductByNameOutputBoundary searchProductByNamePresenter;
-    private ProductReadByNameDataAccessInterface productReadByNameDataAccessInterface;
+    private final ProductReadByNameDataAccessInterface productReadByNameDataAccessInterface;
 
     /**
      * Constructs a SearchProductByNameInteractor with the specified data access interface and presenter.

@@ -13,7 +13,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The AllProductsPanel class represents a panel that displays all products in a vertically stacked layout,
+ * with each product displayed in a horizontal panel containing its image, title, price, and a view button.
+ */
 public class AllProductsPanel extends JPanel  {
+    /**
+     * Constructs an AllProductsPanel with the specified list of products, view model, and product controller.
+     *
+     * @param allProducts the list of all products to be displayed
+     * @param searchProductViewModel the view model for search products
+     * @param viewProductController the controller for viewing products
+     */
     AllProductsPanel(ArrayList<Product> allProducts,
                      SearchProductViewModel searchProductViewModel,
                      ViewProductController viewProductController) {

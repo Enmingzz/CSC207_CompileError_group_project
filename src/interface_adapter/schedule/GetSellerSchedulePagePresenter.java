@@ -13,7 +13,7 @@ import use_case.schedule.GetSellerSchedulePageOutputData;
  * and handles the preparation of the view for the get seller schedule page use case.
  */
 public class GetSellerSchedulePagePresenter implements GetSellerSchedulePageOutputBoundary {
-    private final SellerSelectScheduleViewModel sellerSelectScheduleViewModel;
+    private SellerSelectScheduleViewModel sellerSelectScheduleViewModel;
     private ViewManagerModel viewManagerModel;
 
     /**

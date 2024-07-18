@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
  * for a buyer.
  */
 public class BuyerSelectScheduleInputData {
-    private User buyer;
-    private Product product;
-    private LocalDateTime selectedTime;
+    private final User buyer;
+    private final Product product;
+    private final LocalDateTime selectedTime;
 
     /**
      * Constructs a BuyerSelectScheduleInputData object with the specified buyer, product, and selected time.

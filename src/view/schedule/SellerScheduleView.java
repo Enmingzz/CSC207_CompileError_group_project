@@ -33,12 +33,16 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 
+/**
+ * The SellerScheduleView class represents the UI for sellers to select and manage their available schedules.
+ * It allows sellers to add, remove, and confirm available times, and provides navigation buttons.
+ */
 public class SellerScheduleView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "seller_schedule";
-    private SellerSelectScheduleController controller;
-    private SellerSelectScheduleViewModel viewModel;
-    private ManageProductController manageProductController;
+    private final SellerSelectScheduleController controller;
+    private final SellerSelectScheduleViewModel viewModel;
+    private final ManageProductController manageProductController;
 
     //Top Bar stuff
     private final GetSearchPageController getSearchPageController;
@@ -53,14 +57,28 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
     private JComboBox<String> hourComboBox;
     private DefaultListModel<String> timesListModel;
     private JList<String> timesList;
-    private JButton addButton;
-    private JButton removeButton;
-    private JButton submitButton;
-    private JButton cancelButton;
+    private final JButton addButton;
+    private final JButton removeButton;
+    private final JButton submitButton;
+    private final JButton cancelButton;
     private DefaultListModel<LocalDateTime> listModel;
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy, HH:mm");
 
 
+    /**
+     * Constructs a SellerScheduleView with the specified controllers and view model.
+     *
+     * @param controller the controller for seller select schedule
+     * @param viewModel the view model for seller select schedule
+     * @param manageProductController the controller for managing products
+     * @param getSearchPageController the controller for the search page
+     * @param viewSignupPageController the controller for the signup page
+     * @param viewLoginPageController the controller for the login page
+     * @param shoppingCartController the controller for the shopping cart
+     * @param logOutController the controller for logging out
+     * @param viewProfileController the controller for the profile view
+     * @param mainPageController the controller for the main page
+     */
     public SellerScheduleView(SellerSelectScheduleController controller,
                               SellerSelectScheduleViewModel viewModel,
                               ManageProductController manageProductController,
@@ -124,6 +142,12 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
         buttonPanel.add(cancelButton);
 
         addButton.addActionListener(new ActionListener() {
+            /**
+             * Handles the action event when the add button is clicked.
+             * Adds the selected date and hour to the list of scheduled times.
+             *
+             * @param evt the action event
+             */
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(addButton)) {
@@ -138,6 +162,12 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
         });
 
         removeButton.addActionListener(new ActionListener() {
+            /**
+             * Handles the action event when the remove button is clicked.
+             * Removes the selected time from the list of scheduled times.
+             *
+             * @param evt the action event
+             */
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(removeButton)) {
@@ -151,6 +181,12 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
         });
 
         submitButton.addActionListener(new ActionListener() {
+            /**
+             * Handles the action event when the submit button is clicked.
+             * Submits the selected times for the seller's schedule.
+             *
+             * @param evt the action event
+             */
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(submitButton)) {
@@ -170,6 +206,12 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
         });
 
         cancelButton.addActionListener(new ActionListener() {
+            /**
+             * Handles the action event when the cancel button is clicked.
+             * Navigates back to the manage product view.
+             *
+             * @param evt the action event
+             */
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(cancelButton)) {
                     User seller = viewModel.getState().getSeller();
@@ -192,6 +234,11 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
 
     }
 
+    /**
+     * Generates an array of dates starting from today for the next 30 days.
+     *
+     * @return an array of date strings
+     */
     private String [] getDates() {
         LocalDateTime now = LocalDateTime.now();
         return Stream.iterate(now, date -> date.plusDays(1))
@@ -200,6 +247,11 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
                 .toArray(String[]::new);
     }
 
+    /**
+     * Generates an array of hours from 8 AM to 9 PM.
+     *
+     * @return an array of hour strings
+     */
     private String [] getHours() {
         return IntStream.range(8, 22) // Hours from 09:00 to 17:00
                 .mapToObj(hour -> LocalTime.of(hour, 0).toString())

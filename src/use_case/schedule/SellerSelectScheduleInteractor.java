@@ -16,10 +16,10 @@ import java.util.ArrayList;
  * and provides the implementation for selecting a schedule for a seller.
  */
 public class SellerSelectScheduleInteractor implements SellerSelectScheduleInputBoundary {
-    private SellerSelectScheduleOutputBoundary outputBoundary;
-    private ProductReadByIdDataAccessInterface productReadById;
-    private ProductUpdateSellerScheduleDataAccessInterface productUpdateSellerSchedule;
-    private ProductUpdateStateDataAccessInterface productUpdateState;
+    private final SellerSelectScheduleOutputBoundary outputBoundary;
+    private final ProductReadByIdDataAccessInterface productReadById;
+    private final ProductUpdateSellerScheduleDataAccessInterface productUpdateSellerSchedule;
+    private final ProductUpdateStateDataAccessInterface productUpdateState;
 
     /**
      * Constructs a SellerSelectScheduleInteractor with the specified dependencies.
