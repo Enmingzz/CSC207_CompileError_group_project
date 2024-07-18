@@ -69,7 +69,7 @@ class ChangeProductInputDataTest {
         product = productFactory.createProduct(image, description, title, price, state, rating, eTransferEmail, sellerStudentNumber, address,
                 listTags, productID, schedule);
 
-        changeProductInputData = new ChangeProductInputData(user, product, changedDescription, changedPrice, changedImage);
+        changeProductInputData = new ChangeProductInputData(user, product, changedDescription, changedPrice);
     }
 
     @Test
@@ -87,10 +87,6 @@ class ChangeProductInputDataTest {
     @Test
     void getChangedPrice() {
         assertEquals(changedPrice, changeProductInputData.getChangedPrice());
-    }
-    @Test
-    void getChangedImage() {
-        assertEquals(changedImage, changeProductInputData.getChangedImage());
     }
     @AfterEach
     void tearDown() {
