@@ -28,7 +28,7 @@ class ViewSignupPageInteractorTest {
 
             @Override
             public void prepareSuccessfulView(ViewSignupPageOutputData viewSignupPageOutputData) {
-                assertEquals(new ViewSignupPageInputData(), viewSignupPageOutputData);
+                assertEquals(new ViewSignupPageOutputData(), viewSignupPageOutputData);
             }
         };
 

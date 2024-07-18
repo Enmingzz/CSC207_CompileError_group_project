@@ -29,7 +29,6 @@ class ChangeProductInputDataTest {
     private User user;
     private String changedDescription ;
     private String changedPrice;
-    private Image changedImage;
     private Product product;
 
     @BeforeEach
@@ -45,9 +44,8 @@ class ChangeProductInputDataTest {
 
         changedDescription = "This dress was bought in 1984.";
         changedPrice = "12.3";
-        changedImage = ImageIO.read(new File("D:/24 summer/csc207/CSC207_CompileError_group_project/src/pic/testpic1.png"));
 
-        Image image = ImageIO.read(new File("D:/24 summer/csc207/CSC207_CompileError_group_project/src/pic/testpic1.png"));
+        Image image = ImageIO.read(new File("src/pic/testpic1.png"));
         String description = "It was worn once";
         float price = 2;
         String title = "Red Dress";
