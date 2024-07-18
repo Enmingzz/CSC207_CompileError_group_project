@@ -14,7 +14,6 @@ public class DatabaseQuestionReadDataAccessObject implements QuestionReadDataAcc
     private String query;
     private ResultSet resultSet;
 
-
     public DatabaseQuestionReadDataAccessObject(QuestionFactory questionFactory, AnswerFactory answerFactory) throws SQLException {
         this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
                 "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
@@ -35,12 +34,12 @@ public class DatabaseQuestionReadDataAccessObject implements QuestionReadDataAcc
         Answer answer;
         ArrayList<Question> listQuestions = new ArrayList<Question>();
 
-        query = "SELECT * FROM Comments WHERE ProductID = ?";
+        query = "SELECT * FROM Comments WHERE CommentID = ?";
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, productID);
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
-            questionUserID = resultSet.getString("QuestionUserID");
+            questionUserID = resultSet.getString("CommentID");
             questionDescription = resultSet.getString("QuestionDescription");
             answerUserID = resultSet.getString("AnswerUserID");
             answerDescription = resultSet.getString("AnswerDescription");

@@ -20,7 +20,7 @@ public class DeleteProductInteractor implements DeleteProductInputBoundary{
 
     public void execute(DeleteProductInputData deleteProductInputData) throws SQLException, IOException {
         //Uses the interface to delete the product from the datacase
-        ProductDeleteDataAccessByIDInterface.deleteProductByID(deleteProductInputData.getProduct().getProductID());
+        productReadAllDataAccessInterface.deleteProductByID(deleteProductInputData.getProduct().getProductID());
 
         DeleteProductOutputData deleteProductOutputData = new DeleteProductOutputData(deleteProductInputData.getUser(), deleteProductInputData.getProduct());
         deleteProductOutputBoundary.prepareSuccessfulView(deleteProductOutputData);

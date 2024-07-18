@@ -23,7 +23,7 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class UserProfileView extends JFrame implements PropertyChangeListener, ActionListener {
+public class UserProfileView extends JFrame implements PropertyChangeListener {
     public final String viewName = "UserProfile View";
     private final ViewProfileViewModel viewModel;
     private final ViewProfileController viewProfileController;
@@ -37,13 +37,6 @@ public class UserProfileView extends JFrame implements PropertyChangeListener, A
     private final ViewSignupPageController viewSignupPageController;
     private final ViewLoginPageController viewLoginPageController;
     private final LogOutController logOutController;
-
-
-    private final JButton goMain;
-    private final JButton goShoppingCart;
-    private final JButton goLogin;
-    private final JButton goSignup;
-    private final JButton goProfile;
 
     private JLabel studentNumberViewField = new JLabel();
     private JLabel studentNameViewField = new JLabel();
@@ -92,71 +85,21 @@ public class UserProfileView extends JFrame implements PropertyChangeListener, A
         ProfileLabelTextPanel userRating = new ProfileLabelTextPanel(new JLabel(profileViewModel.USERRATING_LABLE), studentRatingViewField);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setLayout(new GridLayout(1, 5));
 
-        goMain = new JButton(profileViewModel.MAIN_BUTTON_LABEL);
-        bottomPanel.add(goMain);
-        goLogin = new JButton(profileViewModel.LOGIN_BUTTON_LABEL);
-        bottomPanel.add(goLogin);
-        goSignup = new JButton(profileViewModel.SIGNUP_BUTTON_LABEL);
-        bottomPanel.add(goSignup);
-        goShoppingCart = new JButton(profileViewModel.SHOPPING_BUTTON_LABEL);
-        bottomPanel.add(goShoppingCart);
-        goProfile = new JButton(profileViewModel.PROFILE_BUTTON_LABEL);
-        bottomPanel.add(goProfile);
+        mainPanel.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        goMain.addActionListener(this);
-        goLogin.addActionListener(this);
-        goSignup.addActionListener(this);
-        goShoppingCart.addActionListener(this);
-        goProfile.addActionListener(this);
+        mainPanel.add(title);
+        mainPanel.add(userNameInfo);
+        mainPanel.add(userIDInfo);
+        mainPanel.add(userEmail);
+        mainPanel.add(userRating);
 
-        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
-
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        this.add(title);
-        this.add(userNameInfo);
-        this.add(userIDInfo);
-        this.add(userEmail);
-        this.add(userRating);
-        this.add(mainPanel);
-
-        this.setVisible(true);
+        mainPanel.setVisible(true);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         ViewProfileState state = (ViewProfileState) evt.getNewValue();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(goMain)) {
-            try {
-                mainPageController.execute(viewModel.getState().getUser());
-            } catch (SQLException | IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        } else if (e.getSource().equals(goShoppingCart)){
-            try {
-                shoppingCartController.execute(viewModel.getState().getUser());
-            } catch (SQLException | IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        } else if (e.getSource().equals(goProfile)){
-            viewProfileController.execute(viewModel.getState().getUser());
-        } else {
-            System.out.println("Other Method has not implemented yet!");
-        }
-
-        ViewProfileState newState = (ViewProfileState) e.getSource();
-
-        JPanel topBar = new TopBarSampleView(newState.getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
-
     }
 }
 

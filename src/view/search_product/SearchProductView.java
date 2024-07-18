@@ -92,7 +92,7 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
 
         JPanel topBar = new TopBarSampleView(this.viewModel.getState().getUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
+        this.add(topBar, BorderLayout.SOUTH);
 
         viewModel.addPropertyChangeListener(this);
 
@@ -236,9 +236,9 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
         ArrayList<Product> products = searchProductState.getProducts();
         allProductsPanel = new AllProductsPanel(products, viewModel, viewProductController);
 
-        JPanel topBar = new TopBarSampleView(searchProductState.getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
+//        JPanel topBar = new TopBarSampleView(searchProductState.getUser(),
+//                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+//        this.add(topBar);
     }
 
 }
