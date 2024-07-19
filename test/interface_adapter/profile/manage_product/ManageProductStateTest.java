@@ -38,8 +38,6 @@ class ManageProductStateTest {
 
     private ManageProductState manageProductState;
     private ProductFactory productFactory = new CommonProductFactory();
-    private UserFactory userFactory = new CommonUserFactory();
-
 
     @BeforeEach
     void setUp() throws IOException {
@@ -56,7 +54,7 @@ class ManageProductStateTest {
         productList.add(commonProduct);
         user =  new CommonUser("hanrui", "123456", "hanrui@mail", 0, "123456");
 
-        manageProductState = new ManageProductState(productFactory, userFactory);
+        manageProductState = new ManageProductState(productFactory);
     }
 
     @AfterEach

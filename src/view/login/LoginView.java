@@ -26,7 +26,7 @@ import java.sql.SQLException;
 
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    public final String viewName = "login in";
+    public final String viewName = "log in";
     private final LoginViewModel loginViewModel;
     private final LoginController loginController;
 
