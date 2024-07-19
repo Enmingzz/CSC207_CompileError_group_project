@@ -1,5 +1,7 @@
 package interface_adapter.signup;
 
+import entity.user.User;
+
 /**
  * Represents the state of a signup process.
  * Contains fields for user credentials and errors related to the signup process.
@@ -14,6 +16,7 @@ public class SignupState {
     private String generatedVerificationCode = "";
     private String inputVerificationCode = "";
     private String email = "";
+    private User user;
 
     /**
      * Copy constructor. Creates a new SignupState by copying the fields from another SignupState.
@@ -119,6 +122,15 @@ public class SignupState {
     }
 
     /**
+     * Returns the user.
+     *
+     * @return the user
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
      * Sets the username.
      *
      * @param username the new username
@@ -197,5 +209,14 @@ public class SignupState {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * Sets the user.
+     *
+     * @param user the new user
+     */
+    public void setUser(User user) {
+        this.user = user;
     }
 }

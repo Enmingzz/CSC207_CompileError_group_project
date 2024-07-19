@@ -73,6 +73,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JButton searchProductByTagButton;
 
     private final JPanel signUpPanel = new JPanel();
+    private TopBarSampleView topBar;
 
     /**
      * Constructor for the SignupView class.
@@ -306,10 +307,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         signUpPanel.add(container);
         signUpPanel.add(buttons);
 
-//        UserFactory userFactory = new CommonUserFactory();
-//        User user = userFactory.createUser("", "", "", 0, "");
-        JPanel topBar = new TopBarSampleView(null,
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        UserFactory userFactory = new CommonUserFactory();
+        User user = userFactory.createUser("", "", "", 0, "");
+        JPanel topBar = new TopBarSampleView(user,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar, BorderLayout.NORTH);
         this.add(signUpPanel, BorderLayout.CENTER);
     }
@@ -332,9 +334,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         }
 //        UserFactory userFactory = new CommonUserFactory();
 //        User user = userFactory.createUser("", "", "", 0, "");
-//        JPanel topBar = new TopBarSampleView(user,
-//                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-//        this.add(topBar);
+        topBar = new TopBarSampleView(state.getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
     }
 
 }

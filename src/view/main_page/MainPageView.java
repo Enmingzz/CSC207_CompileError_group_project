@@ -98,8 +98,13 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
         this.setLayout(new BorderLayout());
         this.add(title);
+        topBar = new JPanel();
+        this.add(topBar);
 
         //TODO: check if the top bar is correct
+//        JPanel topBar = new TopBarSampleView(this.mainPageViewModel.getState().getUser(),
+//                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+//        this.add(topBar, BorderLayout.NORTH);
         topBar = new TopBarSampleView(this.mainPageViewModel.getState().getUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar, BorderLayout.NORTH);
@@ -185,9 +190,12 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+
+        System.out.println("propertyChange");
+
         MainPageState state = (MainPageState) evt.getNewValue();
 
-        System.out.println(state.getUser().getStudentNumber());
+        System.out.println(state.getUser().getStudentNumber() + "hi");
 
         ArrayList<Product> allProducts = state.getAllProducts();
 
@@ -200,7 +208,16 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
         this.add(topBar, BorderLayout.NORTH);
 
-        topBar = new TopBarSampleView(mainPageViewModel.getState().getUser(), getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        topBar.removeAll();
+        topBar.add(new JLabel(mainPageViewModel.TITLE_LABEL));
+//        topBar.add(new TopBarSampleView(mainPageViewModel.getState().getUser(),
+//                getSearchPageController, viewSignupPageController, viewLoginPageController,
+//                shoppingCartController, logOutController, viewProfileController,
+//                mainPageController));
+        topBar.repaint();
+        topBar.revalidate();
+//        this.revalidate();
+//        this.repaint();
         //this.add(topBar);
 
     }

@@ -28,6 +28,7 @@ public class MainPageViewModel extends ViewModel {
 
     @Override
     public void firePropertyChanged() {
+        System.out.println("MainPageViewModel firePropertyChanged");
         support.firePropertyChange("state", null, this.state);
     }
 

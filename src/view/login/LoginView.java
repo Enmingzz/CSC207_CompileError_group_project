@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -44,6 +45,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     private final JPasswordField passwordField = new JPasswordField(15);
     private final JLabel passwordErrorField = new JLabel();
+    private JPanel topBar;
 
     private final JButton logInButton;
     private JPanel topBar = new JPanel();
@@ -96,12 +98,27 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         class LoginButtonListener implements ActionListener {
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(logInButton)) {
-                        viewLoginPageController.execute();
+                    try {
+                        loginController.execute(studentNumberField.getText(),
+                                String.valueOf(passwordField.getPassword()));
+                        System.out.println(String.valueOf(passwordField.getPassword()));
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         }
 
         logInButton.addActionListener(new LoginButtonListener());
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
+        this.add(title);
+        this.add(studentNumberInfo);
+        this.add(passwordInfo);
+        this.add(logInButton);
         logInPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         logInPanel.add(title);
