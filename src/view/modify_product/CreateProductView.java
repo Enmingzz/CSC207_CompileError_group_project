@@ -59,7 +59,7 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
     private final JButton cancel;
     private final JButton uploadImageButton;
     private JLabel imageLabel;
-    private Image uploadedImage;
+    private Image image;
 
     ArrayList<String> arrayListTags = new ArrayList<>();
 
@@ -115,8 +115,6 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
-        //TODO initiate image
-        Image image;
 
         LabelTextPanel title = new LabelTextPanel(
                 new JLabel(viewCreateProductViewModel.PRODUCT_TITLE_LABEL), titleInputField);
@@ -297,7 +295,7 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
                 if (evt.getSource().equals(uploadImageButton)) {
                    uploadImageController.execute();
                     ImageIcon imageIcon = new ImageIcon(viewCreateProductViewModel.getState().getPath());
-                    Image image = imageIcon.getImage();
+                    image = imageIcon.getImage();
                     Image scaledImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
                     ImageIcon scaledIcon = new ImageIcon(scaledImage);
                    imageLabel.setIcon(scaledIcon);
@@ -311,7 +309,7 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
                 if (evt.getSource().equals(createProduct)) {
                     try {
 //                        CreateProductState state = new CreateProductState();
-                        createProductController.execute(viewCreateProductViewModel.getState().getUser(), uploadedImage,
+                        createProductController.execute(viewCreateProductViewModel.getState().getUser(), image,
                                 descriptionInputField.getText(), priceInputField.getText(), titleInputField.getText(),
                                 eTransferEmailInputField.getText(), addressInputField.getText(), arrayListTags);
                     } catch (SQLException | IOException e) {
