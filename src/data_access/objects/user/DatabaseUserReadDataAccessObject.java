@@ -39,6 +39,8 @@ public class DatabaseUserReadDataAccessObject implements UserReadDataAccessInter
      */
     @Override
     public User getUser(String studentNumber) throws SQLException {
+        System.out.println("Getting user SQL");
+
         this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
                 "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
                 "hostNameInCertificate=*.database.windows.net;loginTimeout=30");

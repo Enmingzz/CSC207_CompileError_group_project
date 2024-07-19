@@ -1,5 +1,6 @@
 package view;
 
+import entity.user.CommonUser;
 import entity.user.User;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.ViewLoginPageController;
@@ -60,15 +61,16 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
 
         //(2)hi, user. if it's already logged in
         JLabel hi;
-        if (user == null){
+        User user1 = new CommonUser("", "", "", 0, "");
+        if (Objects.equals(user, user1)){
             hi = new JLabel("Welcome!");
         } else {
-            hi = new JLabel("hi, " + user.getName());
+            hi = new JLabel("hi" + user.getName());
         }
         title.add(hi);
 
         //(3)jump to main page
-        mainPageButton = new JButton("main page");
+        mainPageButton = new JButton("To Main Page");
         class MainPageButtonListener implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -85,9 +87,9 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
         buttonPanel.add(mainPageButton);
 
         //haven't logged in
-        if(Objects.equals(user, null)){
+        if(Objects.equals(user, user1)){
             //(4)signUp
-            JButton signUp = new JButton("Sign in");
+            JButton signUp = new JButton("Sign Up Page");
             class SignInListener implements ActionListener{
                 @Override
                 public void actionPerformed(ActionEvent evt) {
@@ -104,7 +106,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
             buttonPanel.add(signUp);
 
             //(5)logIn
-            JButton logIn = new JButton("Log in");
+            JButton logIn = new JButton("Login Page");
             class LogInListener implements ActionListener{
                 @Override
                 public void actionPerformed(ActionEvent evt){
@@ -123,9 +125,9 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
 
 
         //already logged in
-        if(!Objects.equals(user, null)){
+        if(!Objects.equals(user, user1)){
             //（6）shoppingCart
-            JButton cart = new JButton("Cart");
+            JButton cart = new JButton("Shopping Cart");
             class CartListener implements ActionListener{
                 @Override
                 public void actionPerformed(ActionEvent evt) {
@@ -142,7 +144,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
             buttonPanel.add(cart);
 
             //(7)logOut
-            JButton logOut = new JButton("Log out");
+            JButton logOut = new JButton("Log Out");
             class LogOutListener implements ActionListener{
                 @Override
                 public void actionPerformed(ActionEvent evt) {
@@ -161,7 +163,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
 
             //(8) ViewProfile
             JButton profile = new JButton();
-            ImageIcon imageIcon = new ImageIcon("/src/pic/testpic4.png");
+            ImageIcon imageIcon = new ImageIcon("src/pic/testpic4.png");
             profile.setIcon(imageIcon);
             class ViewProfileListener implements ActionListener{
                 @Override
