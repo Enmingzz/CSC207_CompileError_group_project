@@ -13,6 +13,7 @@ public class ViewProfileViewModel extends ViewModel {
     public final String TITLE_LABEL = "Profile View";
     public final String USERID_LABEL = "Student ID";
     public final String USERNAME_LABEL = "Name";
+    public final String PASSWORD_LABEL = "Password";
     public final String USEREMAIL_LABEL = "UofT Email";
     public final String USERRATING_LABLE = "Rating";
 

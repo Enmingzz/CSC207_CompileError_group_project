@@ -105,7 +105,8 @@ public class ModifyProfileUseCaseFactory {
                     ModifyProfileUseCaseFactory.createMainPageController(mainPageViewModel,
                             viewManagerModel);
             ModifyProfileController modifyProfileController =
-                    ModifyProfileUseCaseFactory.createModifyProfileController(modifyProfileViewModel,viewManagerModel);
+                    ModifyProfileUseCaseFactory.createModifyProfileController(modifyProfileViewModel, viewProfileViewModel,
+                            viewManagerModel);
             ShoppingCartController shoppingCartController =
                     ModifyProfileUseCaseFactory.createShoppingCartController(viewManagerModel,
                             shoppingCartViewModel);
@@ -228,6 +229,7 @@ public class ModifyProfileUseCaseFactory {
     }
 
     private static ModifyProfileController createModifyProfileController(ModifyProfileViewModel modifyProfileViewModel,
+                                                                         ViewProfileViewModel viewProfileViewModel,
                                                                          ViewManagerModel viewManagerModel) throws SQLException {
         DatabaseUserUpdateNameDataAccessObjectFactoryInterface databaseUserUpdateNameDataAccessObjectFactoryInterface
                 = new DatabaseUserUpdateNameDataAccessObjectFactory();
@@ -241,7 +243,8 @@ public class ModifyProfileUseCaseFactory {
                 userReadDataAccessObjectFactoryInterface.create(userFactory);
         UserUpdatePasswordDataAccessInterface userUpdatePasswordDataAccessObject =
                 databaseUserUpdatePasswordDataAccessObjectFactoryInterface.create();
-        ModifyProfileOutputBoundary modifyProfilePresenter = new ModifyProfilePresenter(modifyProfileViewModel, viewManagerModel);
+        ModifyProfileOutputBoundary modifyProfilePresenter = new ModifyProfilePresenter(modifyProfileViewModel, viewProfileViewModel,
+                viewManagerModel);
         ModifyProfileInputBoundary modifyProfileInteractor =
                 new ModifyProfileInteractor(userUpdateNameDataAccessObject,
                                         userUpdatePasswordDataAccessObject, userReadDataAccessObject,

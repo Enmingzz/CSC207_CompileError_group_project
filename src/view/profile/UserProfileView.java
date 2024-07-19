@@ -23,7 +23,7 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class UserProfileView extends JFrame implements PropertyChangeListener {
+public class UserProfileView extends JPanel implements PropertyChangeListener {
     public final String viewName = "UserProfile View";
     private final ViewProfileViewModel viewModel;
     private final ViewProfileController viewProfileController;
@@ -84,17 +84,15 @@ public class UserProfileView extends JFrame implements PropertyChangeListener {
         ProfileLabelTextPanel userEmail = new ProfileLabelTextPanel(new JLabel(profileViewModel.USEREMAIL_LABEL), studentEmailViewField);
         ProfileLabelTextPanel userRating = new ProfileLabelTextPanel(new JLabel(profileViewModel.USERRATING_LABLE), studentRatingViewField);
 
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        mainPanel.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.add(title);
+        this.add(userNameInfo);
+        this.add(userIDInfo);
+        this.add(userEmail);
+        this.add(userRating);
 
-        mainPanel.add(title);
-        mainPanel.add(userNameInfo);
-        mainPanel.add(userIDInfo);
-        mainPanel.add(userEmail);
-        mainPanel.add(userRating);
-
-        mainPanel.setVisible(true);
+        this.setVisible(true);
     }
 
     @Override
