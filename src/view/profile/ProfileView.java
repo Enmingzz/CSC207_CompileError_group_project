@@ -50,8 +50,8 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
 
     private final ViewProfileViewModel viewModel;
     private final JButton manageProduct;
-    private final JButton modifyName;
-    private final JButton modifyPassword;
+    private final JButton modifyProfile;
+    private final JButton showProfile;
 
     private JLabel studentNumberViewField = new JLabel();
     private JLabel studentNameViewField = new JLabel();
@@ -115,18 +115,29 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new GridLayout(3, 1));
 
+        showProfile = new JButton(profileViewModel.VIEW_PROFILE_BOTTON_LABEL);
+        leftPanel.add(showProfile);
         manageProduct = new JButton(profileViewModel.MANAGEPRODUCT_BUTTONLABEL);
         leftPanel.add(manageProduct);
-        modifyName = new JButton(profileViewModel.MODIFYNAME_BUTTON_LABEL);
-        leftPanel.add(modifyName);
-        modifyPassword = new JButton(profileViewModel.MODIFYPASSWORD_BUTTON_LABEL);
-        leftPanel.add(modifyPassword);
-
-        this.add(leftPanel, BorderLayout.WEST);
+        modifyProfile = new JButton(profileViewModel.MODIFYNAME_BUTTON_LABEL);
+        leftPanel.add(modifyProfile);
 
         manageProduct.addActionListener(new ManageProductListener(manageProductController, viewModel));
-        modifyName.addActionListener(new ModifyProfileListener(viewModifyProfileController, viewModel));
-        modifyPassword.addActionListener(new ModifyProfileListener(viewModifyProfileController, viewModel));
+        modifyProfile.addActionListener(new ModifyProfileListener(viewModifyProfileController, viewModel));
+        class ViewProfileListener implements ActionListener{
+            @Override
+            public void actionPerformed(ActionEvent evt){
+                if(evt.getSource().equals(showProfile)){
+                    try{
+                        viewProfileController.execute(profileViewModel.getState().getUser());
+                    }catch (Exception e){
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+        showProfile.addActionListener(new ViewProfileListener());
+        this.add(leftPanel, BorderLayout.WEST);
 
         infoPanel.add(title);
         infoPanel.add(userNameInfo);

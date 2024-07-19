@@ -164,8 +164,11 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
 
             //(8) ViewProfile
             JButton profile = new JButton();
-            ImageIcon imageIcon = new ImageIcon("src/pic/testpic4.png");
-            profile.setIcon(imageIcon);
+            ImageIcon imageIcon = new ImageIcon("src/pic/WechatIMG2308.png");
+            Image image = imageIcon.getImage();
+            Image scaledImage = image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+            ImageIcon scaledIcon = new ImageIcon(scaledImage);
+            profile.setIcon(scaledIcon); // 设置缩放后的图标
             class ViewProfileListener implements ActionListener{
                 @Override
                 public void actionPerformed(ActionEvent evt){
@@ -182,7 +185,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
             profile.addActionListener(new ViewProfileListener());
             buttonPanel.add(profile);
         }
-        this.add(buttonPanel, BorderLayout.CENTER);
+        this.add(buttonPanel);
         this.add(title, BorderLayout.NORTH);
     }
 

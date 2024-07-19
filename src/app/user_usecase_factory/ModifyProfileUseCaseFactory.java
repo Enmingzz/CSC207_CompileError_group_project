@@ -120,7 +120,7 @@ public class ModifyProfileUseCaseFactory {
             LogOutController logOutController = createLogOutController(viewManagerModel, mainPageViewModel);
 
 
-            return new ModifyProfileView(userFactory,
+            return new ModifyProfileView(modifyProfileViewModel, userFactory,
                     modifyProfileController,
                      mainPageController,
                      shoppingCartController,
