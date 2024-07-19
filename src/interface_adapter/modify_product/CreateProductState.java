@@ -21,6 +21,8 @@ public class CreateProductState {
     private ArrayList<String> listTags = new ArrayList<String>();
     private String listTagsError = null;
 
+    private String path;
+
     private User user = null;
 
 //    public CreateProductState(CreateProductState copy) {
@@ -92,6 +94,9 @@ public class CreateProductState {
         return listTagsError;
     }
     public User getUser() {return user;}
+    public String getPath() {
+        return path;
+    }
 
     public void setImageError(String error) {
         imageError = error;
@@ -137,5 +142,6 @@ public class CreateProductState {
         listTags = tags;
     }
     public void setUser(User user){this.user = user;}
+    public void setPath(String path){this.path = path;}
 
 }

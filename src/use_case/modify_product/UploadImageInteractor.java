@@ -64,11 +64,11 @@ public class UploadImageInteractor extends JFrame implements UploadImageInputBou
         }
     }
 
-    public static void main(String[] args) {
-        UploadImagePresenter uploadImagePresenter = new UploadImagePresenter();
-        UploadImageInteractor uploadImageInteractor =
-                new UploadImageInteractor(uploadImagePresenter);
-        UploadImageInputData uploadImageInputData = new UploadImageInputData();
-        uploadImageInteractor.execute(uploadImageInputData);
-    }
+//    public static void main(String[] args) {
+//        UploadImagePresenter uploadImagePresenter = new UploadImagePresenter();
+//        UploadImageInteractor uploadImageInteractor =
+//                new UploadImageInteractor(uploadImagePresenter);
+//        UploadImageInputData uploadImageInputData = new UploadImageInputData();
+//        uploadImageInteractor.execute(uploadImageInputData);
+//    }
 }

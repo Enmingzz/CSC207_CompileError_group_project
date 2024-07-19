@@ -7,4 +7,8 @@ public class UploadImageOutputData {
     public UploadImageOutputData(String path) {
         this.path = path;
     }
+
+    public String getPath() {
+        return path;
+    }
 }

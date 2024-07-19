@@ -19,7 +19,7 @@ public class ViewProfileViewModel extends ViewModel {
 
     public final String MANAGEPRODUCT_BUTTONLABEL = "Manage product";
     public final String VIEW_PROFILE_BOTTON_LABEL = "View Profile";
-    public final String MODIFYNAME_BUTTON_LABEL = "Modify Name";
+    public final String MODIFYPROFILE_BUTTON_LABEL = "MODIFY Profile";
 
     public final String MAIN_BUTTON_LABEL = "Main";
     public final String LOGIN_BUTTON_LABEL = "Login";
