@@ -1,5 +1,8 @@
 package view.profile;
 
+import entity.user.CommonUserFactory;
+import entity.user.User;
+import entity.user.UserFactory;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
@@ -42,6 +45,7 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
     private JLabel studentNameViewField = new JLabel();
     private JLabel studentEmailViewField = new JLabel();
     private JLabel studentRatingViewField = new JLabel();
+    private JPanel topBar;
 
     public UserProfileView(MainPageController mainPageController,
                            ShoppingCartController shoppingCartController,
@@ -66,9 +70,12 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
         this.viewLoginPageController = viewLoginPageController;
         this.logOutController = logOutController;
 
-        JPanel topBar = new TopBarSampleView(this.viewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar, BorderLayout.NORTH);
 
         viewModel.addPropertyChangeListener(this);
         JLabel title = new JLabel(viewModel.TITLE_LABEL);
@@ -97,6 +104,14 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        topBar.removeAll();
+        topBar.add(new TopBarSampleView(viewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController,
+                mainPageController));
+        topBar.repaint();
+        topBar.revalidate();
+
         ViewProfileState state = (ViewProfileState) evt.getNewValue();
     }
 }

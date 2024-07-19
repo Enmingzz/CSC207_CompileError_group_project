@@ -1,7 +1,9 @@
 package view.schedule;
 
 import entity.product.Product;
+import entity.user.CommonUserFactory;
 import entity.user.User;
+import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
@@ -49,6 +51,7 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
     private JComboBox<LocalDateTime> availableTimesComboBox;
     private final JButton selectButton;
     private final JButton cancelButton;
+    private JPanel topBar;
 
     /**
      * Constructs a BuyerScheduleView with the specified view model, controller, and top bar controllers.
@@ -85,8 +88,11 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
         this.mainPageController = mainPageController;
 
 
-        JPanel topBar = new TopBarSampleView(this.viewModel.getState().getBuyer(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
 
         viewModel.addPropertyChangeListener(this);
@@ -179,8 +185,12 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
             availableTimesComboBox.addItem(time);
         }
 
-        JPanel topBar = new TopBarSampleView(state.getBuyer(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
+        topBar.removeAll();
+        topBar.add(new TopBarSampleView(viewModel.getState().getBuyer(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController,
+                mainPageController));
+        topBar.repaint();
+        topBar.revalidate();
     }
 }

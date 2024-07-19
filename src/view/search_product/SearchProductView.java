@@ -2,7 +2,9 @@ package view.search_product;
 
 import app.Main;
 import entity.product.Product;
+import entity.user.CommonUserFactory;
 import entity.user.User;
+import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
@@ -35,7 +37,7 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
     private final SearchProductByNameController searchByNameController;
     private final SearchProductByTagController searchByTagController;
     private final ViewProductController viewProductController;
-    private final SearchProductViewModel viewModel;
+    private final SearchProductViewModel searchProductViewModel;
 
     private final GetSearchPageController getSearchPageController;
     private final ViewSignupPageController viewSignupPageController;
@@ -49,6 +51,7 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
     private final JButton searchButton;
     private final String[] tags = {"Tag1", "Tag2", "Tag3"}; // to be decided later
     AllProductsPanel allProductsPanel;
+    private JPanel topBar;
 
     /**
      * Constructs a SearchProductView with the specified controllers and view model.
@@ -80,7 +83,7 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
         this.searchByNameController = searchByNameController;
         this.searchByTagController = searchByTagController;
         this.viewProductController = viewProductController;
-        this.viewModel = viewModel;
+        this.searchProductViewModel = viewModel;
         // for top bar
         this.getSearchPageController = getSearchPageController;
         this.viewSignupPageController = viewSignupPageController;
@@ -90,9 +93,12 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
 
-        JPanel topBar = new TopBarSampleView(this.viewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar, BorderLayout.SOUTH);
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
 
         viewModel.addPropertyChangeListener(this);
 
@@ -234,7 +240,15 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
         SearchProductState searchProductState = (SearchProductState) evt.getNewValue();
 
         ArrayList<Product> products = searchProductState.getProducts();
-        allProductsPanel = new AllProductsPanel(products, viewModel, viewProductController);
+        allProductsPanel = new AllProductsPanel(products, searchProductViewModel, viewProductController);
+
+        topBar.removeAll();
+        topBar.add(new TopBarSampleView(searchProductViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController,
+                mainPageController));
+        topBar.repaint();
+        topBar.revalidate();
 
 //        JPanel topBar = new TopBarSampleView(searchProductState.getUser(),
 //                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);

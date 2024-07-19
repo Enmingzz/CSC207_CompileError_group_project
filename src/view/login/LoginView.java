@@ -48,7 +48,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private JPanel topBar;
 
     private final JButton logInButton;
-    private JPanel topBar = new JPanel();
     private final JPanel logInPanel = new JPanel();
 
     public LoginView(LoginViewModel loginViewModel,
@@ -73,13 +72,13 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
 
-//        UserFactory userFactory = new CommonUserFactory();
-//        User user = userFactory.createUser("", "", "", 0, "");
         this.setLayout(new BorderLayout());
         logInPanel.setLayout(new BoxLayout(logInPanel, BoxLayout.Y_AXIS));
-
-        JPanel topBar = new TopBarSampleView(null,
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar, BorderLayout.NORTH);
 
         this.loginViewModel.addPropertyChangeListener(this);
@@ -110,11 +109,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         }
 
         logInButton.addActionListener(new LoginButtonListener());
-        UserFactory commonUserFactory = new CommonUserFactory();
-        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
-        topBar = new TopBarSampleView(commonUser,
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
         this.add(title);
         this.add(studentNumberInfo);
         this.add(passwordInfo);
@@ -136,6 +130,14 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         System.out.println("propertyChange login received");
+        topBar.removeAll();
+        topBar.add(new TopBarSampleView(loginViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController,
+                mainPageController));
+        topBar.repaint();
+        topBar.revalidate();
+
         LoginState state = (LoginState) evt.getNewValue();
         if (state.getStudentNumberError() != null) {
             JOptionPane.showMessageDialog(this, state.getStudentNumberError());

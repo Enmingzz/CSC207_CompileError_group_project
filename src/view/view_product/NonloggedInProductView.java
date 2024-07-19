@@ -92,8 +92,11 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
         this.nonLoggedInViewModel.addPropertyChangeListener(this);
 
 
-        topBar = new TopBarSampleView(this.nonLoggedInViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
 
         JLabel title = new JLabel(nonLoggedInViewModel.TITLE_LABEL+", but you are not logged in yet :(");
@@ -244,9 +247,6 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
 
             qAInfo.add(qA_title);
             qAInfo.add(qA_TextPanel);
-
-            topBar = new TopBarSampleView(newState.getUser(),
-                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
 
             newState.setIsChanged(false);
         }

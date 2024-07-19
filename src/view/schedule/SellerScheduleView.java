@@ -2,7 +2,9 @@ package view.schedule;
 
 import app.Main;
 import entity.product.Product;
+import entity.user.CommonUserFactory;
 import entity.user.User;
+import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
@@ -63,6 +65,7 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
     private final JButton cancelButton;
     private DefaultListModel<LocalDateTime> listModel;
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy, HH:mm");
+    private JPanel topBar;
 
 
     /**
@@ -102,8 +105,11 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
 
-        JPanel topBar = new TopBarSampleView(this.viewModel.getState().getSeller(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
 
         viewModel.addPropertyChangeListener(this);
@@ -271,8 +277,12 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
         dateComboBox = new JComboBox<>(getDates());
         hourComboBox = new JComboBox<>(getHours());
 
-        JPanel topBar = new TopBarSampleView(state.getSeller(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
+        topBar.removeAll();
+        topBar.add(new TopBarSampleView(viewModel.getState().getSeller(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController,
+                mainPageController));
+        topBar.repaint();
+        topBar.revalidate();
     }
 }
