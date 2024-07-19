@@ -1,6 +1,8 @@
 package use_case.search_product;
 
+import data_access.in_memory.product.InMemoryProductReadAllDataAccessObject;
 import data_access.in_memory.product.InMemoryProductReadByNameDataAccessObject;
+import data_access.interfaces.product.ProductReadAllDataAccessInterface;
 import data_access.interfaces.product.ProductReadByNameDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.Product;
@@ -32,6 +34,7 @@ class SearchProductByNameInteractorTest {
     private Product product1;
     private Product product2;
     private Product product3;
+    private Product product4;
 
     @BeforeEach
     void setUp() throws IOException {
@@ -73,7 +76,7 @@ class SearchProductByNameInteractorTest {
 
         // product2 is a product that does not contain the productName we want to search in its title/name and is on sale
 
-        Image image2 = ImageIO.read(new File("src.pic.testpic2.png"));
+        Image image2 = ImageIO.read(new File("src/pic/testpic2.png"));
         String description2 = "This is a description";
         String title2 = "bcd";
         float price2 = 2;
@@ -96,7 +99,7 @@ class SearchProductByNameInteractorTest {
         products.add(product2);
 
         // product3 is a product that contains the productName we want to search in its title/name but is not on sale.
-        Image image3 = ImageIO.read(new File("src.pic.testpic2.png"));
+        Image image3 = ImageIO.read(new File("src/pic/testpic3.png"));
         String description3 = "This is a description";
         String title3 = "abc";
         float price3 = 2;
@@ -117,6 +120,28 @@ class SearchProductByNameInteractorTest {
         );
 
         products.add(product3);
+
+        // product4 is a product that has the exact name we want to search and is on sale
+        Image image4 = ImageIO.read(new File("src/pic/testpic4.png"));
+        String description4 = "This is a description";
+        String title4 = "a";
+        float price4 = 3;
+        Integer rating4 = 0;
+        int state4 = 0;
+        String eTransferEmail4 = "example@email.com";
+        String sellerStudentNumber4 = "1111111111";
+        String address4 = "BA 3175";
+        ArrayList<String> listTags4 = new ArrayList<>();
+        listTags4.add("Tag 1");
+        String productID4 = "id_4";
+        LocalDateTime buyerTime4 = null;
+        ArrayList<LocalDateTime> sellerTime4 = new ArrayList<>();
+        Schedule schedule4 = scheduleFactory.createSchedule(buyerTime4, sellerTime4);
+        product4 = productFactory.createProduct(image4, description4, title4, price4,
+                state4, rating4, eTransferEmail4, sellerStudentNumber4, address4,
+                listTags4, productID4, schedule4);
+
+        products.add(product4);
     }
 
     @AfterEach
@@ -133,14 +158,32 @@ class SearchProductByNameInteractorTest {
 
                 ArrayList<Product> actualProducts = searchProductByNameOutputData.getProducts();
                 ArrayList<Product> expectedProducts = new ArrayList<>();
-                expectedProducts.add(product1); // only product1 should be displayed.
-                assertEquals(expectedProducts, actualProducts);
+                expectedProducts.add(product4); // Exact match product should be first
+                expectedProducts.add(product1); // Contains the search term
+                for (int i = 0; i < expectedProducts.size(); i++) {
+                    Product expectedProduct = expectedProducts.get(i);
+                    Product actualProduct = actualProducts.get(i);
+                    assertEquals(expectedProduct.getImage(), actualProduct.getImage());
+                    assertEquals(expectedProduct.getDescription(), actualProduct.getDescription());
+                    assertEquals(expectedProduct.getTitle(), actualProduct.getTitle());
+                    assertEquals(expectedProduct.getPrice(), actualProduct.getPrice());
+                    assertEquals(expectedProduct.getState(), actualProduct.getState());
+                    assertEquals(expectedProduct.getRating(), actualProduct.getRating());
+                    assertEquals(expectedProduct.geteTransferEmail(), actualProduct.geteTransferEmail());
+                    assertEquals(expectedProduct.getSellerStudentNumber(), actualProduct.getSellerStudentNumber());
+                    assertEquals(expectedProduct.getAddress(), actualProduct.getAddress());
+                    assertEquals(expectedProduct.getListTags(), actualProduct.getListTags());
+                    assertEquals(expectedProduct.getProductID(), actualProduct.getProductID());
+                    assertEquals(expectedProduct.getSchedule().getSellerTime(), actualProduct.getSchedule().getSellerTime());
+                    assertEquals(expectedProduct.getSchedule().getBuyerTime(), actualProduct.getSchedule().getBuyerTime());
+                }
             }
         };
         ProductReadByNameDataAccessInterface inMemoryProductReadByNameDataAccessObject = new InMemoryProductReadByNameDataAccessObject(products);
+        ProductReadAllDataAccessInterface inMemoryProductReadAllDataAccessObject = new InMemoryProductReadAllDataAccessObject(products);
         SearchProductByNameInputData inputData = new SearchProductByNameInputData(user, productName);
         SearchProductByNameInteractor interactor =
-                new SearchProductByNameInteractor(inMemoryProductReadByNameDataAccessObject, searchProductByNameOutputBoundary);
+                new SearchProductByNameInteractor(inMemoryProductReadAllDataAccessObject, inMemoryProductReadByNameDataAccessObject, searchProductByNameOutputBoundary);
         interactor.execute(inputData);
     }
 }
