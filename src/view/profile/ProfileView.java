@@ -119,7 +119,7 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         leftPanel.add(showProfile);
         manageProduct = new JButton(profileViewModel.MANAGEPRODUCT_BUTTONLABEL);
         leftPanel.add(manageProduct);
-        modifyProfile = new JButton(profileViewModel.MODIFYNAME_BUTTON_LABEL);
+        modifyProfile = new JButton(profileViewModel.MODIFYPROFILE_BUTTON_LABEL);
         leftPanel.add(modifyProfile);
 
         manageProduct.addActionListener(new ManageProductListener(manageProductController, viewModel));

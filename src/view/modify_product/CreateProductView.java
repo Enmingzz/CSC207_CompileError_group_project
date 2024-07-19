@@ -8,6 +8,7 @@ import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.modify_product.CreateProductController;
 import interface_adapter.modify_product.CreateProductState;
+import interface_adapter.modify_product.UploadImageController;
 import interface_adapter.modify_product.ViewCreateProductViewModel;
 import interface_adapter.profile.manage_product.ManageProductController;
 import interface_adapter.profile.manage_product.ManageProductViewModel;
@@ -52,6 +53,7 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
     private final LogOutController logOutController;
     private final ViewProfileController viewProfileController;
     private final MainPageController mainPageController;
+    private final UploadImageController uploadImageController;
 
     private final JButton createProduct;
     private final JButton cancel;
@@ -73,14 +75,13 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
     public CreateProductView(CreateProductController createProductController,
                              ViewCreateProductViewModel viewCreateProductViewModel,
                              ManageProductController manageProductController,
-
                              MainPageController mainPageController,
                              GetSearchPageController getSearchPageController,
                              ViewSignupPageController viewSignupPageController,
                              ViewLoginPageController viewLoginPageController,
                              ShoppingCartController shoppingCartController,
                              LogOutController logOutController,
-                             ViewProfileController viewProfileController) {
+                             ViewProfileController viewProfileController, UploadImageController uploadImageController) {
 
         this.createProductController = createProductController;
         this.manageProductController = manageProductController;
@@ -94,6 +95,7 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
         this.logOutController = logOutController;
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
+        this.uploadImageController = uploadImageController;
 
         this.setLayout(new BorderLayout());
 
@@ -266,25 +268,39 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
             }
         }
 
+//        class uploadImageButtonListener implements ActionListener {
+//            @Override
+//            public void actionPerformed(ActionEvent evt) {
+//                if (evt.getSource().equals(uploadImageButton)) {
+//                    JFileChooser fileChooser = new JFileChooser();
+//                    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+//                            "JPG & PNG Images", "jpg", "png");
+//                    fileChooser.setFileFilter(filter);
+////                    fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+//                    int returnValue = fileChooser.showOpenDialog(null);
+//                    if (returnValue == JFileChooser.APPROVE_OPTION) {
+//                        File selectedFile = fileChooser.getSelectedFile();
+//                        try {
+//                            uploadedImage = ImageIO.read(selectedFile);
+//                            imageLabel.setIcon(new ImageIcon(uploadedImage));
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//            }
+//        }
+
         class uploadImageButtonListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(uploadImageButton)) {
-                    JFileChooser fileChooser = new JFileChooser();
-                    FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                            "JPG & PNG Images", "jpg", "png");
-                    fileChooser.setFileFilter(filter);
-//                    fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                    int returnValue = fileChooser.showOpenDialog(null);
-                    if (returnValue == JFileChooser.APPROVE_OPTION) {
-                        File selectedFile = fileChooser.getSelectedFile();
-                        try {
-                            uploadedImage = ImageIO.read(selectedFile);
-                            imageLabel.setIcon(new ImageIcon(uploadedImage));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                   uploadImageController.execute();
+                    ImageIcon imageIcon = new ImageIcon(viewCreateProductViewModel.getState().getPath());
+                    Image image = imageIcon.getImage();
+                    Image scaledImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                    ImageIcon scaledIcon = new ImageIcon(scaledImage);
+                   imageLabel.setIcon(scaledIcon);
                 }
             }
         }

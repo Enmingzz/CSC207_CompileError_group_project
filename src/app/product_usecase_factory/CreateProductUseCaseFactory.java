@@ -93,10 +93,18 @@ public class CreateProductUseCaseFactory {
         LogOutController logOutController =
                 CreateProductUseCaseFactory.createLogOutController(viewManagerModel, mainPageViewModel);
         ViewProfileController viewProfileController = CreateProductUseCaseFactory.createProfileController(viewManagerModel, viewProfileViewModel);
-
+        UploadImageController uploadImageController =
+                createUploadImageController(viewCreateProductViewModel);
         return new CreateProductView(createProductController,viewCreateProductViewModel, manageProductController,
                 mainPageController, getSearchPageController,viewSignupPageController, viewLoginPageController,
-                shoppingCartController,logOutController, viewProfileController);
+                shoppingCartController,logOutController, viewProfileController, uploadImageController);
+    }
+
+    private static UploadImageController createUploadImageController(ViewCreateProductViewModel viewCreateProductViewModel){
+        UploadImageOutputBoundary uploadImagePresenter = new UploadImagePresenter(viewCreateProductViewModel);
+        UploadImageInputBoundary uploadImageInteractor =
+                new UploadImageInteractor(uploadImagePresenter);
+        return new UploadImageController(uploadImageInteractor);
     }
 
     private static CreateProductController createCreateProductController(ManageProductViewModel manageProductViewModel,
