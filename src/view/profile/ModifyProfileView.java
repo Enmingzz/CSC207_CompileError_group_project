@@ -1,5 +1,6 @@
 package view.profile;
 
+import entity.user.CommonUserFactory;
 import entity.user.User;
 import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
@@ -49,7 +50,7 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
     private final JPasswordField passwordInputField = new JPasswordField(15);
     final JButton confirmButton;
     final JButton backButton;
-    private JPanel topBar = new JPanel();
+    private JPanel topBar;
 
     public ModifyProfileView(UserFactory userFactory, ModifyProfileController modifyProfileController,
                              MainPageController mainPageController,
@@ -75,8 +76,12 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
 
         this.setLayout(new BorderLayout());
 
-        topBar = new TopBarSampleView(this.modifyProfileViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
         this.add(topBar, BorderLayout.NORTH);
 
         modifyProfileViewModel.addPropertyChangeListener(this);
@@ -132,10 +137,14 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
         ModifyProfileState state = (ModifyProfileState) evt.getNewValue();
         modifyProfileViewModel.setState(state);
 
-        this.remove(topBar);
-        topBar = new TopBarSampleView(this.modifyProfileViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar, BorderLayout.NORTH);
+        topBar.removeAll();
+        topBar.add(new TopBarSampleView(modifyProfileViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController,
+                mainPageController));
+        topBar.repaint();
+        topBar.revalidate();
+
 
     }
 }

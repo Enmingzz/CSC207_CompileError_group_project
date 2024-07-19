@@ -1,7 +1,9 @@
 package view.rate_product;
 
 import entity.product.Product;
+import entity.user.CommonUserFactory;
 import entity.user.User;
+import entity.user.UserFactory;
 import interface_adapter.ViewModel;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
@@ -50,6 +52,7 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
 
     RateProductLabelTextPanel showProduct;
     JPanel getRating;
+    private JPanel topBar;
 
 
     //TODO figure out how cancel works and if anything extra is needed to be done in order to get cancel working
@@ -160,13 +163,19 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
             }
         }
 
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar, BorderLayout.NORTH);
+
         createRating.addActionListener(new CreateRatingListener());
         ratingInputField.addKeyListener(new RatingInputFieldListener());
         cancel.addActionListener(new CancelButtonListener());
 
         //TODO write how the layout will be
         this.setLayout(new BorderLayout());
-        this.add(topBar, BorderLayout.NORTH);
         this.add(title, BorderLayout.CENTER);
         this.add(showProduct, BorderLayout.WEST);
         this.add(getRating, BorderLayout.EAST);
@@ -184,9 +193,13 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
             JOptionPane.showMessageDialog(this, state.getRatingError());
         }
 
-        JPanel topBar = new TopBarSampleView(state.getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
+        topBar.removeAll();
+        topBar.add(new TopBarSampleView(rateProductViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController,
+                mainPageController));
+        topBar.repaint();
+        topBar.revalidate();
     }
 }
 

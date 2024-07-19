@@ -1,8 +1,10 @@
 package view.shopping_cart;
 
 import entity.product.Product;
+import entity.user.CommonUserFactory;
 import entity.user.User;
 
+import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartState;
@@ -67,6 +69,7 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
     private final MainPageController mainPageController;
     private final ViewSignupPageController viewSignupPageController;
     private final ViewLoginPageController viewLoginPageController;
+    private JPanel topBar;
 
     AllProductsPanel allProductsPanel;
 
@@ -132,9 +135,12 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
 
         this.add(title);
 
-        JPanel topBar = new TopBarSampleView(shoppingCartViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar, BorderLayout.SOUTH);
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
 
         allProductsPanel = new AllProductsPanel(listProducts,
                 shoppingCartViewModel,
@@ -351,6 +357,14 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
         ShoppingCartState state = (ShoppingCartState) evt.getNewValue();
 
         ArrayList<Product> listProducts = state.getListProducts();
+
+        topBar.removeAll();
+        topBar.add(new TopBarSampleView(shoppingCartViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController,
+                mainPageController));
+        topBar.repaint();
+        topBar.revalidate();
 
         allProductsPanel = new AllProductsPanel(listProducts,
                 shoppingCartViewModel,

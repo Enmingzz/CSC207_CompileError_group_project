@@ -307,9 +307,14 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         signUpPanel.add(container);
         signUpPanel.add(buttons);
 
-        UserFactory userFactory = new CommonUserFactory();
-        User user = userFactory.createUser("", "", "", 0, "");
-        JPanel topBar = new TopBarSampleView(user,
+       // UserFactory userFactory = new CommonUserFactory();
+       // User user = userFactory.createUser("", "", "", 0, "");
+//        JPanel topBar = new TopBarSampleView(user,
+//                getSearchPageController, viewSignupPageController, viewLoginPageController,
+//                shoppingCartController, logOutController, viewProfileController, mainPageController);
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
                 getSearchPageController, viewSignupPageController, viewLoginPageController,
                 shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar, BorderLayout.NORTH);
@@ -334,8 +339,14 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         }
 //        UserFactory userFactory = new CommonUserFactory();
 //        User user = userFactory.createUser("", "", "", 0, "");
-        topBar = new TopBarSampleView(state.getUser(),
+        topBar = new TopBarSampleView(this.signupViewModel.getState().getUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+
+        this.add(topBar, BorderLayout.NORTH);
+        topBar.removeAll();
+        topBar.add(new JLabel(signupViewModel.TITLE_LABEL));
+        topBar.repaint();
+        topBar.revalidate();
     }
 
 }

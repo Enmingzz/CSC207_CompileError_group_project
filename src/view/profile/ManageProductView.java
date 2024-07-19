@@ -1,6 +1,9 @@
 package view.profile;
 
 import entity.product.Product;
+import entity.user.CommonUserFactory;
+import entity.user.User;
+import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
@@ -47,7 +50,7 @@ public class ManageProductView extends JPanel implements ActionListener, Propert
     private final ViewProfileController viewProfileController;
 
     private final JButton addProduct;
-    private JPanel topBar = new JPanel();
+    private JPanel topBar;
 
     /**
      * Constructs a ManageProductView with the specified controllers and view models.
@@ -94,8 +97,12 @@ public class ManageProductView extends JPanel implements ActionListener, Propert
 
         this.setLayout(new BorderLayout());
 
-        topBar = new TopBarSampleView(this.manageProductViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
         this.add(topBar, BorderLayout.NORTH);
 
         manageProductViewModel.addPropertyChangeListener(this);

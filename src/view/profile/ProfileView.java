@@ -1,5 +1,8 @@
 package view.profile;
 
+import entity.user.CommonUserFactory;
+import entity.user.User;
+import entity.user.UserFactory;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
@@ -57,7 +60,7 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
     private JLabel studentPasswordViewField = new JLabel();
     private JLabel messageField = new JLabel("");
     private JPanel infoPanel = new JPanel();
-    private JPanel topBar = new JPanel();
+    private JPanel topBar;
 
     public ProfileView (MainPageController mainPageController,
                         ManageProductController manageProductController,
@@ -90,7 +93,9 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         this.setLayout(new BorderLayout());
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
 
-        topBar = new TopBarSampleView(this.viewModel.getState().getUser(),
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
                 getSearchPageController, viewSignupPageController, viewLoginPageController,
                 shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar, BorderLayout.NORTH);
@@ -148,10 +153,12 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         studentRatingViewField.setText(String.valueOf(viewModel.getState().getUser().getUserRating()));
         messageField.setText(viewModel.getState().getMessage());
 
-        this.remove(topBar);
-        topBar = new TopBarSampleView(this.viewModel.getState().getUser(),
+        topBar.removeAll();
+        topBar.add(new TopBarSampleView(viewModel.getState().getUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController,
-                shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar, BorderLayout.NORTH);
+                shoppingCartController, logOutController, viewProfileController,
+                mainPageController));
+        topBar.repaint();
+        topBar.revalidate();
     }
 }

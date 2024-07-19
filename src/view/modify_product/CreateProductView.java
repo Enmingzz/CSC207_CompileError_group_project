@@ -1,6 +1,8 @@
 package view.modify_product;
 
+import entity.user.CommonUserFactory;
 import entity.user.User;
+import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
@@ -59,7 +61,7 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
 
     ArrayList<String> arrayListTags = new ArrayList<>();
 
-    private JPanel topBar = new JPanel();
+    private JPanel topBar;
 
 
     private final JTextField titleInputField = new JTextField(40);
@@ -95,8 +97,12 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
 
         this.setLayout(new BorderLayout());
 
-        topBar = new TopBarSampleView(this.viewCreateProductViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
         this.add(topBar, BorderLayout.NORTH);
 
         this.viewCreateProductViewModel.addPropertyChangeListener(this);
@@ -331,6 +337,15 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+
+        topBar.removeAll();
+        topBar.add(new TopBarSampleView(viewCreateProductViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController,
+                mainPageController));
+        topBar.repaint();
+        topBar.revalidate();
+
         CreateProductState newState = (CreateProductState) evt.getNewValue();
 
         if (newState.getAddressError() != null) {
