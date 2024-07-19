@@ -1,6 +1,7 @@
 package interface_adapter.login;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.profile.view_profile.ViewProfileState;
 import use_case.login.ViewLoginPageOutputBoundary;
 import use_case.login.ViewLoginPageOutputData;
 
@@ -33,6 +34,13 @@ public class ViewLoginPagePresenter implements ViewLoginPageOutputBoundary {
     @Override
     public void prepareSuccessfulView(ViewLoginPageOutputData viewLoginPageOutputData) {
         //TODO need to implement this method
+
+        LoginState state = loginViewModel.getState();
+
+        loginViewModel.setState(state);
+
+        loginViewModel.firePropertyChanged();
+        viewManagerModel.setActiveView(loginViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }

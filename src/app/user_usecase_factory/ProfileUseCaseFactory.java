@@ -349,7 +349,7 @@ public class ProfileUseCaseFactory {
             ModifyProfileViewModel modifyProfileViewModel,
             ViewManagerModel viewManagerModel) {
         ViewModifyProfileOutputBoundary viewModifyProfilePresenter =
-                new ViewModifyProfilePresenter(modifyProfileViewModel, viewManagerModel);
+                new ViewModifyProfilePresenter(modifyProfileViewModel, viewManagerModel, new CommonUserFactory());
         ViewModifyProfileInputBoundary viewModifyProfileInteractor =
                 new ViewModifyProfileInteractor(viewModifyProfilePresenter);
         return new ViewModifyProfileController(viewModifyProfileInteractor);

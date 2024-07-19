@@ -13,6 +13,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * DatabaseShoppingCartReadDataAccessObject is responsible for retrieving a shopping cart for a user from the database.
+ * It implements the ShoppingCartReadDataAccessInterface.
+ */
 public class DatabaseShoppingCartReadDataAccessObject implements ShoppingCartReadDataAccessInterface {
     private Connection connection;
     private PreparedStatement preparedStatement;
@@ -22,6 +26,14 @@ public class DatabaseShoppingCartReadDataAccessObject implements ShoppingCartRea
     private final ProductFactory productFactory;
     private final ScheduleFactory scheduleFactory;
 
+    /**
+     * Constructs a DatabaseShoppingCartReadDataAccessObject and establishes a connection to the database.
+     *
+     * @param shoppingCartFactory a factory for creating ShoppingCart objects
+     * @param productFactory      a factory for creating Product objects
+     * @param scheduleFactory     a factory for creating Schedule objects
+     * @throws SQLException if a database access error occurs
+     */
     public DatabaseShoppingCartReadDataAccessObject(ShoppingCartFactory shoppingCartFactory, ProductFactory productFactory, ScheduleFactory scheduleFactory) throws SQLException {
         this.scheduleFactory = scheduleFactory;
         this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
@@ -30,13 +42,23 @@ public class DatabaseShoppingCartReadDataAccessObject implements ShoppingCartRea
         this.shoppingCartFactory = shoppingCartFactory;
         this.productFactory = productFactory;
     }
+
+    /**
+     * Retrieves the shopping cart for the specified user from the database.
+     *
+     * @param userID the ID of the user whose shopping cart is to be retrieved
+     * @return the shopping cart for the specified user
+     * @throws SQLException if a database access error occurs
+     * @throws IOException  if an error occurs during product retrieval
+     */
     @Override
     public ShoppingCart getShoppingCart(String userID) throws SQLException, IOException {
         this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
                 "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
                 "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
+
         Product product;
-        ArrayList<Product> listProducts = new ArrayList<Product>();
+        ArrayList<Product> listProducts = new ArrayList<>();
         DatabaseProductReadByIdDataAccessObject databaseProductReadByIdDataAccessObject =
                 new DatabaseProductReadByIdDataAccessObject(productFactory, scheduleFactory);
 
@@ -47,7 +69,7 @@ public class DatabaseShoppingCartReadDataAccessObject implements ShoppingCartRea
         resultSet.next();
 
         float totalPrice = resultSet.getFloat("TotalPrice");
-        ArrayList<String> rowProducts = new ArrayList<String>(List.of(resultSet.getString("Products").substring(1,
+        ArrayList<String> rowProducts = new ArrayList<>(List.of(resultSet.getString("Products").substring(1,
                 resultSet.getString("Products").length() - 1).split(",")));
 
         for (String item : rowProducts) {
@@ -59,6 +81,6 @@ public class DatabaseShoppingCartReadDataAccessObject implements ShoppingCartRea
         preparedStatement.close();
         connection.close();
 
-        return  shoppingCartFactory.createShoppingCart(totalPrice, userID, listProducts);
+        return shoppingCartFactory.createShoppingCart(totalPrice, userID, listProducts);
     }
 }

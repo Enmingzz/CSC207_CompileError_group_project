@@ -80,6 +80,8 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
         JLabel title = new JLabel(modifyProfileViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        JPanel mainPanel = new JPanel(new BorderLayout());
+
         ModifyLabelTextPanel usernameInfo = new ModifyLabelTextPanel(
                 new JLabel(modifyProfileViewModel.USERNAME_LABEL), usernameInputField);
         ModifyLabelTextPanel passwordInfo = new ModifyLabelTextPanel(
@@ -92,6 +94,10 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
         buttons.add(backButton);
         confirmButton.addActionListener(this);
         backButton.addActionListener(this);
+
+        mainPanel.add(buttons);
+        mainPanel.add(usernameInfo);
+        mainPanel.add(passwordInfo);
     }
 
     @Override
@@ -120,9 +126,5 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
     public void propertyChange(PropertyChangeEvent evt) {
         ModifyProfileState state = (ModifyProfileState) evt.getNewValue();
         modifyProfileViewModel.setState(state);
-
-        JPanel topBar = new TopBarSampleView(state.getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
     }
 }

@@ -26,7 +26,7 @@ import java.sql.SQLException;
 /**
  * A view for managing products, which extends JFrame and implements ActionListener and PropertyChangeListener.
  */
-public class ManageProductView extends JFrame implements ActionListener, PropertyChangeListener {
+public class ManageProductView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Product View";
     private final MainPageController mainPageController;
     private final ViewCreateProductController viewCreateProductController;
@@ -145,9 +145,5 @@ public class ManageProductView extends JFrame implements ActionListener, Propert
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         ManageProductState newState = (ManageProductState) evt.getNewValue();
-
-        JPanel topBar = new TopBarSampleView(newState.getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
     }
 }

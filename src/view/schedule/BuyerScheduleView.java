@@ -101,10 +101,13 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
         buttons.add(cancelButton);
 
         availableTimesComboBox = new JComboBox<>();
-        ArrayList<LocalDateTime> availableTimes = viewModel.getState().getProduct().getSchedule().getSellerTime();
-        for (LocalDateTime time : availableTimes) {
-            availableTimesComboBox.addItem(time);
+        if (viewModel.getState().getProduct() != null){
+            ArrayList<LocalDateTime> availableTimes = viewModel.getState().getProduct().getSchedule().getSellerTime();
+            for (LocalDateTime time : availableTimes) {
+                availableTimesComboBox.addItem(time);
+            }
         }
+
 
         selectButton.addActionListener(
                 new ActionListener() {

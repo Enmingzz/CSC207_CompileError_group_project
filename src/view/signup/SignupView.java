@@ -302,11 +302,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.add(container);
         this.add(buttons);
 
-        UserFactory userFactory = new CommonUserFactory();
-        User user = userFactory.createUser("", "", "", 0, "");
-        JPanel topBar = new TopBarSampleView(user,
+//        UserFactory userFactory = new CommonUserFactory();
+//        User user = userFactory.createUser("", "", "", 0, "");
+        JPanel topBar = new TopBarSampleView(null,
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
+        this.add(topBar, BorderLayout.SOUTH);
 
     }
 
@@ -326,11 +326,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         if (state.getUsernameError() != null) {
             JOptionPane.showMessageDialog(this, state.getUsernameError());
         }
-        UserFactory userFactory = new CommonUserFactory();
-        User user = userFactory.createUser("", "", "", 0, "");
-        JPanel topBar = new TopBarSampleView(user,
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
+//        UserFactory userFactory = new CommonUserFactory();
+//        User user = userFactory.createUser("", "", "", 0, "");
+//        JPanel topBar = new TopBarSampleView(user,
+//                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+//        this.add(topBar);
     }
 
 }

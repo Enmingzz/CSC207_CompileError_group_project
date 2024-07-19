@@ -7,7 +7,9 @@ import entity.product.ProductFactory;
 import entity.schedule.CommonSchedule;
 import entity.schedule.Schedule;
 import entity.user.CommonUser;
+import entity.user.CommonUserFactory;
 import entity.user.User;
+import entity.user.UserFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,6 +38,7 @@ class ManageProductStateTest {
 
     private ManageProductState manageProductState;
     private ProductFactory productFactory = new CommonProductFactory();
+    private UserFactory userFactory = new CommonUserFactory();
 
 
     @BeforeEach
@@ -53,7 +56,7 @@ class ManageProductStateTest {
         productList.add(commonProduct);
         user =  new CommonUser("hanrui", "123456", "hanrui@mail", 0, "123456");
 
-        manageProductState = new ManageProductState(productFactory);
+        manageProductState = new ManageProductState(productFactory, userFactory);
     }
 
     @AfterEach

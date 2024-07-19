@@ -14,6 +14,7 @@ import interface_adapter.view_product.BuyerViewProductState;
 import view.view_product.BuyerViewProductView;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -53,8 +54,13 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
         this.add(searchButton);
 
         //(2)hi, user. if it's already logged in
-        JLabel hi = new JLabel("hi, " + user.getName());
-        this.add(hi);
+        JLabel hi;
+        if (user == null){
+            hi = new JLabel("Welcome!");
+        } else {
+            hi = new JLabel("hi, " + user.getName());
+        }
+        this.add(hi, BorderLayout.WEST);
 
         //(3)jump to main page
         mainPageButton = new JButton("main page");
@@ -74,7 +80,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
         this.add(mainPageButton);
 
         //haven't logged in
-        if(Objects.equals(user.getName(), "")){
+        if(Objects.equals(user, null)){
             //(4)signUp
             JButton signUp = new JButton("Sign in");
             class SignInListener implements ActionListener{
@@ -112,7 +118,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
 
 
         //already logged in
-        if(!Objects.equals(user.getName(), "")){
+        if(!Objects.equals(user, null)){
             //（6）shoppingCart
             JButton cart = new JButton("Cart");
             class CartListener implements ActionListener{

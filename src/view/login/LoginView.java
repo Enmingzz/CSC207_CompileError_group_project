@@ -17,6 +17,7 @@ import view.TopBarSampleView;
 import view.signup.SignupLabelTextPanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -72,7 +73,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         User user = userFactory.createUser("", "", "", 0, "");
         JPanel topBar = new TopBarSampleView(user,
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
+        this.add(topBar, BorderLayout.SOUTH);
 
         this.loginViewModel.addPropertyChangeListener(this);
         this.logInButton = new JButton(loginViewModel.LOGIN_BUTTON_LABEL);
@@ -123,10 +124,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         if (state.getStudentNumberError() != null) {
             JOptionPane.showMessageDialog(this, state.getStudentNumberError());
         }
-        UserFactory userFactory = new CommonUserFactory();
-        User user = userFactory.createUser("", "", "", 0, "");
-        JPanel topBar = new TopBarSampleView(user,
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
+//        UserFactory userFactory = new CommonUserFactory();
+//        User user = userFactory.createUser("", "", "", 0, "");
+//        JPanel topBar = new TopBarSampleView(user,
+//                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+//        this.add(topBar);
     }
 }

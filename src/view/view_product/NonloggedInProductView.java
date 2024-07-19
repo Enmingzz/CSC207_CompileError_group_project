@@ -25,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * This class provides a view for non-logged-in users to explore product details. It includes functionality
@@ -95,19 +96,24 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //(1)product_info
+        final JLabel message = new JLabel("There is no product");
         Product wtv_product = nonLoggedInViewModel.getState().getProduct();
-        final JLabel image = new JLabel(String.valueOf(wtv_product.getImage()));//image???
-        final JLabel description = new JLabel(wtv_product.getDescription());
-        final JLabel price = new JLabel(String.valueOf(wtv_product.getPrice()));
-        final JLabel _title = new JLabel(wtv_product.getTitle());
-        final JLabel rating = new JLabel(String.valueOf(wtv_product.getRating()));
-        final JLabel state = new JLabel(String.valueOf(wtv_product.getState()));
-        final JLabel address = new JLabel(wtv_product.getAddress());
-        final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags()));//what will valueOf list look like???
-        final JLabel productID = new JLabel(wtv_product.getProductID());
+        if (wtv_product == null){
+            productInfo = null;
+        } else {
+            final JLabel image = new JLabel(String.valueOf(wtv_product.getImage()));//image???
+            final JLabel description = new JLabel(wtv_product.getDescription());
+            final JLabel price = new JLabel(String.valueOf(wtv_product.getPrice()));
+            final JLabel _title = new JLabel(wtv_product.getTitle());
+            final JLabel rating = new JLabel(String.valueOf(wtv_product.getRating()));
+            final JLabel state = new JLabel(String.valueOf(wtv_product.getState()));
+            final JLabel address = new JLabel(wtv_product.getAddress());
+            final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags()));//what will valueOf list look like???
+            final JLabel productID = new JLabel(wtv_product.getProductID());
 
-        productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
-                lstTags, productID);
+            productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
+                    lstTags, productID);
+        }
 
 
         //(2)show q_and_a
@@ -179,7 +185,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
-        this.add(productInfo);
+        this.add(Objects.requireNonNullElse(productInfo, message));
         this.add(qAInfo);
         this.add(buttons);
 
