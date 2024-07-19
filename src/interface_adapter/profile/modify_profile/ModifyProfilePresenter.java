@@ -32,13 +32,13 @@ public class ModifyProfilePresenter implements ModifyProfileOutputBoundary {
     }
 
     public void prepareFailedView(ModifyProfileOutputData response){
-        ViewProfileState state = new ViewProfileState(modifyProfileViewModel.getState().getUser());
-        state.setMessage(response.getMessage());
-
-        viewProfileViewModel.setState(state);
-        viewProfileViewModel.firePropertyChanged();
-
-        viewManagerModel.setActiveView(viewProfileViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
+//        ViewProfileState state = new ViewProfileState(modifyProfileViewModel.getState().getUser());
+//        state.setMessage(response.getMessage());
+//
+//        viewProfileViewModel.setState(state);
+//        viewProfileViewModel.firePropertyChanged();
+//
+//        viewManagerModel.setActiveView(viewProfileViewModel.getViewName());
+//        viewManagerModel.firePropertyChanged();
     }
 }

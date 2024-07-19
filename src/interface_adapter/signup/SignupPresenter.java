@@ -41,7 +41,7 @@ public class SignupPresenter implements SignupOutputBoundary {
     public void presentSuccessfulView(SignupOutputData response) {
         SignupState signupState = signupViewModel.getState();
         LoginState loginState = loginViewModel.getState();
-        loginState.setStudentNumber(response.getUser().getName());
+        loginState.setStudentNumber(response.getUser().getStudentNumber());
         this.loginViewModel.setState(loginState);
         loginViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(loginViewModel.getViewName());

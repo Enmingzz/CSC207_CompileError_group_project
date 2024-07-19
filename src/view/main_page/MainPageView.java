@@ -48,6 +48,7 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
     public final String viewName = "main page";
     private final MainPageViewModel mainPageViewModel;
+    private JPanel topBar;
 
     // Check necessity of this initialization
     private List<JButton> viewProductButtons = new ArrayList<>();
@@ -104,6 +105,9 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 //        JPanel topBar = new TopBarSampleView(this.mainPageViewModel.getState().getUser(),
 //                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
 //        this.add(topBar, BorderLayout.NORTH);
+        topBar = new TopBarSampleView(this.mainPageViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar, BorderLayout.NORTH);
 
         // Products page starts here
 
@@ -195,7 +199,14 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
         ArrayList<Product> allProducts = state.getAllProducts();
 
+        mainPageViewModel.setState(state);
+
         allProductsPanel = new AllProductsPanel(allProducts, mainPageViewModel, viewProductController);
+        this.remove(topBar);
+        topBar = new TopBarSampleView(this.mainPageViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+
+        this.add(topBar, BorderLayout.NORTH);
 
         topBar.removeAll();
         topBar.add(new JLabel(mainPageViewModel.TITLE_LABEL));
