@@ -56,7 +56,7 @@ class ManageProductStateTest {
         productList.add(commonProduct);
         user =  new CommonUser("hanrui", "123456", "hanrui@mail", 0, "123456");
 
-        manageProductState = new ManageProductState(productFactory, userFactory);
+        manageProductState = new ManageProductState(productFactory);
     }
 
     @AfterEach

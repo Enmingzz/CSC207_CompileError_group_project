@@ -4,6 +4,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.profile.view_profile.ViewProfileState;
 import use_case.login.ViewLoginPageOutputBoundary;
 import use_case.login.ViewLoginPageOutputData;
+import use_case.signup.SignupOutputData;
 
 /**
  * Presenter class for viewing the login page.
@@ -34,6 +35,8 @@ public class ViewLoginPagePresenter implements ViewLoginPageOutputBoundary {
     @Override
     public void prepareSuccessfulView(ViewLoginPageOutputData viewLoginPageOutputData) {
         //TODO need to implement this method
+
+        System.out.println("ViewLoginPagePresenter called");
 
         LoginState state = loginViewModel.getState();
 
