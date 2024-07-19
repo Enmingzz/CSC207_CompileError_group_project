@@ -23,8 +23,10 @@ public class ManageProductPresenter implements ManageProductOutputBoundary {
 
         this.manageProductViewModel.setState(manageProductState);
 
-        viewManagerModel.firePropertyChanged();
+        manageProductViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(manageProductViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+
 
     }
 }

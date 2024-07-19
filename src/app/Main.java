@@ -1,15 +1,13 @@
 package app;
 
+import app.product_usecase_factory.CreateProductUseCaseFactory;
 import app.product_usecase_factory.NonLoggedInViewProductUseFactory;
 import app.mainpage_usecase_factory.MainPageUseCaseFactory;
 import app.shopping_cart_usecase_factory.ShoppingCartUseCaseFactory;
-import app.user_usecase_factory.LoginUseCaseFactory;
-import app.user_usecase_factory.SignupUseCaseFactory;
+import app.user_usecase_factory.*;
 import app.search_product_usecase_factory.SearchProductUseCaseFactory;
 import app.product_usecase_factory.BuyerViewProductUseCaseFactory;
 import app.product_usecase_factory.SellerViewProductUseCaseFactory;
-import app.user_usecase_factory.ModifyProfileUseCaseFactory;
-import app.user_usecase_factory.ProfileUseCaseFactory;
 import app.schedule_usecase_factory.BuyerScheduleUseCaseFactory;
 import app.schedule_usecase_factory.SellerScheduleUseCaseFactory;
 import entity.user.CommonUser;
@@ -20,6 +18,7 @@ import interface_adapter.login.LoginViewModel;
 import interface_adapter.main_page.MainPageState;
 import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.modify_product.ViewModifyProductState;
+import interface_adapter.modify_product.ViewCreateProductViewModel;
 import interface_adapter.modify_product.ViewModifyProductViewModel;
 import interface_adapter.profile.manage_product.ManageProductState;
 import interface_adapter.profile.manage_product.ManageProductViewModel;
@@ -44,6 +43,8 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.view_product.*;
 
 import view.*;
+import view.modify_product.CreateProductView;
+import view.profile.ManageProductView;
 import view.search_product.SearchProductView;
 import view.shopping_cart.ShoppingCartView;
 import view.login.LoginView;
@@ -103,6 +104,8 @@ public class Main {
         SignupViewModel signUpViewModel = new SignupViewModel();
         ReplyQuestionViewModel replyQuestionViewModel = new ReplyQuestionViewModel();
         RateProductViewModel rateProductViewModel = new RateProductViewModel();
+        ViewCreateProductViewModel viewCreateProductViewModel = new ViewCreateProductViewModel();
+        ViewModifyProductViewModel viewModifyProductViewModel = new ViewModifyProductViewModel();
 
 
 
@@ -155,6 +158,15 @@ public class Main {
         SearchProductView searchProductView = SearchProductUseCaseFactory.create(searchProductViewModel, viewManagerModel,
                 buyerViewProductViewModel, sellerViewProductViewModel, unloggedInViewModel, signupViewModel, loginViewModel,
                 shoppingCartViewModel, mainPageViewModel, viewProfileViewModel);
+
+        ManageProductView manageProductView = ManageProductUseCaseFactory.create(searchProductViewModel, manageProductViewModel,
+                viewManagerModel, buyerViewProductViewModel, sellerViewProductViewModel, unloggedInViewModel, signupViewModel, loginViewModel,
+                shoppingCartViewModel, mainPageViewModel, viewProfileViewModel, viewCreateProductViewModel, viewModifyProductViewModel,
+                sellerSelectScheduleViewModel);
+
+        CreateProductView createProductView = CreateProductUseCaseFactory.create(viewCreateProductViewModel, manageProductViewModel,
+                shoppingCartViewModel, viewManagerModel, signupViewModel, loginViewModel, searchProductViewModel, viewProfileViewModel,
+                mainPageViewModel);
 
 //        SearchByNamePanel searchByNamePanel = SearchProductUseCaseFactory.create(searchProductViewModel, viewManagerModel,
 //                buyerViewProductViewModel, sellerViewProductViewModel, unloggedInViewModel, signupViewModel, loginViewModel,
@@ -251,6 +263,8 @@ public class Main {
         views.add(shoppingCartView.viewName, shoppingCartView);
         views.add(productView.viewName, productView);
         views.add(searchProductView.viewName,searchProductView);
+        views.add(manageProductView.viewName, manageProductView);
+        views.add(createProductView.viewName, createProductView);
 
 //        views.add(searchByNamePanel.viewName, searchByNamePanel);
 //        views.add(searchByTagPanel.viewName, searchByTagPanel);
