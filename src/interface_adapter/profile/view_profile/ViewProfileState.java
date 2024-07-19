@@ -9,26 +9,29 @@ import java.util.ArrayList;
 public class ViewProfileState {
 
     private User user;
-    private ArrayList<Product> products;
+    private String message = "";
 
     public ViewProfileState(UserFactory commonUserFactory) {
         this.user = commonUserFactory.createUser("", "", "", 0, "");
-        this.products = new ArrayList<Product>();
+    }
+
+    public ViewProfileState(User user) {
+        this.user = user;
     }
 
     public User getUser() {
         return user;
     }
 
-    public ArrayList<Product> getProducts() {
-        return products;
+    public String getMessage() {
+        return message;
     }
 
     public void setUser(User user) {
         this.user = user;
     }
 
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

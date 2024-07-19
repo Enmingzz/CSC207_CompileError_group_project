@@ -25,7 +25,7 @@ public class ManageProductViewModel extends ViewModel {
 
     private ManageProductState manageProductState = new ManageProductState(productFactory);
 
-    public ManageProductViewModel() {super("Product View");}
+    public ManageProductViewModel() {super("Manage Product View");}
 
     public void setState(ManageProductState manageProductState) {
         this.manageProductState = manageProductState;
