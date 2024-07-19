@@ -17,15 +17,9 @@ public class ViewProfileViewModel extends ViewModel {
     public final String USEREMAIL_LABEL = "UofT Email";
     public final String USERRATING_LABLE = "Rating";
 
-    public final String MANAGEPRODUCT_BUTTONLABEL = "Manage product";
+    public final String MANAGEPRODUCT_BUTTONLABEL = "Manage Product";
     public final String VIEW_PROFILE_BOTTON_LABEL = "View Profile";
-    public final String MODIFYPROFILE_BUTTON_LABEL = "MODIFY Profile";
-
-    public final String MAIN_BUTTON_LABEL = "Main";
-    public final String LOGIN_BUTTON_LABEL = "Login";
-    public final String SIGNUP_BUTTON_LABEL = "SignUp";
-    public final String SHOPPING_BUTTON_LABEL = "ShoppingCart";
-    public final String PROFILE_BUTTON_LABEL = "Profile";
+    public final String MODIFYPROFILE_BUTTON_LABEL = "Modify Profile";
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 

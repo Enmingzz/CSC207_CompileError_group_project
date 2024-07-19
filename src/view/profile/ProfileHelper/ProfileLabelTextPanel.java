@@ -6,12 +6,9 @@ import javax.swing.*;
  * A panel containing a label and a text field.
  */
 public class ProfileLabelTextPanel extends JPanel {
-    public ProfileLabelTextPanel(JLabel label, JLabel textlable) {
+
+    public ProfileLabelTextPanel(JLabel label, JLabel textField) {
         this.add(label);
-        this.add(textlable);
-    }
-    ProfileLabelTextPanel(JLabel label, JList textlable) {
-        this.add(label);
-        this.add(new JScrollPane(textlable));
+        this.add(textField);
     }
 }

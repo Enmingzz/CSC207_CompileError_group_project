@@ -26,6 +26,7 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class ModifyProfileView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -51,6 +52,9 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
     final JButton confirmButton;
     final JButton backButton;
     private JPanel topBar;
+
+    ModifyLabelTextPanel usernameInfo = new ModifyLabelTextPanel();
+    ModifyLabelTextPanel passwordInfo = new ModifyLabelTextPanel();
 
     public ModifyProfileView(ModifyProfileViewModel modifyProfileViewModel,
                              UserFactory userFactory,
@@ -94,10 +98,8 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
-        ModifyLabelTextPanel usernameInfo = new ModifyLabelTextPanel(
-                new JLabel(modifyProfileViewModel.USERNAME_LABEL), usernameInputField);
-        ModifyLabelTextPanel passwordInfo = new ModifyLabelTextPanel(
-                new JLabel(modifyProfileViewModel.PASSWORD_LABEL), passwordInputField);
+        usernameInfo.setText( new JLabel(modifyProfileViewModel.USERNAME_LABEL), usernameInputField);
+        passwordInfo.setText(new JLabel(modifyProfileViewModel.PASSWORD_LABEL), passwordInputField);
 
 
         JPanel buttons = new JPanel();
@@ -108,10 +110,10 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
         confirmButton.addActionListener(this);
         backButton.addActionListener(this);
 
-        mainPanel.add(buttons);
         mainPanel.add(usernameInfo);
         mainPanel.add(passwordInfo);
         this.add(mainPanel, BorderLayout.CENTER);
+        this.add(buttons, BorderLayout.SOUTH);
     }
 
     @Override
@@ -120,7 +122,11 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
             try {
                 ModifyProfileState currentState = modifyProfileViewModel.getState();
                 User currentUser = currentState.getUser();
-                User newUser = userFactory.createUser(usernameInputField.getText(), Arrays.toString(passwordInputField.getPassword()),
+
+                User newUser = userFactory.createUser(usernameInputField.getText().isEmpty()? currentUser.getName()
+                                : usernameInputField.getText(),
+                        String.valueOf(passwordInputField.getPassword()).isEmpty()? currentUser.getPassword()
+                                : String.valueOf(passwordInputField.getPassword()),
                         currentUser.getEmail(), currentUser.getUserRating(), currentUser.getStudentNumber());
 
                 currentState.setUser(newUser);
@@ -140,7 +146,11 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
     public void propertyChange(PropertyChangeEvent evt) {
         System.out.println("view profile property change");
         ModifyProfileState state = (ModifyProfileState) evt.getNewValue();
+
         modifyProfileViewModel.setState(state);
+
+        passwordInputField.setText("");
+        usernameInputField.setText("");
 
         topBar.removeAll();
         topBar.add(new TopBarSampleView(modifyProfileViewModel.getState().getUser(),
@@ -150,6 +160,9 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
         topBar.repaint();
         topBar.revalidate();
 
-
+        if (Objects.equals(state.getMessage(), "Did not change anything")) {
+            JOptionPane.showMessageDialog(this, state.getMessage());
+        }
+        state.setMessage("");
     }
 }

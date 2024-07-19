@@ -67,7 +67,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class ModifyProductUseCaseFactory {
-    public static ModifyProductView Create(ViewModifyProductViewModel viewModifyProductViewModel,
+    public static ModifyProductView create(ViewModifyProductViewModel viewModifyProductViewModel,
                                            ViewManagerModel viewManagerModel,
                                            SearchProductViewModel searchProductViewModel,
                                            SignupViewModel signupViewModel,
