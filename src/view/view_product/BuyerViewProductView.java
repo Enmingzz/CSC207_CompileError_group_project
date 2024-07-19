@@ -65,6 +65,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
 
     ProductInfoLabelTextPanel productInfo;
     JPanel qAInfo;
+    JPanel topBar;
 
     /**
      * Constructs a BuyerViewProductView with specific controllers and view model.
@@ -101,7 +102,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
 
-        JPanel topBar = new TopBarSampleView(this.buyerViewProductViewModel.getState().getUser(),
+        topBar = new TopBarSampleView(this.buyerViewProductViewModel.getState().getUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
         //TODO implement the shared top bar
@@ -327,9 +328,8 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
             qAInfo.add(qA_title);
             qAInfo.add(qA_TextPanel);
 
-            JPanel topBar = new TopBarSampleView(newState.getUser(),
+            topBar = new TopBarSampleView(newState.getUser(),
                     getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-            this.add(topBar);// TODO need to add this to all view
 
             newState.setIsChanged(false);
         }
