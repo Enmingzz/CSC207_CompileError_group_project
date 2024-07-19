@@ -311,7 +311,8 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
                 if (evt.getSource().equals(createProduct)) {
                     try {
 //                        CreateProductState state = new CreateProductState();
-                        createProductController.execute(viewCreateProductViewModel.getState().getUser(), uploadedImage,
+                        createProductController.execute(viewCreateProductViewModel.getState().getUser(),
+                                ((ImageIcon) imageLabel.getIcon()).getImage(),
                                 descriptionInputField.getText(), priceInputField.getText(), titleInputField.getText(),
                                 eTransferEmailInputField.getText(), addressInputField.getText(), arrayListTags);
                     } catch (SQLException | IOException e) {

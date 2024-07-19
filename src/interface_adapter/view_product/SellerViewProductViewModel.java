@@ -15,7 +15,7 @@ public class SellerViewProductViewModel extends ViewModel {
     private SellerViewProductState state = new SellerViewProductState();
 
     public SellerViewProductViewModel(){
-        super("modify_product view");
+        super("seller_view_product view");
     }
 
     public  void setState(SellerViewProductState state){
