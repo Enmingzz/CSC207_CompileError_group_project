@@ -26,9 +26,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class ProfileView extends JPanel implements PropertyChangeListener {
-    public final String viewName = "Profile View";
+    public final String viewName = "profile view";
 
     private final ManageProductController manageProductController;
     private final ViewModifyProfileController viewModifyProfileController;
@@ -53,6 +54,9 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
     private JLabel studentNameViewField = new JLabel();
     private JLabel studentEmailViewField = new JLabel();
     private JLabel studentRatingViewField = new JLabel();
+    private JLabel studentPasswordViewField = new JLabel();
+    private JLabel messageField = new JLabel("");
+    private JPanel infoPanel = new JPanel();
 
     public ProfileView (MainPageController mainPageController,
                         ManageProductController manageProductController,
@@ -82,27 +86,28 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         viewModel.addPropertyChangeListener(this);
         JLabel title = new JLabel(profileViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.setLayout(new BorderLayout());
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
 
         JPanel topBar = new TopBarSampleView(this.viewModel.getState().getUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController,
                 shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar, BorderLayout.SOUTH);
+        this.add(topBar, BorderLayout.NORTH);
 
         studentNumberViewField.setText(viewModel.getState().getUser().getStudentNumber());
         studentNameViewField.setText(viewModel.getState().getUser().getName());
+        studentPasswordViewField.setText(viewModel.getState().getUser().getPassword());
         studentEmailViewField.setText(viewModel.getState().getUser().getEmail());
         studentRatingViewField.setText(String.valueOf(viewModel.getState().getUser().getUserRating()));
 
         ProfileLabelTextPanel userNameInfo = new ProfileLabelTextPanel(new JLabel(profileViewModel.USERNAME_LABEL), studentNameViewField);
+        ProfileLabelTextPanel passwordInfo = new ProfileLabelTextPanel(new JLabel(profileViewModel.PASSWORD_LABEL), studentPasswordViewField);
         ProfileLabelTextPanel userIDInfo = new ProfileLabelTextPanel(new JLabel(profileViewModel.USERID_LABEL), studentNumberViewField);
         ProfileLabelTextPanel userEmail = new ProfileLabelTextPanel(new JLabel(profileViewModel.USEREMAIL_LABEL), studentEmailViewField);
         ProfileLabelTextPanel userRating = new ProfileLabelTextPanel(new JLabel(profileViewModel.USERRATING_LABLE), studentRatingViewField);
 
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new GridLayout(3, 1));
-
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setLayout(new GridLayout(1, 5));
 
         manageProduct = new JButton(profileViewModel.MANAGEPRODUCT_BUTTONLABEL);
         leftPanel.add(manageProduct);
@@ -112,17 +117,20 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         leftPanel.add(modifyPassword);
 
         this.add(leftPanel, BorderLayout.WEST);
-        this.add(bottomPanel, BorderLayout.SOUTH);
 
         manageProduct.addActionListener(new ManageProductListener(manageProductController, viewModel));
         modifyName.addActionListener(new ModifyProfileListener(viewModifyProfileController, viewModel));
         modifyPassword.addActionListener(new ModifyProfileListener(viewModifyProfileController, viewModel));
 
-        this.add(title);
-        this.add(userNameInfo);
-        this.add(userIDInfo);
-        this.add(userEmail);
-        this.add(userRating);
+        infoPanel.add(title);
+        infoPanel.add(userNameInfo);
+        infoPanel.add(passwordInfo);
+        infoPanel.add(userIDInfo);
+        infoPanel.add(userEmail);
+        infoPanel.add(userRating);
+        infoPanel.add(messageField);
+
+        this.add(infoPanel, BorderLayout.CENTER);
 
         this.setVisible(true);
     }
@@ -131,5 +139,11 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         ViewProfileState state = (ViewProfileState) evt.getNewValue();
         viewModel.setState(state);
+
+        studentNameViewField.setText(viewModel.getState().getUser().getName());
+        studentPasswordViewField.setText(viewModel.getState().getUser().getPassword());
+        messageField.setText(viewModel.getState().getMessage());
+
+
     }
 }

@@ -95,13 +95,13 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
         JLabel title = new JLabel(mainPageViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+        this.setLayout(new BorderLayout());
         this.add(title);
 
         //TODO: check if the top bar is correct
         JPanel topBar = new TopBarSampleView(this.mainPageViewModel.getState().getUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar, BorderLayout.SOUTH);
+        this.add(topBar, BorderLayout.NORTH);
 
         // Products page starts here
 

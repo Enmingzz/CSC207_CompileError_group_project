@@ -36,6 +36,7 @@ public class ViewLoginPagePresenter implements ViewLoginPageOutputBoundary {
     public void prepareSuccessfulView(ViewLoginPageOutputData viewLoginPageOutputData) {
         //TODO need to implement this method
 
+
         System.out.println("ViewLoginPagePresenter called");
 
         LoginState state = loginViewModel.getState();

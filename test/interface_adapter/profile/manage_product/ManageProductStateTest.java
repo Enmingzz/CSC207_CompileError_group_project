@@ -38,8 +38,6 @@ class ManageProductStateTest {
 
     private ManageProductState manageProductState;
     private ProductFactory productFactory = new CommonProductFactory();
-    private UserFactory userFactory = new CommonUserFactory();
-
 
     @BeforeEach
     void setUp() throws IOException {
