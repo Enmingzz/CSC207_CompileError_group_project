@@ -5,6 +5,9 @@ import data_access.interfaces.product.ProductCreateDataAccessInterface;
 import entity.product.Product;
 
 import entity.product.ProductFactory;
+import entity.schedule.CommonSchedule;
+import entity.schedule.Schedule;
+import entity.schedule.ScheduleFactory;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -68,11 +71,12 @@ public class CreateProductInteractor implements CreateProductInputBoundary{
             LocalTime currentTime = LocalTime.now();
             String productID = currentTime.toString();
 
+            Schedule schedule = new CommonSchedule(null, new ArrayList<>());
             //the creation of the new product
             Product product = productFactory.createProduct(createProductInputData.getImage(), createProductInputData.getDescription(),
                     createProductInputData.getTitle(), Float.parseFloat(createProductInputData.getPrice()), null, 0,
                     createProductInputData.geteTransferEmail(), createProductInputData.getUser().getStudentNumber(),
-                    createProductInputData.getAddress(), createProductInputData.getListTags(), productID, null);
+                    createProductInputData.getAddress(), createProductInputData.getListTags(), productID, schedule);
 
             productCreateDataAccessObject.saveProduct(product);
 
