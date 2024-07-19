@@ -43,6 +43,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     private final JPasswordField passwordField = new JPasswordField(15);
     private final JLabel passwordErrorField = new JLabel();
+    private JPanel topBar;
 
     private final JButton logInButton;
 
@@ -100,7 +101,11 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         }
 
         logInButton.addActionListener(new LoginButtonListener());
-
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
         this.add(title);
         this.add(studentNumberInfo);
         this.add(passwordInfo);
