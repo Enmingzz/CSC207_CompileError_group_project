@@ -14,6 +14,7 @@ public class ViewManagerModel {
     }
 
     public void setActiveView(String activeView) {
+        System.out.println(activeView + " is requested to be shown");
         this.activeViewName = activeView;
     }
 

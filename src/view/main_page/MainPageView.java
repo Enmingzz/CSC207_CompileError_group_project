@@ -52,6 +52,8 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
     // Check necessity of this initialization
     private List<JButton> viewProductButtons = new ArrayList<>();
 
+    private JPanel topBar;
+
     // List and initialize all controllers as `private final`
     private final ViewProductController viewProductController;
 
@@ -184,9 +186,14 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
     public void propertyChange(PropertyChangeEvent evt) {
         MainPageState state = (MainPageState) evt.getNewValue();
 
+        System.out.println(state.getUser().getStudentNumber());
+
         ArrayList<Product> allProducts = state.getAllProducts();
 
         allProductsPanel = new AllProductsPanel(allProducts, mainPageViewModel, viewProductController);
+
+        topBar = new TopBarSampleView(mainPageViewModel.getState().getUser(), getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        //this.add(topBar);
 
     }
 
