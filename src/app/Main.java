@@ -12,7 +12,11 @@ import app.user_usecase_factory.ModifyProfileUseCaseFactory;
 import app.user_usecase_factory.ProfileUseCaseFactory;
 import app.schedule_usecase_factory.BuyerScheduleUseCaseFactory;
 import app.schedule_usecase_factory.SellerScheduleUseCaseFactory;
+import entity.user.CommonUser;
+import entity.user.CommonUserFactory;
+import entity.user.UserFactory;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.main_page.MainPageState;
 import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.modify_product.ViewModifyProductViewModel;
 import interface_adapter.profile.manage_product.ManageProductViewModel;
@@ -162,8 +166,11 @@ public class Main {
 //        views.add(searchByNamePanel.viewName, searchByNamePanel);
 //        views.add(searchByTagPanel.viewName, searchByTagPanel);
 
-
-        viewManagerModel.setActiveView(signupView.viewName);
+        MainPageState mainPageState = mainPageViewModel.getState();
+        UserFactory commonUserFactory = new CommonUserFactory();
+        mainPageState.setUser(commonUserFactory.createUser("", "", "", 0, ""));
+        mainPageViewModel.firePropertyChanged();
+        viewManagerModel.setActiveView(mainPageView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();
