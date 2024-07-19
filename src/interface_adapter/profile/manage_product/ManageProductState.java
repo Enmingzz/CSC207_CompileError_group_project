@@ -13,10 +13,6 @@ public class ManageProductState {
     private String modifyProductMessage = "";
 
     public ManageProductState(ProductFactory productFactory) {
-        this.product = productFactory.createProduct(null,"","",0,0,
-                0,"","","",null,"",
-                null);
-        this.products.add(product);
     }
 
     public User getUser(){return user;}

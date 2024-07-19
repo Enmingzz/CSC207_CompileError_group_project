@@ -57,6 +57,7 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
     private JLabel studentPasswordViewField = new JLabel();
     private JLabel messageField = new JLabel("");
     private JPanel infoPanel = new JPanel();
+    private JPanel topBar = new JPanel();
 
     public ProfileView (MainPageController mainPageController,
                         ManageProductController manageProductController,
@@ -89,7 +90,7 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         this.setLayout(new BorderLayout());
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
 
-        JPanel topBar = new TopBarSampleView(this.viewModel.getState().getUser(),
+        topBar = new TopBarSampleView(this.viewModel.getState().getUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController,
                 shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar, BorderLayout.NORTH);
@@ -140,10 +141,17 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         ViewProfileState state = (ViewProfileState) evt.getNewValue();
         viewModel.setState(state);
 
+        studentNumberViewField.setText(viewModel.getState().getUser().getStudentNumber());
         studentNameViewField.setText(viewModel.getState().getUser().getName());
         studentPasswordViewField.setText(viewModel.getState().getUser().getPassword());
+        studentEmailViewField.setText(viewModel.getState().getUser().getEmail());
+        studentRatingViewField.setText(String.valueOf(viewModel.getState().getUser().getUserRating()));
         messageField.setText(viewModel.getState().getMessage());
 
-
+        this.remove(topBar);
+        topBar = new TopBarSampleView(this.viewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar, BorderLayout.NORTH);
     }
 }

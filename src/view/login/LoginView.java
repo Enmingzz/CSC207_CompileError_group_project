@@ -46,6 +46,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final JLabel passwordErrorField = new JLabel();
 
     private final JButton logInButton;
+    private JPanel topBar = new JPanel();
+    private final JPanel logInPanel = new JPanel();
 
     public LoginView(LoginViewModel loginViewModel,
                      LoginController loginController,
@@ -69,9 +71,12 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
 
-        UserFactory userFactory = new CommonUserFactory();
-        User user = userFactory.createUser("", "", "", 0, "");
-        JPanel topBar = new TopBarSampleView(user,
+//        UserFactory userFactory = new CommonUserFactory();
+//        User user = userFactory.createUser("", "", "", 0, "");
+        this.setLayout(new BorderLayout());
+        logInPanel.setLayout(new BoxLayout(logInPanel, BoxLayout.Y_AXIS));
+
+        JPanel topBar = new TopBarSampleView(null,
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar, BorderLayout.NORTH);
 
@@ -97,11 +102,13 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         }
 
         logInButton.addActionListener(new LoginButtonListener());
+        logInPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        this.add(title);
-        this.add(studentNumberInfo);
-        this.add(passwordInfo);
-        this.add(logInButton);
+        logInPanel.add(title);
+        logInPanel.add(studentNumberInfo);
+        logInPanel.add(passwordInfo);
+        logInPanel.add(logInButton);
+        this.add(logInPanel, BorderLayout.CENTER);
     }
 
     @Override
@@ -119,8 +126,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 //
 //        UserFactory userFactory = new CommonUserFactory();
 //        User user = userFactory.createUser("", "", "", 0, "");
-//        JPanel topBar = new TopBarSampleView(user,
+//        this.remove(topBar);
+//        topBar = new TopBarSampleView(null,
 //                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+//        this.add(topBar, BorderLayout.NORTH);
 //        this.add(topBar);
 
     }

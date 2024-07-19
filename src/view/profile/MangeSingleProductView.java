@@ -20,6 +20,7 @@ import view.TopBarSampleView;
 import view.profile.ProfileHelper.*;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -51,6 +52,7 @@ public class MangeSingleProductView extends JPanel implements PropertyChangeList
                                   DeleteProductController deleteProductController,
                                   GetSellerSchedulePageController getSellerSchedulePageController) {
         this.setLayout(new BorderLayout());
+        this.setSize(100, 100);
         this.product = product;
         this.user = user;
         this.manageProductViewModel = manageProductViewModel;
@@ -61,8 +63,13 @@ public class MangeSingleProductView extends JPanel implements PropertyChangeList
 
 
         titleViewField.setText(product.getTitle());
-        ratingViewField.setText(String.valueOf(product.getRating()));
-        imageViewField.setIcon(new ImageIcon(product.getImage()));
+        if (product.getRating() == null){
+            ratingViewField.setText("No One has been evaluated this product yet!");
+        } else{
+            ratingViewField.setText(String.valueOf(product.getRating()));
+        }
+
+        imageViewField.setIcon(new ImageIcon(product.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
         priceViewField.setText(product.getPrice() + " $");
 
         if (product.getState() == 0){
@@ -95,16 +102,16 @@ public class MangeSingleProductView extends JPanel implements PropertyChangeList
         showDetil = new JButton(manageProductViewModel.SHOW_BUTTON_LABEL);
         selectTime = new JButton(manageProductViewModel.SELECTTIME_BUTTON_LABEL);
 
-        JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        titlePanel.add(titleInfo);
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        infoPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
-        JPanel tagsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        tagsPanel.add(stateInfo);
-
-        JPanel infoPanel = new JPanel(new GridLayout(4, 2));
+        infoPanel.add(titleInfo);
+        infoPanel.add(stateInfo);
         infoPanel.add(ratingInfo);
-        infoPanel.add(imageInfo);
         infoPanel.add(priceInfo);
+        infoPanel.add(imageInfo);
 
         buttonPanel.add(showDetil);
 
@@ -117,8 +124,6 @@ public class MangeSingleProductView extends JPanel implements PropertyChangeList
             buttonPanel.add(selectTime);
         }
 
-        this.add(titlePanel, BorderLayout.NORTH);
-        this.add(tagsPanel, BorderLayout.NORTH);
         this.add(infoPanel, BorderLayout.CENTER);
         this.add(buttonPanel, BorderLayout.SOUTH);
 
