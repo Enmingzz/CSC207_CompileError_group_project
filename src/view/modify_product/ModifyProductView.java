@@ -55,6 +55,7 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
     private final JButton changeProduct;
     private final JButton cancel;
     private JPanel topBar;
+    JPanel contentPanel = new JPanel();
 
     ModifyProductTextPanel productInformation;
     ImagePanel displayImage;
@@ -94,7 +95,9 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 
 
         //TODO check if this image works
-        displayImage = new ImagePanel(viewModifyProductViewModel.getState().getProduct().getImage());
+        displayImage = (viewModifyProductViewModel.getState().getProduct() == null)?
+                new ImagePanel( new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB)):
+                new ImagePanel(viewModifyProductViewModel.getState().getProduct().getImage());
 
         JLabel _title = new JLabel(viewModifyProductViewModel.TITLE_LABEL);
         _title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -107,18 +110,18 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 
         //(1) show the product information while
         Product product = viewModifyProductViewModel.getState().getProduct();
-        final JLabel titleLabel =new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
-        final JLabel title = new JLabel(product.getTitle());
+        final JLabel titleLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
+        final JLabel title = (product == null)? new JLabel(""): new JLabel(product.getTitle());
         final JLabel descriptionLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
-        final JTextField description = new JTextField(product.getDescription());
+        final JTextField description = (product == null)? new JTextField(): new JTextField(product.getDescription());
         final JLabel priceLabel = new JLabel(viewModifyProductViewModel.PRODUCT_PRICE_LABEL);
-        final JTextField price = new JTextField(String.valueOf(product.getPrice()));
+        final JTextField price = (product == null)? new JTextField(): new JTextField(String.valueOf(product.getPrice()));
         final JLabel eTransferEmailLabel = new JLabel(viewModifyProductViewModel.PRODUCT_ETRANSFER_EMAIL_LABEL);
-        final JLabel eTransferEmail = new JLabel(product.geteTransferEmail());
+        final JLabel eTransferEmail = (product == null)? new JLabel(""): new JLabel(product.geteTransferEmail());
         final JLabel addressLabel = new JLabel(viewModifyProductViewModel.PRODUCT_ADDRESS);
-        final JLabel address = new JLabel(product.getAddress());
+        final JLabel address = (product == null)? new JLabel(""): new JLabel(product.getAddress());
         final JLabel tagsLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TAGS);
-        String tagsString = String.join(", ", product.getListTags());
+        String tagsString = (product == null)? "": String.join(", ", product.getListTags());
         final JLabel tags = new JLabel(tagsString);
 
         productInformation = new ModifyProductTextPanel( titleLabel,  title,
@@ -201,7 +204,7 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         //TODO think about the input fields and display fields
 
 
-        JPanel contentPanel = new JPanel();
+
         contentPanel.setLayout(new BorderLayout());
 
         // Create product information panel
@@ -239,10 +242,12 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         topBar.revalidate();
 
         ViewModifyProductState state = (ViewModifyProductState) evt.getNewValue();
-        JOptionPane.showMessageDialog(this, state.getDescription());
+//        JOptionPane.showMessageDialog(this, state.getDescription());
 
         Product product = state.getProduct();
-        final JLabel titleLabel =new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
+        contentPanel.remove(productInformation);
+        displayImage = new ImagePanel(viewModifyProductViewModel.getState().getProduct().getImage());
+        final JLabel titleLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
         final JLabel title = new JLabel(product.getTitle());
         final JLabel descriptionLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
         final JTextField description = new JTextField(product.getDescription());
@@ -260,6 +265,10 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
                 descriptionLabel,  description,  priceLabel,  price,
                 eTransferEmailLabel,  eTransferEmail,  addressLabel,  address,
                 tagsLabel,  tags);
+        contentPanel.add(productInformation, BorderLayout.CENTER);
+
+        contentPanel.repaint();
+        contentPanel.revalidate();
 
 //        setFields(state);
 
