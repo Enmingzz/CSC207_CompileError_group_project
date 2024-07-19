@@ -120,7 +120,7 @@ public class ModifyProfileUseCaseFactory {
             LogOutController logOutController = createLogOutController(viewManagerModel, mainPageViewModel);
 
 
-            return new ModifyProfileView(userFactory,
+            return new ModifyProfileView(modifyProfileViewModel, userFactory,
                     modifyProfileController,
                      mainPageController,
                      shoppingCartController,
@@ -157,8 +157,12 @@ public class ModifyProfileUseCaseFactory {
         ScheduleFactory scheduleFactory = new CommonScheduleFactory();
 
         ProductReadByNameDataAccessInterface productSearchByNameDAO = daoFactory.create(productFactory, scheduleFactory);
+        DataBaseProductReadAllDataAccessObjectFactoryInterface dataBaseProductReadAllDataAccessObjectFactoryInterface =
+                new DatabaseProductReadAllDataAccessObjectFactory();
+        ProductReadAllDataAccessInterface productReadAllDataAccessObeject =
+                dataBaseProductReadAllDataAccessObjectFactoryInterface.create(productFactory, scheduleFactory);
         SearchProductByNameOutputBoundary presenter = new SearchProductByNamePresenter(viewManagerModel, searchProductViewModel);
-        SearchProductByNameInputBoundary interactor = new SearchProductByNameInteractor(productSearchByNameDAO, presenter);
+        SearchProductByNameInputBoundary interactor = new SearchProductByNameInteractor(productReadAllDataAccessObeject, productSearchByNameDAO, presenter);
         return new SearchProductByNameController(interactor);
     }
 

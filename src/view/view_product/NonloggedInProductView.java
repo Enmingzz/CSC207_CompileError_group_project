@@ -56,6 +56,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
 
     private ProductInfoLabelTextPanel productInfo;
     private JPanel qAInfo;
+    private JPanel topBar;
 
     /**
      * Constructs a NonloggedInProductView with specific controllers and view model to manage the view's state and interactions.
@@ -91,6 +92,12 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
         this.nonLoggedInViewModel.addPropertyChangeListener(this);
 
 
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
 
         JLabel title = new JLabel(nonLoggedInViewModel.TITLE_LABEL+", but you are not logged in yet :(");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -240,10 +247,6 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
 
             qAInfo.add(qA_title);
             qAInfo.add(qA_TextPanel);
-
-            JPanel topBar = new TopBarSampleView(newState.getUser(),
-                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-            this.add(topBar);
 
             newState.setIsChanged(false);
         }

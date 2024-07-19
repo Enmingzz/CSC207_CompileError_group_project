@@ -25,6 +25,7 @@ public class ViewLoginPageController {
      * Creates an input data object and passes it to the interactor for processing.
      */
     public void execute() {
+        System.out.println("ViewLoginPageController execute");
         ViewLoginPageInputData inputData = new ViewLoginPageInputData();
         viewLoginPageInteractor.execute(inputData);
     }

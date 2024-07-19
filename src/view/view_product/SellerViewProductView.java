@@ -2,7 +2,9 @@ package view.view_product;
 
 import entity.comment.Question;
 import entity.product.Product;
+import entity.user.CommonUserFactory;
 import entity.user.User;
+import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
@@ -44,10 +46,14 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
     private final ViewProfileController viewProfileController;
     private final MainPageController mainPageController;
 
+    private final SellerViewProductViewModel sellerViewProductViewModel;
+
     private final JButton cancel;
 
-    ProductInfoLabelTextPanel productInfo;
-    JPanel qAInfo;
+    private JPanel topBar;
+
+    private ProductInfoLabelTextPanel productInfo;
+    private JPanel qAInfo;
 
     /**
      * Constructor for the SellerViewProductView class.
@@ -63,8 +69,8 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
      * @param viewProfileController the controller for viewing the profile page
      */
     public SellerViewProductView(SellerViewProductViewModel sellerViewProductViewModel,
-                                ViewReplyQuestionController replyQuestionController,
-                                MainPageController mainPageController,
+                                 ViewReplyQuestionController replyQuestionController,
+                                 MainPageController mainPageController,
                                  GetSearchPageController getSearchPageController,
                                  ViewSignupPageController viewSignupPageController,
                                  ViewLoginPageController viewLoginPageController,
@@ -79,6 +85,15 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
         this.logOutController = logOutController;
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
+        this.sellerViewProductViewModel = sellerViewProductViewModel;
+
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
+
 
         sellerViewProductViewModel.addPropertyChangeListener(this);
 
@@ -241,10 +256,13 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
                 qAInfo.add(qA_TextPanel);
             }
 
-            JPanel topBar = new TopBarSampleView(newState.getUser(),
-                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-            this.add(topBar);
-
+            topBar.removeAll();
+            topBar.add(new TopBarSampleView(sellerViewProductViewModel.getState().getUser(),
+                    getSearchPageController, viewSignupPageController, viewLoginPageController,
+                    shoppingCartController, logOutController, viewProfileController,
+                    mainPageController));
+            topBar.repaint();
+            topBar.revalidate();
             newState.setIsChanged(false);
         }
     }

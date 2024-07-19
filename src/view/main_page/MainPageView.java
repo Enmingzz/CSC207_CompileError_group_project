@@ -1,8 +1,10 @@
 package view.main_page;
 
 import entity.product.Product;
+import entity.user.CommonUserFactory;
 import entity.user.User;
 
+import entity.user.UserFactory;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.main_page.MainPageViewModel;
@@ -48,6 +50,7 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
     public final String viewName = "main page";
     private final MainPageViewModel mainPageViewModel;
+    private JPanel topBar;
 
     // Check necessity of this initialization
     private List<JButton> viewProductButtons = new ArrayList<>();
@@ -97,8 +100,15 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
         this.add(title);
 
         //TODO: check if the top bar is correct
-        JPanel topBar = new TopBarSampleView(this.mainPageViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+//        JPanel topBar = new TopBarSampleView(this.mainPageViewModel.getState().getUser(),
+//                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+//        this.add(topBar, BorderLayout.NORTH);
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
         this.add(topBar, BorderLayout.NORTH);
 
         // Products page starts here
@@ -182,11 +192,33 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+
+        System.out.println("propertyChange");
+
         MainPageState state = (MainPageState) evt.getNewValue();
+
+        System.out.println(state.getUser().getStudentNumber() + "hi");
 
         ArrayList<Product> allProducts = state.getAllProducts();
 
+        mainPageViewModel.setState(state);
+
         allProductsPanel = new AllProductsPanel(allProducts, mainPageViewModel, viewProductController);
+
+//        topBar = new TopBarSampleView(this.mainPageViewModel.getState().getUser(),
+//                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+
+        //this.add(topBar, BorderLayout.NORTH);
+        topBar.removeAll();
+        topBar.add(new TopBarSampleView(mainPageViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController,
+                mainPageController));
+        topBar.repaint();
+        topBar.revalidate();
+//        this.revalidate();
+//        this.repaint();
+        //this.add(topBar);
 
     }
 

@@ -20,11 +20,12 @@ public class ViewModifyProfilePresenter implements ViewModifyProfileOutputBounda
 
 
     public void prepareSuccessfulView(ViewModifyProfileOutputData response){
-        ModifyProfileState state = new ModifyProfileState(userFactory);
+        //ModifyProfileState state = new ModifyProfileState(userFactory);
+        ModifyProfileState state = modifyProfileViewModel.getState();
         state.setUser(response.getUser());
-
         this.modifyProfileViewModel.setState(state);
         modifyProfileViewModel.firePropertyChanged();
+        System.out.println("profile modify prepare successful view " + state.getUser().getName());
         viewManagerModel.setActiveView(modifyProfileViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

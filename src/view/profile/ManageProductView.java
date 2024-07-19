@@ -1,6 +1,9 @@
 package view.profile;
 
 import entity.product.Product;
+import entity.user.CommonUserFactory;
+import entity.user.User;
+import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
@@ -47,6 +50,7 @@ public class ManageProductView extends JPanel implements ActionListener, Propert
     private final ViewProfileController viewProfileController;
 
     private final JButton addProduct;
+    private JPanel topBar;
 
     /**
      * Constructs a ManageProductView with the specified controllers and view models.
@@ -91,9 +95,15 @@ public class ManageProductView extends JPanel implements ActionListener, Propert
         this.logOutController = logOutController;
         this.viewProfileController = viewProfileController;
 
-        JPanel topBar = new TopBarSampleView(this.manageProductViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.setLayout(new BorderLayout());
+
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
+        this.add(topBar, BorderLayout.NORTH);
 
         manageProductViewModel.addPropertyChangeListener(this);
         JLabel title = new JLabel(manageProductViewModel.TITLE_LABEL);
@@ -110,7 +120,7 @@ public class ManageProductView extends JPanel implements ActionListener, Propert
 
         addProduct.addActionListener(this);
 
-        this.add(buttons, BorderLayout.NORTH);
+        this.add(buttons, BorderLayout.EAST);
 
     }
 
@@ -148,9 +158,11 @@ public class ManageProductView extends JPanel implements ActionListener, Propert
         manageProductViewModel.setState(newState);
 
         updateMainPanel();
+        this.remove(topBar);
+        topBar = new TopBarSampleView(this.manageProductViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar, BorderLayout.NORTH);
 
         message.setText(manageProductViewModel.getState().getModifyProductMessage());
-        this.revalidate();
-        this.repaint();
     }
 }

@@ -1,5 +1,8 @@
 package view.profile;
 
+import entity.user.CommonUserFactory;
+import entity.user.User;
+import entity.user.UserFactory;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
@@ -47,8 +50,8 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
 
     private final ViewProfileViewModel viewModel;
     private final JButton manageProduct;
-    private final JButton modifyName;
-    private final JButton modifyPassword;
+    private final JButton modifyProfile;
+    private final JButton showProfile;
 
     private JLabel studentNumberViewField = new JLabel();
     private JLabel studentNameViewField = new JLabel();
@@ -57,6 +60,7 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
     private JLabel studentPasswordViewField = new JLabel();
     private JLabel messageField = new JLabel("");
     private JPanel infoPanel = new JPanel();
+    private JPanel topBar;
 
     public ProfileView (MainPageController mainPageController,
                         ManageProductController manageProductController,
@@ -89,7 +93,9 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         this.setLayout(new BorderLayout());
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
 
-        JPanel topBar = new TopBarSampleView(this.viewModel.getState().getUser(),
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
                 getSearchPageController, viewSignupPageController, viewLoginPageController,
                 shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar, BorderLayout.NORTH);
@@ -109,18 +115,29 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new GridLayout(3, 1));
 
+        showProfile = new JButton(profileViewModel.VIEW_PROFILE_BOTTON_LABEL);
+        leftPanel.add(showProfile);
         manageProduct = new JButton(profileViewModel.MANAGEPRODUCT_BUTTONLABEL);
         leftPanel.add(manageProduct);
-        modifyName = new JButton(profileViewModel.MODIFYNAME_BUTTON_LABEL);
-        leftPanel.add(modifyName);
-        modifyPassword = new JButton(profileViewModel.MODIFYPASSWORD_BUTTON_LABEL);
-        leftPanel.add(modifyPassword);
-
-        this.add(leftPanel, BorderLayout.WEST);
+        modifyProfile = new JButton(profileViewModel.MODIFYPROFILE_BUTTON_LABEL);
+        leftPanel.add(modifyProfile);
 
         manageProduct.addActionListener(new ManageProductListener(manageProductController, viewModel));
-        modifyName.addActionListener(new ModifyProfileListener(viewModifyProfileController, viewModel));
-        modifyPassword.addActionListener(new ModifyProfileListener(viewModifyProfileController, viewModel));
+        modifyProfile.addActionListener(new ModifyProfileListener(viewModifyProfileController, viewModel));
+        class ViewProfileListener implements ActionListener{
+            @Override
+            public void actionPerformed(ActionEvent evt){
+                if(evt.getSource().equals(showProfile)){
+                    try{
+                        viewProfileController.execute(profileViewModel.getState().getUser());
+                    }catch (Exception e){
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+        showProfile.addActionListener(new ViewProfileListener());
+        this.add(leftPanel, BorderLayout.WEST);
 
         infoPanel.add(title);
         infoPanel.add(userNameInfo);
@@ -140,10 +157,19 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         ViewProfileState state = (ViewProfileState) evt.getNewValue();
         viewModel.setState(state);
 
+        studentNumberViewField.setText(viewModel.getState().getUser().getStudentNumber());
         studentNameViewField.setText(viewModel.getState().getUser().getName());
         studentPasswordViewField.setText(viewModel.getState().getUser().getPassword());
+        studentEmailViewField.setText(viewModel.getState().getUser().getEmail());
+        studentRatingViewField.setText(String.valueOf(viewModel.getState().getUser().getUserRating()));
         messageField.setText(viewModel.getState().getMessage());
 
-
+        topBar.removeAll();
+        topBar.add(new TopBarSampleView(viewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController,
+                mainPageController));
+        topBar.repaint();
+        topBar.revalidate();
     }
 }

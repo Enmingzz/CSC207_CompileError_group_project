@@ -3,7 +3,9 @@ package view.view_product;
 import entity.comment.CommonQuestionFactory;
 import entity.comment.Question;
 import entity.product.Product;
+import entity.user.CommonUserFactory;
 import entity.user.User;
+import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
@@ -65,6 +67,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
 
     ProductInfoLabelTextPanel productInfo;
     JPanel qAInfo;
+    private JPanel topBar;
 
     /**
      * Constructs a BuyerViewProductView with specific controllers and view model.
@@ -101,8 +104,11 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
 
-        JPanel topBar = new TopBarSampleView(this.buyerViewProductViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
         //TODO implement the shared top bar
 
@@ -327,9 +333,8 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
             qAInfo.add(qA_title);
             qAInfo.add(qA_TextPanel);
 
-            JPanel topBar = new TopBarSampleView(newState.getUser(),
+            topBar = new TopBarSampleView(newState.getUser(),
                     getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-            this.add(topBar);// TODO need to add this to all view
 
             newState.setIsChanged(false);
         }

@@ -1,5 +1,6 @@
 package view.profile;
 
+import entity.user.CommonUserFactory;
 import entity.user.User;
 import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
@@ -28,7 +29,7 @@ import java.util.Arrays;
 
 public class ModifyProfileView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    private final ModifyProfileViewModel modifyProfileViewModel = new ModifyProfileViewModel();
+    private final ModifyProfileViewModel modifyProfileViewModel;
     private final ModifyProfileController modifyProfileController;
     private final MainPageController mainPageController;
     private final ShoppingCartController shoppingCartController;
@@ -49,8 +50,11 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
     private final JPasswordField passwordInputField = new JPasswordField(15);
     final JButton confirmButton;
     final JButton backButton;
+    private JPanel topBar;
 
-    public ModifyProfileView(UserFactory userFactory, ModifyProfileController modifyProfileController,
+    public ModifyProfileView(ModifyProfileViewModel modifyProfileViewModel,
+                             UserFactory userFactory,
+                             ModifyProfileController modifyProfileController,
                              MainPageController mainPageController,
                              ShoppingCartController shoppingCartController,
                              SearchProductByNameController searchProductByNameController,
@@ -65,6 +69,7 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
         this.searchProductByNameController = searchProductByNameController;
         this.viewProfileController = viewProfileController;
         this.userFactory = userFactory;
+        this.modifyProfileViewModel = modifyProfileViewModel;
 
         //top bar initialize
         this.getSearchPageController = getSearchPageController;
@@ -72,20 +77,28 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
         this.viewLoginPageController = viewLoginPageController;
         this.logOutController = logOutController;
 
-        JPanel topBar = new TopBarSampleView(this.modifyProfileViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.setLayout(new BorderLayout());
+
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
+        this.add(topBar, BorderLayout.NORTH);
 
         modifyProfileViewModel.addPropertyChangeListener(this);
         JLabel title = new JLabel(modifyProfileViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         ModifyLabelTextPanel usernameInfo = new ModifyLabelTextPanel(
                 new JLabel(modifyProfileViewModel.USERNAME_LABEL), usernameInputField);
         ModifyLabelTextPanel passwordInfo = new ModifyLabelTextPanel(
                 new JLabel(modifyProfileViewModel.PASSWORD_LABEL), passwordInputField);
+
 
         JPanel buttons = new JPanel();
         confirmButton = new JButton(modifyProfileViewModel.CONFIRM_BUTTON_LABEL);
@@ -98,6 +111,7 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
         mainPanel.add(buttons);
         mainPanel.add(usernameInfo);
         mainPanel.add(passwordInfo);
+        this.add(mainPanel, BorderLayout.CENTER);
     }
 
     @Override
@@ -124,7 +138,18 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        System.out.println("view profile property change");
         ModifyProfileState state = (ModifyProfileState) evt.getNewValue();
         modifyProfileViewModel.setState(state);
+
+        topBar.removeAll();
+        topBar.add(new TopBarSampleView(modifyProfileViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController,
+                mainPageController));
+        topBar.repaint();
+        topBar.revalidate();
+
+
     }
 }

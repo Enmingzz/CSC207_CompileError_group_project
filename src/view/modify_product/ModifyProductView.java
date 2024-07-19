@@ -1,7 +1,9 @@
 package view.modify_product;
 
 import entity.product.Product;
+import entity.user.CommonUserFactory;
 import entity.user.User;
+import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
@@ -52,6 +54,7 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 
     private final JButton changeProduct;
     private final JButton cancel;
+    private JPanel topBar;
 
     ModifyProductTextPanel productInformation;
     ImagePanel displayImage;
@@ -82,8 +85,11 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
 
-        JPanel topBar = new TopBarSampleView(this.viewModifyProductViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
 
 
@@ -223,6 +229,15 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+
+        topBar.removeAll();
+        topBar.add(new TopBarSampleView(viewModifyProductViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController,
+                mainPageController));
+        topBar.repaint();
+        topBar.revalidate();
+
         ViewModifyProductState state = (ViewModifyProductState) evt.getNewValue();
         JOptionPane.showMessageDialog(this, state.getDescription());
 
@@ -248,9 +263,6 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 
 //        setFields(state);
 
-        JPanel topBar = new TopBarSampleView(state.getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
     }
 
 //    private void setFields(ViewModifyProductState state) {

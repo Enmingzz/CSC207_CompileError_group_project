@@ -1,11 +1,14 @@
 package view.modify_product;
 
+import entity.user.CommonUserFactory;
 import entity.user.User;
+import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.modify_product.CreateProductController;
 import interface_adapter.modify_product.CreateProductState;
+import interface_adapter.modify_product.UploadImageController;
 import interface_adapter.modify_product.ViewCreateProductViewModel;
 import interface_adapter.profile.manage_product.ManageProductController;
 import interface_adapter.profile.manage_product.ManageProductViewModel;
@@ -18,6 +21,9 @@ import view.TopBarSampleView;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,7 +37,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateProductView extends JPanel implements ActionListener, PropertyChangeListener {
+public class CreateProductView extends JPanel implements ActionListener, ListSelectionListener, PropertyChangeListener {
 
     public final String viewName = "view create product";
 
@@ -47,6 +53,7 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
     private final LogOutController logOutController;
     private final ViewProfileController viewProfileController;
     private final MainPageController mainPageController;
+    private final UploadImageController uploadImageController;
 
     private final JButton createProduct;
     private final JButton cancel;
@@ -56,9 +63,11 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
 
     ArrayList<String> arrayListTags = new ArrayList<>();
 
+    private JPanel topBar;
+
 
     private final JTextField titleInputField = new JTextField(40);
-    private final JTextField descriptionInputField = new JTextField(200);
+    private final JTextField descriptionInputField = new JTextField(100);
     private final JTextField priceInputField = new JTextField(10);
     private final JTextField eTransferEmailInputField = new JTextField(30);
     private final JTextField addressInputField = new JTextField(30);
@@ -66,14 +75,13 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
     public CreateProductView(CreateProductController createProductController,
                              ViewCreateProductViewModel viewCreateProductViewModel,
                              ManageProductController manageProductController,
-
                              MainPageController mainPageController,
                              GetSearchPageController getSearchPageController,
                              ViewSignupPageController viewSignupPageController,
                              ViewLoginPageController viewLoginPageController,
                              ShoppingCartController shoppingCartController,
                              LogOutController logOutController,
-                             ViewProfileController viewProfileController) {
+                             ViewProfileController viewProfileController, UploadImageController uploadImageController) {
 
         this.createProductController = createProductController;
         this.manageProductController = manageProductController;
@@ -87,15 +95,25 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
         this.logOutController = logOutController;
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
+        this.uploadImageController = uploadImageController;
 
-        JPanel topBar = new TopBarSampleView(this.viewCreateProductViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar, BorderLayout.SOUTH);
+        this.setLayout(new BorderLayout());
+
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+        topBar = new TopBarSampleView(commonUser,
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
+        this.add(topBar, BorderLayout.NORTH);
 
         this.viewCreateProductViewModel.addPropertyChangeListener(this);
 
         JLabel _title = new JLabel("view create product");
         _title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         //TODO initiate image
         Image image;
@@ -128,18 +146,27 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
         createProduct.addActionListener(this);
         cancel.addActionListener(this);
 
-        JFrame frame = new JFrame("Multi-Select List Example");
+//        JFrame frame = new JFrame("Multi-Select List Example");
         String[] items = {"Furniture", "Clothes", "Electronics"};
 
         JList<String> listTags = new JList<>(items);
 
         listTags.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
-        String listTagsString;
+//        String listTagsString;
 
-        List<String> selectedItems;
-        selectedItems = listTags.getSelectedValuesList();
-        arrayListTags.addAll(selectedItems);
+//        final List<String> selectedItems;
+
+        listTags.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    arrayListTags.clear();
+                    // Get selected items
+                    arrayListTags.addAll(listTags.getSelectedValuesList());
+                }
+            }
+        });
 
 
         class TitleInputFieldListener implements KeyListener {
@@ -241,22 +268,39 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
             }
         }
 
+//        class uploadImageButtonListener implements ActionListener {
+//            @Override
+//            public void actionPerformed(ActionEvent evt) {
+//                if (evt.getSource().equals(uploadImageButton)) {
+//                    JFileChooser fileChooser = new JFileChooser();
+//                    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+//                            "JPG & PNG Images", "jpg", "png");
+//                    fileChooser.setFileFilter(filter);
+////                    fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+//                    int returnValue = fileChooser.showOpenDialog(null);
+//                    if (returnValue == JFileChooser.APPROVE_OPTION) {
+//                        File selectedFile = fileChooser.getSelectedFile();
+//                        try {
+//                            uploadedImage = ImageIO.read(selectedFile);
+//                            imageLabel.setIcon(new ImageIcon(uploadedImage));
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//            }
+//        }
+
         class uploadImageButtonListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(uploadImageButton)) {
-                    JFileChooser fileChooser = new JFileChooser();
-                    fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                    int returnValue = fileChooser.showOpenDialog(null);
-                    if (returnValue == JFileChooser.APPROVE_OPTION) {
-                        File selectedFile = fileChooser.getSelectedFile();
-                        try {
-                            uploadedImage = ImageIO.read(selectedFile);
-                            imageLabel.setIcon(new ImageIcon(uploadedImage));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                   uploadImageController.execute();
+                    ImageIcon imageIcon = new ImageIcon(viewCreateProductViewModel.getState().getPath());
+                    Image image = imageIcon.getImage();
+                    Image scaledImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                    ImageIcon scaledIcon = new ImageIcon(scaledImage);
+                   imageLabel.setIcon(scaledIcon);
                 }
             }
         }
@@ -266,10 +310,10 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(createProduct)) {
                     try {
-                        CreateProductState state = new CreateProductState();
-                        createProductController.execute(state.getUser(), uploadedImage, descriptionInputField.getText(),
-                                priceInputField.getText(), titleInputField.getText(), eTransferEmailInputField.getText(),
-                                addressInputField.getText(), arrayListTags);
+//                        CreateProductState state = new CreateProductState();
+                        createProductController.execute(viewCreateProductViewModel.getState().getUser(), uploadedImage,
+                                descriptionInputField.getText(), priceInputField.getText(), titleInputField.getText(),
+                                eTransferEmailInputField.getText(), addressInputField.getText(), arrayListTags);
                     } catch (SQLException | IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -286,22 +330,22 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
         eTransferEmail.addKeyListener(new ETransferEmailInputFieldListener());
         address.addKeyListener(new AddressInputFieldListener());
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(_title);
-        this.add(title);
-        this.add(description);
-        this.add(price);
-        this.add(eTransferEmail);
-        this.add(address);
-        this.add(listTagsLabel);
-        this.add(new JScrollPane(listTags));
-        this.add(buttons);
+
+        mainPanel.add(_title);
+        mainPanel.add(title);
+        mainPanel.add(description);
+        mainPanel.add(price);
+        mainPanel.add(eTransferEmail);
+        mainPanel.add(address);
+        mainPanel.add(listTagsLabel);
+        mainPanel.add(new JScrollPane(listTags));
+        mainPanel.add(buttons);
 
         imageLabel = new JLabel();
-        this.add(imageLabel);
+        mainPanel.add(imageLabel);
+
+        this.add(mainPanel, BorderLayout.CENTER);
     }
-
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -310,11 +354,45 @@ public class CreateProductView extends JPanel implements ActionListener, Propert
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
-        CreateProductState newState = (CreateProductState) evt.getSource();
+        topBar.removeAll();
+        topBar.add(new TopBarSampleView(viewCreateProductViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController,
+                mainPageController));
+        topBar.repaint();
+        topBar.revalidate();
 
-//        JPanel topBar = new TopBarSampleView(newState.getUser(),
-//                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-//        this.add(topBar);
+        CreateProductState newState = (CreateProductState) evt.getNewValue();
+
+        if (newState.getAddressError() != null) {
+            JOptionPane.showMessageDialog(this, newState.getAddressError());
+        } else if ((newState.getDescriptionError() != null)) {
+            JOptionPane.showMessageDialog(this, newState.getDescriptionError());
+        } else if ((newState.geteTransferEmailError() != null)) {
+            JOptionPane.showMessageDialog(this, newState.geteTransferEmailError());
+        } else if ((newState.getImageError() != null)) {
+            JOptionPane.showMessageDialog(this, newState.getImageError());
+        } else if ((newState.getListTagsError() != null)) {
+            JOptionPane.showMessageDialog(this, newState.getListTagsError());
+        } else if ((newState.getPriceError() != null)) {
+            JOptionPane.showMessageDialog(this, newState.getPriceError());
+        } else if ((newState.getTitleError() != null)) {
+            JOptionPane.showMessageDialog(this, newState.getTitleError());
+        } else {
+            viewCreateProductViewModel.setState(newState);
+        }
+
+        if (newState.getUser() != null){
+            viewCreateProductViewModel.setState(newState);
+            this.remove(topBar);
+            topBar = new TopBarSampleView(newState.getUser(),
+                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+            this.add(topBar, BorderLayout.NORTH);
+        }
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
 
     }
 }

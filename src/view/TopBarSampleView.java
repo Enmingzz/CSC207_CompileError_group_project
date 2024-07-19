@@ -1,5 +1,6 @@
 package view;
 
+import entity.user.CommonUser;
 import entity.user.User;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.ViewLoginPageController;
@@ -41,6 +42,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
 
         this.setLayout(new BorderLayout());
 
+        System.out.println(" topBar " + user.getName() + " " + user.getPassword());
         //(1)search button
         searchButton = new JButton("Search");
         class SearchButtonListener implements ActionListener{
@@ -60,15 +62,16 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
 
         //(2)hi, user. if it's already logged in
         JLabel hi;
-        if (user == null){
+        User user1 = new CommonUser("", "", "", 0, "");
+        if (user.getName().equals("")){
             hi = new JLabel("Welcome!");
         } else {
-            hi = new JLabel("hi, " + user.getName());
+            hi = new JLabel("hi" + user.getName());
         }
         title.add(hi);
 
         //(3)jump to main page
-        mainPageButton = new JButton("To Main Page");
+        mainPageButton = new JButton("Main Page");
         class MainPageButtonListener implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -85,7 +88,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
         buttonPanel.add(mainPageButton);
 
         //haven't logged in
-        if(Objects.equals(user, null)){
+        if(user.getName().equals("")){
             //(4)signUp
             JButton signUp = new JButton("Sign Up Page");
             class SignInListener implements ActionListener{
@@ -123,7 +126,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
 
 
         //already logged in
-        if(!Objects.equals(user, null)){
+        if(!user.getName().equals("")){
             //（6）shoppingCart
             JButton cart = new JButton("Shopping Cart");
             class CartListener implements ActionListener{
@@ -161,8 +164,11 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
 
             //(8) ViewProfile
             JButton profile = new JButton();
-            ImageIcon imageIcon = new ImageIcon("/src/pic/testpic4.png");
-            profile.setIcon(imageIcon);
+            ImageIcon imageIcon = new ImageIcon("src/pic/WechatIMG2308.png");
+            Image image = imageIcon.getImage();
+            Image scaledImage = image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+            ImageIcon scaledIcon = new ImageIcon(scaledImage);
+            profile.setIcon(scaledIcon); // 设置缩放后的图标
             class ViewProfileListener implements ActionListener{
                 @Override
                 public void actionPerformed(ActionEvent evt){
@@ -179,7 +185,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
             profile.addActionListener(new ViewProfileListener());
             buttonPanel.add(profile);
         }
-        this.add(buttonPanel, BorderLayout.CENTER);
+        this.add(buttonPanel);
         this.add(title, BorderLayout.NORTH);
     }
 

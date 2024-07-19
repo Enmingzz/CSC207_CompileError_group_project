@@ -30,12 +30,14 @@ public class CreateProductPresenter implements CreateProductOutputBoundary {
 
         ManageProductState manageProductState = manageProductViewModel.getState();
         ArrayList<Product> newArrayList = manageProductState.getProduct();
+
         newArrayList.add(createProductOutputData.getProduct());
         manageProductState.setProduct(newArrayList);
+
         manageProductViewModel.setState(manageProductState);
         manageProductViewModel.firePropertyChanged();
 
-        viewManagerModel.setActiveView("Product View");
+        viewManagerModel.setActiveView(manageProductViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
