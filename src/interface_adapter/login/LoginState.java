@@ -1,5 +1,7 @@
 package interface_adapter.login;
 
+import entity.user.User;
+
 /**
  * Holds the state information for the login view.
  * It is initialized in LoginViewModel and contains information for the login view, such as the student number and password.
@@ -11,6 +13,7 @@ public class LoginState {
     private String studentNumberError = null;
     private String password = "";
     private String passwordError = null;
+    private User user;
 
     /**
      * Copy constructor. Creates a new LoginState by copying the fields from another LoginState.
@@ -99,6 +102,26 @@ public class LoginState {
      */
     public void setPasswordError(String passwordError) {
         this.passwordError = passwordError;
+    }
+
+    /**
+     * Sets the user into state
+     *
+     * @param user the new user
+     */
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    /**
+     * Returns the user.
+     *
+     * @return the user
+     */
+
+    public User getUser() {
+        return user;
     }
 
 }

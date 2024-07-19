@@ -42,6 +42,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
 
         this.setLayout(new BorderLayout());
 
+        System.out.println(" topBar " + user.getName() + " " + user.getPassword());
         //(1)search button
         searchButton = new JButton("Search");
         class SearchButtonListener implements ActionListener{
@@ -62,7 +63,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
         //(2)hi, user. if it's already logged in
         JLabel hi;
         User user1 = new CommonUser("", "", "", 0, "");
-        if (Objects.equals(user, user1)){
+        if (user.getName().equals("")){
             hi = new JLabel("Welcome!");
         } else {
             hi = new JLabel("hi" + user.getName());
@@ -70,7 +71,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
         title.add(hi);
 
         //(3)jump to main page
-        mainPageButton = new JButton("To Main Page");
+        mainPageButton = new JButton("Main Page");
         class MainPageButtonListener implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -87,7 +88,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
         buttonPanel.add(mainPageButton);
 
         //haven't logged in
-        if(Objects.equals(user, user1)){
+        if(user.getName().equals("")){
             //(4)signUp
             JButton signUp = new JButton("Sign Up Page");
             class SignInListener implements ActionListener{
@@ -125,7 +126,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
 
 
         //already logged in
-        if(!Objects.equals(user, user1)){
+        if(!user.getName().equals("")){
             //（6）shoppingCart
             JButton cart = new JButton("Shopping Cart");
             class CartListener implements ActionListener{
