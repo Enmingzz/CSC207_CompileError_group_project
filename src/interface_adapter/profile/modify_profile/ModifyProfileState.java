@@ -6,6 +6,7 @@ import entity.user.UserFactory;
 public class ModifyProfileState {
 
     private User user;
+    private String message;
 
     public ModifyProfileState(UserFactory userFactory) {
         this.user = userFactory.createUser("", "", "", 0, "");
@@ -17,6 +18,14 @@ public class ModifyProfileState {
 
     public void setUser(User user){
         this.user = user;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message){
+        this.message = message;
     }
 
 }

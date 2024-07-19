@@ -27,7 +27,7 @@ import java.sql.SQLException;
  * A view for managing products, which extends JFrame and implements ActionListener and PropertyChangeListener.
  */
 public class ManageProductView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "Product View";
+    public final String viewName = "Manage Product View";
     private final MainPageController mainPageController;
     private final ViewCreateProductController viewCreateProductController;
     private final ViewModifyProductController viewModifyProductController;
@@ -36,6 +36,7 @@ public class ManageProductView extends JPanel implements ActionListener, Propert
     private final GetSellerSchedulePageController getSellerSchedulePageController;
     private final ManageProductViewModel manageProductViewModel;
     private final JPanel mainPanel = new JPanel();
+    private JLabel message = new JLabel("");
 
     //Top Bar stuff
     private final GetSearchPageController getSearchPageController;
@@ -101,6 +102,7 @@ public class ManageProductView extends JPanel implements ActionListener, Propert
         updateMainPanel();
 
         this.add(new JScrollPane(mainPanel), BorderLayout.CENTER);
+        this.add(message, BorderLayout.SOUTH);
 
         JPanel buttons = new JPanel((new FlowLayout(FlowLayout.RIGHT)));
         addProduct = new JButton(manageProductViewModel.ADD_BUTTON_LABEL);
@@ -138,12 +140,17 @@ public class ManageProductView extends JPanel implements ActionListener, Propert
         } catch (SQLException | IOException ex) {
             throw new RuntimeException(ex);
         }
-        updateMainPanel();
-
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         ManageProductState newState = (ManageProductState) evt.getNewValue();
+        manageProductViewModel.setState(newState);
+
+        updateMainPanel();
+
+        message.setText(manageProductViewModel.getState().getModifyProductMessage());
+        this.revalidate();
+        this.repaint();
     }
 }

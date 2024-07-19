@@ -72,6 +72,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JButton searchProductByNameButton;
     private final JButton searchProductByTagButton;
 
+    private final JPanel signUpPanel = new JPanel();
+
     /**
      * Constructor for the SignupView class.
      *
@@ -128,19 +130,21 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         SignupLabelTextPanel verificationCodeInfo = new SignupLabelTextPanel(new JLabel(signupViewModel.VERIFICATION_LABEL), verificationCodeInputField);
         SignupLabelTextPanel studentNumberInfo = new SignupLabelTextPanel(new JLabel(signupViewModel.STUDENT_NUMBER_LABEL), studentNameInputField);
 
-        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+
+        signUpPanel.setLayout(new BoxLayout(signUpPanel, BoxLayout.Y_AXIS));
+        this.setLayout(new BorderLayout());
+
         JPanel buttons = new JPanel();
+
         signUp = new JButton(signupViewModel.SIGNUP_BUTTON_LABEL);
         buttons.add(signUp);
 
-        JPanel button2 = new JPanel();
+//        JPanel button2 = new JPanel();
+//        button2.add(emailVerification);
         this.emailVerification = new JButton(signupViewModel.SEND_EMAIL_VERIFICATION_LABEL);
-        button2.add(emailVerification);
-
         JPanel container = new JPanel();
-        container.setLayout(new GridLayout(1,2));
         container.add(verificationCodeInfo);
-        container.add(button2);
+        container.add(emailVerification);
 
         class SignUpButtonListener implements ActionListener {
             public void actionPerformed(ActionEvent evt) {
@@ -291,23 +295,23 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         searchProductByTagButton.addActionListener(new SearchProductByTagButtonListener());
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+//        signUpPanel.setLayout(new BoxLayout(signUpPanel, BoxLayout.Y_AXIS));
 
-        this.add(title);
-        this.add(studentNumberInfo);
-        this.add(usernameInfo);
-        this.add(passwordInfo);
-        this.add(repeatPasswordInfo);
-        this.add(emailInfo);
-        this.add(container);
-        this.add(buttons);
+        signUpPanel.add(title);
+        signUpPanel.add(studentNumberInfo);
+        signUpPanel.add(usernameInfo);
+        signUpPanel.add(passwordInfo);
+        signUpPanel.add(repeatPasswordInfo);
+        signUpPanel.add(emailInfo);
+        signUpPanel.add(container);
+        signUpPanel.add(buttons);
 
 //        UserFactory userFactory = new CommonUserFactory();
 //        User user = userFactory.createUser("", "", "", 0, "");
         JPanel topBar = new TopBarSampleView(null,
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar, BorderLayout.SOUTH);
-
+        this.add(topBar, BorderLayout.NORTH);
+        this.add(signUpPanel, BorderLayout.CENTER);
     }
 
     public void actionPerformed(ActionEvent evt) {

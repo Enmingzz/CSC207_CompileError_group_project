@@ -29,6 +29,9 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
     private final JButton searchButton;
     private final JButton mainPageButton;
 
+    private final JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    private final JPanel title = new JPanel();
+
     public TopBarSampleView(User user, GetSearchPageController getSearchPageController,
                             ViewSignupPageController viewSignupPageController,
                             ViewLoginPageController viewLoginPageController,
@@ -36,6 +39,8 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
                             LogOutController logOutController,
                             ViewProfileController viewProfileController,
                             MainPageController mainPageController) {
+
+        this.setLayout(new BorderLayout());
 
         //(1)search button
         searchButton = new JButton("Search");
@@ -52,7 +57,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
             }
         }
         searchButton.addActionListener(new SearchButtonListener());
-        this.add(searchButton);
+        buttonPanel.add(searchButton);
 
         //(2)hi, user. if it's already logged in
         JLabel hi;
@@ -62,7 +67,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
         } else {
             hi = new JLabel("hi" + user.getName());
         }
-        this.add(hi, BorderLayout.WEST);
+        title.add(hi);
 
         //(3)jump to main page
         mainPageButton = new JButton("To Main Page");
@@ -79,7 +84,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
             }
         }
         mainPageButton.addActionListener(new MainPageButtonListener());
-        this.add(mainPageButton);
+        buttonPanel.add(mainPageButton);
 
         //haven't logged in
         if(Objects.equals(user, user1)){
@@ -98,7 +103,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
                 }
             }
             signUp.addActionListener(new SignInListener());
-            this.add(signUp);
+            buttonPanel.add(signUp);
 
             //(5)logIn
             JButton logIn = new JButton("Login Page");
@@ -115,7 +120,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
                 }
             }
             logIn.addActionListener(new LogInListener());
-            this.add(logIn);
+            buttonPanel.add(logIn);
         }
 
 
@@ -136,7 +141,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
                 }
             }
             cart.addActionListener(new CartListener());
-            this.add(cart);
+            buttonPanel.add(cart);
 
             //(7)logOut
             JButton logOut = new JButton("Log Out");
@@ -153,7 +158,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
                 }
             }
             logOut.addActionListener(new LogOutListener());
-            this.add(logOut);
+            buttonPanel.add(logOut);
 
 
             //(8) ViewProfile
@@ -174,8 +179,10 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
             }
 
             profile.addActionListener(new ViewProfileListener());
-            this.add(profile);
+            buttonPanel.add(profile);
         }
+        this.add(buttonPanel, BorderLayout.CENTER);
+        this.add(title, BorderLayout.NORTH);
     }
 
     @Override

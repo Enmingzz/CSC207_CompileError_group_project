@@ -39,10 +39,11 @@ public class MangeSingleProductView extends JPanel implements PropertyChangeList
     private JLabel priceViewField = new JLabel();
     private JLabel imageViewField = new JLabel();
 
+    private final JPanel buttonPanel = new JPanel((new FlowLayout(FlowLayout.RIGHT)));
     private final JButton modifyProduct;
     private final JButton deleteProduct;
     private final JButton showDetil;
-    private final JButton selectTime;
+    private JButton selectTime;
 
     public MangeSingleProductView(User user, Product product, ManageProductViewModel manageProductViewModel,
                                   ViewProductController viewProductController,
@@ -78,8 +79,6 @@ public class MangeSingleProductView extends JPanel implements PropertyChangeList
             stateViewField.setText("product has been sold and buyer has rated the product");
         }
 
-        stateViewField.setText(String.valueOf(product.getState()));
-
         ProfileLabelTextPanel titleInfo = new ProfileLabelTextPanel(new JLabel(manageProductViewModel.PRODUCTTITLE_LABEL),
                 titleViewField);
         ProfileLabelTextPanel ratingInfo = new ProfileLabelTextPanel(new JLabel(manageProductViewModel.RATING_LABEL),
@@ -96,7 +95,6 @@ public class MangeSingleProductView extends JPanel implements PropertyChangeList
         showDetil = new JButton(manageProductViewModel.SHOW_BUTTON_LABEL);
         selectTime = new JButton(manageProductViewModel.SELECTTIME_BUTTON_LABEL);
 
-
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         titlePanel.add(titleInfo);
 
@@ -108,7 +106,7 @@ public class MangeSingleProductView extends JPanel implements PropertyChangeList
         infoPanel.add(imageInfo);
         infoPanel.add(priceInfo);
 
-        JPanel buttonPanel = new JPanel((new FlowLayout(FlowLayout.RIGHT)));
+        buttonPanel.add(showDetil);
 
         if (product.getState() == 0){
             buttonPanel.add(modifyProduct);
@@ -118,8 +116,6 @@ public class MangeSingleProductView extends JPanel implements PropertyChangeList
         if (product.getState() == 1){
             buttonPanel.add(selectTime);
         }
-
-        buttonPanel.add(showDetil);
 
         this.add(titlePanel, BorderLayout.NORTH);
         this.add(tagsPanel, BorderLayout.NORTH);
@@ -136,7 +132,42 @@ public class MangeSingleProductView extends JPanel implements PropertyChangeList
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        ManageProductState state = (ManageProductState) evt.getNewValue();
-        manageProductViewModel.setState(state);
+//        ManageProductState state = (ManageProductState) evt.getNewValue();
+//        manageProductViewModel.setState(state);
+//
+//        titleViewField.setText(manageProductViewModel.getState().getSingleProduct().getTitle());
+//        ratingViewField.setText(String.valueOf(manageProductViewModel.getState().getSingleProduct().getRating()));
+//        imageViewField.setIcon(new ImageIcon(manageProductViewModel.getState().getSingleProduct().getImage()));
+//        priceViewField.setText(manageProductViewModel.getState().getSingleProduct().getPrice() + " $");
+//
+//        if (manageProductViewModel.getState().getSingleProduct().getState() == 0){
+//            stateViewField.setText("product is being sold");
+//        } else if (manageProductViewModel.getState().getSingleProduct().getState() == 1) {
+//            stateViewField.setText("scheduling a meeting time with buyer");
+//        } else if (manageProductViewModel.getState().getSingleProduct().getState() == 2) {
+//            stateViewField.setText("your meeting time scheduled");
+//        } else if (manageProductViewModel.getState().getSingleProduct().getState() == 3) {
+//            stateViewField.setText("buyer has chosen a meeting time");
+//        } else if (manageProductViewModel.getState().getSingleProduct().getState() == 4) {
+//            stateViewField.setText("Buyer has confirmed that they have received the product");
+//        } else {
+//            stateViewField.setText("product has been sold and buyer has rated the product");
+//        }
+//
+//        if (manageProductViewModel.getState().getSingleProduct().getState() != 0){
+//            buttonPanel.remove(modifyProduct);
+//            buttonPanel.remove(deleteProduct);
+//        }
+//
+//        if (manageProductViewModel.getState().getSingleProduct().getState() == 1){
+//            selectTime = new JButton(manageProductViewModel.SELECTTIME_BUTTON_LABEL);
+//            buttonPanel.add(selectTime);
+//            selectTime.addActionListener(new SelectTimeListener(this.getSellerSchedulePageController, product, user));
+//        }
+//
+//        this.revalidate();
+//        this.repaint();
+//        this.setVisible(true);
+
     }
 }
