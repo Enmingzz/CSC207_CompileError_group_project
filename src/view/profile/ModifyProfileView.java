@@ -120,7 +120,7 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
             try {
                 ModifyProfileState currentState = modifyProfileViewModel.getState();
                 User currentUser = currentState.getUser();
-                User newUser = userFactory.createUser(usernameInputField.getText(), Arrays.toString(passwordInputField.getPassword()),
+                User newUser = userFactory.createUser(usernameInputField.getText(), String.valueOf(passwordInputField.getPassword()),
                         currentUser.getEmail(), currentUser.getUserRating(), currentUser.getStudentNumber());
 
                 currentState.setUser(newUser);
