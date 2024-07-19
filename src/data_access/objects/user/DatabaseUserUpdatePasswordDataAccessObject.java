@@ -10,7 +10,7 @@ import java.sql.*;
  * It implements the UserUpdatePasswordDataAccessInterface.
  */
 public class DatabaseUserUpdatePasswordDataAccessObject implements UserUpdatePasswordDataAccessInterface {
-    private final Connection connection;
+    private Connection connection;
     private PreparedStatement preparedStatement;
     private String query;
 
@@ -34,6 +34,9 @@ public class DatabaseUserUpdatePasswordDataAccessObject implements UserUpdatePas
      */
     @Override
     public void updateUserPassword(User user, String password) throws SQLException {
+        this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
+                "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
+                "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
         query = "UPDATE Users SET Password = ? WHERE UserID = ?";
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, password);

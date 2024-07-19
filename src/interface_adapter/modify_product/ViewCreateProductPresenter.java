@@ -16,8 +16,9 @@ public class ViewCreateProductPresenter implements ViewCreateProductOutputBounda
 
     @Override
     public void prepareSuccessfulView(ViewCreateProductOutputData createProductOutputData) {
-        CreateProductState state = viewCreateProductViewModel.getState();
+        CreateProductState state = new CreateProductState(createProductOutputData.getUser());
         this.viewCreateProductViewModel.setState(state);
+
         viewCreateProductViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(viewCreateProductViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

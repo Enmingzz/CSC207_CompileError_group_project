@@ -23,27 +23,30 @@ public class CreateProductState {
 
     private User user = null;
 
-    public CreateProductState(CreateProductState copy) {
-        image = copy.image;
-        imageError = copy.imageError;
-        description = copy.description;
-        descriptionError = copy.descriptionError;
-        price = copy.price;
-        priceError = copy.priceError;
-        title = copy.title;
-        titleError = copy.titleError;
-        eTransferEmail = copy.eTransferEmail;
-        eTransferEmailError = copy.eTransferEmailError;
-        address = copy.address;
-        addressError = copy.addressError;
-
-        listTags = copy.listTags;
-        listTagsError = copy.listTagsError;
-
-        user = copy.user;
-    }
+//    public CreateProductState(CreateProductState copy) {
+//        image = copy.image;
+//        imageError = copy.imageError;
+//        description = copy.description;
+//        descriptionError = copy.descriptionError;
+//        price = copy.price;
+//        priceError = copy.priceError;
+//        title = copy.title;
+//        titleError = copy.titleError;
+//        eTransferEmail = copy.eTransferEmail;
+//        eTransferEmailError = copy.eTransferEmailError;
+//        address = copy.address;
+//        addressError = copy.addressError;
+//
+//        listTags = copy.listTags;
+//        listTagsError = copy.listTagsError;
+//
+//        user = copy.user;
+//    }
 
     //A default constructor where the fields can be set later
+    public CreateProductState(User user){
+        this.user = user;
+    }
     public CreateProductState(){}
 
     public Image getImage() {
@@ -133,5 +136,6 @@ public class CreateProductState {
     public void setListTags(ArrayList<String> tags) {
         listTags = tags;
     }
+    public void setUser(User user){this.user = user;}
 
 }

@@ -49,6 +49,7 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
     private final JPasswordField passwordInputField = new JPasswordField(15);
     final JButton confirmButton;
     final JButton backButton;
+    private JPanel topBar = new JPanel();
 
     public ModifyProfileView(UserFactory userFactory, ModifyProfileController modifyProfileController,
                              MainPageController mainPageController,
@@ -72,15 +73,18 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
         this.viewLoginPageController = viewLoginPageController;
         this.logOutController = logOutController;
 
-        JPanel topBar = new TopBarSampleView(this.modifyProfileViewModel.getState().getUser(),
+        this.setLayout(new BorderLayout());
+
+        topBar = new TopBarSampleView(this.modifyProfileViewModel.getState().getUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
+        this.add(topBar, BorderLayout.NORTH);
 
         modifyProfileViewModel.addPropertyChangeListener(this);
         JLabel title = new JLabel(modifyProfileViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         ModifyLabelTextPanel usernameInfo = new ModifyLabelTextPanel(
                 new JLabel(modifyProfileViewModel.USERNAME_LABEL), usernameInputField);
@@ -98,6 +102,7 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
         mainPanel.add(buttons);
         mainPanel.add(usernameInfo);
         mainPanel.add(passwordInfo);
+        this.add(mainPanel, BorderLayout.CENTER);
     }
 
     @Override
@@ -126,5 +131,11 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
     public void propertyChange(PropertyChangeEvent evt) {
         ModifyProfileState state = (ModifyProfileState) evt.getNewValue();
         modifyProfileViewModel.setState(state);
+
+        this.remove(topBar);
+        topBar = new TopBarSampleView(this.modifyProfileViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar, BorderLayout.NORTH);
+
     }
 }
