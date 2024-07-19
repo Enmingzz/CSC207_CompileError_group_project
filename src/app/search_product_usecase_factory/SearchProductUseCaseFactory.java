@@ -76,8 +76,28 @@ import view.view_product.NonloggedInProductView;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Factory class to create various controllers and view models for the Search Product use case.
+ */
 public class SearchProductUseCaseFactory {
 
+    /**
+     * Creates and returns a SearchProductView with the specified view models and controllers.
+     *
+     * @param searchProductViewModel the view model for search product
+     * @param viewManagerModel the view manager model
+     * @param buyerViewProductViewModel the view model for buyer view product
+     * @param sellerViewProductViewModel the view model for seller view product
+     * @param unloggedInViewModel the view model for unlogged-in view
+     * @param signupViewModel the view model for signup
+     * @param loginViewModel the view model for login
+     * @param shoppingCartViewModel the view model for shopping cart
+     * @param mainPageViewModel the view model for main page
+     * @param viewProfileViewModel the view model for view profile
+     * @return the created SearchProductView
+     * @throws SQLException if a database access error occurs
+     * @throws IOException if an I/O error occurs
+     */
     public static SearchProductView create(SearchProductViewModel searchProductViewModel,
                                            ViewManagerModel viewManagerModel,
                                            BuyerViewProductViewModel buyerViewProductViewModel,
@@ -114,7 +134,14 @@ public class SearchProductUseCaseFactory {
                 viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
     }
 
-
+    /**
+     * Creates an instance of {@link SearchProductByNameController}.
+     *
+     * @param viewManagerModel the view manager model
+     * @param searchProductViewModel the view model for search product
+     * @return an instance of {@link SearchProductByNameController}
+     * @throws SQLException if a database access error occurs
+     */
     private static SearchProductByNameController createSearchProductByNameController
             (ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
         SearchProductByNameOutputBoundary searchProductByNamePresenter =
@@ -131,6 +158,14 @@ public class SearchProductUseCaseFactory {
         return new SearchProductByNameController(searchProductByNameInteractor);
     }
 
+    /**
+     * Creates an instance of {@link SearchProductByTagController}.
+     *
+     * @param viewManagerModel the view manager model
+     * @param searchProductViewModel the view model for search product
+     * @return an instance of {@link SearchProductByTagController}
+     * @throws SQLException if a database access error occurs
+     */
     private static SearchProductByTagController createSearchProductByTagController
             (ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
         SearchProductByTagOutputBoundary searchProductByTagPresenter =
@@ -146,6 +181,16 @@ public class SearchProductUseCaseFactory {
         return new SearchProductByTagController(searchProductByTagInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ViewProductController}.
+     *
+     * @param viewManagerModel the view manager model
+     * @param buyerViewProductViewModel the view model for buyer view product
+     * @param sellerViewProductViewModel the view model for seller view product
+     * @param unloggedInViewModel the view model for unlogged-in view
+     * @return an instance of {@link ViewProductController}
+     * @throws SQLException if a database access error occurs
+     */
     private static ViewProductController createViewProductController
             (ViewManagerModel viewManagerModel, BuyerViewProductViewModel buyerViewProductViewModel,
              SellerViewProductViewModel sellerViewProductViewModel, UnloggedInViewModel unloggedInViewModel) throws SQLException {
@@ -163,6 +208,14 @@ public class SearchProductUseCaseFactory {
         return new ViewProductController(viewProductInteractor);
     }
 
+    /**
+     * Creates an instance of {@link GetSearchPageController}.
+     *
+     * @param viewManagerModel the view manager model
+     * @param searchProductViewModel the view model for search product
+     * @return an instance of {@link GetSearchPageController}
+     * @throws SQLException if a database access error occurs
+     */
     private static GetSearchPageController createGetSearchPageController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
         GetSearchViewOutputBoundary getSearchViewPresenter =
                 new GetSearchPagePresenter(searchProductViewModel, viewManagerModel);
@@ -176,6 +229,13 @@ public class SearchProductUseCaseFactory {
         return new GetSearchPageController(getSearchViewInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ViewSignupPageController}.
+     *
+     * @param viewManagerModel the view manager model
+     * @param signupViewModel the view model for signup
+     * @return an instance of {@link ViewSignupPageController}
+     */
     private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
         ViewSignupPageOutputBoundary viewSignupPagePresenter =
                 new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
@@ -192,7 +252,6 @@ public class SearchProductUseCaseFactory {
      * @return an instance of {@link ShoppingCartController}
      * @throws SQLException if a database access error occurs
      */
-
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
@@ -209,6 +268,14 @@ public class SearchProductUseCaseFactory {
         return new ShoppingCartController(showShoppingCartInteractor);
     }
 
+    /**
+     * Creates an instance of {@link MainPageController}.
+     *
+     * @param mainPageViewModel the view model for main page
+     * @param viewManagerModel the view manager model
+     * @return an instance of {@link MainPageController}
+     * @throws SQLException if a database access error occurs
+     */
     private static MainPageController createMainPageController(MainPageViewModel mainPageViewModel, ViewManagerModel viewManagerModel) throws SQLException {
         ShowMainPageOutputBoundary showMainPagePresenter = new MainPagePresenter(mainPageViewModel, viewManagerModel);
         DataBaseProductReadAllDataAccessObjectFactoryInterface dataBaseProductReadAllDataAccessObjectFactoryInterface = new DatabaseProductReadAllDataAccessObjectFactory();
@@ -221,6 +288,16 @@ public class SearchProductUseCaseFactory {
         return new MainPageController(showMainPageInteractor);
     }
 
+    /**
+     * Creates an instance of {@link SignupController}.
+     *
+     * @param viewManagerModel the view manager model
+     * @param signupViewModel the view model for signup
+     * @param loginViewModel the view model for login
+     * @return an instance of {@link SignupController}
+     * @throws IOException if an I/O error occurs
+     * @throws SQLException if a database access error occurs
+     */
     private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel) throws IOException, SQLException {
 
         DatabaseUserCreateDataAccessObjectFactoryInterface databaseUserCreateDataAccessObjectFactory
@@ -242,6 +319,14 @@ public class SearchProductUseCaseFactory {
         return new SignupController(userSignupInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ViewLoginPageController}.
+     *
+     * @param loginViewModel the view model for login
+     * @param viewManagerModel the view manager model
+     * @return an instance of {@link ViewLoginPageController}
+     * @throws SQLException if a database access error occurs
+     */
     private static ViewLoginPageController createViewLoginPageController
             (LoginViewModel loginViewModel, ViewManagerModel viewManagerModel) throws SQLException {
 
@@ -251,6 +336,14 @@ public class SearchProductUseCaseFactory {
         return new ViewLoginPageController(viewLoginPageInteractor);
     }
 
+    /**
+     * Creates an instance of {@link LogOutController}.
+     *
+     * @param viewManagerModel the view manager model
+     * @param mainPageViewModel the view model for main page
+     * @return an instance of {@link LogOutController}
+     * @throws SQLException if a database access error occurs
+     */
     private static LogOutController createLogOutController(ViewManagerModel viewManagerModel,
                                                            MainPageViewModel mainPageViewModel) throws SQLException {
         LogOutOutputBoundary LogOutPresenter = new LogOutPresenter(mainPageViewModel,
@@ -259,6 +352,14 @@ public class SearchProductUseCaseFactory {
         return new LogOutController(logOutInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ViewProfileController}.
+     *
+     * @param viewManagerModel the view manager model
+     * @param profileViewModel the view model for view profile
+     * @return an instance of {@link ViewProfileController}
+     * @throws IOException if an I/O error occurs
+     */
     private static ViewProfileController createProfileController(ViewManagerModel viewManagerModel,
                                                                  ViewProfileViewModel profileViewModel) throws IOException {
         ViewProfileOutputBoundary viewProfilePresenter = new ViewProfilePresenter(profileViewModel,
