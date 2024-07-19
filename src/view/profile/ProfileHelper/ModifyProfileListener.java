@@ -20,6 +20,7 @@ public class ModifyProfileListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e){
         try {
+            System.out.println("profile view click modify profile" + profileViewModel.getState().getUser().getName());
             viewModifyProfileController.execute(profileViewModel.getState().getUser());
         } catch (SQLException | IOException ex) {
             throw new RuntimeException(ex);

@@ -137,19 +137,11 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 mainPageController));
         topBar.repaint();
         topBar.revalidate();
-
+        studentNumberField.setText("");
+        passwordField.setText("");
         LoginState state = (LoginState) evt.getNewValue();
         if (state.getStudentNumberError() != null) {
             JOptionPane.showMessageDialog(this, state.getStudentNumberError());
         }
-//
-//        UserFactory userFactory = new CommonUserFactory();
-//        User user = userFactory.createUser("", "", "", 0, "");
-//        this.remove(topBar);
-//        topBar = new TopBarSampleView(null,
-//                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-//        this.add(topBar, BorderLayout.NORTH);
-//        this.add(topBar);
-
     }
 }
