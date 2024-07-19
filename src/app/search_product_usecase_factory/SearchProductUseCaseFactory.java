@@ -152,8 +152,12 @@ public class SearchProductUseCaseFactory {
         ScheduleFactory scheduleFactory = new CommonScheduleFactory();
         ProductReadByNameDataAccessInterface productReadByNameDataAccessObject =
                 databaseProductReadByNameDataAccessObjectFactory.create(productFactory, scheduleFactory);
+        DataBaseProductReadAllDataAccessObjectFactoryInterface dataBaseProductReadAllDataAccessObjectFactoryInterface =
+                new DatabaseProductReadAllDataAccessObjectFactory();
+        ProductReadAllDataAccessInterface productReadAllDataAccessObeject =
+                dataBaseProductReadAllDataAccessObjectFactoryInterface.create(productFactory, scheduleFactory);
         SearchProductByNameInputBoundary searchProductByNameInteractor =
-                new SearchProductByNameInteractor(productReadByNameDataAccessObject,
+                new SearchProductByNameInteractor(productReadAllDataAccessObeject, productReadByNameDataAccessObject,
                         searchProductByNamePresenter);
         return new SearchProductByNameController(searchProductByNameInteractor);
     }
