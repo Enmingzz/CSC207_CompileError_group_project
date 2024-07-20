@@ -42,7 +42,7 @@ class PurchaseInteractorTest {
         ProductFactory productFactory = new CommonProductFactory();
         ScheduleFactory scheduleFactory = new CommonScheduleFactory();
 
-        Image image = ImageIO.read(new File("src.pic.testpic1.png"));
+        Image image = ImageIO.read(new File("src/pic/testpic1.png"));
 
         String description = "This is a description";
 
@@ -106,11 +106,17 @@ class PurchaseInteractorTest {
             public void prepareSuccessView(PurchaseOutputData response) {
                 Product actualProduct = response.getProduct();
                 User actualUser = response.getUser();
-
                 assertEquals("username", actualUser.getName());
+                assertEquals(actualProduct.getProductID(), initialProducts.get(0).getProductID());
+                assertEquals(actualProduct.getDescription(), initialProducts.get(0).getDescription());
+                assertEquals(actualProduct.getTitle(), initialProducts.get(0).getTitle());
+                assertEquals(actualProduct.getAddress(), initialProducts.get(0).getAddress());
+                assertEquals(actualProduct.geteTransferEmail(), initialProducts.get(0).geteTransferEmail());
+                assertEquals(actualProduct.getSellerStudentNumber(), initialProducts.get(0).getSellerStudentNumber());
+                assertEquals(actualProduct.getPrice(), initialProducts.get(0).getPrice());
+                assertEquals(actualProduct.getRating(), initialProducts.get(0).getRating());
+                assertEquals(actualProduct.getState(), initialProducts.get(0).getState());
                 assertEquals(actualProduct.getState(), 1);
-
-                assertEquals(initialProducts.get(0).getState(), 1);
             }
         };
 

@@ -15,7 +15,7 @@ public class ImagePanel extends JPanel {
      * @param image the image to be displayed in the panel
      */
     public ImagePanel(Image image) {
-        this.image = image;
+        this.image = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         // Set the preferred size of the panel to the size of the image
         this.setPreferredSize(new Dimension(image.getWidth(null), image.getHeight(null)));
     }
