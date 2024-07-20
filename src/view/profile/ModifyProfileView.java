@@ -92,13 +92,13 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
         JLabel title = new JLabel(modifyProfileViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        //start
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
-        ModifyLabelTextPanel usernameInfo = new ModifyLabelTextPanel(
-                new JLabel(modifyProfileViewModel.USERNAME_LABEL), usernameInputField);
-        ModifyLabelTextPanel passwordInfo = new ModifyLabelTextPanel(
-                new JLabel(modifyProfileViewModel.PASSWORD_LABEL), passwordInputField);
+        usernameInfo.setText( new JLabel(modifyProfileViewModel.USERNAME_LABEL), usernameInputField);
+        passwordInfo.setText(new JLabel(modifyProfileViewModel.PASSWORD_LABEL), passwordInputField);
+        //change ends
 
 
         JPanel buttons = new JPanel();
