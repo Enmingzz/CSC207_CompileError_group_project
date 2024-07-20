@@ -414,6 +414,7 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
                     getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
             this.add(topBar, BorderLayout.NORTH);
         }
+        viewCreateProductViewModel.resetState();
     }
 
     @Override
