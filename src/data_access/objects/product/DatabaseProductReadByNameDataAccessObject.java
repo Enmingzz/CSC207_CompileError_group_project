@@ -76,7 +76,7 @@ public class DatabaseProductReadByNameDataAccessObject implements ProductReadByN
         Product product;
         ArrayList<Product> listProducts = new ArrayList<>();
 
-        query = "SELECT * FROM Products WHERE ListTags LIKE ?";
+        query = "SELECT * FROM Products WHERE Title LIKE ?";
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, '%' + name + '%');
         resultSet = preparedStatement.executeQuery();

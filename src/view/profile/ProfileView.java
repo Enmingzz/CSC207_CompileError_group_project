@@ -157,6 +157,8 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         ViewProfileState state = (ViewProfileState) evt.getNewValue();
+        String message = state.getMessage();
+        state.setMessage("");
         viewModel.setState(state);
 
         studentNumberViewField.setText(viewModel.getState().getUser().getStudentNumber());
@@ -164,7 +166,7 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         studentPasswordViewField.setText(viewModel.getState().getUser().getPassword());
         studentEmailViewField.setText(viewModel.getState().getUser().getEmail());
         studentRatingViewField.setText(String.valueOf(viewModel.getState().getUser().getUserRating()));
-        messageField.setText(viewModel.getState().getMessage());
+        messageField.setText(message);
 
         infoPanel.repaint();
         infoPanel.revalidate();

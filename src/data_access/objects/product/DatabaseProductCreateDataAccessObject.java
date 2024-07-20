@@ -59,13 +59,14 @@ public class DatabaseProductCreateDataAccessObject implements ProductCreateDataA
         preparedStatement.setString(6, product.getAddress());
         preparedStatement.setString(7, String.valueOf(product.getListTags()));
 
-        BufferedImage bufferedImage = new BufferedImage(product.getImage().getWidth(null),
-                product.getImage().getHeight(null), BufferedImage.TYPE_INT_ARGB);
+//        BufferedImage bufferedImage = new BufferedImage(product.getImage().getWidth(null),
+//                product.getImage().getHeight(null), BufferedImage.TYPE_INT_ARGB);
+//
+//        Graphics2D bGr = bufferedImage.createGraphics();
+//        bGr.drawImage(product.getImage(), 0, 0, null);
+//        bGr.dispose();
 
-        Graphics2D bGr = bufferedImage.createGraphics();
-        bGr.drawImage(product.getImage(), 0, 0, null);
-        bGr.dispose();
-
+        BufferedImage bufferedImage =  (BufferedImage) product.getImage();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(bufferedImage, "jpg", baos);
         byte[] arrayImageByte = baos.toByteArray();
