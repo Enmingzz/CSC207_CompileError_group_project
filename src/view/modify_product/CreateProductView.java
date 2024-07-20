@@ -319,7 +319,7 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
 
                         } else {
                             // Create a BufferedImage with the same width, height, and type as the original Image
-                            BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_BYTE_BINARY);
+                                BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 
                             // Draw the Image onto the BufferedImage
                             Graphics2D bGr = bufferedImage.createGraphics();
