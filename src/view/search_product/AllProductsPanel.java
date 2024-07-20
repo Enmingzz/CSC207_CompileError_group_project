@@ -36,8 +36,8 @@ public class AllProductsPanel extends JPanel  {
 
         for (Product product : allProducts) {
 
-            Image image = product.getImage();
-            JLabel paneledImage = new JLabel(new ImageIcon(image));
+            JLabel paneledImage = new JLabel();
+            paneledImage.setIcon(new ImageIcon(product.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
             JLabel productTitle = new JLabel(product.getTitle());
 
             JLabel productPrice = new JLabel(String.valueOf(product.getPrice()));
