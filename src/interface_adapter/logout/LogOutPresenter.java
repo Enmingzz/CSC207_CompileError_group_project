@@ -41,5 +41,7 @@ public class LogOutPresenter implements LogOutOutputBoundary {
         User user = commonUserFactory.createUser("", "", "", 0, "");
         state.setUser(user);
         mainPageViewModel.firePropertyChanged();
+        viewManagerModel.setActiveView(mainPageViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 }

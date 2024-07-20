@@ -82,7 +82,7 @@ public class DatabaseProductReadByNameDataAccessObject implements ProductReadByN
         resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
-            productsID = resultSet.getString("ProductsID");
+            productsID = resultSet.getString("ProductID");
             sellerID = resultSet.getString("SellerID");
             description = resultSet.getString("Description");
             title = resultSet.getString("Title");
@@ -94,14 +94,14 @@ public class DatabaseProductReadByNameDataAccessObject implements ProductReadByN
             listTags = new ArrayList<>(List.of(resultSet.getString("ListTags").substring(1, resultSet.getString("ListTags").length() - 1).split(",")));
             image = ImageIO.read(new ByteArrayInputStream(resultSet.getBytes("Image")));
 
-            if (!Objects.equals(resultSet.getString("ListSellerTimes").toLowerCase(), "null")) {
+            if (!Objects.equals(resultSet.getString("ListSellerTimes"), null)) {
                 rowTime = new ArrayList<>(List.of(resultSet.getString("ListSellerTimes").substring(1, resultSet.getString("ListTags").length() - 1).split(",")));
                 for (String time : rowTime) {
                     listSellerTimes.add(LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")));
                 }
             }
 
-            if (!Objects.equals(resultSet.getString("BuyerTime").toLowerCase(), "null")) {
+            if (!Objects.equals(resultSet.getString("BuyerTime"), null)) {
                 buyerTime = LocalDateTime.parse(resultSet.getString("BuyerTime"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
             }
 
