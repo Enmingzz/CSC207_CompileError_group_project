@@ -34,7 +34,7 @@ public class RateProductInteractor implements RateProductInputBoundary{
         }
 
         if(validRating) {
-            productUpdateStateDataAccessInterface.updateProductState(rateProductInputData.getProduct(), 1);
+            productUpdateStateDataAccessInterface.updateProductState(rateProductInputData.getProduct(), -1);
             productUpdateRatingDataAccessInterface.updateProductRating(rateProductInputData.getProduct(), intRating);
 
             RateProductOutputData rateProductOutputData = new RateProductOutputData(rateProductInputData.getUser(), rateProductInputData.getProduct());

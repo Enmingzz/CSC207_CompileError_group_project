@@ -4,9 +4,11 @@ import data_access.interfaces.product.ProductCreateDataAccessInterface;
 import entity.product.Product;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.sql.*;
 
 /**
@@ -58,12 +60,25 @@ public class DatabaseProductCreateDataAccessObject implements ProductCreateDataA
         preparedStatement.setString(6, product.getAddress());
         preparedStatement.setString(7, String.valueOf(product.getListTags()));
 
-        BufferedImage bufferedImage = (BufferedImage) product.getImage();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, "jpg", baos);
-        byte[] arrayImageByte = baos.toByteArray();
+//        BufferedImage bufferedImage = new BufferedImage(product.getImage().getWidth(null),
+//                product.getImage().getHeight(null), BufferedImage.TYPE_INT_ARGB);
+//
+//        Graphics2D bGr = bufferedImage.createGraphics();
+//        bGr.drawImage(product.getImage(), 0, 0, null);
+//        bGr.dispose();
 
-        preparedStatement.setBytes(8, arrayImageByte);
+        BufferedImage bufferedImage =  (BufferedImage) product.getImage();
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(bufferedImage, "png", baos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        byte[] imageBytes = baos.toByteArray();
+
+        preparedStatement.setBytes(8, imageBytes);
         preparedStatement.executeUpdate();
 
         preparedStatement.close();

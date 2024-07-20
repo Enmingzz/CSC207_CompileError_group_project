@@ -20,7 +20,7 @@ public class BuyerViewProductViewModel extends ViewModel {
     private BuyerViewProductState state = new BuyerViewProductState();
 
     public BuyerViewProductViewModel(){
-        super("modify_product view");
+        super("buyer_view_product view");
     }
 
     public  void setState(BuyerViewProductState state){

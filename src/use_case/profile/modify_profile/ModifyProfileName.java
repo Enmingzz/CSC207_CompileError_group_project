@@ -5,6 +5,7 @@ import data_access.interfaces.user.UserUpdateNameDataAccessInterface;
 import entity.user.User;
 
 import java.sql.SQLException;
+import java.util.Objects;
 
 /**
  * Class for modifying the user's name.

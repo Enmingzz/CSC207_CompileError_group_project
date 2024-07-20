@@ -51,11 +51,12 @@ public class DeleteShoppingCartProductInteractor implements DeleteShoppingCartPr
     public void deleteShoppingCartProduct(DeleteShoppingCartProductInputData deleteShoppingCartProductInputData) throws SQLException, IOException {
         User user = deleteShoppingCartProductInputData.getUser();
         Product deletedProduct = deleteShoppingCartProductInputData.getProduct();
-        ShoppingCart shoppingCart = shoppingCartReadDataAccessObject.getShoppingCart(user.getStudentNumber());
 
         shoppingCartUpdateDeleteDataAccessObject.updateShoppingCart(user, deletedProduct);
+
+        ShoppingCart shoppingCart = shoppingCartReadDataAccessObject.getShoppingCart(user.getStudentNumber());
         ArrayList<Product> listProducts = shoppingCart.getListProducts();
-        float totalPrice = shoppingCart.getTotalPrice() - deletedProduct.getPrice();
+        float totalPrice = shoppingCart.getTotalPrice();
 
         DeleteShoppingCartProductOutputData deleteShoppingCartProductOutputData = new DeleteShoppingCartProductOutputData(user, listProducts, totalPrice);
         deleteShoppingCartProductOutputBoundary.prepareSuccessView(deleteShoppingCartProductOutputData);

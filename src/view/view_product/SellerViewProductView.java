@@ -53,7 +53,7 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
     private JPanel topBar;
 
     private ProductInfoLabelTextPanel productInfo;
-    private JPanel qAInfo;
+    private JPanel qAInfo = new JPanel();
 
     /**
      * Constructor for the SellerViewProductView class.
@@ -104,29 +104,22 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
         //(1)product_info
         Product wtv_product = sellerViewProductViewModel.getState().getProduct();
 
-        final JLabel message = new JLabel("There is no product");
-        if (wtv_product == null){
-            ProductInfoLabelTextPanel productInfo = null;
+        final JLabel image = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getImage()));//image???
+        final JLabel description = (wtv_product == null)? new JLabel(): new JLabel(wtv_product.getDescription());
+        final JLabel price = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getPrice()));
+        final JLabel _title = (wtv_product == null)? new JLabel(): new JLabel(wtv_product.getTitle());
+        final JLabel rating = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getRating()));
+        final JLabel state = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getState()));
+        final JLabel address = (wtv_product == null)? new JLabel(): new JLabel(wtv_product.getAddress());
+        final JLabel lstTags = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getListTags()));//what will valueOf list look like???
+        final JLabel productID = (wtv_product == null)? new JLabel(): new JLabel(wtv_product.getProductID());
 
-        } else {
-            final JLabel image = new JLabel(String.valueOf(wtv_product.getImage()));//image???
-            final JLabel description = new JLabel(wtv_product.getDescription());
-            final JLabel price = new JLabel(String.valueOf(wtv_product.getPrice()));
-            final JLabel _title = new JLabel(wtv_product.getTitle());
-            final JLabel rating = new JLabel(String.valueOf(wtv_product.getRating()));
-            final JLabel state = new JLabel(String.valueOf(wtv_product.getState()));
-            final JLabel address = new JLabel(wtv_product.getAddress());
-            final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags()));//what will valueOf list look like???
-            final JLabel productID = new JLabel(wtv_product.getProductID());
-
-            ProductInfoLabelTextPanel productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
-                    lstTags, productID);
-        }
-
-
+        productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
+                lstTags, productID);
 
         //(2)show q_and_a
-        final JPanel qAInfo = new JPanel();
+        qAInfo.setLayout(new BoxLayout(qAInfo, BoxLayout.Y_AXIS));
+        qAInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
         final JLabel qA_title = new JLabel("Q&A:");
 
@@ -188,13 +181,13 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
         cancel.addActionListener(new CancelButtonListener());
 
         // needs adjustments x,y axis?????
-        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+//        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        this.setLayout(new BorderLayout());
 
         this.add(title);
-        this.add(Objects.requireNonNullElse(productInfo, message));
-        this.add(qAInfo);
-        this.add(cancel);
+        this.add(productInfo, BorderLayout.WEST);
+        this.add(new JScrollPane(qAInfo), BorderLayout.EAST);
+        this.add(cancel, BorderLayout.SOUTH);
 
     }
 
@@ -216,10 +209,15 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
         if (!Objects.equals(newState.getPromptStr(), "")){
             JOptionPane.showMessageDialog(this, newState.getPromptStr());
         }else if(newState.getIsChanged()){
+            sellerViewProductViewModel.setState(newState);
+
+            this.remove(productInfo);
+            qAInfo.removeAll();
 
             Product wtv_product = newState.getProduct();
 
-            final JLabel image = new JLabel(String.valueOf(wtv_product.getImage()));//image???
+            final JLabel image = new JLabel();//image???
+            image.setIcon(new ImageIcon(wtv_product.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
             final JLabel description = new JLabel(wtv_product.getDescription());
             final JLabel price = new JLabel(String.valueOf(wtv_product.getPrice()));
             final JLabel _title = new JLabel(wtv_product.getTitle());
@@ -231,10 +229,12 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
 
             productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
                     lstTags, productID);
-
-            qAInfo = new JPanel();
+            productInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
             final JLabel qA_title = new JLabel("Q&A:");
+            final JPanel singleQa = new JPanel();
+            singleQa.setLayout(new BoxLayout(singleQa, BoxLayout.X_AXIS));
+            singleQa.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
             ArrayList<Question> lst_question = newState.getQuestion();
 
@@ -252,9 +252,15 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
                 SellerQAInfoLabelTextPanel panel = new SellerQAInfoLabelTextPanel(q, a, replyButton);
                 qA_TextPanel.add(panel);
 
-                qAInfo.add(qA_title);
-                qAInfo.add(qA_TextPanel);
+                singleQa.add(qA_title);
+                singleQa.add(qA_TextPanel);
+
+                qAInfo.add(singleQa);
+                singleQa.removeAll();
             }
+            this.add(productInfo, BorderLayout.WEST);
+            qAInfo.repaint();
+            qAInfo.revalidate();
 
             topBar.removeAll();
             topBar.add(new TopBarSampleView(sellerViewProductViewModel.getState().getUser(),

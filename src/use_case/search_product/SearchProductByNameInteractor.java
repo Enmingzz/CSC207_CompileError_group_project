@@ -36,7 +36,7 @@ public class SearchProductByNameInteractor implements SearchProductByNameInputBo
     public void execute(SearchProductByNameInputData inputData) throws SQLException, IOException {
 
         User user = inputData.getUser();
-        String searchTerm = inputData.getProductName().toLowerCase(); // Convert search term to lower case for case-insensitive search
+        String searchTerm = inputData.getProductName(); // Search by name is case-sensitive search
 
         // Get exact match products
         ArrayList<Product> exactMatchProducts = productReadByNameDataAccessInterface.getProductByName(inputData.getProductName());

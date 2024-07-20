@@ -11,7 +11,7 @@ import java.sql.SQLException;
  * It implements the UserUpdateNameDataAccessInterface.
  */
 public class DatabaseUserUpdateNameDataAccessObject implements UserUpdateNameDataAccessInterface {
-    private final Connection connection;
+    private Connection connection;
     private PreparedStatement preparedStatement;
     private String query;
 
@@ -35,6 +35,9 @@ public class DatabaseUserUpdateNameDataAccessObject implements UserUpdateNameDat
      */
     @Override
     public void updateUserName(User user, String name) throws SQLException {
+        this.connection = DriverManager.getConnection("jdbc:sqlserver://207project.database.windows.net:1433;" +
+                "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
+                "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
         query = "UPDATE Users SET Name = ? WHERE UserID = ?";
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, name);

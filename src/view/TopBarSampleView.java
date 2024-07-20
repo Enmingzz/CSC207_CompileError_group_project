@@ -168,7 +168,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
             Image image = imageIcon.getImage();
             Image scaledImage = image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
             ImageIcon scaledIcon = new ImageIcon(scaledImage);
-            profile.setIcon(scaledIcon); // 设置缩放后的图标
+            profile.setIcon(scaledIcon);
             class ViewProfileListener implements ActionListener{
                 @Override
                 public void actionPerformed(ActionEvent evt){
