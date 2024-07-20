@@ -2,6 +2,7 @@ package use_case.signup;
 
 import data_access.in_memory.user.InMemoryUserCreateDataAccessObject;
 import data_access.in_memory.user.InMemoryUserDataReadAccessObject;
+import data_access.interfaces.shopping_cart.ShoppingCartCreateDataAccessInterface;
 import data_access.interfaces.user.UserCreateDataAccessInterface;
 import data_access.interfaces.user.UserReadDataAccessInterface;
 import entity.user.CommonUser;
@@ -25,6 +26,7 @@ class SignupInteractorTest {
     private SignupOutputData signupOutputData;
     private UserReadDataAccessInterface inMemoryUserDataReadAccessObject;
     private UserCreateDataAccessInterface inMemoryUserCreateDataAccessObject;
+    private ShoppingCartCreateDataAccessInterface inMemoryShoppingCartCreateDataAccessObject;
     private ArrayList<User> users;
     private UserFactory userFactory;
     private SignupOutputBoundary signupPresenter;
@@ -82,7 +84,7 @@ class SignupInteractorTest {
 
         inMemoryUserDataReadAccessObject = new InMemoryUserDataReadAccessObject(users, userFactory);
         signupInteractor = new SignupInteractor(inMemoryUserCreateDataAccessObject,
-         inMemoryUserDataReadAccessObject, signupPresenter, userFactory);
+         inMemoryUserDataReadAccessObject, signupPresenter, userFactory, inMemoryShoppingCartCreateDataAccessObject);
         signupInteractor.execute(signupInputData);
     }
 
@@ -106,7 +108,7 @@ class SignupInteractorTest {
 
         inMemoryUserDataReadAccessObject = new InMemoryUserDataReadAccessObject(users, userFactory);
         signupInteractor = new SignupInteractor(inMemoryUserCreateDataAccessObject,
-                inMemoryUserDataReadAccessObject, signupPresenter, userFactory);
+                inMemoryUserDataReadAccessObject, signupPresenter, userFactory, inMemoryShoppingCartCreateDataAccessObject);
         signupInteractor.execute(signupInputData);
     }
 
@@ -131,7 +133,7 @@ class SignupInteractorTest {
 
         inMemoryUserDataReadAccessObject = new InMemoryUserDataReadAccessObject(users, userFactory);
         signupInteractor = new SignupInteractor(inMemoryUserCreateDataAccessObject,
-                inMemoryUserDataReadAccessObject, signupPresenter, userFactory);
+                inMemoryUserDataReadAccessObject, signupPresenter, userFactory, inMemoryShoppingCartCreateDataAccessObject);
         signupInteractor.execute(signupInputData);
     }
 
@@ -156,7 +158,7 @@ class SignupInteractorTest {
 
         inMemoryUserDataReadAccessObject = new InMemoryUserDataReadAccessObject(users, userFactory);
         signupInteractor = new SignupInteractor(inMemoryUserCreateDataAccessObject,
-                inMemoryUserDataReadAccessObject, signupPresenter, userFactory);
+                inMemoryUserDataReadAccessObject, signupPresenter, userFactory, inMemoryShoppingCartCreateDataAccessObject);
         signupInteractor.execute(signupInputData);
 
     }
@@ -182,7 +184,7 @@ class SignupInteractorTest {
 
         inMemoryUserDataReadAccessObject = new InMemoryUserDataReadAccessObject(users, userFactory);
         signupInteractor = new SignupInteractor(inMemoryUserCreateDataAccessObject,
-                inMemoryUserDataReadAccessObject, signupPresenter, userFactory);
+                inMemoryUserDataReadAccessObject, signupPresenter, userFactory, inMemoryShoppingCartCreateDataAccessObject);
         signupInteractor.execute(signupInputData);
     }
 

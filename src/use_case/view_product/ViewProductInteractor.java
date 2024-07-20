@@ -31,6 +31,8 @@ public class ViewProductInteractor implements ViewProductInputBoundary{
 
         if (user.getStudentNumber().equals(product.getSellerStudentNumber())){
             user_type = "seller";
+        } else if (user.getStudentNumber().equals("")) {
+            user_type = "unlogged in";
         }
 
         ViewProductOutputData outputProductQues = new ViewProductOutputData(product, lst_ques, user_type, user);

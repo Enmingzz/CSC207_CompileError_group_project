@@ -69,7 +69,7 @@ public class DatabaseShoppingCartReadDataAccessObject implements ShoppingCartRea
         if (resultSet.next()){
             float totalPrice = resultSet.getFloat("TotalPrice");
             ArrayList<String> rowProducts = (resultSet.getString("ListProductsID") == null)?
-                    new ArrayList<String>(): new ArrayList<String>(List.of(resultSet.getString("ListProductsID").substring(1,
+                    new ArrayList<String>(): new ArrayList<>(List.of(resultSet.getString("ListProductsID").substring(1,
                     resultSet.getString("ListProductsID").length() - 1).split(",")));
 
             for (String item : rowProducts) {
