@@ -57,14 +57,16 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
 
     private JComboBox<String> dateComboBox;
     private JComboBox<String> hourComboBox;
+    private JPanel dateTimePanel;
     private DefaultListModel<String> timesListModel;
     private JList<String> timesList;
     private final JButton addButton;
     private final JButton removeButton;
     private final JButton submitButton;
     private final JButton cancelButton;
-    private DefaultListModel<LocalDateTime> listModel;
-    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy, HH:mm");
+//    private DefaultListModel<LocalDateTime> listModel;
+    private final DateTimeFormatter isoDateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy, HH:mm");
     private JPanel topBar;
 
 
@@ -120,7 +122,7 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
         dateComboBox = new JComboBox<>(getDates());
         hourComboBox = new JComboBox<>(getHours());
 
-        JPanel dateTimePanel = new JPanel();
+        dateTimePanel = new JPanel();
         dateTimePanel.setLayout(new FlowLayout());
         dateTimePanel.add(new JLabel("Date:"));
         dateTimePanel.add(dateComboBox);
@@ -200,8 +202,12 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
                     Product product = viewModel.getState().getProduct();
                     ArrayList<LocalDateTime> times = new ArrayList<>();
                     for (int i = 0; i < timesListModel.size(); i++) {
-                        times.add(LocalDateTime.parse(timesListModel.getElementAt(i), dateTimeFormatter));
-                    }
+                        String dateTimeStr = timesListModel.getElementAt(i);
+                        // e.g., "July 19, 2024, 08:00"
+                        // Parse it back to LocalDateTime using dateTimeFormatter
+                        LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, dateTimeFormatter);
+                        // Add the formatted LocalDateTime to the times list
+                        times.add(LocalDateTime.parse(dateTime.format(isoDateTimeFormatter)));                    }
                     try {
                         controller.execute(seller, product, times);
                     } catch (SQLException | IOException e) {
@@ -274,8 +280,17 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
         if (state.getError() != null) {
             JOptionPane.showMessageDialog(this, state.getError());
         }
+
+        dateTimePanel.removeAll();
         dateComboBox = new JComboBox<>(getDates());
         hourComboBox = new JComboBox<>(getHours());
+        dateTimePanel.setLayout(new FlowLayout());
+        dateTimePanel.add(new JLabel("Date:"));
+        dateTimePanel.add(dateComboBox);
+        dateTimePanel.add(new JLabel("Hour:"));
+        dateTimePanel.add(hourComboBox);
+        dateTimePanel.repaint();
+        dateTimePanel.revalidate();
 
         topBar.removeAll();
         topBar.add(new TopBarSampleView(viewModel.getState().getSeller(),
