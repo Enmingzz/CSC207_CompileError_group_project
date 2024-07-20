@@ -41,6 +41,7 @@ public class ModifyProfilePassword implements ModifyProfilePasswordInterface {
             return false;
         } else {
             userUpdatePasswordDataAccessInterface.updateUserPassword(user, user.getPassword());
+            System.out.println("password to save" + user.getPassword());
             return true;
         }
     }

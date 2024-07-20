@@ -154,6 +154,9 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        String oldPassword = viewModel.getState().getUser().getPassword();
+
+
         ViewProfileState state = (ViewProfileState) evt.getNewValue();
         viewModel.setState(state);
 
@@ -162,7 +165,12 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         studentPasswordViewField.setText(viewModel.getState().getUser().getPassword());
         studentEmailViewField.setText(viewModel.getState().getUser().getEmail());
         studentRatingViewField.setText(String.valueOf(viewModel.getState().getUser().getUserRating()));
-        messageField.setText(viewModel.getState().getMessage());
+//        messageField.setText(viewModel.getState().getMessage());
+
+
+//        if(!Objects.equals(state.getMessage(), "")){
+//            JOptionPane.showMessageDialog(this, state.getMessage());
+//        }
 
         topBar.removeAll();
         topBar.add(new TopBarSampleView(viewModel.getState().getUser(),

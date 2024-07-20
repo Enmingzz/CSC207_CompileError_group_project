@@ -1,5 +1,6 @@
 package interface_adapter.profile.modify_profile;
 
+import entity.user.CommonUserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.profile.view_profile.ViewProfileState;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
@@ -21,10 +22,16 @@ public class ModifyProfilePresenter implements ModifyProfileOutputBoundary {
     }
 
     public void prepareSuccessfulView(ModifyProfileOutputData response){
-        ViewProfileState state = new ViewProfileState(modifyProfileViewModel.getState().getUser());
-        state.setMessage(response.getMessage());
+        ViewProfileState viewProfileState = new ViewProfileState(modifyProfileViewModel.getState().getUser());
+        ModifyProfileState modifyProfileState = new ModifyProfileState(new CommonUserFactory());
 
-        viewProfileViewModel.setState(state);
+//        viewProfileState.setMessage(response.getMessage());
+        modifyProfileState.setMessage(response.getMessage());
+
+        modifyProfileViewModel.setState(modifyProfileState);
+        viewProfileViewModel.setState(viewProfileState);
+
+        modifyProfileViewModel.firePropertyChanged();
         viewProfileViewModel.firePropertyChanged();
 
         viewManagerModel.setActiveView(viewProfileViewModel.getViewName());

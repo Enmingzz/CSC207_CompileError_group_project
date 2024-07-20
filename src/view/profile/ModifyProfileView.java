@@ -26,6 +26,7 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class ModifyProfileView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -120,7 +121,7 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
             try {
                 ModifyProfileState currentState = modifyProfileViewModel.getState();
                 User currentUser = currentState.getUser();
-                User newUser = userFactory.createUser(usernameInputField.getText(), Arrays.toString(passwordInputField.getPassword()),
+                User newUser = userFactory.createUser(usernameInputField.getText(), String.valueOf(passwordInputField.getPassword()),
                         currentUser.getEmail(), currentUser.getUserRating(), currentUser.getStudentNumber());
 
                 currentState.setUser(newUser);
@@ -141,6 +142,11 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
         System.out.println("view profile property change");
         ModifyProfileState state = (ModifyProfileState) evt.getNewValue();
         modifyProfileViewModel.setState(state);
+
+        if(!Objects.equals(state.getModified(), true)){
+            JOptionPane.showMessageDialog(this, state.getMessage());
+
+        }
 
         topBar.removeAll();
         topBar.add(new TopBarSampleView(modifyProfileViewModel.getState().getUser(),
