@@ -132,6 +132,11 @@ class AddShoppingCartProductInteractorTest {
                 assertEquals(actualListProducts.get(0).getImage(), product.getImage());
                 assertEquals(actualTotalPrice, initialShoppingCarts.get(0).getTotalPrice());
             }
+
+            @Override
+            public void prepareFailedView(String errorMessage) {
+
+            }
         };
 
         ShoppingCartReadDataAccessInterface shoppingCartReadDataAccessObject =
