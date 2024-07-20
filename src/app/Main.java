@@ -271,8 +271,10 @@ public class Main {
 //        views.add(searchByNamePanel.viewName, searchByNamePanel);
 //        views.add(searchByTagPanel.viewName, searchByTagPanel);
 
+        mainPageViewModel.initFirePropertyChanged();
         viewManagerModel.setActiveView(mainPageView.viewName);
         viewManagerModel.firePropertyChanged();
+
 
         application.pack();
         application.setVisible(true);

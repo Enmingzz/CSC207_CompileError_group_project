@@ -54,9 +54,24 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
     private final JButton cancel;
     private final JButton addToCart;
 
-    private ProductInfoLabelTextPanel productInfo;
-    private JPanel qAInfo;
+    private JPanel productInfo = new JPanel();
+    private JPanel qAInfo = new JPanel();
     private JPanel topBar;
+    private final JPanel titlePanel = new JPanel();
+    private JPanel qA_TextPanel = new JPanel();
+    BuyerQAInfoLabelTextPanel singleQa;
+
+    private ProductInfoLabelTextPanel imageInfo;
+    private ProductInfoLabelTextPanel descriptionInfo;
+    private ProductInfoLabelTextPanel priceInfo;
+    private ProductInfoLabelTextPanel _titleInfo;
+    private ProductInfoLabelTextPanel ratingInfo;
+    private ProductInfoLabelTextPanel stateInfo;
+    private ProductInfoLabelTextPanel addressInfo;
+    private ProductInfoLabelTextPanel lstTagsInfo;
+    private ProductInfoLabelTextPanel productIDInfo;
+
+
 
     /**
      * Constructs a NonloggedInProductView with specific controllers and view model to manage the view's state and interactions.
@@ -105,31 +120,57 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
         //(1)product_info
         final JLabel message = new JLabel("There is no product");
         Product wtv_product = nonLoggedInViewModel.getState().getProduct();
-        if (wtv_product == null){
-            productInfo = null;
-        } else {
-            final JLabel image = new JLabel(String.valueOf(wtv_product.getImage()));//image???
-            final JLabel description = new JLabel(wtv_product.getDescription());
-            final JLabel price = new JLabel(String.valueOf(wtv_product.getPrice()));
-            final JLabel _title = new JLabel(wtv_product.getTitle());
-            final JLabel rating = new JLabel(String.valueOf(wtv_product.getRating()));
-            final JLabel state = new JLabel(String.valueOf(wtv_product.getState()));
-            final JLabel address = new JLabel(wtv_product.getAddress());
-            final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags()));//what will valueOf list look like???
-            final JLabel productID = new JLabel(wtv_product.getProductID());
+//        if (wtv_product == null){
+//            productInfo = null;
+//        } else {
+        final JLabel image = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getImage()));//image???
+        final JLabel description = (wtv_product == null)? new JLabel(): new JLabel(wtv_product.getDescription());
+        final JLabel price = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getPrice()));
+        final JLabel _title = (wtv_product == null)? new JLabel(): new JLabel(wtv_product.getTitle());
+        final JLabel rating = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getRating()));
+        final JLabel state = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getState()));
+        final JLabel address = (wtv_product == null)? new JLabel(): new JLabel(wtv_product.getAddress());
+        final JLabel lstTags = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getListTags()));//what will valueOf list look like???
+        final JLabel productID = (wtv_product == null)? new JLabel(): new JLabel(wtv_product.getProductID());
 
-            productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
-                    lstTags, productID);
-        }
+//            productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
+//                    lstTags, productID);
+        imageInfo = new ProductInfoLabelTextPanel(new JLabel(nonLoggedInViewModel.IMAGE_LABEL), image);
+        descriptionInfo = new ProductInfoLabelTextPanel(new JLabel(nonLoggedInViewModel.DESCRIPTION_LABEL), description);
+        priceInfo = new ProductInfoLabelTextPanel(new JLabel(nonLoggedInViewModel.PRICE_LABEL), price);
+        _titleInfo = new ProductInfoLabelTextPanel(new JLabel(nonLoggedInViewModel.PRODUCTTITLE_LABEL), _title);
+        ratingInfo = new ProductInfoLabelTextPanel(new JLabel(nonLoggedInViewModel.RATING_LABEL), rating);
+        stateInfo = new ProductInfoLabelTextPanel(new JLabel(nonLoggedInViewModel.STATE_LABEL), state);
+        addressInfo = new ProductInfoLabelTextPanel(new JLabel(nonLoggedInViewModel.ADDRESS_LABEL), address);
+        lstTagsInfo = new ProductInfoLabelTextPanel(new JLabel(nonLoggedInViewModel.LISTTAGS_LABEL), lstTags);
+        productIDInfo = new ProductInfoLabelTextPanel(new JLabel(nonLoggedInViewModel.PRODUCTID_LABEL), productID);
+
+        titlePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        productInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        productInfo.setLayout(new BoxLayout(productInfo, BoxLayout.Y_AXIS));
+
+        titlePanel.add(title);
+        productInfo.add(titlePanel);
+        productInfo.add(_titleInfo);
+        productInfo.add(productIDInfo);
+        productInfo.add(descriptionInfo);
+        productInfo.add(priceInfo);
+        productInfo.add(ratingInfo);
+        productInfo.add(stateInfo);
+        productInfo.add(addressInfo);
+        productInfo.add(lstTagsInfo);
+        productInfo.add(imageInfo);
+//        }
 
 
         //(2)show q_and_a
-        final JPanel qAInfo = new JPanel();
+        qAInfo.setLayout(new BoxLayout(qAInfo, BoxLayout.Y_AXIS));
+        qAInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
         final JLabel qA_title = new JLabel("Q&A:");
 
         ArrayList<Question> lst_question = nonLoggedInViewModel.getState().getQuestion();
-        final JPanel qA_TextPanel = new JPanel();
+
         for (Question question : lst_question) {
 
             String answer_content = question.getAnswer().getDescription();
@@ -138,12 +179,14 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
             JLabel q = new JLabel(question_content);
             JLabel a = new JLabel(answer_content);
 
-            BuyerQAInfoLabelTextPanel panel = new BuyerQAInfoLabelTextPanel(q, a);
-            qA_TextPanel.add(panel);
+//            BuyerQAInfoLabelTextPanel panel = new BuyerQAInfoLabelTextPanel(q, a);
+//            qA_TextPanel.add(panel);
+            singleQa = new BuyerQAInfoLabelTextPanel(q, a);
+            qA_TextPanel.add(singleQa);
         }
 
         qAInfo.add(qA_title);
-        qAInfo.add(qA_TextPanel);
+        qAInfo.add(new JScrollPane(qA_TextPanel));
 
 
         //(3)buttons
@@ -187,20 +230,28 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
 
         addToCart.addActionListener(new AddTtoCartButtonListener());
         cancel.addActionListener(new CancelButtonListener());
-
-        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        this.add(title);
-        this.add(Objects.requireNonNullElse(productInfo, message));
-        this.add(qAInfo);
-        this.add(buttons);
-
+//
+//        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+//        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+//
+//        this.add(title);
+//        this.add(Objects.requireNonNullElse(productInfo, message));
+//        this.add(qAInfo);
+//        this.add(buttons);
+        this.setLayout(new BorderLayout(1, 1));
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new GridLayout());
+        centerPanel.add(productInfo);
+        centerPanel.add(qAInfo);
+        this.add(topBar, BorderLayout.NORTH);
+        this.add(centerPanel, BorderLayout.CENTER);
+        this.add(cancel, BorderLayout.SOUTH);
+        this.add(new JPanel(), BorderLayout.EAST);
+        this.add(new JPanel(), BorderLayout.WEST);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
     }
 
     /**
@@ -223,16 +274,30 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
             JLabel address = new JLabel(String.valueOf(newState.getProduct().getAddress()));
             JLabel lstTags = new JLabel(String.valueOf(newState.getProduct().getListTags()));
             JLabel proId = new JLabel(String.valueOf(newState.getProduct().getProductID()));
-            this.productInfo = new ProductInfoLabelTextPanel(title, image, des, price, rating, pro_state, address,lstTags, proId);
+//            this.productInfo = new ProductInfoLabelTextPanel(title, image, des, price, rating, pro_state, address,lstTags, proId);
+
+            nonLoggedInViewModel.setState(newState);
+
+            qA_TextPanel.removeAll();
+
+            _titleInfo.setText(title);
+            imageInfo.setText(image);
+            descriptionInfo.setText(des);
+            ratingInfo.setText(rating);
+            priceInfo.setText(price);
+            stateInfo.setText(pro_state);
+            addressInfo.setText(address);
+            lstTagsInfo.setText(lstTags);
+            productIDInfo.setText(proId);
 
             //(2)show q_and_a
-            qAInfo = new JPanel();
+//            qAInfo = new JPanel();
 
-            final JLabel qA_title = new JLabel("Q&A:");
+//            final JLabel qA_title = new JLabel("Q&A:");
 
             ArrayList<Question> lst_question = newState.getQuestion();
 
-            final JPanel qA_TextPanel = new JPanel();
+//            final JPanel qA_TextPanel = new JPanel();
             for (Question question : lst_question) {
 
                 String answer_content = question.getAnswer().getDescription();
@@ -241,12 +306,23 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
                 JLabel q = new JLabel(question_content);
                 JLabel a = new JLabel(answer_content);
 
-                BuyerQAInfoLabelTextPanel panel = new BuyerQAInfoLabelTextPanel(q, a);
-                qA_TextPanel.add(panel);
+//                BuyerQAInfoLabelTextPanel panel = new BuyerQAInfoLabelTextPanel(q, a);
+                singleQa = new BuyerQAInfoLabelTextPanel(q, a);
+                qA_TextPanel.add(singleQa);
             }
 
-            qAInfo.add(qA_title);
-            qAInfo.add(qA_TextPanel);
+            qA_TextPanel.repaint();
+            qA_TextPanel.revalidate();
+            productInfo.repaint();
+            productInfo.revalidate();
+
+            topBar.removeAll();
+            topBar.add(new TopBarSampleView(nonLoggedInViewModel.getState().getUser(),
+                    getSearchPageController, viewSignupPageController, viewLoginPageController,
+                    shoppingCartController, logOutController, viewProfileController,
+                    mainPageController));
+            topBar.repaint();
+            topBar.revalidate();
 
             newState.setIsChanged(false);
         }

@@ -121,7 +121,6 @@ public class ManageProductView extends JPanel implements ActionListener, Propert
         addProduct.addActionListener(this);
 
         this.add(buttons, BorderLayout.EAST);
-
     }
 
     /**

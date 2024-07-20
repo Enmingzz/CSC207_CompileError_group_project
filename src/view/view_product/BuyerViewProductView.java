@@ -13,10 +13,7 @@ import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.ViewSignupPageController;
-import interface_adapter.view_product.AddToCartController;
-import interface_adapter.view_product.BuyerViewProductState;
-import interface_adapter.view_product.BuyerViewProductViewModel;
-import interface_adapter.view_product.PublishQuestionController;
+import interface_adapter.view_product.*;
 import view.TopBarSampleView;
 
 import javax.swing.*;
@@ -65,9 +62,12 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
     private final JButton addToCart;
     private final JButton publishQuestion;
 
-    ProductInfoLabelTextPanel productInfo;
+    JPanel productInfo;
     JPanel qAInfo;
     private JPanel topBar;
+    private JPanel qA_TextPanel = new JPanel();
+    final JPanel singleQa = new JPanel();
+    private final JPanel titlePanel = new JPanel();
 
     /**
      * Constructs a BuyerViewProductView with specific controllers and view model.
@@ -115,6 +115,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         this.buyerViewProductViewModel.addPropertyChangeListener(this);
 
 
+        productInfo = new JPanel();
         JLabel title = new JLabel(buyerViewProductViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -122,24 +123,8 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
 
         //(1)product_info
         Product wtv_product = buyerViewProductViewModel.getState().getProduct();
-
-
-        if (wtv_product == null){
-            productInfo = null;
-        } else {
-            final JLabel image = new JLabel(String.valueOf(wtv_product.getImage()));//image???
-            final JLabel description = new JLabel(wtv_product.getDescription());
-            final JLabel price = new JLabel(String.valueOf(wtv_product.getPrice()));
-            final JLabel _title = new JLabel(wtv_product.getTitle());
-            final JLabel rating = new JLabel(String.valueOf(wtv_product.getRating()));
-            final JLabel state = new JLabel(String.valueOf(wtv_product.getState()));
-            final JLabel address = new JLabel(wtv_product.getAddress());
-            final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags())); //what will valueOf list look like???
-            final JLabel productID = new JLabel(wtv_product.getProductID());
-
-            productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
-                    lstTags, productID);
-        }
+        productInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        productInfo.setLayout(new BoxLayout(productInfo, BoxLayout.Y_AXIS));
 
         final JLabel message = new JLabel("There is no product!");
 
@@ -293,50 +278,72 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
 
     @Override
     public void propertyChange(PropertyChangeEvent evt){
-        BuyerViewProductState newState = (BuyerViewProductState) evt.getNewValue();
 
+        BuyerViewProductState newState = (BuyerViewProductState) evt.getNewValue();
+        System.out.println("buyer view product PropertyChangeEvent" + newState.getUser().getName());
         if (!Objects.equals(newState.getPrompt_words(), "")){
             JOptionPane.showMessageDialog(this, newState.getPrompt_words());
-        }else if(newState.getIsChanged()){
-            Product wtv_product = newState.getProduct();
-            JLabel image = new JLabel(String.valueOf(wtv_product.getImage()));//image???
-            final JLabel description = new JLabel(wtv_product.getDescription());
-            final JLabel price = new JLabel(String.valueOf(wtv_product.getPrice()));
-            final JLabel _title = new JLabel(wtv_product.getTitle());
-            final JLabel rating = new JLabel(String.valueOf(wtv_product.getRating()));
-            final JLabel state = new JLabel(String.valueOf(wtv_product.getState()));
-            final JLabel address = new JLabel(wtv_product.getAddress());
-            final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags())); //what will valueOf list look like???
-            final JLabel productID = new JLabel(wtv_product.getProductID());
-
-            productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
-                    lstTags, productID);
-
-            qAInfo = new JPanel();
-
-            final JLabel qA_title = new JLabel("Q&A:");
-
-            ArrayList<Question> lst_question = newState.getQuestion();
-            final JPanel qA_TextPanel = new JPanel();
-            for (Question question : lst_question) {
-
-                String answer_content = question.getAnswer().getDescription();
-                String question_content = question.getDescription();
-
-                JLabel q = new JLabel(question_content);
-                JLabel a = new JLabel(answer_content);
-
-                BuyerQAInfoLabelTextPanel panel = new BuyerQAInfoLabelTextPanel(q, a);
-                qA_TextPanel.add(panel);
-            }
-
-            qAInfo.add(qA_title);
-            qAInfo.add(qA_TextPanel);
-
-            topBar = new TopBarSampleView(newState.getUser(),
-                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-
-            newState.setIsChanged(false);
         }
+
+        productInfo.removeAll();
+        qAInfo.removeAll();
+        productInfo.add(titlePanel);
+
+        Product wtv_product = newState.getProduct();
+
+        final JLabel image = new JLabel();//image???
+        image.setIcon(new ImageIcon(wtv_product.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        final JLabel description = new JLabel(wtv_product.getDescription());
+        final JLabel price = new JLabel(String.valueOf(wtv_product.getPrice()));
+        final JLabel _title = new JLabel(wtv_product.getTitle());
+        final JLabel rating = new JLabel(String.valueOf(wtv_product.getRating()));
+        final JLabel state = new JLabel(String.valueOf(wtv_product.getState()));
+        final JLabel address = new JLabel(wtv_product.getAddress());
+        final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags()));//what will valueOf list look like???
+        final JLabel productID = new JLabel(wtv_product.getProductID());
+
+//            productInfo.setLayout(new BoxLayout(productInfo, BoxLayout.Y_AXIS));
+////            productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
+////                    lstTags, productID);
+        productInfo.add(_title);
+        productInfo.add(productID);
+        productInfo.add(description);
+        productInfo.add(price);
+        productInfo.add(rating);
+        productInfo.add(state);
+        productInfo.add(address);
+        productInfo.add(lstTags);
+        productInfo.add(image);
+
+        ArrayList<Question> lst_question = newState.getQuestion();
+
+
+        for (Question question : lst_question) {
+
+            String answer_content = question.getAnswer().getDescription();
+            String question_content = question.getDescription();
+
+            JLabel q = new JLabel(question_content);
+            JLabel a = new JLabel(answer_content);
+            singleQa.add(q);
+            singleQa.add(a);
+
+            qA_TextPanel.add(singleQa);
+            singleQa.removeAll();
+        }
+        qAInfo.add(qA_TextPanel);
+        qAInfo.repaint();
+        qAInfo.revalidate();
+        productInfo.repaint();
+        productInfo.revalidate();
+
+        topBar.removeAll();
+        topBar.add(new TopBarSampleView(buyerViewProductViewModel.getState().getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController,
+                mainPageController));
+        topBar.repaint();
+        topBar.revalidate();
+        newState.setIsChanged(false);
     }
 }

@@ -149,6 +149,11 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
 
         modifyProfileViewModel.setState(state);
 
+        if(!Objects.equals(state.getModified(), true)){
+            JOptionPane.showMessageDialog(this, state.getMessage());
+
+        }
+
         passwordInputField.setText("");
         usernameInputField.setText("");
 

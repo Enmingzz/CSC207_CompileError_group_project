@@ -9,6 +9,7 @@ import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Interactor implementation for adding a product to the shopping cart.
@@ -51,13 +52,25 @@ public class AddShoppingCartProductInteractor implements AddShoppingCartProductI
         User user = addShoppingCartProductInputData.getUser();
         Product addProduct = addShoppingCartProductInputData.getProduct();
         ShoppingCart shoppingCart = shoppingCartReadDataAccessObject.getShoppingCart(user.getStudentNumber());
+        ArrayList<Product> initialListProducts = shoppingCart.getListProducts();
+        boolean isFailed = false;
+        for (Product product : initialListProducts) {
+            if (Objects.equals(product.getProductID(), addProduct.getProductID())) {
+                isFailed = true;
+                addShoppingCartProductPresenter.prepareFailedView("Product already in Shopping Cart");
+            }
+        }
 
-        shoppingCartUpdateAddDataAccessObject.updateShoppingCart(user, addProduct);
-        float totalPrice = shoppingCart.getTotalPrice() + addProduct.getPrice();
-        ShoppingCart newShoppingCart = shoppingCartReadDataAccessObject.getShoppingCart(user.getStudentNumber());
-        ArrayList<Product> listProducts = newShoppingCart.getListProducts();
-        AddShoppingCartProductOutputData addShoppingCartProductOutputData = new AddShoppingCartProductOutputData(user, listProducts, totalPrice);
-        addShoppingCartProductPresenter.prepareSuccessView(addShoppingCartProductOutputData);
+        if (!isFailed) {
+            shoppingCartUpdateAddDataAccessObject.updateShoppingCart(user, addProduct);
+
+            float totalPrice = shoppingCart.getTotalPrice() + addProduct.getPrice();
+            ShoppingCart newShoppingCart = shoppingCartReadDataAccessObject.getShoppingCart(user.getStudentNumber());
+            ArrayList<Product> listProducts = newShoppingCart.getListProducts();
+            AddShoppingCartProductOutputData addShoppingCartProductOutputData = new AddShoppingCartProductOutputData(user, listProducts, totalPrice, "");
+            addShoppingCartProductPresenter.prepareSuccessView(addShoppingCartProductOutputData);
+
+        }
 
     }
 

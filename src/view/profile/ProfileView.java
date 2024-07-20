@@ -180,6 +180,5 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
                 mainPageController));
         topBar.repaint();
         topBar.revalidate();
-
     }
 }
