@@ -47,5 +47,6 @@ public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary{
         ShoppingCartState shoppingCartState = shoppingCartViewModel.getState();
         shoppingCartState.setErrorMessage(errorMessage);
         shoppingCartViewModel.firePropertyChanged();
+        shoppingCartState.setErrorMessage("");
     }
 }
