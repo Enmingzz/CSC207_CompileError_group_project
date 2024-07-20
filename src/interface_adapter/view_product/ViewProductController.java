@@ -15,7 +15,7 @@ public class ViewProductController {
     }
 
     public void execute(Product product, User user) throws SQLException {
-        System.out.println("View product controller is called");
+        System.out.println("view product controller being called");
         ViewProductInputData viewProductInputData = new ViewProductInputData(product, user);
         viewProductInteractor.execute(viewProductInputData);
     }
