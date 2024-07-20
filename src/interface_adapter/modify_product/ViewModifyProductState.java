@@ -10,8 +10,8 @@ import java.beans.PropertyChangeSupport;
 public class ViewModifyProductState {
     private User user;
     private Product product;
-    private String description;
-    private String price;
+    private String description = "";
+    private String price = "";
 
     public ViewModifyProductState(User user, Product product, String description, String price) {
         this.user = user;

@@ -89,7 +89,6 @@ class ChangeProductDescriptionInteractorTest {
                 new InMemoryProductReadByIdDataAccessObject(productsList);
         changeProductDescription.execute(product, changedDescription);
         //boolean result = changeProductDescription.execute(product, changedDescription);
-
         assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(product.getProductID()).getDescription(), product.getDescription());
         //assertFalse(result);
     }
