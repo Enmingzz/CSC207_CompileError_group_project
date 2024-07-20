@@ -37,4 +37,7 @@ public class MainPageViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
 
+    public void initFirePropertyChanged() {
+        support.firePropertyChange("init", null, this.state);
+    }
 }

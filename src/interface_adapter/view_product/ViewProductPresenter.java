@@ -42,6 +42,7 @@ public class ViewProductPresenter implements ViewProductOutputBoundary {
             viewManagerModel.firePropertyChanged();
         }
         else if (viewProductOutputData.getUser_type().equals("buyer")) {
+            System.out.println(viewProductOutputData.getUser());
             buyerViewProductState.setProduct(viewProductOutputData.getProduct());
             buyerViewProductState.setLst_question(viewProductOutputData.getList_of_question());
             buyerViewProductState.setUser(viewProductOutputData.getUser());
