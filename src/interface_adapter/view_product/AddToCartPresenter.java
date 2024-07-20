@@ -1,5 +1,6 @@
 package interface_adapter.view_product;
 
+import entity.product.Product;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.shopping_cart.ShoppingCartState;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
@@ -26,6 +27,7 @@ public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary{
         shoppingCartState.setListProducts(response.getListProducts());
         shoppingCartState.setTotalPrice(response.getTotalPrice());
         shoppingCartState.setErrorMessage(response.getErrorMessage());
+        System.out.println(response.getTotalPrice());
 
         //change the state in buyerViewProduct because View needs user's info
         BuyerViewProductState buyerViewProductState = buyerViewProductViewModel.getState();
@@ -45,6 +47,7 @@ public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary{
     @Override
     public void prepareFailedView(String errorMessage) {
         ShoppingCartState shoppingCartState = shoppingCartViewModel.getState();
+
         shoppingCartState.setErrorMessage(errorMessage);
         shoppingCartViewModel.firePropertyChanged();
         shoppingCartState.setErrorMessage("");

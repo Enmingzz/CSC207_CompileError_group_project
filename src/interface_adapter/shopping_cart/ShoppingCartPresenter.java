@@ -24,6 +24,16 @@ public class ShoppingCartPresenter implements ShowShoppingCartOutputBoundary {
         ArrayList<Product> listProducts = response.getShoppingCart().getListProducts();
         User user = response.getUser();
 
+        float totalPrice = 0;
+
+        for (Product product : listProducts) {
+            totalPrice += product.getPrice();
+        }
+
+        shoppingCartState.setTotalPrice(totalPrice);
+
+        System.out.println(shoppingCartState.getTotalPrice());
+
         shoppingCartState.setListProducts(listProducts);
         shoppingCartState.setUser(user);
 
