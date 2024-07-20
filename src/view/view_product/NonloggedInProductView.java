@@ -60,6 +60,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
     private final JPanel titlePanel = new JPanel();
     private JPanel qA_TextPanel = new JPanel();
     BuyerQAInfoLabelTextPanel singleQa;
+    private final JLabel image = new JLabel();
 
     private ProductInfoLabelTextPanel imageInfo;
     private ProductInfoLabelTextPanel descriptionInfo;
@@ -118,12 +119,12 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //(1)product_info
-        final JLabel message = new JLabel("There is no product");
+//        final JLabel message = new JLabel("There is no product");
         Product wtv_product = nonLoggedInViewModel.getState().getProduct();
 //        if (wtv_product == null){
 //            productInfo = null;
 //        } else {
-        final JLabel image = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getImage()));//image???
+//        final JLabel image = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getImage()));//image???
         final JLabel description = (wtv_product == null)? new JLabel(): new JLabel(wtv_product.getDescription());
         final JLabel price = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getPrice()));
         final JLabel _title = (wtv_product == null)? new JLabel(): new JLabel(wtv_product.getTitle());
@@ -266,7 +267,8 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
         UnloggedInState newState = (UnloggedInState) evt.getNewValue();
         if(newState.getIsChanged()){
             JLabel title= new JLabel(String.valueOf(newState.getProduct().getTitle()));
-            JLabel image = new JLabel(String.valueOf(newState.getProduct().getImage()));
+//            JLabel image = new JLabel(String.valueOf(newState.getProduct().getImage()));
+            image.setIcon(new ImageIcon(newState.getProduct().getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
             JLabel des = new JLabel(String.valueOf(newState.getProduct().getDescription()));
             JLabel price = new JLabel(String.valueOf(newState.getProduct().getPrice()));
             JLabel rating = new JLabel(String.valueOf(newState.getProduct().getRating()));
