@@ -117,6 +117,11 @@ class AddShoppingCartProductInteractorTest {
                 assertEquals(actualTotalPrice, 1);
                 assertEquals(actualListProducts.get(0), product);
             }
+
+            @Override
+            public void prepareFailedView(String errorMessage) {
+
+            }
         };
 
         ShoppingCartReadDataAccessInterface shoppingCartReadDataAccessObject =
