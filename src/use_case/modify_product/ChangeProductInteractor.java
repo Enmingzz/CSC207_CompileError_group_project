@@ -26,31 +26,35 @@ public class ChangeProductInteractor implements ChangeProductInputBoundary{
     }
 
     public void execute(ChangeProductInputData changeProductInputData) throws SQLException, IOException {
+        Product changedProduct = changeProductInputData.getProduct();
+        changeProductDescriptionInterface.execute(changedProduct, changeProductInputData.getChangedDescription());
+        changeProductPriceInterface.execute(changedProduct, changeProductInputData.getChangedPrice());
 
-        boolean descriptionFlag = changeProductDescriptionInterface.execute(changeProductInputData.getProduct(), changeProductInputData.getChangedDescription());
-        boolean priceFlag = changeProductPriceInterface.execute(changeProductInputData.getProduct(), changeProductInputData.getChangedPrice());
+        boolean descriptionFlag = changeProductDescriptionInterface.execute(changedProduct, changeProductInputData.getChangedDescription());
+        boolean priceFlag = changeProductPriceInterface.execute(changedProduct, changeProductInputData.getChangedPrice());
 
         if (descriptionFlag & priceFlag) {
             //If the new description and price they inputted are both valid
-            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changeProductInputData.getProduct(),
+
+            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changedProduct,
                     "Successfully modified product", changeProductInputData.getUser());
             changeProductOutputBoundary.prepareSuccessfulView(changeProductOutputData);
         }
         else if(descriptionFlag) {
             //If only the description was successfully modified
-            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changeProductInputData.getProduct(),
+            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changedProduct,
                     "Only the price failed to update", changeProductInputData.getUser());
             changeProductOutputBoundary.prepareSuccessfulView(changeProductOutputData);
         }
         else if(priceFlag) {
             //If only the description was successfully modified
-            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changeProductInputData.getProduct(),
+            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changedProduct,
                     "Only the description failed to update", changeProductInputData.getUser());
             changeProductOutputBoundary.prepareSuccessfulView(changeProductOutputData);
         }
         else {
             //If both of the description and price failed to upload, then don't make the update.
-            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changeProductInputData.getProduct(),
+            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changedProduct,
                     "Both the description and price failed to update", changeProductInputData.getUser());
             changeProductOutputBoundary.prepareSuccessfulView(changeProductOutputData);
         }

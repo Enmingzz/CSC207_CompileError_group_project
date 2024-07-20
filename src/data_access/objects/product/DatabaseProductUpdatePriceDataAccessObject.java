@@ -3,6 +3,7 @@ package data_access.objects.product;
 import data_access.interfaces.product.ProductUpdatePriceDataAccessInterface;
 import entity.product.Product;
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * DatabaseProductUpdatePriceDataAccessObject is responsible for updating the price of a product in the database.
@@ -46,4 +47,5 @@ public class DatabaseProductUpdatePriceDataAccessObject implements ProductUpdate
         preparedStatement.close();
         connection.close();
     }
+
 }

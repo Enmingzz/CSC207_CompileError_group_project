@@ -179,7 +179,6 @@ class ChangeProductInteractorTest {
                 new InMemoryProductReadByIdDataAccessObject(productsList);
 
         ChangeProductOutputBoundary changeProductPresenter = new ChangeProductOutputBoundary() {
-            //This prepareSuccessfulView test is to ensure that
             @Override
             public void prepareSuccessfulView(ChangeProductOutputData changeProductOutputData) throws SQLException, IOException {
                 //First test if the required changes have been made and correctly outputted

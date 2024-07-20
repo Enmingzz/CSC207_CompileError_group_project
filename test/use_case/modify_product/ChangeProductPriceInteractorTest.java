@@ -12,6 +12,7 @@ import entity.product.ProductFactory;
 import entity.schedule.CommonScheduleFactory;
 import entity.schedule.Schedule;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.imageio.ImageIO;
@@ -32,9 +33,11 @@ class ChangeProductPriceInteractorTest {
 
     private ProductUpdatePriceDataAccessInterface inMemoryProductUpdatePriceDataAccessObject;
     private ChangeProductPrice changeProductPrice;
+
+    @BeforeEach
     void setUp() throws IOException {
 
-        Image image = ImageIO.read(new File("D:/24 summer/csc207/CSC207_CompileError_group_project/src/pic/testpic1.png"));
+        Image image = ImageIO.read(new File("src/pic/testpic1.png"));
         String description = "It was worn once";
         float price = 2;
         String title = "Red Dress";
@@ -58,9 +61,9 @@ class ChangeProductPriceInteractorTest {
         productsList = new ArrayList<>();
         productsList.add(product);
 
-
         inMemoryProductUpdatePriceDataAccessObject = new InMemoryProductUpdatePriceDataAccessObject(productsList);
         changeProductPrice = new ChangeProductPrice(inMemoryProductUpdatePriceDataAccessObject);
+
     }
 
     @AfterEach
@@ -84,9 +87,8 @@ class ChangeProductPriceInteractorTest {
         ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
                 new InMemoryProductReadByIdDataAccessObject(productsList);
         boolean result = changeProductPrice.execute(product, changedPrice);
-        float floatChangedPrice = Float.parseFloat(changedPrice);
-        assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(product.getProductID()).getPrice(), floatChangedPrice);
-        assertTrue(result);
+        assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(product.getProductID()).getPrice(), product.getPrice());
+        assertFalse(result);
     }
 
     @Test
@@ -103,7 +105,7 @@ class ChangeProductPriceInteractorTest {
     @Test
     void executeFalseTest3() throws SQLException, IOException {
         //The case where the price provided has more than 2 decimal places
-        float people = 2.345f;
+        String changedPrice = "2.345";
         ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
                 new InMemoryProductReadByIdDataAccessObject(productsList);
         boolean result = changeProductPrice.execute(product, changedPrice);

@@ -3,6 +3,7 @@ package data_access.interfaces.product;
 import entity.product.Product;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * ProductUpdatePriceDataAccessInterface provides an abstraction for updating the price of a product in the database.

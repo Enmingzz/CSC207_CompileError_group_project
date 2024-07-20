@@ -25,6 +25,7 @@ public class InMemoryProductUpdatePriceDataAccessObject implements ProductUpdate
     public InMemoryProductUpdatePriceDataAccessObject(ArrayList<Product> products) {
         this.products = products;
     }
+
     @Override
     public void updateProductPrice(Product updatedProduct, float price) throws SQLException {
         for (int i = 0; i < products.size(); i++) {

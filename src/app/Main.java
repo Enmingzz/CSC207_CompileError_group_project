@@ -106,8 +106,6 @@ public class Main {
         ViewModifyProductViewModel viewModifyProductViewModel = new ViewModifyProductViewModel();
 
 
-
-
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel,
                 signupViewModel, mainPageViewModel, shoppingCartViewModel,
                 searchProductViewModel, loginViewModel, viewProfileViewModel);
