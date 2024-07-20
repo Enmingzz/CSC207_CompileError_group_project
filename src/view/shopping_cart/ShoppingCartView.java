@@ -39,6 +39,7 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class ShoppingCartView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -374,6 +375,11 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
                 getBuyerSchedulePageController,
                 confirmController,
                 getRatePageController);
+
+        if (!Objects.equals(state.getErrorMessage(), "")) {
+            JOptionPane.showMessageDialog(this, state.getErrorMessage());
+        }
+
 //
 //        JPanel topBar = new TopBarSampleView(state.getUser(),
 //                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);

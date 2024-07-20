@@ -25,6 +25,7 @@ public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary{
         ShoppingCartState shoppingCartState = shoppingCartViewModel.getState();
         shoppingCartState.setListProducts(response.getListProducts());
         shoppingCartState.setTotalPrice(response.getTotalPrice());
+        shoppingCartState.setErrorMessage(response.getErrorMessage());
 
         //change the state in buyerViewProduct because View needs user's info
         BuyerViewProductState buyerViewProductState = buyerViewProductViewModel.getState();
@@ -39,7 +40,12 @@ public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary{
         viewManagerModel.setActiveView(shoppingCartViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
 
+    }
 
-
+    @Override
+    public void prepareFailedView(String errorMessage) {
+        ShoppingCartState shoppingCartState = shoppingCartViewModel.getState();
+        shoppingCartState.setErrorMessage(errorMessage);
+        shoppingCartViewModel.firePropertyChanged();
     }
 }

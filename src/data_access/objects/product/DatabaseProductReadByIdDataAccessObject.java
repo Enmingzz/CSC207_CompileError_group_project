@@ -65,6 +65,7 @@ public class DatabaseProductReadByIdDataAccessObject implements ProductReadByIdD
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, productID);
         resultSet = preparedStatement.executeQuery();
+        System.out.println(resultSet);
 
         if (resultSet.next()) {
             String productsID = resultSet.getString("ProductID");

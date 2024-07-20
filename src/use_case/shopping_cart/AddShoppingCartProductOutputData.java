@@ -10,11 +10,14 @@ public class AddShoppingCartProductOutputData {
     private final User user;
     private final ArrayList<Product> listProducts;
     private final float totalPrice;
+    private final String errorMessage;
 
-    public AddShoppingCartProductOutputData(User user, ArrayList<Product> listProducts, float totalPrice) {
+    public AddShoppingCartProductOutputData(User user, ArrayList<Product> listProducts, float totalPrice,
+                                            String errorMessage) {
         this.user = user;
         this.listProducts = listProducts;
         this.totalPrice = totalPrice;
+        this.errorMessage = errorMessage;
     }
 
     public User getUser() {
@@ -27,5 +30,9 @@ public class AddShoppingCartProductOutputData {
 
     public float getTotalPrice() {
         return totalPrice;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
     }
 }
