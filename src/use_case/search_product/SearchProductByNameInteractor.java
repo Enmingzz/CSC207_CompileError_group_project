@@ -47,7 +47,7 @@ public class SearchProductByNameInteractor implements SearchProductByNameInputBo
         // Filter products based on whether their titles/names contain the search term
         ArrayList<Product> matchingProducts = new ArrayList<>();
         for (Product product : allProducts) {
-            if (!exactMatchProducts.contains(product) && product.getTitle().toLowerCase().contains(searchTerm)) {
+            if (!exactMatchProducts.contains(product) && product.getTitle().contains(searchTerm)) {
                 matchingProducts.add(product);
             }
         }
