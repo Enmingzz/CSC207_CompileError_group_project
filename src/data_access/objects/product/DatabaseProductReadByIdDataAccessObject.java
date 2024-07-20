@@ -83,7 +83,7 @@ public class DatabaseProductReadByIdDataAccessObject implements ProductReadByIdD
             if (!Objects.equals(resultSet.getString("ListSellerTimes"), null)) {
                 rowTime = new ArrayList<>(List.of(resultSet.getString("ListSellerTimes").substring(1, resultSet.getString("ListSellerTimes").length() - 1).split(",")));
                 for (String time : rowTime) {
-                    listSellerTimes.add(LocalDateTime.parse(time, DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+                    listSellerTimes.add(LocalDateTime.parse(time.trim(), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
                 }
             }
 
