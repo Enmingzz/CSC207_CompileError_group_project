@@ -83,12 +83,12 @@ public class DatabaseProductReadByIdDataAccessObject implements ProductReadByIdD
             if (!Objects.equals(resultSet.getString("ListSellerTimes"), null)) {
                 rowTime = new ArrayList<>(List.of(resultSet.getString("ListSellerTimes").substring(1, resultSet.getString("ListTags").length() - 1).split(",")));
                 for (String time : rowTime) {
-                    listSellerTimes.add(LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")));
+                    listSellerTimes.add(LocalDateTime.parse(time, DateTimeFormatter.ofPattern("MMMM d, yyyy, HH:mm")));
                 }
             }
 
             if (!Objects.equals(resultSet.getString("BuyerTime"), null)) {
-                buyerTime = LocalDateTime.parse(resultSet.getString("BuyerTime"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+                buyerTime = LocalDateTime.parse(resultSet.getString("BuyerTime"), DateTimeFormatter.ofPattern("MMMM d, yyyy, HH:mm"));
             }
 
             Schedule schedule = scheduleFactory.createSchedule(buyerTime, listSellerTimes);
