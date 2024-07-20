@@ -69,7 +69,7 @@ class GetSearchViewInteractorTest {
 
         // product2 is a product that is not on sale, so its state is non-zero
 
-        Image image2 = ImageIO.read(new File("src.pic.testpic2.png"));
+        Image image2 = ImageIO.read(new File("src/pic/testpic2.png"));
         String description2 = "This is a description";
         String title2 = "This is a title ";
         float price2 = 2;
@@ -108,7 +108,25 @@ class GetSearchViewInteractorTest {
                 ArrayList<Product> actualProducts = getSearchViewOutputData.getAllProducts();
                 ArrayList<Product> expectedProducts = new ArrayList<>();
                 expectedProducts.add(product1);
-                assertEquals(expectedProducts, actualProducts); // only product1 should be displayed.
+                assertEquals(expectedProducts.size(), actualProducts.size());
+                for (int i = 0; i < expectedProducts.size(); i++) {
+                    Product expectedProduct = expectedProducts.get(i);
+                    Product actualProduct = actualProducts.get(i);
+                    assertEquals(expectedProduct.getImage(), actualProduct.getImage());
+                    assertEquals(expectedProduct.getDescription(), actualProduct.getDescription());
+                    assertEquals(expectedProduct.getTitle(), actualProduct.getTitle());
+                    assertEquals(expectedProduct.getPrice(), actualProduct.getPrice(), 0);
+                    assertEquals(expectedProduct.getState(), actualProduct.getState());
+                    assertEquals(expectedProduct.getRating(), actualProduct.getRating(), 0);
+                    assertEquals(expectedProduct.geteTransferEmail(), actualProduct.geteTransferEmail());
+                    assertEquals(expectedProduct.getSellerStudentNumber(), actualProduct.getSellerStudentNumber());
+                    assertEquals(expectedProduct.getAddress(), actualProduct.getAddress());
+                    assertEquals(expectedProduct.getListTags(), actualProduct.getListTags());
+                    assertEquals(expectedProduct.getProductID(), actualProduct.getProductID());
+                    assertEquals(expectedProduct.getSchedule().getSellerTime(), actualProduct.getSchedule().getSellerTime());
+                    assertEquals(expectedProduct.getSchedule().getBuyerTime(), actualProduct.getSchedule().getBuyerTime());
+                }
+                // only product1 should be displayed.
             }
         };
         ProductReadAllDataAccessInterface inMemoryProductReadAllDataAccessObject =

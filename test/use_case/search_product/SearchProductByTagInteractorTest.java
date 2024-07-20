@@ -73,7 +73,7 @@ class SearchProductByTagInteractorTest {
 
         // product2 is a product that does not have the tag we want to search and is on sale.
 
-        Image image2 = ImageIO.read(new File("src.pic.testpic2.png"));
+        Image image2 = ImageIO.read(new File("src/pic/testpic2.png"));
         String description2 = "This is a description";
         String title2 = "bcd";
         float price2 = 2;
@@ -96,7 +96,7 @@ class SearchProductByTagInteractorTest {
         products.add(product2);
 
         // product3 is a product that has the tag we want to search but is not on sale.
-        Image image3 = ImageIO.read(new File("src.pic.testpic2.png"));
+        Image image3 = ImageIO.read(new File("src/pic/testpic3.png"));
         String description3 = "This is a description";
         String title3 = "abc";
         float price3 = 2;
@@ -134,7 +134,23 @@ class SearchProductByTagInteractorTest {
                 ArrayList<Product> actualProducts = searchProductByTagOutputData.getProducts();
                 ArrayList<Product> expectedProducts = new ArrayList<>();
                 expectedProducts.add(product1); // only product1 should be displayed.
-                assertEquals(expectedProducts, actualProducts);
+                for (int i = 0; i < expectedProducts.size(); i++) {
+                    Product expectedProduct = expectedProducts.get(i);
+                    Product actualProduct = actualProducts.get(i);
+                    assertEquals(expectedProduct.getImage(), actualProduct.getImage());
+                    assertEquals(expectedProduct.getDescription(), actualProduct.getDescription());
+                    assertEquals(expectedProduct.getTitle(), actualProduct.getTitle());
+                    assertEquals(expectedProduct.getPrice(), actualProduct.getPrice());
+                    assertEquals(expectedProduct.getState(), actualProduct.getState());
+                    assertEquals(expectedProduct.getRating(), actualProduct.getRating());
+                    assertEquals(expectedProduct.geteTransferEmail(), actualProduct.geteTransferEmail());
+                    assertEquals(expectedProduct.getSellerStudentNumber(), actualProduct.getSellerStudentNumber());
+                    assertEquals(expectedProduct.getAddress(), actualProduct.getAddress());
+                    assertEquals(expectedProduct.getListTags(), actualProduct.getListTags());
+                    assertEquals(expectedProduct.getProductID(), actualProduct.getProductID());
+                    assertEquals(expectedProduct.getSchedule().getSellerTime(), actualProduct.getSchedule().getSellerTime());
+                    assertEquals(expectedProduct.getSchedule().getBuyerTime(), actualProduct.getSchedule().getBuyerTime());
+                }
             }
         };
         ProductReadByTagDataAccessInterface inMemoryProductReadByTagDataAccessObject =

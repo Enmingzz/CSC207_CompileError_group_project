@@ -66,21 +66,30 @@ public class DatabaseShoppingCartReadDataAccessObject implements ShoppingCartRea
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, userID);
         resultSet = preparedStatement.executeQuery();
-        resultSet.next();
+        if (resultSet.next()){
+            float totalPrice = resultSet.getFloat("TotalPrice");
+            ArrayList<String> rowProducts = new ArrayList<>(List.of(resultSet.getString("Products").substring(1,
+                    resultSet.getString("Products").length() - 1).split(",")));
 
-        float totalPrice = resultSet.getFloat("TotalPrice");
-        ArrayList<String> rowProducts = new ArrayList<>(List.of(resultSet.getString("Products").substring(1,
-                resultSet.getString("Products").length() - 1).split(",")));
+            for (String item : rowProducts) {
+                product = databaseProductReadByIdDataAccessObject.getProductById(item);
+                listProducts.add(product);
+            }
 
-        for (String item : rowProducts) {
-            product = databaseProductReadByIdDataAccessObject.getProductById(item);
-            listProducts.add(product);
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+
+            return shoppingCartFactory.createShoppingCart(totalPrice, userID, listProducts);
+
+        } else {
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+
+            return null;
         }
 
-        resultSet.close();
-        preparedStatement.close();
-        connection.close();
 
-        return shoppingCartFactory.createShoppingCart(totalPrice, userID, listProducts);
     }
 }

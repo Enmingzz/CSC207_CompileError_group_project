@@ -53,6 +53,7 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
     private final JButton modifyProfile;
     private final JButton showProfile;
 
+    private JLabel title = new JLabel();
     private JLabel studentNumberViewField = new JLabel();
     private JLabel studentNameViewField = new JLabel();
     private JLabel studentEmailViewField = new JLabel();
@@ -60,6 +61,7 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
     private JLabel studentPasswordViewField = new JLabel();
     private JLabel messageField = new JLabel("");
     private JPanel infoPanel = new JPanel();
+
     private JPanel topBar;
 
     public ProfileView (MainPageController mainPageController,
@@ -88,7 +90,7 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
 
         this.viewModel = profileViewModel;
         viewModel.addPropertyChangeListener(this);
-        JLabel title = new JLabel(profileViewModel.TITLE_LABEL);
+        title = new JLabel(profileViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.setLayout(new BorderLayout());
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
@@ -106,11 +108,11 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         studentEmailViewField.setText(viewModel.getState().getUser().getEmail());
         studentRatingViewField.setText(String.valueOf(viewModel.getState().getUser().getUserRating()));
 
-        ProfileLabelTextPanel userNameInfo = new ProfileLabelTextPanel(new JLabel(profileViewModel.USERNAME_LABEL), studentNameViewField);
-        ProfileLabelTextPanel passwordInfo = new ProfileLabelTextPanel(new JLabel(profileViewModel.PASSWORD_LABEL), studentPasswordViewField);
-        ProfileLabelTextPanel userIDInfo = new ProfileLabelTextPanel(new JLabel(profileViewModel.USERID_LABEL), studentNumberViewField);
-        ProfileLabelTextPanel userEmail = new ProfileLabelTextPanel(new JLabel(profileViewModel.USEREMAIL_LABEL), studentEmailViewField);
-        ProfileLabelTextPanel userRating = new ProfileLabelTextPanel(new JLabel(profileViewModel.USERRATING_LABLE), studentRatingViewField);
+        ProfileLabelTextPanel userNameInfo = new ProfileLabelTextPanel(new JLabel(viewModel.USERNAME_LABEL), studentNameViewField);
+        ProfileLabelTextPanel passwordInfo = new ProfileLabelTextPanel(new JLabel(viewModel.PASSWORD_LABEL), studentPasswordViewField);
+        ProfileLabelTextPanel userIDInfo = new ProfileLabelTextPanel(new JLabel(viewModel.USERID_LABEL), studentNumberViewField);
+        ProfileLabelTextPanel userEmail = new ProfileLabelTextPanel(new JLabel(viewModel.USEREMAIL_LABEL), studentEmailViewField);
+        ProfileLabelTextPanel userRating = new ProfileLabelTextPanel(new JLabel(viewModel.USERRATING_LABLE), studentRatingViewField);
 
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new GridLayout(3, 1));
@@ -155,6 +157,8 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         ViewProfileState state = (ViewProfileState) evt.getNewValue();
+        String message = state.getMessage();
+        state.setMessage("");
         viewModel.setState(state);
 
         studentNumberViewField.setText(viewModel.getState().getUser().getStudentNumber());
@@ -162,7 +166,12 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         studentPasswordViewField.setText(viewModel.getState().getUser().getPassword());
         studentEmailViewField.setText(viewModel.getState().getUser().getEmail());
         studentRatingViewField.setText(String.valueOf(viewModel.getState().getUser().getUserRating()));
-        messageField.setText(viewModel.getState().getMessage());
+        messageField.setText(message);
+
+        infoPanel.repaint();
+        infoPanel.revalidate();
+        this.repaint();
+        this.revalidate();
 
         topBar.removeAll();
         topBar.add(new TopBarSampleView(viewModel.getState().getUser(),
@@ -171,5 +180,6 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
                 mainPageController));
         topBar.repaint();
         topBar.revalidate();
+
     }
 }

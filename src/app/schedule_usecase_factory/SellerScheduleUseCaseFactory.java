@@ -72,8 +72,28 @@ import view.schedule.SellerScheduleView;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * The SellerScheduleUseCaseFactory class is responsible for creating the SellerScheduleView
+ * along with its necessary controllers and view models.
+ */
 public class SellerScheduleUseCaseFactory {
 
+    /**
+     * Creates and returns a SellerScheduleView with the specified view models and controllers.
+     *
+     * @param sellerSelectScheduleViewModel the view model for seller select schedule
+     * @param viewManagerModel              the view manager model
+     * @param manageProductViewModel        the view model for managing products
+     * @param signupViewModel               the view model for signup
+     * @param loginViewModel                the view model for login
+     * @param shoppingCartViewModel         the view model for the shopping cart
+     * @param mainPageViewModel             the view model for the main page
+     * @param searchProductViewModel        the view model for search product
+     * @param viewProfileViewModel          the view model for view profile
+     * @return the created SellerScheduleView
+     * @throws SQLException if a database access error occurs
+     * @throws IOException  if an I/O error occurs
+     */
     public static SellerScheduleView create(SellerSelectScheduleViewModel sellerSelectScheduleViewModel,
                                             ViewManagerModel viewManagerModel,
                                             ManageProductViewModel manageProductViewModel,
@@ -108,6 +128,15 @@ public class SellerScheduleUseCaseFactory {
 
     }
 
+    /**
+     * Creates an instance of {@link SellerSelectScheduleController}.
+     *
+     * @param sellerSelectScheduleViewModel the view model for seller select schedule
+     * @param viewManagerModel              the view manager model
+     * @param manageProductViewModel        the manage product view model
+     * @return an instance of {@link SellerSelectScheduleController}
+     * @throws SQLException if a database access error occurs
+     */
     private static SellerSelectScheduleController createSellerSelectScheduleController
             (SellerSelectScheduleViewModel sellerSelectScheduleViewModel, ViewManagerModel viewManagerModel,
              ManageProductViewModel manageProductViewModel) throws SQLException {
@@ -158,6 +187,14 @@ public class SellerScheduleUseCaseFactory {
         return new ShoppingCartController(showShoppingCartInteractor);
     }
 
+    /**
+     * Creates an instance of {@link MainPageController}.
+     *
+     * @param mainPageViewModel   the main page view model
+     * @param viewManagerModel    the view manager model
+     * @return an instance of {@link MainPageController}
+     * @throws SQLException if a database access error occurs
+     */
     private static MainPageController createMainPageController(MainPageViewModel mainPageViewModel, ViewManagerModel viewManagerModel) throws SQLException {
         ShowMainPageOutputBoundary showMainPagePresenter = new MainPagePresenter(mainPageViewModel, viewManagerModel);
         DataBaseProductReadAllDataAccessObjectFactoryInterface dataBaseProductReadAllDataAccessObjectFactoryInterface = new DatabaseProductReadAllDataAccessObjectFactory();
@@ -170,6 +207,14 @@ public class SellerScheduleUseCaseFactory {
         return new MainPageController(showMainPageInteractor);
     }
 
+    /**
+     * Creates an instance of {@link LogOutController}.
+     *
+     * @param viewManagerModel  the view manager model
+     * @param mainPageViewModel the main page view model
+     * @return an instance of {@link LogOutController}
+     * @throws SQLException if a database access error occurs
+     */
     private static LogOutController createLogOutController(ViewManagerModel viewManagerModel,
                                                            MainPageViewModel mainPageViewModel) throws SQLException {
         LogOutOutputBoundary LogOutPresenter = new LogOutPresenter(mainPageViewModel,
@@ -178,6 +223,14 @@ public class SellerScheduleUseCaseFactory {
         return new LogOutController(logOutInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ManageProductController}.
+     *
+     * @param viewManagerModel       the view manager model
+     * @param manageProductViewModel the manage product view model
+     * @return an instance of {@link ManageProductController}
+     * @throws SQLException if a database access error occurs
+     */
     private static ManageProductController createManageProductController(ViewManagerModel viewManagerModel,
                                                                          ManageProductViewModel manageProductViewModel) throws SQLException {
         ManageProductOutputBoundary manageProductPresenter =
@@ -193,6 +246,14 @@ public class SellerScheduleUseCaseFactory {
         return new ManageProductController(manageProductInteractor);
     }
 
+    /**
+     * Creates an instance of {@link GetSearchPageController}.
+     *
+     * @param viewManagerModel       the view manager model
+     * @param searchProductViewModel the search product view model
+     * @return an instance of {@link GetSearchPageController}
+     * @throws SQLException if a database access error occurs
+     */
     private static GetSearchPageController createGetSearchPageController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
         GetSearchViewOutputBoundary getSearchViewPresenter =
                 new GetSearchPagePresenter(searchProductViewModel, viewManagerModel);
@@ -207,6 +268,14 @@ public class SellerScheduleUseCaseFactory {
         return new GetSearchPageController(getSearchViewInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ViewLoginPageController}.
+     *
+     * @param loginViewModel     the login view model
+     * @param viewManagerModel   the view manager model
+     * @return an instance of {@link ViewLoginPageController}
+     * @throws SQLException if a database access error occurs
+     */
     private static ViewLoginPageController createViewLoginPageController
             (LoginViewModel loginViewModel, ViewManagerModel viewManagerModel) throws SQLException {
 
@@ -216,7 +285,13 @@ public class SellerScheduleUseCaseFactory {
         return new ViewLoginPageController(viewLoginPageInteractor);
     }
 
-
+    /**
+     * Creates an instance of {@link ViewSignupPageController}.
+     *
+     * @param viewManagerModel   the view manager model
+     * @param signupViewModel    the signup view model
+     * @return an instance of {@link ViewSignupPageController}
+     */
     private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel) {
         ViewSignupPageOutputBoundary viewSignupPagePresenter =
                 new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
@@ -226,6 +301,14 @@ public class SellerScheduleUseCaseFactory {
 
     }
 
+    /**
+     * Creates an instance of {@link ViewProfileController}.
+     *
+     * @param viewManagerModel   the view manager model
+     * @param profileViewModel   the profile view model
+     * @return an instance of {@link ViewProfileController}
+     * @throws IOException if an I/O error occurs
+     */
     private static ViewProfileController createProfileController(ViewManagerModel viewManagerModel,
                                                                  ViewProfileViewModel profileViewModel) throws IOException {
         ViewProfileOutputBoundary viewProfilePresenter = new ViewProfilePresenter(profileViewModel,

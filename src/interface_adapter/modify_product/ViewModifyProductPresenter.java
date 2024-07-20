@@ -16,6 +16,9 @@ public class ViewModifyProductPresenter implements ViewModifyProductOutputBounda
     @Override
     public void prepareSuccessfulView(ViewModifyProductOutputData viewModifyProductOutputData) {
         ViewModifyProductState state = viewModifyProductViewModel.getState();
+        state.setProduct(viewModifyProductOutputData.getProduct());
+        state.setUser(viewModifyProductOutputData.getUser());
+
         viewModifyProductViewModel.setState(state);
         viewModifyProductViewModel.firePropertyChanged();
 

@@ -122,7 +122,11 @@ public class SignupUseCaseFactory {
         ProductFactory productFactory = new CommonProductFactory();
         ScheduleFactory scheduleFactory = new CommonScheduleFactory();
         ProductReadByNameDataAccessInterface productReadByNameDataAccessObject = databaseProductReadByNameDataAccessObjectFactory.create(productFactory, scheduleFactory);
-        SearchProductByNameInputBoundary interactor = new SearchProductByNameInteractor(productReadByNameDataAccessObject, presenter);
+        DataBaseProductReadAllDataAccessObjectFactoryInterface dataBaseProductReadAllDataAccessObjectFactoryInterface =
+                new DatabaseProductReadAllDataAccessObjectFactory();
+        ProductReadAllDataAccessInterface productReadAllDataAccessObeject =
+                dataBaseProductReadAllDataAccessObjectFactoryInterface.create(productFactory, scheduleFactory);
+        SearchProductByNameInputBoundary interactor = new SearchProductByNameInteractor(productReadAllDataAccessObeject, productReadByNameDataAccessObject, presenter);
         return new SearchProductByNameController(interactor);
     }
 
