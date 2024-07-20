@@ -1,13 +1,10 @@
 package app;
 
-import app.product_usecase_factory.CreateProductUseCaseFactory;
-import app.product_usecase_factory.NonLoggedInViewProductUseFactory;
+import app.product_usecase_factory.*;
 import app.mainpage_usecase_factory.MainPageUseCaseFactory;
 import app.shopping_cart_usecase_factory.ShoppingCartUseCaseFactory;
 import app.user_usecase_factory.*;
 import app.search_product_usecase_factory.SearchProductUseCaseFactory;
-import app.product_usecase_factory.BuyerViewProductUseCaseFactory;
-import app.product_usecase_factory.SellerViewProductUseCaseFactory;
 import app.schedule_usecase_factory.BuyerScheduleUseCaseFactory;
 import app.schedule_usecase_factory.SellerScheduleUseCaseFactory;
 import entity.user.CommonUser;
@@ -44,6 +41,7 @@ import interface_adapter.view_product.*;
 
 import view.*;
 import view.modify_product.CreateProductView;
+import view.modify_product.ModifyProductView;
 import view.profile.ManageProductView;
 import view.search_product.SearchProductView;
 import view.shopping_cart.ShoppingCartView;
@@ -168,6 +166,10 @@ public class Main {
                 shoppingCartViewModel, viewManagerModel, signupViewModel, loginViewModel, searchProductViewModel, viewProfileViewModel,
                 mainPageViewModel);
 
+        ModifyProductView modifyProductView =  ModifyProductUseCaseFactory.create(viewModifyProductViewModel, viewManagerModel,
+                searchProductViewModel, signupViewModel, loginViewModel, shoppingCartViewModel, mainPageViewModel, viewProfileViewModel,
+                manageProductViewModel);
+
 //        SearchByNamePanel searchByNamePanel = SearchProductUseCaseFactory.create(searchProductViewModel, viewManagerModel,
 //                buyerViewProductViewModel, sellerViewProductViewModel, unloggedInViewModel, signupViewModel, loginViewModel,
 //                shoppingCartViewModel, mainPageViewModel, viewProfileViewModel);
@@ -248,7 +250,6 @@ public class Main {
         //rateProductViewModel.firePropertyChanged();
 
 
-
         TestView testView = new TestView();
         views.add(signupView.viewName, signupView);
         views.add(loginView.viewName, loginView);
@@ -265,6 +266,7 @@ public class Main {
         views.add(searchProductView.viewName,searchProductView);
         views.add(manageProductView.viewName, manageProductView);
         views.add(createProductView.viewName, createProductView);
+        views.add(modifyProductView.viewName, modifyProductView);
 
 //        views.add(searchByNamePanel.viewName, searchByNamePanel);
 //        views.add(searchByTagPanel.viewName, searchByTagPanel);
