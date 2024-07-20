@@ -8,7 +8,7 @@ import java.beans.PropertyChangeSupport;
 public class ShoppingCartViewModel extends ViewModel {
     public final String TITLE_LABEL = "Shopping Cart";
     public final String PRODUCTS_LABEL = "Products";
-    public final String PENDING_SELLER_SCHEDULE_LABEL = "Waiting for Buyer to Choose schedule";
+    public final String PENDING_SELLER_SCHEDULE_LABEL = "Waiting for Seller to Choose schedule";
     public final String TOTAL_PRICE_LABEL = "Total Price";
     public String TOTAL_PRICE_VARIABLE = "";
 

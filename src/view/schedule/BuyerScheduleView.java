@@ -179,11 +179,13 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
         if (state.getError() != null) {
             JOptionPane.showMessageDialog(this, state.getError());
         }
-        availableTimesComboBox = new JComboBox<>();
+        availableTimesComboBox.removeAll();
         ArrayList<LocalDateTime> availableTimes = state.getProduct().getSchedule().getSellerTime();
         for (LocalDateTime time : availableTimes) {
             availableTimesComboBox.addItem(time);
         }
+        availableTimesComboBox.repaint();
+        availableTimesComboBox.revalidate();
 
         topBar.removeAll();
         topBar.add(new TopBarSampleView(viewModel.getState().getBuyer(),
