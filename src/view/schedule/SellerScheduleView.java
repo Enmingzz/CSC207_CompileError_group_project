@@ -60,6 +60,7 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
     private JPanel dateTimePanel;
     private DefaultListModel<String> timesListModel;
     private JList<String> timesList;
+    private JPanel timesListPanel;
     private final JButton addButton;
     private final JButton removeButton;
     private final JButton submitButton;
@@ -133,7 +134,7 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
         timesList = new JList<>(timesListModel);
         timesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        JPanel timesListPanel = new JPanel();
+        timesListPanel = new JPanel();
         timesListPanel.setLayout(new BorderLayout());
         timesListPanel.add(new JLabel("Scheduled Times:"), BorderLayout.NORTH);
         timesListPanel.add(new JScrollPane(timesList), BorderLayout.CENTER);
@@ -206,7 +207,7 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
                         // e.g., "July 19, 2024, 08:00"
                         // Parse it back to LocalDateTime using dateTimeFormatter
                         LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, dateTimeFormatter);
-                        // Add the formatted LocalDateTime to the times list
+                        // Add the formatted LocalDateTime to the times list. e.g., 2024-07-19T08:00:00
                         times.add(LocalDateTime.parse(dateTime.format(isoDateTimeFormatter)));                    }
                     try {
                         controller.execute(seller, product, times);
@@ -291,6 +292,16 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
         dateTimePanel.add(hourComboBox);
         dateTimePanel.repaint();
         dateTimePanel.revalidate();
+
+        timesListPanel.removeAll();
+        timesListModel = new DefaultListModel<>();
+        timesList = new JList<>(timesListModel);
+        timesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        timesListPanel.setLayout(new BorderLayout());
+        timesListPanel.add(new JLabel("Scheduled Times:"), BorderLayout.NORTH);
+        timesListPanel.add(new JScrollPane(timesList), BorderLayout.CENTER);
+        timesListPanel.repaint();
+        timesListPanel.revalidate();
 
         topBar.removeAll();
         topBar.add(new TopBarSampleView(viewModel.getState().getSeller(),
