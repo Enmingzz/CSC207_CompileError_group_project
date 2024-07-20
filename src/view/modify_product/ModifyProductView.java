@@ -57,7 +57,7 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
     private JPanel topBar;
     JPanel contentPanel = new JPanel();
 
-    ModifyProductTextPanel productInformation;
+    JPanel productInformation = new JPanel();
     ImagePanel displayImage;
     JPanel productModification;
 
@@ -86,13 +86,13 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
 
+        this.setLayout(new BorderLayout());
+
         UserFactory commonUserFactory = new CommonUserFactory();
         User commonUser = commonUserFactory.createUser("", "", "", 0, "");
         topBar = new TopBarSampleView(commonUser,
                 getSearchPageController, viewSignupPageController, viewLoginPageController,
                 shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
-
 
         //TODO check if this image works
         displayImage = (viewModifyProductViewModel.getState().getProduct() == null)?
@@ -124,10 +124,24 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         String tagsString = (product == null)? "": String.join(", ", product.getListTags());
         final JLabel tags = new JLabel(tagsString);
 
-        productInformation = new ModifyProductTextPanel( titleLabel,  title,
-                 descriptionLabel,  description,  priceLabel,  price,
-                 eTransferEmailLabel,  eTransferEmail,  addressLabel,  address,
-                 tagsLabel,  tags);
+//        productInformation = new ModifyProductTextPanel( titleLabel,  title,
+//                 descriptionLabel,  description,  priceLabel,  price,
+//                 eTransferEmailLabel,  eTransferEmail,  addressLabel,  address,
+//                 tagsLabel, tags);
+
+        productInformation.setLayout(new BoxLayout(productInformation, BoxLayout.Y_AXIS));
+        productInformation.add(titleLabel);
+        productInformation.add(title);
+        productInformation.add(descriptionLabel);
+        productInformation.add(description);
+        productInformation.add(priceLabel);
+        productInformation.add(price);
+        productInformation.add(eTransferEmailLabel);
+        productInformation.add(eTransferEmail);
+        productInformation.add(addressLabel);
+        productInformation.add(address);
+        productInformation.add(tagsLabel);
+        productInformation.add(tags);
 
         //create all the different panels
 
@@ -154,7 +168,8 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
             public void keyTyped(KeyEvent e) {
                 ViewModifyProductState state = viewModifyProductViewModel.getState();
                 state.setPrice(price.getText() + e.getKeyChar());
-                viewModifyProductViewModel.setState(state);            }
+                viewModifyProductViewModel.setState(state);
+            }
 
             @Override
             public void keyPressed(KeyEvent e) {
@@ -181,20 +196,20 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
             }
         }
 
-            class CancelButtonListener implements ActionListener {
-                @Override
-                public void actionPerformed(ActionEvent evt) {
-                    if (evt.getSource().equals(cancel)) {
-                        try {
-                            ViewModifyProductState state = viewModifyProductViewModel.getState();
-                            User user = state.getUser();
-                            manageProductController.execute(user);
-                        } catch (SQLException | IOException e) {
-                            throw new RuntimeException(e);
-                        }
+        class CancelButtonListener implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(cancel)) {
+                    try {
+                        ViewModifyProductState state = viewModifyProductViewModel.getState();
+                        User user = state.getUser();
+                        manageProductController.execute(user);
+                    } catch (SQLException | IOException e) {
+                        throw new RuntimeException(e);
                     }
                 }
             }
+        }
 
         changeProduct.addActionListener(new ChangeProductListener());
         cancel.addActionListener(new CancelButtonListener());
@@ -223,6 +238,7 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 
         this.setLayout(new BorderLayout());
         this.add(contentPanel, BorderLayout.CENTER);
+        this.add(topBar, BorderLayout.NORTH);
 
 
     }
@@ -242,11 +258,14 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         topBar.revalidate();
 
         ViewModifyProductState state = (ViewModifyProductState) evt.getNewValue();
+        viewModifyProductViewModel.setState(state);
 //        JOptionPane.showMessageDialog(this, state.getDescription());
 
         Product product = state.getProduct();
-        contentPanel.remove(productInformation);
+        productInformation.removeAll();
+        contentPanel.remove(displayImage);
         displayImage = new ImagePanel(viewModifyProductViewModel.getState().getProduct().getImage());
+
         final JLabel titleLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
         final JLabel title = new JLabel(product.getTitle());
         final JLabel descriptionLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
@@ -261,11 +280,25 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         String tagsString = String.join(", ", product.getListTags());
         final JLabel tags = new JLabel(tagsString);
 
-        productInformation = new ModifyProductTextPanel( titleLabel,  title,
-                descriptionLabel,  description,  priceLabel,  price,
-                eTransferEmailLabel,  eTransferEmail,  addressLabel,  address,
-                tagsLabel,  tags);
-        contentPanel.add(productInformation, BorderLayout.CENTER);
+//        productInformation = new ModifyProductTextPanel( titleLabel,  title,
+//                descriptionLabel,  description,  priceLabel,  price,
+//                eTransferEmailLabel,  eTransferEmail,  addressLabel,  address,
+//                tagsLabel,  tags);
+
+        productInformation.add(titleLabel);
+        productInformation.add(title);
+        productInformation.add(descriptionLabel);
+        productInformation.add(description);
+        productInformation.add(priceLabel);
+        productInformation.add(price);
+        productInformation.add(eTransferEmailLabel);
+        productInformation.add(eTransferEmail);
+        productInformation.add(addressLabel);
+        productInformation.add(address);
+        productInformation.add(tagsLabel);
+        productInformation.add(tags);
+
+        contentPanel.add(displayImage, BorderLayout.WEST);
 
         contentPanel.repaint();
         contentPanel.revalidate();
