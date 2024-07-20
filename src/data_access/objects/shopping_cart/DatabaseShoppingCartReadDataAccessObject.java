@@ -68,8 +68,9 @@ public class DatabaseShoppingCartReadDataAccessObject implements ShoppingCartRea
         resultSet = preparedStatement.executeQuery();
         if (resultSet.next()){
             float totalPrice = resultSet.getFloat("TotalPrice");
-            ArrayList<String> rowProducts = new ArrayList<>(List.of(resultSet.getString("Products").substring(1,
-                    resultSet.getString("Products").length() - 1).split(",")));
+            ArrayList<String> rowProducts = (resultSet.getString("ListProductsID") == null)?
+                    new ArrayList<String>(): new ArrayList<>(List.of(resultSet.getString("ListProductsID").substring(1,
+                    resultSet.getString("ListProductsID").length() - 1).split(",")));
 
             for (String item : rowProducts) {
                 product = databaseProductReadByIdDataAccessObject.getProductById(item);

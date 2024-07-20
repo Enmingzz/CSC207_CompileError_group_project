@@ -4,8 +4,10 @@ import data_access.interfaces.user.UserCreateDataAccessInterface;
 import data_access.interfaces.user.UserReadDataAccessInterface;
 import entity.user.User;
 import entity.user.UserFactory;
+import data_access.interfaces.shopping_cart.ShoppingCartCreateDataAccessInterface;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Receives student's information from the SignUpView, processes the information, and executes
@@ -17,6 +19,7 @@ import java.sql.SQLException;
 public class SignupInteractor implements SignupInputBoundary {
     final UserCreateDataAccessInterface userCreateDataAccessObject;
     final UserReadDataAccessInterface userReadDataAccessObject;
+    final ShoppingCartCreateDataAccessInterface shoppingCartCreateDataAccessObject;
     final SignupOutputBoundary signupPresenter;
     final UserFactory userFactory;
 
@@ -30,11 +33,13 @@ public class SignupInteractor implements SignupInputBoundary {
      */
     public SignupInteractor(UserCreateDataAccessInterface userCreateDataAccessObject, UserReadDataAccessInterface userReadDataAccessObject,
                             SignupOutputBoundary signupPresenter,
-                            UserFactory userFactory) {
+                            UserFactory userFactory,
+                            ShoppingCartCreateDataAccessInterface shoppingCartCreateDataAccessObject) {
         this.userCreateDataAccessObject = userCreateDataAccessObject;
         this.userReadDataAccessObject = userReadDataAccessObject;
         this.signupPresenter = signupPresenter;
         this.userFactory = userFactory;
+        this.shoppingCartCreateDataAccessObject = shoppingCartCreateDataAccessObject;
     }
 
     /**
@@ -75,6 +80,8 @@ public class SignupInteractor implements SignupInputBoundary {
             signupPresenter.presentFailedView(signupOutputData);
         } else {
             userCreateDataAccessObject.saveUser(user);
+            shoppingCartCreateDataAccessObject.saveShoppingCart(user);
+
             SignupOutputData signupOutputData = new SignupOutputData(user, "successful");
             signupPresenter.presentSuccessfulView(signupOutputData);
         }
