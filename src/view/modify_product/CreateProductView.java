@@ -300,6 +300,9 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
                     Image scaledImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
                     ImageIcon scaledIcon = new ImageIcon(scaledImage);
                    imageLabel.setIcon(scaledIcon);
+                   CreateProductState createProductState = viewCreateProductViewModel.getState();
+                   createProductState.setImage(image);
+                   viewCreateProductViewModel.setState(createProductState);
                 }
             }
         }

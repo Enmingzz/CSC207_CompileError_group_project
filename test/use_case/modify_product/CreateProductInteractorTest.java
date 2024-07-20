@@ -1,8 +1,10 @@
 package use_case.modify_product;
 
 import data_access.in_memory.product.InMemoryProductCreateDataAccessObject;
+import data_access.in_memory.product.InMemoryProductReadAllDataAccessObject;
 import data_access.in_memory.product.InMemoryProductReadByIdDataAccessObject;
 import data_access.interfaces.product.ProductCreateDataAccessInterface;
+import data_access.interfaces.product.ProductReadAllDataAccessInterface;
 import data_access.interfaces.product.ProductReadByIdDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.ProductFactory;
@@ -60,6 +62,9 @@ class CreateProductInteractorTest {
         ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
                 new InMemoryProductReadByIdDataAccessObject();
 
+        ProductReadAllDataAccessInterface inMemoryProductReadAllDataAccessObject =
+                new InMemoryProductReadAllDataAccessObject();
+
         image = ImageIO.read(new File("src/pic/testpic1.png"));
         description = "It was worn once";
         price = "9";
@@ -84,6 +89,7 @@ class CreateProductInteractorTest {
                 assertEquals(user, createProductOutputData.getUser());
 
                 //ensures that it is saved into the database
+                assertEquals(inMemoryProductReadAllDataAccessObject.getAllProducts(), createProductOutputData.getProduct());
                 assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(createProductOutputData.getProduct().getProductID()),
                         createProductOutputData.getProduct());
             }

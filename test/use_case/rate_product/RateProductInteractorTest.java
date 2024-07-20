@@ -61,7 +61,7 @@ public class RateProductInteractorTest {
         usersList = new ArrayList<>();
         usersList.add(user);
 
-        Image image = ImageIO.read(new File("D:/24 summer/csc207/CSC207_CompileError_group_project/src/pic/testpic1.png"));
+        Image image = ImageIO.read(new File("src/pic/testpic1.png"));
         String description = "It was worn once";
         float price = 2;
         String title = "Red Dress";
@@ -162,7 +162,7 @@ public class RateProductInteractorTest {
     }
     @Test
     void prepareFailedView2() throws IOException, SQLException {
-        //The case where the rating provided is not an integer
+        //The case where the rating provided is an integer that is out of the range
         productRating = "6";
         ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
                 new InMemoryProductReadByIdDataAccessObject(productsList);
@@ -178,7 +178,7 @@ public class RateProductInteractorTest {
                 //check if the state and the product rating are both unchanged
                 assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(productID).getRating(), null);
                 assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(productID).getState(), 4);
-                //Now check if the error mesage is correct
+                //Now check if the error message is correct
                 assertEquals(error, "You must input a valid integral rating from 1 to 5.");
             }
         };
