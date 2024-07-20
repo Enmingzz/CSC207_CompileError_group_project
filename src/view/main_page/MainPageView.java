@@ -193,6 +193,16 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
+        if (evt.getPropertyName().equals("init")) {
+            try {
+                this.mainPageController.execute(this.mainPageViewModel.getState().getUser());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         System.out.println("propertyChange");
 
         MainPageState state = (MainPageState) evt.getNewValue();

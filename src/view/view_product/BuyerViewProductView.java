@@ -293,11 +293,13 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
 
     @Override
     public void propertyChange(PropertyChangeEvent evt){
-        BuyerViewProductState newState = (BuyerViewProductState) evt.getNewValue();
 
+        BuyerViewProductState newState = (BuyerViewProductState) evt.getNewValue();
+        System.out.println("buyer view product PropertyChangeEvent" + newState.getUser().getName());
         if (!Objects.equals(newState.getPrompt_words(), "")){
             JOptionPane.showMessageDialog(this, newState.getPrompt_words());
-        }else if(newState.getIsChanged()){
+        }
+
             Product wtv_product = newState.getProduct();
             JLabel image = new JLabel(String.valueOf(wtv_product.getImage()));//image???
             final JLabel description = new JLabel(wtv_product.getDescription());
@@ -333,10 +335,16 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
             qAInfo.add(qA_title);
             qAInfo.add(qA_TextPanel);
 
-            topBar = new TopBarSampleView(newState.getUser(),
-                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
+//            topBar = new TopBarSampleView(newState.getUser(),
+//                    getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
 
+        topBar.removeAll();
+        topBar.add(new TopBarSampleView(newState.getUser(),
+                getSearchPageController, viewSignupPageController, viewLoginPageController,
+                shoppingCartController, logOutController, viewProfileController,
+                mainPageController));
+        topBar.repaint();
+        topBar.revalidate();
             newState.setIsChanged(false);
-        }
     }
 }
