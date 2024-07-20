@@ -59,6 +59,9 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
     ImagePanel displayImage;
     JPanel productModification;
 
+    private final JTextField description = new JTextField();
+    private final JTextField price = new JTextField();
+
     public ModifyProductView( ViewModifyProductViewModel viewModifyProductViewModel,
                               ModifyProductController modifyProductController,
                               ManageProductController manageProductController,
@@ -111,9 +114,13 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         final JLabel titleLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
         final JLabel title = (product == null)? new JLabel(""): new JLabel(product.getTitle());
         final JLabel descriptionLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
-        final JTextField description = (product == null)? new JTextField(): new JTextField(product.getDescription());
+        if (product != null) {
+            description.setText(product.getDescription());
+        }
         final JLabel priceLabel = new JLabel(viewModifyProductViewModel.PRODUCT_PRICE_LABEL);
-        final JTextField price = (product == null)? new JTextField(): new JTextField(String.valueOf(product.getPrice()));
+        if (product != null) {
+            price.setText(String.valueOf(product.getPrice()));
+        }
         final JLabel eTransferEmailLabel = new JLabel(viewModifyProductViewModel.PRODUCT_ETRANSFER_EMAIL_LABEL);
         final JLabel eTransferEmail = (product == null)? new JLabel(""): new JLabel(product.geteTransferEmail());
         final JLabel addressLabel = new JLabel(viewModifyProductViewModel.PRODUCT_ADDRESS);
@@ -169,12 +176,10 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 
             @Override
             public void keyPressed(KeyEvent e) {
-
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-
             }
         }
 
@@ -184,9 +189,7 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
                 if (evt.getSource().equals(changeProduct)) {
                     try {
                         modifyProductController.execute(viewModifyProductViewModel.getState().getUser(), viewModifyProductViewModel.getState().getProduct(),
-                                viewModifyProductViewModel.getState().getDescription(), viewModifyProductViewModel.getState().getPrice());
-
-
+                                description.getText(), price.getText());
                     } catch (SQLException | IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -297,6 +300,10 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 
         contentPanel.repaint();
         contentPanel.revalidate();
+
+//        if (state.getModifyProductMessage() != "" || state.getModifyProductMessage() == null) {
+//            JOptionPane.showMessageDialog(this, state.getModifyProductMessage());
+//        }
 //        JOptionPane.showMessageDialog(this, state.getDescription());
 
 
