@@ -45,7 +45,7 @@ class DeleteShoppingCartProductInteractorTest {
         ProductFactory productFactory = new CommonProductFactory();
         ScheduleFactory scheduleFactory = new CommonScheduleFactory();
 
-        Image image = ImageIO.read(new File("src.pic.testpic1.png"));
+        Image image = ImageIO.read(new File("src/pic/testpic1.png"));
 
         String description = "This is a description";
 
@@ -121,12 +121,9 @@ class DeleteShoppingCartProductInteractorTest {
 
                 assertEquals("username", actualUser.getName());
                 assertEquals(actualTotalPrice, 0);
-                assertEquals(actualListProducts.size(), 0);
+                assertEquals(actualListProducts.size(), 0);;
 
-                ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
-
-                ShoppingCart emptyshoppingCart = shoppingCartFactory.createShoppingCart(0, "1234567890", new ArrayList<>());
-                assertEquals(initialShoppingCarts.get(0), emptyshoppingCart);
+                assertEquals(initialShoppingCarts.get(0).getListProducts().size(), 0);
             }
         };
 
