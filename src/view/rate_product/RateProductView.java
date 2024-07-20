@@ -59,7 +59,7 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
     private final JButton createRating;
     private final JButton cancel;
 
-    RateProductLabelTextPanel showProduct;
+    JPanel showProduct = new JPanel();
     JPanel getRating;
     private JPanel topBar;
 
@@ -89,41 +89,41 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
         //TODO: FIX CA IN THIS AREA
         UserFactory commonUserFactory = new CommonUserFactory();
         User commonUser = commonUserFactory.createUser("", "", "", 0, "");
-        ProductFactory productFactory = new CommonProductFactory();
-        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
-
-        Image productImage = ImageIO.read(new File("src/pic/testpic1.png"));
-
-        String description = "";
-
-        String productTitle = "";
-
-        float productPrice = 0;
-
-        Integer rating = 0;
-
-        int state = 0;
-
-        String eTransferEmail = "";
-
-        String sellerStudentNumber = "";
-
-        String address = "";
-
-        ArrayList<String> listTags = new ArrayList<>();
-
-        String productID = "";
-
-        LocalDateTime buyerTime = null;
-
-        ArrayList<LocalDateTime> sellerTime = new ArrayList<>();
-
-        Schedule schedule = scheduleFactory.createSchedule(buyerTime, sellerTime);
-
-        Product product = productFactory.createProduct(
-                productImage, description, productTitle, productPrice, rating, state, eTransferEmail, sellerStudentNumber, address,
-                listTags, productID, schedule
-        );
+//        ProductFactory productFactory = new CommonProductFactory();
+//        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+//
+//        Image productImage = ImageIO.read(new File("src/pic/testpic1.png"));
+//
+//        String description = "";
+//
+//        String productTitle = "";
+//
+//        float productPrice = 0;
+//
+//        Integer rating = 0;
+//
+//        int state = 0;
+//
+//        String eTransferEmail = "";
+//
+//        String sellerStudentNumber = "";
+//
+//        String address = "";
+//
+//        ArrayList<String> listTags = new ArrayList<>();
+//
+//        String productID = "";
+//
+//        LocalDateTime buyerTime = null;
+//
+//        ArrayList<LocalDateTime> sellerTime = new ArrayList<>();
+//
+//        Schedule schedule = scheduleFactory.createSchedule(buyerTime, sellerTime);
+//
+//        Product product = productFactory.createProduct(
+//                productImage, description, productTitle, productPrice, rating, state, eTransferEmail, sellerStudentNumber, address,
+//                listTags, productID, schedule
+//        );
 
 
         rateProductViewModel.addPropertyChangeListener(this);
@@ -140,12 +140,17 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
         buttons.add(createRating);
 
         //(1) show the product information
+        if (rateProductViewModel.getState().getProduct() != null) {
+            Product product = rateProductViewModel.getState().getProduct();
+//            JLabel image = new JLabel(String.valueOf(product.getImage()));
+            JLabel paneledImage = new JLabel();
+            paneledImage.setIcon(new ImageIcon(product.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+            JLabel _title = new JLabel(product.getTitle());
+            JLabel price = new JLabel(String.valueOf(product.getPrice()));
 
-        final JLabel image = new JLabel(String.valueOf(product.getImage()));
-        final JLabel _title = new JLabel(product.getTitle());
-        final JLabel price = new JLabel(String.valueOf(product.getPrice()));
+            showProduct = new RateProductLabelTextPanel(paneledImage, _title, price);
+        }
 
-        showProduct = new RateProductLabelTextPanel(image, _title, price);
 
         //(2) show the rating
         getRating = new JPanel();
@@ -217,11 +222,18 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
         cancel.addActionListener(new CancelButtonListener());
 
         //TODO write how the layout will be
-        this.setLayout(new BorderLayout());
-        this.add(title, BorderLayout.CENTER);
-        this.add(showProduct, BorderLayout.WEST);
-        this.add(getRating, BorderLayout.EAST);
-        this.add(buttons, BorderLayout.SOUTH);
+//        this.setLayout(new BorderLayout());
+//        this.add(title, BorderLayout.CENTER);
+//        this.add(showProduct, BorderLayout.WEST);
+//        this.add(getRating, BorderLayout.EAST);
+//        this.add(buttons, BorderLayout.SOUTH);
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.add(title);
+        this.add(showProduct);
+        this.add(getRating);
+        this.add(buttons);
+
     }
 
     @Override
@@ -235,6 +247,18 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
         if(state.getRatingError() != null) {
             JOptionPane.showMessageDialog(this, state.getRatingError());
         }
+
+        showProduct.removeAll();
+        Product product = state.getProduct();
+        JLabel paneledImage = new JLabel();
+        paneledImage.setIcon(new ImageIcon(product.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        JLabel _title = new JLabel(product.getTitle());
+        JLabel price = new JLabel(String.valueOf(product.getPrice()));
+
+        showProduct.add(new RateProductLabelTextPanel(paneledImage, _title, price));
+        showProduct.repaint();
+        showProduct.revalidate();
+
 
         topBar.removeAll();
         topBar.add(new TopBarSampleView(rateProductViewModel.getState().getUser(),

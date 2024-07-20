@@ -27,9 +27,9 @@ public class RateProductPresenter implements RateProductOutputBoundary {
     public void prepareSuccessfulView(RateProductOutputData rateProductOutputData) {
         ShoppingCartState shoppingCartState = shoppingCartViewModel.getState();
         ArrayList<Product> productList = shoppingCartState.getListProducts();
-        for(Product pro : productList) {
-            if(Objects.equals(pro.getProductID(), rateProductOutputData.getProduct().getProductID())) {
-                productList.remove(pro);
+        for (int i = 0; i < productList.size(); i++) {
+            if (productList.get(i).getProductID().equals(rateProductOutputData.getProduct().getProductID())) {
+                productList.remove(productList.get(i));
             }
         }
         shoppingCartState.setListProducts(productList);
