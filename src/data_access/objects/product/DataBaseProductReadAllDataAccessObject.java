@@ -93,15 +93,16 @@ public class DataBaseProductReadAllDataAccessObject implements ProductReadAllDat
             image = ImageIO.read(new ByteArrayInputStream(resultSet.getBytes("Image")));
 
             if (!Objects.equals(resultSet.getString("ListSellerTimes"), null)) {
-                rowTime = new ArrayList<>(List.of(resultSet.getString("ListSellerTimes").substring(1, resultSet.getString("ListTags").length() - 1).split(",")));
+                rowTime = new ArrayList<>(List.of(resultSet.getString("ListSellerTimes").substring(1, resultSet.getString("ListSellerTimes").length() - 1).split(",")));
                 for (String time : rowTime) {
-                    listSellerTimes.add(LocalDateTime.parse(time, DateTimeFormatter.ofPattern("MMMM d, yyyy, HH:mm")));
+                    listSellerTimes.add(LocalDateTime.parse(time, DateTimeFormatter.ISO_LOCAL_DATE_TIME));
                 }
             }
 
             if (!Objects.equals(resultSet.getString("BuyerTime"), null)) {
-                buyerTime = LocalDateTime.parse(resultSet.getString("BuyerTime"), DateTimeFormatter.ofPattern("MMMM d, yyyy, HH:mm"));
+                buyerTime = LocalDateTime.parse(resultSet.getString("BuyerTime"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             }
+
 
             schedule = scheduleFactory.createSchedule(buyerTime, listSellerTimes);
 
