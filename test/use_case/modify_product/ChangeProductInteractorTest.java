@@ -99,6 +99,7 @@ class ChangeProductInteractorTest {
             @Override
             public void prepareSuccessfulView(ChangeProductOutputData changeProductOutputData) throws SQLException, IOException {
                 //First test if the required changes have been made and correctly outputted
+                System.out.println(changeProductOutputData.getProduct().getDescription());
                 assertEquals(changedDescription, changeProductOutputData.getProduct().getDescription());
                 assertEquals(changedPriceFloat, changeProductOutputData.getProduct().getPrice());
                 assertEquals("Successfully modified product", changeProductOutputData.getMessage());
