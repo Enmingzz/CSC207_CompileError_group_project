@@ -96,14 +96,14 @@ public class DatabaseProductReadByTagDataAccessObject implements ProductReadByTa
             image = ImageIO.read(new ByteArrayInputStream(resultSet.getBytes("Image")));
 
             if (!Objects.equals(resultSet.getString("ListSellerTimes"), null)) {
-                rowTime = new ArrayList<>(List.of(resultSet.getString("ListSellerTimes").substring(1, resultSet.getString("ListTags").length() - 1).split(",")));
+                rowTime = new ArrayList<>(List.of(resultSet.getString("ListSellerTimes").substring(1, resultSet.getString("ListSellerTimes").length() - 1).split(",")));
                 for (String time : rowTime) {
-                    listSellerTimes.add(LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")));
+                    listSellerTimes.add(LocalDateTime.parse(time.trim(), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
                 }
             }
 
             if (!Objects.equals(resultSet.getString("BuyerTime"), null)) {
-                buyerTime = LocalDateTime.parse(resultSet.getString("BuyerTime"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+                buyerTime = LocalDateTime.parse(resultSet.getString("BuyerTime"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             }
 
             schedule = scheduleFactory.createSchedule(buyerTime, listSellerTimes);

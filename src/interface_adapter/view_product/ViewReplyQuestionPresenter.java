@@ -23,6 +23,7 @@ public class ViewReplyQuestionPresenter implements ViewReplyQuestionOutputBounda
 
         replyQuestionViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(replyQuestionViewModel.getViewName());
+        System.out.println(replyQuestionViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }
