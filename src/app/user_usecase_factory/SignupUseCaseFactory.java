@@ -3,18 +3,21 @@ package app.user_usecase_factory;
 import data_access.factories.interfaces.product.DataBaseProductReadAllDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.product.DatabaseProductReadByNameDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.product.DatabaseProductReadByTagDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartCreateDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.user.DatabaseUserCreateDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.user.DatabaseUserReadDataAccessObjectFactoryInterface;
 import data_access.factories.objects.product.DatabaseProductReadAllDataAccessObjectFactory;
 import data_access.factories.objects.product.DatabaseProductReadByNameDataAccessObjectFactory;
 import data_access.factories.objects.product.DatabaseProductReadByTagDataAccessObjectFactory;
+import data_access.factories.objects.shopping_cart.DatabaseShoppingCartCreateDataAccessObjectFactory;
 import data_access.factories.objects.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactory;
 import data_access.factories.objects.user.DatabaseUserCreateDataAccessObjectFactory;
 import data_access.factories.objects.user.DatabaseUserReadDataAccessObjectFactory;
 import data_access.interfaces.product.ProductReadAllDataAccessInterface;
 import data_access.interfaces.product.ProductReadByNameDataAccessInterface;
 import data_access.interfaces.product.ProductReadByTagDataAccessInterface;
+import data_access.interfaces.shopping_cart.ShoppingCartCreateDataAccessInterface;
 import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
 import data_access.interfaces.user.UserCreateDataAccessInterface;
 import data_access.interfaces.user.UserReadDataAccessInterface;
@@ -141,11 +144,15 @@ public class SignupUseCaseFactory {
                 = new DatabaseUserReadDataAccessObjectFactory();
         UserReadDataAccessInterface userReadDataAccessInterface =
                 databaseUserReadDataAccessObjectFactory.create(new CommonUserFactory());
+        DatabaseShoppingCartCreateDataAccessObjectFactoryInterface databaseShoppingCartCreateDataAccessObjectFactory =
+                new DatabaseShoppingCartCreateDataAccessObjectFactory();
+        ShoppingCartCreateDataAccessInterface shoppingCartCreateDataAccessObject =
+                databaseShoppingCartCreateDataAccessObjectFactory.create();
 
         UserFactory userFactory = new CommonUserFactory();
 
         SignupInputBoundary userSignupInteractor = new SignupInteractor(
-                userCreateDataAccessObject, userReadDataAccessInterface, signupOutputBoundary, userFactory);
+                userCreateDataAccessObject, userReadDataAccessInterface, signupOutputBoundary, userFactory, shoppingCartCreateDataAccessObject);
 
         return new SignupController(userSignupInteractor);
     }

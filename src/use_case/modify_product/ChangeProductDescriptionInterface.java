@@ -5,5 +5,5 @@ import entity.product.Product;
 import java.sql.SQLException;
 
 public interface ChangeProductDescriptionInterface {
-    boolean execute(Product product, String description) throws SQLException;
+    Product execute(Product product, String description) throws SQLException;
 }

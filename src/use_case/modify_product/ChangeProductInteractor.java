@@ -4,12 +4,17 @@ import data_access.interfaces.product.ProductCreateDataAccessInterface;
 import data_access.interfaces.product.ProductReadByIdDataAccessInterface;
 import data_access.interfaces.product.ProductUpdateDescriptionDataAccessInterface;
 import data_access.interfaces.product.ProductUpdatePriceDataAccessInterface;
+import entity.product.CommonProductFactory;
 import entity.product.Product;
+import entity.product.ProductFactory;
 import interface_adapter.modify_product.ModifyProductPresenter;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
+
+import static java.lang.Float.parseFloat;
+import static java.util.Date.parse;
 
 public class ChangeProductInteractor implements ChangeProductInputBoundary{
 
@@ -27,12 +32,63 @@ public class ChangeProductInteractor implements ChangeProductInputBoundary{
 
     public void execute(ChangeProductInputData changeProductInputData) throws SQLException, IOException {
 
-        boolean descriptionFlag = changeProductDescriptionInterface.execute(changeProductInputData.getProduct(), changeProductInputData.getChangedDescription());
-        boolean priceFlag = changeProductPriceInterface.execute(changeProductInputData.getProduct(), changeProductInputData.getChangedPrice());
+        Product changedProduct = changeProductInputData.getProduct();
 
+        boolean descriptionFlag;
+        boolean priceFlag;
+//        System.out.println(descriptionFlag);
+//        System.out.println(priceFlag);;
+
+        if (changeProductInputData.getChangedDescription() != "") {
+            descriptionFlag = true;
+        }
+        else {
+            descriptionFlag = false;
+        }
+        /** Next we will check if the new price they enetered is valid. There will be two
+         * conditions to check.*/
+        String price = changeProductInputData.getChangedPrice();
+        //first we will test if the price entered is a float and a positive number
+        float floatPrice = 0;
+        try {
+            floatPrice = parseFloat(price);
+            if(floatPrice >= 0) {
+                priceFlag = true;
+            }
+            else{
+                priceFlag = false;
+            }
+        } catch (NumberFormatException e) {
+            priceFlag = false;
+        }
+        //Next we need to verify that the amount they entered has at most 2 decimal places
+        int decimalPointIndex = price.indexOf('.');
+        if(price.indexOf('.') >= 0) {
+            String decimalPart = price.substring(decimalPointIndex);
+            if(decimalPart.length() > 2) {
+                priceFlag = false;
+            }
+        }
+
+        System.out.println(System.identityHashCode(changedProduct));
         if (descriptionFlag & priceFlag) {
             //If the new description and price they inputted are both valid
-            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changeProductInputData.getProduct(),
+            ProductFactory commonProductFactory = new CommonProductFactory();
+//            Product newProduct = commonProductFactory.createProduct(changedProduct.getImage(),
+//                    changeProductInputData.getChangedDescription(), changedProduct.getTitle(),
+//                    parseFloat(changeProductInputData.getChangedPrice()),
+//                    changedProduct.getRating(),
+//                    changedProduct.getState(), changedProduct.geteTransferEmail(),
+//                    changedProduct.getSellerStudentNumber(), changedProduct.getAddress(),
+//                    changedProduct.getListTags(), changedProduct.getProductID(),
+//                    changedProduct.getSchedule());
+
+            changedProduct = changeProductPriceInterface.execute(changedProduct,
+                    changeProductInputData.getChangedPrice());
+            changedProduct = changeProductDescriptionInterface.execute(changedProduct,
+                    changeProductInputData.getChangedDescription());
+            ChangeProductOutputData changeProductOutputData =
+                    new ChangeProductOutputData(changedProduct,
                     "Successfully modified product", changeProductInputData.getUser());
             changeProductOutputBoundary.prepareSuccessfulView(changeProductOutputData);
         }

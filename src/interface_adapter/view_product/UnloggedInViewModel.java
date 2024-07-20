@@ -15,7 +15,7 @@ public class UnloggedInViewModel extends ViewModel {
     private UnloggedInState state = new UnloggedInState();
 
     public UnloggedInViewModel(){
-        super("modify_product view");
+        super("non login view product view");
     }
 
     public  void setState(UnloggedInState state){

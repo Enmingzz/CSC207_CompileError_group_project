@@ -1,9 +1,13 @@
 package use_case.modify_product;
 
 import data_access.interfaces.product.ProductUpdatePriceDataAccessInterface;
+import entity.product.CommonProductFactory;
 import entity.product.Product;
+import entity.product.ProductFactory;
 
 import java.sql.SQLException;
+
+import static java.lang.Float.parseFloat;
 
 public class ChangeProductPrice implements ChangeProductPriceInterface {
     private final ProductUpdatePriceDataAccessInterface productUpdatePriceDataAccessInterface;
@@ -12,13 +16,13 @@ public class ChangeProductPrice implements ChangeProductPriceInterface {
         this.productUpdatePriceDataAccessInterface = productUpdatePriceDataAccessInterface;
     }
 
-    public boolean execute(Product product, String price) throws SQLException {
+    public Product execute(Product changedProduct, String price) throws SQLException {
         boolean validPrice;
 
         //first we will test if the price entered is a float and a positive number
         float floatPrice = 0;
         try {
-            floatPrice = Float.parseFloat(price);
+            floatPrice = parseFloat(price);
             if(floatPrice >= 0) {
                 validPrice = true;
             }
@@ -37,12 +41,16 @@ public class ChangeProductPrice implements ChangeProductPriceInterface {
             }
         }
 
-        if(validPrice) {
-            productUpdatePriceDataAccessInterface.updateProductPrice(product, floatPrice);
-            return true;
-        }
-        else{
-            return false;
-        }
+        productUpdatePriceDataAccessInterface.updateProductPrice(changedProduct, floatPrice);
+        ProductFactory commonProductFactory = new CommonProductFactory();
+        Product newProduct = commonProductFactory.createProduct(changedProduct.getImage(),
+                changedProduct.getDescription(), changedProduct.getTitle(),
+                parseFloat(price),
+                changedProduct.getRating(),
+                changedProduct.getState(), changedProduct.geteTransferEmail(),
+                changedProduct.getSellerStudentNumber(), changedProduct.getAddress(),
+                changedProduct.getListTags(), changedProduct.getProductID(),
+                changedProduct.getSchedule());
+        return newProduct;
     }
 }

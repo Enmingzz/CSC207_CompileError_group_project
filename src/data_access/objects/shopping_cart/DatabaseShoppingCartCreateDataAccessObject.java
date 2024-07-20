@@ -37,7 +37,7 @@ public class DatabaseShoppingCartCreateDataAccessObject implements ShoppingCartC
                 "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
                 "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
 
-        query = "INSERT INTO ShoppingCart (UserID) VALUES (?)";
+        query = "INSERT INTO Carts (UserID) VALUES (?)";
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, user.getStudentNumber());
         preparedStatement.executeUpdate();

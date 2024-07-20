@@ -45,16 +45,21 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
     private final LogOutController logOutController;
     private final ViewProfileController viewProfileController;
     private final MainPageController mainPageController;
+    private final ViewReplyQuestionController replyQuestionController;
 
     private final SellerViewProductViewModel sellerViewProductViewModel;
 
     private final JButton cancel;
+    JButton replyButton = new JButton("Reply");
 
     private JPanel topBar;
 
-    private ProductInfoLabelTextPanel productInfo;
+//    private ProductInfoLabelTextPanel productInfo;
+    private JPanel productInfo = new JPanel();
     private JPanel qAInfo = new JPanel();
-
+    private JPanel qA_TextPanel = new JPanel();
+    final JPanel singleQa = new JPanel();
+    private final JPanel titlePanel = new JPanel();
     /**
      * Constructor for the SellerViewProductView class.
      *
@@ -86,13 +91,13 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
         this.sellerViewProductViewModel = sellerViewProductViewModel;
+        this.replyQuestionController = replyQuestionController;
 
         UserFactory commonUserFactory = new CommonUserFactory();
         User commonUser = commonUserFactory.createUser("", "", "", 0, "");
         topBar = new TopBarSampleView(commonUser,
                 getSearchPageController, viewSignupPageController, viewLoginPageController,
                 shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
 
 
         sellerViewProductViewModel.addPropertyChangeListener(this);
@@ -114,8 +119,28 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
         final JLabel lstTags = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getListTags()));//what will valueOf list look like???
         final JLabel productID = (wtv_product == null)? new JLabel(): new JLabel(wtv_product.getProductID());
 
-        productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
-                lstTags, productID);
+//        productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
+//                lstTags, productID);
+
+        singleQa.setLayout(new BoxLayout(singleQa, BoxLayout.Y_AXIS));
+        singleQa.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        productInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+
+        titlePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        titlePanel.add(title);
+
+        productInfo.setLayout(new BoxLayout(productInfo, BoxLayout.Y_AXIS));
+        productInfo.add(titlePanel);
+        productInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        productInfo.add(_title);
+        productInfo.add(productID);
+        productInfo.add(description);
+        productInfo.add(price);
+        productInfo.add(rating);
+        productInfo.add(state);
+        productInfo.add(address);
+        productInfo.add(lstTags);
+        productInfo.add(image);
 
         //(2)show q_and_a
         qAInfo.setLayout(new BoxLayout(qAInfo, BoxLayout.Y_AXIS));
@@ -124,7 +149,7 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
         final JLabel qA_title = new JLabel("Q&A:");
 
         ArrayList<Question> lst_question = sellerViewProductViewModel.getState().getQuestion();
-        final JPanel qA_TextPanel = new JPanel();
+
         for (Question question : lst_question) {
 
             String answer_content = question.getAnswer().getDescription();
@@ -132,10 +157,14 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
 
             JLabel q = new JLabel(question_content);
             JLabel a = new JLabel(answer_content);
-            JButton replyButton = new JButton("Reply");
 
-            SellerQAInfoLabelTextPanel panel = new SellerQAInfoLabelTextPanel(q, a, replyButton);
-            qA_TextPanel.add(panel);
+            singleQa.add(q);
+            singleQa.add(a);
+            singleQa.add(replyButton);
+
+//            SellerQAInfoLabelTextPanel panel = new SellerQAInfoLabelTextPanel(q, a, replyButton);
+            qA_TextPanel.add(singleQa);
+            singleQa.removeAll();
 
             class ReplyButtonListener implements ActionListener {
                 public void actionPerformed(ActionEvent e) {
@@ -155,7 +184,7 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
         }
 
         qAInfo.add(qA_title);
-        qAInfo.add(qA_TextPanel);
+        qAInfo.add((new JScrollPane(qA_TextPanel)));
 
 
         //(3)some_discrete_buttons
@@ -182,12 +211,16 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
 
         // needs adjustments x,y axis?????
 //        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-        this.setLayout(new BorderLayout());
-
-        this.add(title);
-        this.add(productInfo, BorderLayout.WEST);
-        this.add(new JScrollPane(qAInfo), BorderLayout.EAST);
+        this.setLayout(new BorderLayout(1, 1));
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new GridLayout());
+        centerPanel.add(productInfo);
+        centerPanel.add(qAInfo);
+        this.add(topBar, BorderLayout.NORTH);
+        this.add(centerPanel, BorderLayout.CENTER);
         this.add(cancel, BorderLayout.SOUTH);
+        this.add(new JPanel(), BorderLayout.EAST);
+        this.add(new JPanel(), BorderLayout.WEST);
 
     }
 
@@ -211,8 +244,9 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
         }else if(newState.getIsChanged()){
             sellerViewProductViewModel.setState(newState);
 
-            this.remove(productInfo);
-            qAInfo.removeAll();
+            productInfo.removeAll();
+            qA_TextPanel.removeAll();
+            productInfo.add(titlePanel);
 
             Product wtv_product = newState.getProduct();
 
@@ -227,18 +261,20 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
             final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags()));//what will valueOf list look like???
             final JLabel productID = new JLabel(wtv_product.getProductID());
 
-            productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
-                    lstTags, productID);
-            productInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-
-            final JLabel qA_title = new JLabel("Q&A:");
-            final JPanel singleQa = new JPanel();
-            singleQa.setLayout(new BoxLayout(singleQa, BoxLayout.X_AXIS));
-            singleQa.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+//            productInfo.setLayout(new BoxLayout(productInfo, BoxLayout.Y_AXIS));
+////            productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
+////                    lstTags, productID);
+            productInfo.add(_title);
+            productInfo.add(productID);
+            productInfo.add(description);
+            productInfo.add(price);
+            productInfo.add(rating);
+            productInfo.add(state);
+            productInfo.add(address);
+            productInfo.add(lstTags);
+            productInfo.add(image);
 
             ArrayList<Question> lst_question = newState.getQuestion();
-
-            final JPanel qA_TextPanel = new JPanel();
 
             for (Question question : lst_question) {
 
@@ -247,20 +283,34 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
 
                 JLabel q = new JLabel(question_content);
                 JLabel a = new JLabel(answer_content);
-                JButton replyButton = new JButton("Reply");
+                singleQa.add(q);
+                singleQa.add(a);
+                singleQa.add(replyButton);
 
-                SellerQAInfoLabelTextPanel panel = new SellerQAInfoLabelTextPanel(q, a, replyButton);
-                qA_TextPanel.add(panel);
+                class ReplyButtonListener implements ActionListener {
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource() == replyButton) {
+                            try{
+                                SellerViewProductState sellerViewProductState = sellerViewProductViewModel.getState();
+                                Product product = sellerViewProductState.getProduct();
+                                replyQuestionController.execute(product, sellerViewProductState.getUser(), question);
+                            }catch (Exception ex){
+                                throw new RuntimeException(ex);
+                            }
+                        }
+                    }
+                }
+                replyButton.addActionListener(new ReplyButtonListener());
 
-                singleQa.add(qA_title);
-                singleQa.add(qA_TextPanel);
+                qA_TextPanel.add(singleQa);
 
-                qAInfo.add(singleQa);
                 singleQa.removeAll();
             }
-            this.add(productInfo, BorderLayout.WEST);
+
             qAInfo.repaint();
             qAInfo.revalidate();
+            productInfo.repaint();
+            productInfo.revalidate();
 
             topBar.removeAll();
             topBar.add(new TopBarSampleView(sellerViewProductViewModel.getState().getUser(),
