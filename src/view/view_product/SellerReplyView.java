@@ -45,7 +45,7 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
 
     private final ReplyQuestionViewModel replyQuestionViewModel;
 
-    public final String viewName = "seller reply page";
+    public final String viewName = "reply question";
 
     private JLabel question_to_be_answered;
     private JPanel topBar;
@@ -84,6 +84,8 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
         this.replyQuestionViewModel = replyQuestionViewModel;
+
+        replyQuestionViewModel.addPropertyChangeListener(this);
 
         JLabel page_title = new JLabel(replyQuestionViewModel.TITLE_LABEL);
         page_title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -193,6 +195,8 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        System.out.println("reply question event received");
+
         ReplyQuestionState newState = (ReplyQuestionState) evt.getNewValue();
 
         question_to_be_answered = new JLabel(newState.getQuestion().getDescription());
