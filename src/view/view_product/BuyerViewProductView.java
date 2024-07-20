@@ -137,8 +137,8 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
             final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags())); //what will valueOf list look like???
             final JLabel productID = new JLabel(wtv_product.getProductID());
 
-            productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
-                    lstTags, productID);
+//            productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
+//                    lstTags, productID);
         }
 
         final JLabel message = new JLabel("There is no product!");
@@ -309,8 +309,8 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
             final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags())); //what will valueOf list look like???
             final JLabel productID = new JLabel(wtv_product.getProductID());
 
-            productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
-                    lstTags, productID);
+//            productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
+//                    lstTags, productID);
 
             qAInfo = new JPanel();
 
