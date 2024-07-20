@@ -66,7 +66,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
         if (user.getName().equals("")){
             hi = new JLabel("Welcome!");
         } else {
-            hi = new JLabel("hi " + user.getName());
+            hi = new JLabel("Hi, " + user.getName() + "!");
         }
         title.add(hi);
 

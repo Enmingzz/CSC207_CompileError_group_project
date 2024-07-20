@@ -140,7 +140,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         studentNumberField.setText("");
         passwordField.setText("");
         LoginState state = (LoginState) evt.getNewValue();
-        if (state.getStudentNumberError() != null) {
+        if (state.getIsChanged()) {
             JOptionPane.showMessageDialog(this, state.getStudentNumberError());
         }
     }
