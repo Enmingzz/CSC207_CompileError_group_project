@@ -41,7 +41,7 @@ class ShowShoppingCartInteractorTest {
         ProductFactory productFactory = new CommonProductFactory();
         ScheduleFactory scheduleFactory = new CommonScheduleFactory();
 
-        Image image = ImageIO.read(new File("src.pic.testpic1.png"));
+        Image image = ImageIO.read(new File("src/pic/testpic1.png"));
 
         String description = "This is a description";
 
@@ -90,7 +90,7 @@ class ShowShoppingCartInteractorTest {
 
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
 
-        float totalPrice = 0;
+        float totalPrice = 1;
         ArrayList<Product> listProducts = new ArrayList<>();
         listProducts.add(product);
 
@@ -109,12 +109,22 @@ class ShowShoppingCartInteractorTest {
             @Override
             public void prepareSuccessfulView(ShowShoppingCartOutputData response) {
                 ShoppingCart actualShoppingCart = response.getShoppingCart();
+                ArrayList<Product> actualListProducts = actualShoppingCart.getListProducts();
                 User actualUser = response.getUser();
-                assertNotNull(actualShoppingCart);
-                assertEquals(shoppingCart.getListProducts(), actualShoppingCart.getListProducts());
-                assertEquals(shoppingCart.getTotalPrice(), actualShoppingCart.getTotalPrice());
-                assertEquals(shoppingCart.getStudentNumber(), actualShoppingCart.getStudentNumber());
-                assertEquals(user, actualUser);
+                float actualTotalPrice = actualShoppingCart.getTotalPrice();
+                assertEquals("username", actualUser.getName());
+                assertEquals(actualTotalPrice, 1);
+                assertEquals(actualListProducts.size(), 1);
+                assertEquals(actualListProducts.get(0).getProductID(), product.getProductID());
+                assertEquals(actualListProducts.get(0).getDescription(), product.getDescription());
+                assertEquals(actualListProducts.get(0).getTitle(), product.getTitle());
+                assertEquals(actualListProducts.get(0).getAddress(), product.getAddress());
+                assertEquals(actualListProducts.get(0).geteTransferEmail(), product.geteTransferEmail());
+                assertEquals(actualListProducts.get(0).getSellerStudentNumber(), product.getSellerStudentNumber());
+                assertEquals(actualListProducts.get(0).getPrice(), product.getPrice());
+                assertEquals(actualListProducts.get(0).getRating(), product.getRating());
+                assertEquals(actualListProducts.get(0).getState(), product.getState());
+
             }
         };
 

@@ -155,7 +155,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                         //System.out.println(signupViewModel.getState().getGeneratedVerificationCode());
                         signupController.execute(usernameInputField.getText(),
                                 String.valueOf(passwordInputField.getPassword()),
-                                String.valueOf(repeatPasswordInputField.getPassword()), String.valueOf(emailInputField.getText()), signupViewModel.getState().getGeneratedVerificationCode(), String.valueOf(verificationCodeInputField.getText()), String.valueOf(studentNameInputField.getText()));
+                                String.valueOf(repeatPasswordInputField.getPassword()),
+                                String.valueOf(emailInputField.getText()),
+                                signupViewModel.getState().getGeneratedVerificationCode(),
+                                String.valueOf(verificationCodeInputField.getText()),
+                                String.valueOf(studentNameInputField.getText()));
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }

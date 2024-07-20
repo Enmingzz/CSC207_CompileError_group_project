@@ -206,6 +206,17 @@
         <SOURCES />
       </library>
     </orderEntry>
+    
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/jakarta.activation-1.2.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
@@ -215,6 +226,17 @@
         <SOURCES />
       </library>
     </orderEntry>
+    
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/javax.mail.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+          
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
@@ -224,10 +246,18 @@
         <SOURCES />
       </library>
     </orderEntry>
+<<<<<<< HEAD
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../WeChat Files/wxid_9kjrv7pgmt9n12/FileStorage/File/2024-07/mssql-jdbc-12.6.2.jre11.jar!/" />
+=======
+    
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/mssql-jdbc-12.6.2.jre11.jar!/" />
+>>>>>>> main
         </CLASSES>
         <JAVADOC />
         <SOURCES />

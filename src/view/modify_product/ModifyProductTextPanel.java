@@ -9,6 +9,8 @@ public class ModifyProductTextPanel extends JPanel {
                            JLabel descriptionLabel, JTextField description, JLabel priceLabel, JTextField price,
                            JLabel eTransferEmailLabel, JLabel eTransferEmail, JLabel addressLabel, JLabel address,
                            JLabel tagsLabel, JLabel tags) {
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(titleLabel);
         this.add(title);
         this.add(descriptionLabel);

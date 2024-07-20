@@ -47,9 +47,10 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
     private final ViewProfileController viewProfileController;
     private final MainPageController mainPageController;
 
-    private final JTextField searchBox;
+    private JTextField searchBox;
     private final JButton searchButton;
-    private final String[] tags = {"Tag1", "Tag2", "Tag3"}; // to be decided later
+    private JPanel searchPanel;
+    private final String[] tags = {"Furniture", "Clothes", "Electronics"}; // to be decided later
     AllProductsPanel allProductsPanel;
     private JPanel topBar;
 
@@ -102,7 +103,7 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
 
         viewModel.addPropertyChangeListener(this);
 
-        JPanel searchPanel = new JPanel();
+        searchPanel = new JPanel();
         searchPanel.setLayout(new FlowLayout());
         searchBox = new JTextField(20);
         searchButton = new JButton("Search");
@@ -240,7 +241,6 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
         SearchProductState searchProductState = (SearchProductState) evt.getNewValue();
 
         ArrayList<Product> products = searchProductState.getProducts();
-        allProductsPanel = new AllProductsPanel(products, searchProductViewModel, viewProductController);
 
         topBar.removeAll();
         topBar.add(new TopBarSampleView(searchProductViewModel.getState().getUser(),
@@ -253,6 +253,18 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
 //        JPanel topBar = new TopBarSampleView(searchProductState.getUser(),
 //                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
 //        this.add(topBar);
+
+        allProductsPanel.removeAll();
+        allProductsPanel.add(new view.search_product.AllProductsPanel(products, searchProductViewModel, viewProductController));
+        allProductsPanel.repaint();
+        allProductsPanel.revalidate();
+
+        searchPanel.removeAll();
+        searchBox = new JTextField(20);
+        searchPanel.add(searchBox);
+        searchPanel.add(searchButton);
+        searchPanel.repaint();
+        searchPanel.revalidate();
     }
 
 }
