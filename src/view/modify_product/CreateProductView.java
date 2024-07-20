@@ -29,6 +29,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -309,9 +310,27 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
                 if (evt.getSource().equals(createProduct)) {
                     try {
 //                        CreateProductState state = new CreateProductState();
-                        createProductController.execute(viewCreateProductViewModel.getState().getUser(), image,
-                                descriptionInputField.getText(), priceInputField.getText(), titleInputField.getText(),
-                                eTransferEmailInputField.getText(), addressInputField.getText(), arrayListTags);
+                        //TODO This is a helper
+                        if (image instanceof BufferedImage) {
+                            System.out.println("This is a valid image to pass Database");
+                            createProductController.execute(viewCreateProductViewModel.getState().getUser(), image,
+                                    descriptionInputField.getText(), priceInputField.getText(), titleInputField.getText(),
+                                    eTransferEmailInputField.getText(), addressInputField.getText(), arrayListTags);
+
+                        } else {
+                            // Create a BufferedImage with the same width, height, and type as the original Image
+                            BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+
+                            // Draw the Image onto the BufferedImage
+                            Graphics2D bGr = bufferedImage.createGraphics();
+                            bGr.drawImage(image, 0, 0, null);
+                            bGr.dispose();
+
+                            createProductController.execute(viewCreateProductViewModel.getState().getUser(), (Image) bufferedImage,
+                                    descriptionInputField.getText(), priceInputField.getText(), titleInputField.getText(),
+                                    eTransferEmailInputField.getText(), addressInputField.getText(), arrayListTags);
+                        }
+                        //
                     } catch (SQLException | IOException e) {
                         throw new RuntimeException(e);
                     }
