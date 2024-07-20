@@ -126,24 +126,6 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         productInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         productInfo.setLayout(new BoxLayout(productInfo, BoxLayout.Y_AXIS));
 
-
-        if (wtv_product != null){
-            final JLabel image = new JLabel(String.valueOf(wtv_product.getImage()));//image???
-            final JLabel description = new JLabel(wtv_product.getDescription());
-            final JLabel price = new JLabel(String.valueOf(wtv_product.getPrice()));
-            final JLabel _title = new JLabel(wtv_product.getTitle());
-            final JLabel rating = new JLabel(String.valueOf(wtv_product.getRating()));
-            final JLabel state = new JLabel(String.valueOf(wtv_product.getState()));
-            final JLabel address = new JLabel(wtv_product.getAddress());
-            final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags())); //what will valueOf list look like???
-            final JLabel productID = new JLabel(wtv_product.getProductID());
-
-
-            productInfo.add(new ProductInfoLabelTextPanel(_title, image, description, price, rating,
-                    state, address,
-                    lstTags, productID));
-        }
-
         final JLabel message = new JLabel("There is no product!");
 
         //(2)show q_and_a
