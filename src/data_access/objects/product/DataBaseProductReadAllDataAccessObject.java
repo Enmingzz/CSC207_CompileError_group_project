@@ -21,7 +21,7 @@ import java.util.Objects;
  * DataBaseProductReadAllDataAccessObject is responsible for retrieving all product data from the database.
  * It implements the ProductReadAllDataAccessInterface.
  */
-public class itDataBaseProductReadAllDataAccessObject implements ProductReadAllDataAccessInterface {
+public class DataBaseProductReadAllDataAccessObject implements ProductReadAllDataAccessInterface {
     private final ProductFactory productFactory;
     private final ScheduleFactory scheduleFactory;
     private Connection connection;
