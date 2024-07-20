@@ -65,8 +65,9 @@ public class DatabaseProductReadByIdDataAccessObject implements ProductReadByIdD
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, productID);
         resultSet = preparedStatement.executeQuery();
+        System.out.println(resultSet);
 
-        if (resultSet.next()) {
+        while (resultSet.next()) {
             String productsID = resultSet.getString("ProductID");
             String description = resultSet.getString("Description");
             String title = resultSet.getString("Title");
@@ -98,12 +99,11 @@ public class DatabaseProductReadByIdDataAccessObject implements ProductReadByIdD
 
             return productFactory.createProduct(image, description, title, price, rating, state, transferEmail, sellerID, address, listTags, productsID, schedule);
 
-        } else {
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
-
-            return null;
         }
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+
+        return null;
     }
 }

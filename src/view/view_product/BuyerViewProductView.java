@@ -138,6 +138,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
             final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags())); //what will valueOf list look like???
             final JLabel productID = new JLabel(wtv_product.getProductID());
 
+
             productInfo.add(new ProductInfoLabelTextPanel(_title, image, description, price, rating,
                     state, address,
                     lstTags, productID));
@@ -333,6 +334,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         productInfo.add(image);
 
         ArrayList<Question> lst_question = newState.getQuestion();
+
 
         for (Question question : lst_question) {
 

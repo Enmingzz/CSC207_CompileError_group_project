@@ -14,6 +14,7 @@ public class LoginState {
     private String password = "";
     private String passwordError = null;
     private User user;
+    private boolean isChanged = false;
 
     /**
      * Copy constructor. Creates a new LoginState by copying the fields from another LoginState.
@@ -25,12 +26,19 @@ public class LoginState {
         studentNumberError = copy.studentNumberError;
         password = copy.password;
         passwordError = copy.passwordError;
+        user = copy.user;
     }
 
     /**
      * Default constructor. Creates a new LoginState with default values.
      */
     public LoginState() {}
+
+    public boolean getIsChanged() {
+        return isChanged;
+    }
+
+    public void setIsChanged(boolean isChanged) {this.isChanged = isChanged;}
 
     /**
      * Returns the student number.
