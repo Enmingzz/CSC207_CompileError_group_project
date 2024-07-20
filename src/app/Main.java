@@ -54,6 +54,7 @@ import view.schedule.SellerScheduleView;
 import view.signup.SignupView;
 import view.view_product.BuyerViewProductView;
 import view.view_product.NonloggedInProductView;
+import view.view_product.SellerReplyView;
 import view.view_product.SellerViewProductView;
 
 import javax.swing.*;
@@ -106,7 +107,17 @@ public class Main {
         ViewModifyProductViewModel viewModifyProductViewModel = new ViewModifyProductViewModel();
 
 
-
+        SellerReplyView sellerReplyView = SellerReplyUseCaseFactory.create(replyQuestionViewModel,
+                viewManagerModel,
+                mainPageViewModel,
+                shoppingCartViewModel,
+                signupViewModel,
+                loginViewModel,
+                viewProfileViewModel,
+                searchProductViewModel,
+                buyerViewProductViewModel,
+                sellerViewProductViewModel,
+                unloggedInViewModel);
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel,
                 signupViewModel, mainPageViewModel, shoppingCartViewModel,
@@ -267,6 +278,7 @@ public class Main {
         views.add(manageProductView.viewName, manageProductView);
         views.add(createProductView.viewName, createProductView);
         views.add(modifyProductView.viewName, modifyProductView);
+        views.add(sellerReplyView.viewName, sellerReplyView);
 
 //        views.add(searchByNamePanel.viewName, searchByNamePanel);
 //        views.add(searchByTagPanel.viewName, searchByTagPanel);
