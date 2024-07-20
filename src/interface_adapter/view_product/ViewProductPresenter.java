@@ -21,6 +21,7 @@ public class ViewProductPresenter implements ViewProductOutputBoundary {
 
     @Override
     public void prepareViewSucceed(ViewProductOutputData viewProductOutputData) {
+        System.out.println("prepareSuccessView view product");
         BuyerViewProductState buyerViewProductState = buyerViewProductViewModel.getState();
         SellerViewProductState sellerViewProductState = sellerViewProductViewModel.getState();
         UnloggedInState nonLoggedInState = nonLoggedInViewModel.getState();
