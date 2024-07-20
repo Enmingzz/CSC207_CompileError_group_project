@@ -49,8 +49,9 @@ public class DatabaseShoppingCartUpdateAddDataAccessObject implements ShoppingCa
         resultSet.next();
 
         String rowList = resultSet.getString("ListProductsID");
-        ArrayList<String> listProductsID = new ArrayList<>(List.of(rowList.substring(1, rowList.length() - 1).split(",")));
-        listProductsID.add(product.getProductID());
+        ArrayList<String> listProductsID = (resultSet.getString("ListProductsID") == null)?
+                new ArrayList<String>(): new ArrayList<>(List.of(resultSet.getString("ListProductsID").substring(1,
+                resultSet.getString("ListProductsID").length() - 1).split(",")));
 
         query = "UPDATE Carts SET ListProductsID = ? WHERE UserID = ?";
         preparedStatement = connection.prepareStatement(query);

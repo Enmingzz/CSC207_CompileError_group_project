@@ -82,7 +82,7 @@ public class DatabaseProductReadByNameDataAccessObject implements ProductReadByN
         resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
-            productsID = resultSet.getString("ProductsID");
+            productsID = resultSet.getString("ProductID");
             sellerID = resultSet.getString("SellerID");
             description = resultSet.getString("Description");
             title = resultSet.getString("Title");
