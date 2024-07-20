@@ -19,8 +19,6 @@ public class ViewCreateProductViewModel extends ViewModel {
     public final String CREATE_PRODUCT_BUTTON_LABEL = "Create Product";
     public final String CANCEL_BUTTON_LABEL = "Cancel";
 
-
-
     private CreateProductState state = new CreateProductState();
 
     public ViewCreateProductViewModel() {
@@ -44,10 +42,6 @@ public class ViewCreateProductViewModel extends ViewModel {
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
-    }
-
-    public void resetState() {
-        this.setState(new CreateProductState());
     }
 
 }
