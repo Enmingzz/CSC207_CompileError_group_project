@@ -38,8 +38,6 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 
     private final ViewModifyProductViewModel viewModifyProductViewModel;
 
-    private final JTextField Description = new JTextField(3);
-
     ModifyProductController modifyProductController;
     ManageProductController manageProductController;
 
@@ -154,12 +152,10 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 
             @Override
             public void keyPressed(KeyEvent e) {
-
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-
             }
         }
 
@@ -189,6 +185,8 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
                     try {
                         modifyProductController.execute(viewModifyProductViewModel.getState().getUser(), viewModifyProductViewModel.getState().getProduct(),
                                 viewModifyProductViewModel.getState().getDescription(), viewModifyProductViewModel.getState().getPrice());
+
+
                     } catch (SQLException | IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -217,8 +215,6 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         price.addKeyListener(new PriceInputFieldListener());
 
         //TODO think about the input fields and display fields
-
-
 
         contentPanel.setLayout(new BorderLayout());
 
@@ -259,7 +255,6 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 
         ViewModifyProductState state = (ViewModifyProductState) evt.getNewValue();
         viewModifyProductViewModel.setState(state);
-//        JOptionPane.showMessageDialog(this, state.getDescription());
 
         Product product = state.getProduct();
         productInformation.removeAll();
@@ -302,6 +297,8 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 
         contentPanel.repaint();
         contentPanel.revalidate();
+//        JOptionPane.showMessageDialog(this, state.getDescription());
+
 
 //        setFields(state);
 
