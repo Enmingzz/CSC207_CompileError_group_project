@@ -51,10 +51,11 @@ public class AddShoppingCartProductInteractor implements AddShoppingCartProductI
         User user = addShoppingCartProductInputData.getUser();
         Product addProduct = addShoppingCartProductInputData.getProduct();
         ShoppingCart shoppingCart = shoppingCartReadDataAccessObject.getShoppingCart(user.getStudentNumber());
-        ArrayList<Product> listProducts = shoppingCart.getListProducts();
 
         shoppingCartUpdateAddDataAccessObject.updateShoppingCart(user, addProduct);
         float totalPrice = shoppingCart.getTotalPrice() + addProduct.getPrice();
+        ShoppingCart newShoppingCart = shoppingCartReadDataAccessObject.getShoppingCart(user.getStudentNumber());
+        ArrayList<Product> listProducts = newShoppingCart.getListProducts();
         AddShoppingCartProductOutputData addShoppingCartProductOutputData = new AddShoppingCartProductOutputData(user, listProducts, totalPrice);
         addShoppingCartProductPresenter.prepareSuccessView(addShoppingCartProductOutputData);
 

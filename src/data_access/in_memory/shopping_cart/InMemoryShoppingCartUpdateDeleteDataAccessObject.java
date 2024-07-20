@@ -31,14 +31,16 @@ public class InMemoryShoppingCartUpdateDeleteDataAccessObject implements Shoppin
 
     @Override
     public void updateShoppingCart(User user, Product updatedProduct) throws SQLException {
-        for (ShoppingCart shoppingCart : this.shoppingCarts) {
-            if (Objects.equals(shoppingCart.getStudentNumber(), user.getStudentNumber())) {
-                for (Product product : shoppingCart.getListProducts()) {
-                    if (Objects.equals(product.getProductID(), updatedProduct.getProductID())) {
-                        shoppingCart.getListProducts().remove(product);
-                    }
-
-                }
+        for (int i = 0; i < shoppingCarts.size(); i++) {
+            if (Objects.equals(shoppingCarts.get(i).getStudentNumber(), user.getStudentNumber())) {
+                shoppingCarts.get(i).getListProducts().removeIf(product -> Objects.equals(product.getProductID(), updatedProduct.getProductID()));
+                ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
+                ShoppingCart newShoppingCart = shoppingCartFactory.createShoppingCart(
+                        shoppingCarts.get(i).getTotalPrice() - updatedProduct.getPrice(),
+                        user.getStudentNumber(),
+                        shoppingCarts.get(i).getListProducts()
+                );
+                shoppingCarts.set(i, newShoppingCart);
             }
 
         }

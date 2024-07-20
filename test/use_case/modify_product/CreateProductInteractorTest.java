@@ -60,7 +60,7 @@ class CreateProductInteractorTest {
         ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
                 new InMemoryProductReadByIdDataAccessObject();
 
-        image = ImageIO.read(new File("D:/24 summer/csc207/CSC207_CompileError_group_project/src/pic/testpic1.png"));
+        image = ImageIO.read(new File("src/pic/testpic1.png"));
         description = "It was worn once";
         price = "9";
         priceFloat = Float.parseFloat(price);

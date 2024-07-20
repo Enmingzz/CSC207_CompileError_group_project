@@ -29,8 +29,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AddShoppingCartProductInteractorTest {
 
@@ -120,15 +119,18 @@ class AddShoppingCartProductInteractorTest {
 
                 assertEquals("username", actualUser.getName());
                 assertEquals(actualTotalPrice, 1);
-                assertEquals(actualListProducts.get(0), product);
-
-                ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
-
-                float totalPrice = 0;
-                ArrayList<Product> listProducts = new ArrayList<>();
-
-                ShoppingCart emptyshoppingCart = shoppingCartFactory.createShoppingCart(0, "1234567890", new ArrayList<>());
-                assertNotEquals(initialShoppingCarts, emptyshoppingCart);
+                assertEquals(actualListProducts.size(), 1);
+                assertEquals(actualListProducts.get(0).getProductID(), product.getProductID());
+                assertEquals(actualListProducts.get(0).getDescription(), product.getDescription());
+                assertEquals(actualListProducts.get(0).getTitle(), product.getTitle());
+                assertEquals(actualListProducts.get(0).getAddress(), product.getAddress());
+                assertEquals(actualListProducts.get(0).geteTransferEmail(), product.geteTransferEmail());
+                assertEquals(actualListProducts.get(0).getSellerStudentNumber(), product.getSellerStudentNumber());
+                assertEquals(actualListProducts.get(0).getPrice(), product.getPrice());
+                assertEquals(actualListProducts.get(0).getRating(), product.getRating());
+                assertEquals(actualListProducts.get(0).getState(), product.getState());
+                assertEquals(actualListProducts.get(0).getImage(), product.getImage());
+                assertEquals(actualTotalPrice, initialShoppingCarts.get(0).getTotalPrice());
             }
         };
 
