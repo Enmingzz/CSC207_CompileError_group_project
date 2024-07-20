@@ -24,6 +24,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.time.format.DateTimeFormatter;
 
 public class MangeSingleProductView extends JPanel implements PropertyChangeListener {
     private final Product product;
@@ -75,13 +76,15 @@ public class MangeSingleProductView extends JPanel implements PropertyChangeList
         if (product.getState() == 0){
             stateViewField.setText("product is being sold");
         } else if (product.getState() == 1) {
-            stateViewField.setText("scheduling a meeting time with buyer");
+            stateViewField.setText("Please select available times for meeting the buyer.");
         } else if (product.getState() == 2) {
-            stateViewField.setText("your meeting time scheduled");
+            stateViewField.setText("Pending for buyer to select a meeting time.");
         } else if (product.getState() == 3) {
-            stateViewField.setText("buyer has chosen a meeting time");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy, HH:mm");
+            String formattedDateTime = product.getSchedule().getBuyerTime().format(formatter);
+            stateViewField.setText("The scheduled meeting time: " + formattedDateTime);
         } else if (product.getState() == 4) {
-            stateViewField.setText("Buyer has confirmed that they have received the product");
+            stateViewField.setText("Buyer has confirmed receipt of the product. Pending buyer's rating.");
         } else {
             stateViewField.setText("product has been sold and buyer has rated the product");
         }
