@@ -21,7 +21,9 @@ public class ViewProductPresenter implements ViewProductOutputBoundary {
 
     @Override
     public void prepareViewSucceed(ViewProductOutputData viewProductOutputData) {
-        System.out.println("prepareSuccessView view product");
+
+        System.out.println("view product presenter being called");
+
         BuyerViewProductState buyerViewProductState = buyerViewProductViewModel.getState();
         SellerViewProductState sellerViewProductState = sellerViewProductViewModel.getState();
         UnloggedInState nonLoggedInState = nonLoggedInViewModel.getState();
@@ -52,6 +54,7 @@ public class ViewProductPresenter implements ViewProductOutputBoundary {
             viewManagerModel.firePropertyChanged();
         }
         else{
+            System.out.println("unlogged in is ");
             nonLoggedInState.setProduct(viewProductOutputData.getProduct());
             nonLoggedInState.setLst_question(viewProductOutputData.getList_of_question());
             nonLoggedInState.setUser(viewProductOutputData.getUser());

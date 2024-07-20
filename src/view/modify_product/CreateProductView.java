@@ -60,7 +60,7 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
     private final JButton cancel;
     private final JButton uploadImageButton;
     private JLabel imageLabel;
-    private Image image;
+    private Image image = null;
 
     ArrayList<String> arrayListTags = new ArrayList<>();
 
@@ -316,6 +316,11 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
                         //TODO This is a helper
                         if (image instanceof BufferedImage) {
                             System.out.println("This is a valid image to pass Database");
+                            createProductController.execute(viewCreateProductViewModel.getState().getUser(), image,
+                                    descriptionInputField.getText(), priceInputField.getText(), titleInputField.getText(),
+                                    eTransferEmailInputField.getText(), addressInputField.getText(), arrayListTags);
+
+                        } else if (image == null) {
                             createProductController.execute(viewCreateProductViewModel.getState().getUser(), image,
                                     descriptionInputField.getText(), priceInputField.getText(), titleInputField.getText(),
                                     eTransferEmailInputField.getText(), addressInputField.getText(), arrayListTags);
