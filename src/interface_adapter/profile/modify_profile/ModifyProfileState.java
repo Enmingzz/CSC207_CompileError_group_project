@@ -6,7 +6,8 @@ import entity.user.UserFactory;
 public class ModifyProfileState {
 
     private User user;
-    private String message;
+    private String message = "";
+    private boolean modified = false;
 
     public ModifyProfileState(UserFactory userFactory) {
         this.user = userFactory.createUser("", "", "", 0, "");
@@ -19,6 +20,10 @@ public class ModifyProfileState {
     public void setUser(User user){
         this.user = user;
     }
+
+    public boolean getModified() {return modified;}
+
+    public void setModified(boolean modified){this.modified = modified;}
 
     public String getMessage() {
         return message;
