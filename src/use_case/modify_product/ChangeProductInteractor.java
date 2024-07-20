@@ -62,15 +62,17 @@ public class ChangeProductInteractor implements ChangeProductInputBoundary{
             priceFlag = false;
         }
         //Next we need to verify that the amount they entered has at most 2 decimal places
-        int decimalPointIndex = price.indexOf('.');
-        if(price.indexOf('.') >= 0) {
-            String decimalPart = price.substring(decimalPointIndex);
-            if(decimalPart.length() > 2) {
-                priceFlag = false;
+        if(priceFlag) {
+            int decimalPointIndex = price.indexOf('.');
+            if(price.indexOf('.') >= 0) {
+                String decimalPart = price.substring(decimalPointIndex);
+                if(decimalPart.length() > 2) {
+                    priceFlag = false;
+                }
             }
         }
 
-        System.out.println(System.identityHashCode(changedProduct));
+
         if (descriptionFlag & priceFlag) {
             //If the new description and price they inputted are both valid
             ProductFactory commonProductFactory = new CommonProductFactory();
@@ -93,14 +95,18 @@ public class ChangeProductInteractor implements ChangeProductInputBoundary{
             changeProductOutputBoundary.prepareSuccessfulView(changeProductOutputData);
         }
         else if(descriptionFlag) {
+            changedProduct = changeProductDescriptionInterface.execute(changedProduct,
+                    changeProductInputData.getChangedDescription());
             //If only the description was successfully modified
-            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changeProductInputData.getProduct(),
+            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changedProduct,
                     "Only the price failed to update", changeProductInputData.getUser());
             changeProductOutputBoundary.prepareSuccessfulView(changeProductOutputData);
         }
         else if(priceFlag) {
             //If only the description was successfully modified
-            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changeProductInputData.getProduct(),
+            changedProduct = changeProductPriceInterface.execute(changedProduct,
+                    changeProductInputData.getChangedPrice());
+            ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changedProduct,
                     "Only the description failed to update", changeProductInputData.getUser());
             changeProductOutputBoundary.prepareSuccessfulView(changeProductOutputData);
         }
