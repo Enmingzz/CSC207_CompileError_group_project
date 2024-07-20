@@ -203,8 +203,6 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
         mainPageViewModel.setState(state);
 
-        allProductsPanel = new AllProductsPanel(allProducts, mainPageViewModel, viewProductController);
-
 //        topBar = new TopBarSampleView(this.mainPageViewModel.getState().getUser(),
 //                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
 
@@ -216,6 +214,11 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
                 mainPageController));
         topBar.repaint();
         topBar.revalidate();
+
+        allProductsPanel.removeAll();
+        allProductsPanel.add(new AllProductsPanel(allProducts, mainPageViewModel, viewProductController));
+        allProductsPanel.repaint();
+        allProductsPanel.revalidate();
 //        this.revalidate();
 //        this.repaint();
         //this.add(topBar);
