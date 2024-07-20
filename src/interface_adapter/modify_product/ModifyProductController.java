@@ -22,5 +22,4 @@ public class ModifyProductController {
         ChangeProductInputData changeProductInputData = new ChangeProductInputData(user, product, changedDescription, changedPrice);
         changeProductInputInteractor.execute(changeProductInputData);
     }
-
 }

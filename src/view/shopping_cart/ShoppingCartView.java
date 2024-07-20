@@ -367,14 +367,18 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
         topBar.repaint();
         topBar.revalidate();
 
-        allProductsPanel = new AllProductsPanel(listProducts,
-                shoppingCartViewModel,
+
+        allProductsPanel.removeAll();
+        allProductsPanel.add(new view.shopping_cart.AllProductsPanel(listProducts, shoppingCartViewModel,
                 viewProductController,
                 purchaseController,
                 deleteShoppingCartProductController,
                 getBuyerSchedulePageController,
                 confirmController,
-                getRatePageController);
+                getRatePageController
+                ));
+        allProductsPanel.repaint();
+        allProductsPanel.revalidate();
 
         if (!Objects.equals(state.getErrorMessage(), "")) {
             JOptionPane.showMessageDialog(this, state.getErrorMessage());
