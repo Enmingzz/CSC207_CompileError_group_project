@@ -14,6 +14,7 @@ public class GetRatePagePresenter implements GetRatePageOutputBoundary {
     }
 
     public void prepareSuccessfulView(GetRatePageOutputData getRatePageOutputData){
+        System.out.println("rate product page presenter requested");
         RateProductState state = rateProductViewModel.getState();
 
         state.setUser(getRatePageOutputData.getUser());
