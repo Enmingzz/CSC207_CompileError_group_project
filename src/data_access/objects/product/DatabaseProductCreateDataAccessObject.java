@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.sql.*;
 
 /**
@@ -67,11 +68,17 @@ public class DatabaseProductCreateDataAccessObject implements ProductCreateDataA
 //        bGr.dispose();
 
         BufferedImage bufferedImage =  (BufferedImage) product.getImage();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, "jpg", baos);
-        byte[] arrayImageByte = baos.toByteArray();
 
-        preparedStatement.setBytes(8, arrayImageByte);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(bufferedImage, "png", baos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        byte[] imageBytes = baos.toByteArray();
+
+        preparedStatement.setBytes(8, imageBytes);
         preparedStatement.executeUpdate();
 
         preparedStatement.close();
