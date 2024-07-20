@@ -156,10 +156,6 @@ public class ManageProductView extends JPanel implements ActionListener, Propert
         ManageProductState newState = (ManageProductState) evt.getNewValue();
         manageProductViewModel.setState(newState);
 
-        if (newState.getModifyProductMessage() != "" || newState.getModifyProductMessage() == null) {
-            JOptionPane.showMessageDialog(this, newState.getModifyProductMessage());
-        }
-
         updateMainPanel();
         this.remove(topBar);
         topBar = new TopBarSampleView(this.manageProductViewModel.getState().getUser(),
