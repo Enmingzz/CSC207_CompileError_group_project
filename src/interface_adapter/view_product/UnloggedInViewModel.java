@@ -9,6 +9,7 @@ public class UnloggedInViewModel extends ViewModel {
     public final String TITLE_LABEL = "Non-logged in product View";
     public final String ADD_TO_CART = "Add to shopping cart";
     public final String INPUT_QUESTION_TITLE = "My new question as follows:";
+    public final String VIEW_USER_PROFILE_BUTTON = "View Seller's Profile";
 
     public final String PRODUCTTITLE_LABEL = "Title";
     public final String PRICE_LABEL = "Price";

@@ -22,13 +22,46 @@
 
 
 ## 3. Exploring the Program 
-### Viewing and Exploring Main Page 
-- On the main page, you should see the top bar
+
+### 0. Explaining the TOP bar
+
+### 1. Profile 
+
+#### Creating Account and Logging in 
+
+#### Creating an Account and Logging 
+
+#### Viewing Profile (the three branches) 
+
+### #Modifying profile 
+
+### 2. From a Seller's POV 
+
+#### Creating a product or posting 
+
+#### Modifying a product or posting 
+
+### 3. A Buyer's POV 
+
+#### Using the Search bar to search for products
+
+#### Viewing specific details of a product 
+
+#### Using the Q&A section in a product 
+
+#### Shopping cart 
+
+#### Purchasing a product 
+
+### 4. Completing the trade 
+
+#### Buyer Select Schedule 
+
+#### Seller Select Schedule 
 
 
-### Creating Account and Logging in 
 
-### Creating an Account and Logging
+
 
 
 
