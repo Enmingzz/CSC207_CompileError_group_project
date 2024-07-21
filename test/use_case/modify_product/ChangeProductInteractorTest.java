@@ -113,13 +113,19 @@ class ChangeProductInteractorTest {
                 assertEquals(changeProductOutputData.getUser(), user);
                 //Together these are testing if the interactor has performed its functionalities, that is both change the product in the database and pass the correct updated product to the Presenter.
             }
+
+            @Override
+            public void prepareFailView(ChangeProductOutputData changeProductOutputData) {
+                assert false;
+            }
         };
         //mock database
 
         ProductUpdatePriceDataAccessInterface productUpdatePriceDataAccessObject = new InMemoryProductUpdatePriceDataAccessObject(productsList);
         ProductUpdateDescriptionDataAccessInterface productUpdateDescriptionDataAccessInterface = new InMemoryProductUpdateDescriptionDataAccessObject(productsList);
 
-        ChangeProductInteractor changeProductInteractor = new ChangeProductInteractor(changeProductPresenter, productUpdatePriceDataAccessObject,
+        ChangeProductInteractor changeProductInteractor = new ChangeProductInteractor(changeProductPresenter,
+                productUpdatePriceDataAccessObject,
                 productUpdateDescriptionDataAccessInterface);
 
 
