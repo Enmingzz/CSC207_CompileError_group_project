@@ -2,6 +2,9 @@ package use_case.modify_product;
 
 import data_access.interfaces.product.ProductCreateDataAccessInterface;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 /**
  * The ViewCreateProductInteractor class is responsible for handling the process of viewing the create product screen.
  * It implements the {@link ViewCreateProductInputBoundary} interface and uses a {@link ViewCreateProductOutputBoundary}
@@ -26,7 +29,7 @@ public class ViewCreateProductInteractor implements ViewCreateProductInputBounda
      *
      * @param viewCreateProductInputData the input data required for viewing the create product screen
      */
-    public void execute(ViewCreateProductInputData viewCreateProductInputData) {
+    public void execute(ViewCreateProductInputData viewCreateProductInputData) throws SQLException, IOException {
         ViewCreateProductOutputData viewCreateProductOutputData = new ViewCreateProductOutputData(viewCreateProductInputData.getUser());
         viewcreateProductOutputBoundary.prepareSuccessfulView(viewCreateProductOutputData);
     }

@@ -1,5 +1,8 @@
 package use_case.rate_product;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 /**
  * The GetRatePageInteractor class is responsible for handling the process of retrieving the rating page for a product.
  * It implements the {@link GetRatePageInputBoundary} interface and uses a {@link GetRatePageOutputBoundary}
@@ -28,7 +31,7 @@ public class GetRatePageInteractor implements GetRatePageInputBoundary {
      * @param getRatePageInputData the input data required for viewing the rating page, including the user and product information
      */
     @Override
-    public void execute(GetRatePageInputData getRatePageInputData) {
+    public void execute(GetRatePageInputData getRatePageInputData) throws SQLException, IOException {
 
         GetRatePageOutputData getRatePageOutputData = new GetRatePageOutputData(
                 getRatePageInputData.getUser(),
