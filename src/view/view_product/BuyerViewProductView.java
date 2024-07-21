@@ -345,7 +345,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         JLabel qA_title = new JLabel("Q&A: ");
 
         qAInfo.add(qA_title);
-        qAInfo.add(qA_TextPanel);
+        qAInfo.add(new JScrollPane(qA_TextPanel));
 
 
         qAInfo.repaint();
