@@ -114,6 +114,8 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
         ViewProfileState state = (ViewProfileState) evt.getNewValue();
 
 
+
+
     }
 }
 
