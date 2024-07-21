@@ -30,10 +30,44 @@
 #### Creating Account and Logging in 
 
 #### Creating an Account and Logging 
+- The login view allows users to authenticate by entering their student number and password.
+- The login view Page provides fields for users to enter their credentials:
+  - Enter your student number: Input field for the student number.
+  - Enter password: Input field for the password.
+- Button:
+- Log in: Authenticates the user and grants access to the application.
+
+- ![image](https://github.com/user-attachments/assets/852ed544-e0b4-4012-b560-358eb0eb8333)
 
 #### Viewing Profile (the three branches) 
+- After log in, the View Profile Page will show up.
+- The profile viewing section provides a detailed view of the user's profile, displaying essential information such as:
+- ![image](https://github.com/user-attachments/assets/102e42a1-8c75-4859-8324-f04d631f785e)
 
 ### #Modifying profile 
+- The modify profile Page provides fields for users to enter and update their profile information:
+  - Enter Name: Input field to update the user's name.
+  - Enter Password: Input field to update the user's password.
+- Buttons:
+  - Confirm: Saves the updated information.
+  - Back: Returns to the Viewing Profile screen.
+  - 
+- ![image](https://github.com/user-attachments/assets/fb33fdef-e2b2-47a2-a461-9e6887e80f0d)
+
+### #Manage products 
+- The manage products Page displays a list of products with details and options to:
+  - Show Detail: View detailed information about the product.
+  - Modify: Edit the product's information.
+  - Delete Product: Remove the product from the list.
+  - Add Product: Add a new product to the list.
+- Each product entry includes:
+  - Title
+  - State (e.g., being sold, need to scheduling meeting times)
+  - Rating
+  - Price
+  - Image
+
+- ![image](https://github.com/user-attachments/assets/3e5c7745-cdb2-48f1-a8ca-a8563d36d524)
 
 ### 2. From a Seller's POV 
 
