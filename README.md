@@ -29,18 +29,76 @@
 
 #### Creating Account and Logging in 
 - click the sign up button on the left of the top bar, it will naviagte to the sign up view.
+- Fill in your student number, a desired username, a password, re-enter it, and enter the prefix of your uoft student email. 
+- If any of them is blank, then an error message will appear.
+- The sign-up view allows new users to create an account by entering necessary details.
+- The sign-up view Page provides fields for users to enter their details:
+  - Enter student number: Input field for the student number.
+  - Choose username: Input field for the username.
+  - Choose password: Input field for the password.
+  - Enter password again: Input field to confirm the password.
+  - Enter email: Input field for the email (domain @mail.utoronto.ca is preset).
+  - Enter verification code: Input field for the verification code.
+- Button:
+  - Sign Up: Registers the user and creates a new account.
+  - Send: send the code to your utoronto email.
 
-<img width="1365" alt="image" src="https://github.com/user-attachments/assets/b8bb85df-cf7d-4f53-8f2b-7a517c28d90b">
-
-- Fill in your student number, a desired username, a password, re-enter it, and enter the prefix of your uoft student email. If any of them is blank, then an error message will appear.
-
-
+- ![image](https://github.com/user-attachments/assets/822192e7-c16c-483d-9d41-000ca4cc1263)
+- If the student number already has a account then the error message will show up as:
+  - ![image](https://github.com/user-attachments/assets/0ea4e1db-8888-495e-b7f2-03207728dba4)
+ 
+- If the Password dose not match then the error message will show up as:
+  - ![image](https://github.com/user-attachments/assets/e86aa12d-4446-4037-a7ef-fb0aa463bd75)
 
 #### Creating an Account and Logging 
+- After Sign Up the Login Page will show up.
+- The login view allows users to authenticate by entering their student number and password.
+- The login view Page provides fields for users to enter their credentials:
+  - Enter your student number: Input field for the student number.
+  - Enter password: Input field for the password.
+- Button:
+ - Log in: Authenticates the user and grants access to the application.
+
+- ![image](https://github.com/user-attachments/assets/852ed544-e0b4-4012-b560-358eb0eb8333)
+
+- If the password does not match the sign up password.
+- A Error message will show up as following:
+ - ![image](https://github.com/user-attachments/assets/19d9bf36-2f21-4e66-98b3-77095a39e124)
+
 
 #### Viewing Profile (the three branches) 
+- After log in, the View Profile Page will show up.
+- The profile viewing section provides a detailed view of the user's profile, displaying essential information such as:
+- ![image](https://github.com/user-attachments/assets/102e42a1-8c75-4859-8324-f04d631f785e)
 
 ### #Modifying profile 
+- The modify profile Page provides fields for users to enter and update their profile information:
+  - Enter Name: Input field to update the user's name.
+  - Enter Password: Input field to update the user's password.
+- Buttons:
+  - Confirm: Saves the updated information.
+  - Back: Returns to the Viewing Profile screen.
+    
+- ![image](https://github.com/user-attachments/assets/fb33fdef-e2b2-47a2-a461-9e6887e80f0d)
+
+- If the user didn't change anything, a Error message will show up as following:
+  - ![image](https://github.com/user-attachments/assets/0484a562-6d6c-4254-a67f-bd10356d535e)
+
+
+### #Manage products 
+- The manage products Page displays a list of products with details and options to:
+  - Show Detail: View detailed information about the product.
+  - Modify: Edit the product's information.
+  - Delete Product: Remove the product from the list.
+  - Add Product: Add a new product to the list.
+- Each product entry includes:
+  - Title
+  - State (e.g., being sold, need to scheduling meeting times)
+  - Rating
+  - Price
+  - Image
+
+- ![image](https://github.com/user-attachments/assets/3e5c7745-cdb2-48f1-a8ca-a8563d36d524)
 
 ### 2. From a Seller's POV 
 
