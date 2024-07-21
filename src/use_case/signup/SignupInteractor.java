@@ -70,13 +70,15 @@ public class SignupInteractor implements SignupInputBoundary {
             SignupOutputData signupOutputData = new SignupOutputData(user, "user already exists");
             signupPresenter.presentFailedView(signupOutputData);
         } else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
-            SignupOutputData signupOutputData = new SignupOutputData(user, "passwords do not match");
+            SignupOutputData signupOutputData = new SignupOutputData(user, "password does not " +
+                    "match");
             signupPresenter.presentFailedView(signupOutputData);
         } else if (signupInputData.getGeneratedVerificationCode().isEmpty()) {
             SignupOutputData signupOutputData = new SignupOutputData(user, "need to send verification code first");
             signupPresenter.presentFailedView(signupOutputData);
         } else if (!signupInputData.getInputVerificationCode().equals(signupInputData.getGeneratedVerificationCode())) {
-            SignupOutputData signupOutputData = new SignupOutputData(user, "wrong verification code");
+            SignupOutputData signupOutputData = new SignupOutputData(user, "wrong verification " +
+                    "code");
             signupPresenter.presentFailedView(signupOutputData);
         } else {
             userCreateDataAccessObject.saveUser(user);

@@ -39,6 +39,7 @@ public class ShoppingCartPresenter implements ShowShoppingCartOutputBoundary {
 
         shoppingCartViewModel.setState(shoppingCartState);
         shoppingCartViewModel.firePropertyChanged();
+        System.out.println("view shopping cart success and fire property changed");
         viewManagerModel.setActiveView(shoppingCartViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
