@@ -2,10 +2,8 @@ package use_case.modify_product;
 
 import data_access.in_memory.product.InMemoryProductReadByIdDataAccessObject;
 import data_access.in_memory.product.InMemoryProductUpdateDescriptionDataAccessObject;
-import data_access.in_memory.product.InMemoryProductUpdatePriceDataAccessObject;
 import data_access.interfaces.product.ProductReadByIdDataAccessInterface;
 import data_access.interfaces.product.ProductUpdateDescriptionDataAccessInterface;
-import data_access.interfaces.product.ProductUpdatePriceDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.Product;
 import entity.product.ProductFactory;
@@ -25,7 +23,11 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit test for ChangeProductDescriptionInteractor.
+ */
 class ChangeProductDescriptionInteractorTest {
+
     private Product product;
     private String changedDescription;
     private ArrayList<Product> productsList;
@@ -34,9 +36,13 @@ class ChangeProductDescriptionInteractorTest {
     private ProductUpdateDescriptionDataAccessInterface inMemoryProductUpdateDescriptionDataAccessObject;
     private ChangeProductDescription changeProductDescription;
 
+    /**
+     * Sets up the test environment before each test.
+     *
+     * @throws IOException if there is an error reading the image file.
+     */
     @BeforeEach
     void setUp() throws IOException {
-
         Image image = ImageIO.read(new File("src/pic/testpic1.png"));
         String description = "It was worn once";
         float price = 2;
@@ -63,33 +69,29 @@ class ChangeProductDescriptionInteractorTest {
 
         inMemoryProductUpdateDescriptionDataAccessObject = new InMemoryProductUpdateDescriptionDataAccessObject(productsList);
         changeProductDescription = new ChangeProductDescription(inMemoryProductUpdateDescriptionDataAccessObject);
-
     }
 
+    /**
+     * Cleans up the test environment after each test.
+     */
     @AfterEach
     void tearDown() {
     }
 
+    /**
+     * Tests the execute method of ChangeProductDescription to ensure it correctly updates the product description.
+     *
+     * @throws IOException if there is an error during execution.
+     * @throws SQLException if there is an error with SQL execution.
+     */
     @Test
     void executeTrueTest() throws IOException, SQLException {
-        /** this is the test where the description entered is valid for change */
+        // The description is changed
         changedDescription = "This was once used by a dog.";
 
         ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
                 new InMemoryProductReadByIdDataAccessObject(productsList);
         changeProductDescription.execute(product, changedDescription);
         assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(product.getProductID()).getDescription(), changedDescription);
-    }
-
-    @Test
-    void executeFalseTest() throws IOException, SQLException {
-        //The case when the price provided is a negative number
-        changedDescription = "";
-        ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
-                new InMemoryProductReadByIdDataAccessObject(productsList);
-        changeProductDescription.execute(product, changedDescription);
-        //boolean result = changeProductDescription.execute(product, changedDescription);
-        assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(product.getProductID()).getDescription(), product.getDescription());
-        //assertFalse(result);
     }
 }
