@@ -73,7 +73,8 @@ if a field is empty, an error message is prompted as shown below.
 
 If all fields are valid, then the product will be created successfully. You should now see it in your "Manage Product" page and "Main Page", as shown below (Don't mind the formatting, this will be fixed in Phase 2).
 
-<img width="1297" alt="image" src="https://github.com/user-attachments/assets/590d77be-3c6b-43f7-8e64-2260322f922b">
+<img width="1256" alt="image" src="https://github.com/user-attachments/assets/92295224-0ebd-4660-a333-7983f17879c9">
+
 
 <img width="1314" alt="image" src="https://github.com/user-attachments/assets/268d2d9b-8387-4075-9733-1208a14059f9">
 
