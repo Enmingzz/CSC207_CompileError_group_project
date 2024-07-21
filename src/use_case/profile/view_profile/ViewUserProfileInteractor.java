@@ -20,7 +20,7 @@ public class ViewUserProfileInteractor implements ViewUserProfileInputBoundary{
 
     @Override
     public void execute(ViewUserProfileInputData userProfileInputData) throws SQLException {
-        User seller = databaseUserReadDataAccessObject.getUser(userProfileInputData.getSellerStudentNumber())
+        User seller = databaseUserReadDataAccessObject.getUser(userProfileInputData.getSellerStudentNumber());
         ArrayList<Product> products = getProducts(seller);
         ViewUserProfileOutputData viewUserProfileOutput =
                 new ViewUserProfileOutputData(seller,
