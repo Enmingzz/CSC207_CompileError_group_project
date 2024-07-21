@@ -158,6 +158,31 @@ If you want to purchase a product from your cart, simply click Buy Product. Then
 
 #### Seller Select Schedule 
 
+![image](https://github.com/user-attachments/assets/86a1164a-4132-4837-bdff-5ab02b17346c)
+
+![image](https://github.com/user-attachments/assets/83688dfe-6db7-4aff-985f-c10bf664df98)
+
+
+- After a buyer purchases a product from the shopping cart, the seller can find a "Schedule Meeting Times" button next to this product in the manage product page in their profile, for selecting the times they are available to meet the buyer
+
+  ![image](https://github.com/user-attachments/assets/44d454a5-846b-4520-b6cf-3842ef93c791)
+
+- in seller schedule selecting page, seller can use the date and hour dropdowns to choose the available times.
+
+  ![image](https://github.com/user-attachments/assets/c0dd57b8-d4f8-44e5-8dfd-b0040fdacd20)
+
+  
+- Click the "Add" button to add the selected time to the list of scheduled times.
+
+  ![image](https://github.com/user-attachments/assets/38153443-74d0-42b4-8473-b7a9b701fd7a)
+
+- Select a time from the list and click the "Remove" button to remove it.
+
+  ![image](https://github.com/user-attachments/assets/3a3cefef-0d1e-4a3c-b80b-28016ee80668)
+  
+- Once seller have added all the available times, click the "Confirm" button. The buyer will then be prompted to select a meeting time among these available times.
+
+
 
 
 
