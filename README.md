@@ -45,6 +45,37 @@
 
 #### Using the Search bar to search for products
 
+  ![image](https://github.com/user-attachments/assets/3b98d419-dc5f-40cc-81b2-bc3e2603aac4)
+
+- Both unlogged and logged users can access the search page to search for products.
+- The search page consists of three parts:
+  - Top Bar.
+  - Search Bar: Allows users to enter search criteria by name or by selecting tags.
+  - Products Displayed: Shows the products based on the search criteria or initial display.
+- Initially, all products that are on sale will be displayed on the search page.
+
+- **Search By Name**
+  
+  ![image](https://github.com/user-attachments/assets/970395d9-4e59-40b4-b7c7-bfa072d3b4fc)
+
+  - Enter the text in the search text box. Note that the search is case-sensitive.
+  - Click the search button.
+  
+  ![image](https://github.com/user-attachments/assets/fd22fda2-9750-4e1f-95cb-93ad9d2f3a9a)
+
+  - The search results will display products whose names (titles) contain the entered search text. Products with names that exactly match the search text will be displayed first, followed by products with partial matches.
+ 
+- **Search By Tag**
+  
+  ![image](https://github.com/user-attachments/assets/d7e6e79d-7109-4c35-84da-0c89e46d69de)
+
+  - Below are the buttons for every tag that products can have.
+  - Click the button corresponding to the tag you want to search by.
+ 
+    ![image](https://github.com/user-attachments/assets/e1fb9527-67ee-474c-bb5f-2532e0a016db)
+
+  - The search results will display products that have the selected tag.
+
 #### Viewing specific details of a product 
 
 #### Using the Q&A section in a product 
