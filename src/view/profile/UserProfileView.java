@@ -134,9 +134,6 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
         allProductsPanel.repaint();
         allProductsPanel.revalidate();
 
-
-
-
     }
 }
 

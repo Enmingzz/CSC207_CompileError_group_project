@@ -75,8 +75,12 @@ public class UserProfileUseCaseFactory {
     public static UserProfileView create(ViewManagerModel viewManagerModel, SignupViewModel
             signupViewModel, LoginViewModel loginViewModel, MainPageViewModel mainPageViewModel,
                                          ViewProfileViewModel profileViewModel, ShoppingCartViewModel shoppingCartViewModel,
-                                         ManageProductViewModel manageProductViewModel) throws IOException {
-        //TODO implements this
+                                         ManageProductViewModel manageProductViewModel) throws IOException, SQLException {
+        MainPageController mainPageController =
+                UserProfileUseCaseFactory.createMainPageController(mainPageViewModel,
+                        viewManagerModel);
+        Shopping
+        return new UserProfileView()
         return null;
     }
 

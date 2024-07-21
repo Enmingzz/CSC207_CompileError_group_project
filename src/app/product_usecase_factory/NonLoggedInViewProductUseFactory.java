@@ -1,16 +1,19 @@
 package app.product_usecase_factory;
 
 import data_access.factories.interfaces.product.DataBaseProductReadAllDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.product.DatabaseProductReadByUserDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartCreateDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.user.DatabaseUserCreateDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.user.DatabaseUserReadDataAccessObjectFactoryInterface;
 import data_access.factories.objects.product.DatabaseProductReadAllDataAccessObjectFactory;
+import data_access.factories.objects.product.DatabaseProductReadByUserDataAccessObjectFactory;
 import data_access.factories.objects.shopping_cart.DatabaseShoppingCartCreateDataAccessObjectFactory;
 import data_access.factories.objects.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactory;
 import data_access.factories.objects.user.DatabaseUserCreateDataAccessObjectFactory;
 import data_access.factories.objects.user.DatabaseUserReadDataAccessObjectFactory;
 import data_access.interfaces.product.ProductReadAllDataAccessInterface;
+import data_access.interfaces.product.ProductReadByUserDataAccessInterface;
 import data_access.interfaces.shopping_cart.ShoppingCartCreateDataAccessInterface;
 import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
 import data_access.interfaces.user.UserCreateDataAccessInterface;
@@ -30,15 +33,14 @@ import interface_adapter.logout.LogOutPresenter;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.main_page.MainPagePresenter;
 import interface_adapter.main_page.MainPageViewModel;
-import interface_adapter.profile.view_profile.ViewProfileController;
-import interface_adapter.profile.view_profile.ViewProfilePresenter;
-import interface_adapter.profile.view_profile.ViewProfileViewModel;
+import interface_adapter.profile.view_profile.*;
 import interface_adapter.search_product.*;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.shopping_cart.ShoppingCartPresenter;
 import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import interface_adapter.signup.*;
 import interface_adapter.view_product.UnloggedInViewModel;
+import use_case.profile.view_profile.*;
 import use_case.search_product.*;
 import use_case.signup.*;
 import use_case.login.*;
@@ -48,9 +50,6 @@ import use_case.logout.LogOutOutputBoundary;
 import use_case.main_page.ShowMainPageInputBoundary;
 import use_case.main_page.ShowMainPageInteractor;
 import use_case.main_page.ShowMainPageOutputBoundary;
-import use_case.profile.view_profile.ViewProfileInputBoundary;
-import use_case.profile.view_profile.ViewProfileInteractor;
-import use_case.profile.view_profile.ViewProfileOutputBoundary;
 import use_case.shopping_cart.*;
 import view.view_product.NonloggedInProductView;
 
@@ -66,7 +65,9 @@ public class NonLoggedInViewProductUseFactory {
                                                 LoginViewModel loginViewModel,
                                                 SignupViewModel signupViewModel,
                                                 UnloggedInViewModel unloggedInViewModel,
-                                                ViewProfileViewModel profileViewModel) throws SQLException, IOException {
+                                                ViewProfileViewModel profileViewModel,
+                                                ViewUserProfileViewModel viewUserProfileViewModel) throws SQLException,
+            IOException {
         ViewLoginPageController viewLoginPageController = createViewLoginPageController(loginViewModel, viewManagerModel);
         MainPageController mainPageController =
                 NonLoggedInViewProductUseFactory.createMainPageController(mainPageViewModel, viewManagerModel);
@@ -76,7 +77,33 @@ public class NonLoggedInViewProductUseFactory {
         ShoppingCartController shoppingCartController = createShoppingCartController(viewManagerModel, shoppingCartViewModel);
         ViewProfileController viewProfileController = createProfileController(viewManagerModel, profileViewModel);
 
-        return new NonloggedInProductView(unloggedInViewModel, viewLoginPageController, mainPageController, getSearchPageController, viewSignupPageController, shoppingCartController, logOutController, viewProfileController);
+        ViewUserProfileController ViewUserProfileController =
+                createUserProfileController(viewManagerModel, viewUserProfileViewModel);
+        return new NonloggedInProductView(unloggedInViewModel, viewLoginPageController,
+                mainPageController, getSearchPageController, viewSignupPageController,
+                shoppingCartController, logOutController, viewProfileController, ViewUserProfileController);
+    }
+
+
+    private static ViewUserProfileController createUserProfileController(ViewManagerModel viewManagerModel, ViewUserProfileViewModel viewUserProfileViewModel) throws SQLException {
+        ViewUserProfileOutputBoundary viewUserProfilePresenter =
+                new ViewUserProfilePresenter(viewUserProfileViewModel, viewManagerModel);
+        DatabaseUserReadDataAccessObjectFactoryInterface userReadDataAccessObjectFactory =
+                new DatabaseUserReadDataAccessObjectFactory();
+        UserFactory userFactory = new CommonUserFactory();
+        UserReadDataAccessInterface userReadDataAccessObject =
+                userReadDataAccessObjectFactory.create(userFactory);
+        DatabaseProductReadByUserDataAccessObjectFactoryInterface databaseProductReadByUserDataAccessObjectFactoryInterface
+                = new DatabaseProductReadByUserDataAccessObjectFactory();
+        ProductFactory productFactory = new CommonProductFactory();
+        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+        ProductReadByUserDataAccessInterface productReadByUserDataAccessObject =
+                databaseProductReadByUserDataAccessObjectFactoryInterface.create(productFactory,
+                        scheduleFactory);
+        ViewUserProfileInputBoundary viewUserProfileInteractor =
+                new ViewUserProfileInteractor(viewUserProfilePresenter, userReadDataAccessObject,
+                        productReadByUserDataAccessObject);
+        return new ViewUserProfileController(viewUserProfileInteractor);
     }
 
     /**

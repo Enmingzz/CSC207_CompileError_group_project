@@ -23,6 +23,8 @@ import interface_adapter.profile.modify_profile.ModifyProfileState;
 import interface_adapter.profile.modify_profile.ModifyProfileViewModel;
 import interface_adapter.profile.view_profile.ViewProfileState;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
+import interface_adapter.profile.view_profile.ViewUserProfileState;
+import interface_adapter.profile.view_profile.ViewUserProfileViewModel;
 import interface_adapter.rating.RateProductState;
 import interface_adapter.rating.RateProductViewModel;
 import interface_adapter.schedule.BuyerSelectScheduleState;
@@ -43,6 +45,7 @@ import view.*;
 import view.modify_product.CreateProductView;
 import view.modify_product.ModifyProductView;
 import view.profile.ManageProductView;
+import view.profile.UserProfileView;
 import view.rate_product.RateProductView;
 import view.search_product.SearchProductView;
 import view.shopping_cart.ShoppingCartView;
@@ -106,6 +109,7 @@ public class Main {
         RateProductViewModel rateProductViewModel = new RateProductViewModel();
         ViewCreateProductViewModel viewCreateProductViewModel = new ViewCreateProductViewModel();
         ViewModifyProductViewModel viewModifyProductViewModel = new ViewModifyProductViewModel();
+        ViewUserProfileViewModel viewUserProfileViewModel = new ViewUserProfileViewModel();
 
 
         SellerReplyView sellerReplyView = SellerReplyUseCaseFactory.create(replyQuestionViewModel,
@@ -163,7 +167,7 @@ public class Main {
         NonloggedInProductView productView =
                 NonLoggedInViewProductUseFactory.create(viewManagerModel, mainPageViewModel, shoppingCartViewModel,
                         searchProductViewModel, loginViewModel, signupViewModel,
-                        unloggedInViewModel, viewProfileViewModel);
+                        unloggedInViewModel, viewProfileViewModel, viewUserProfileViewModel);
 
         SearchProductView searchProductView = SearchProductUseCaseFactory.create(searchProductViewModel, viewManagerModel,
                 buyerViewProductViewModel, sellerViewProductViewModel, unloggedInViewModel, signupViewModel, loginViewModel,
@@ -181,6 +185,10 @@ public class Main {
         ModifyProductView modifyProductView =  ModifyProductUseCaseFactory.create(viewModifyProductViewModel, viewManagerModel,
                 searchProductViewModel, signupViewModel, loginViewModel, shoppingCartViewModel, mainPageViewModel, viewProfileViewModel,
                 manageProductViewModel);
+
+        UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel,
+                signupViewModel, loginViewModel, mainPageViewModel, viewProfileViewModel,
+                shoppingCartViewModel, manageProductViewModel);
 
         RateProductView rateProductView = RateProductUseCaseFactory.create(
                 rateProductViewModel,
@@ -272,6 +280,10 @@ public class Main {
         rateProductViewModel.setState(rateProductState);
         //rateProductViewModel.firePropertyChanged();
 
+        ViewUserProfileState viewUserProfileState = viewUserProfileViewModel.getState();
+        viewUserProfileState.setBuyerUser(commonUserFactory.createUser("", "", "", 0, ""));
+        viewUserProfileViewModel.setState(viewUserProfileState);
+
 
         TestView testView = new TestView();
         views.add(signupView.viewName, signupView);
@@ -292,6 +304,7 @@ public class Main {
         views.add(modifyProductView.viewName, modifyProductView);
         views.add(sellerReplyView.viewName, sellerReplyView);
         views.add(rateProductView.viewName, rateProductView);
+        views.add(userProfileView.viewName, userProfileView);
 
 //        views.add(searchByNamePanel.viewName, searchByNamePanel);
 //        views.add(searchByTagPanel.viewName, searchByTagPanel);
