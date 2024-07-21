@@ -46,11 +46,38 @@ public class DatabaseQuestionReadDataAccessObject implements QuestionReadDataAcc
                 "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
                 "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
 
+//        String questionUserID;
+//        String answerUserID;
+//        String questionDescription;
+//        String answerDescription;
+//        Answer answer;
+//        ArrayList<Question> listQuestions = new ArrayList<>();
+//
+//        query = "SELECT * FROM Comments WHERE ProductID = ?";
+//        preparedStatement = connection.prepareStatement(query);
+//        preparedStatement.setString(1, productID);
+//        resultSet = preparedStatement.executeQuery();
+//        while (resultSet.next()) {
+//            questionUserID = resultSet.getString("QuestionUserID");
+//            questionDescription = resultSet.getString("QuestionDescription");
+//            answerUserID = resultSet.getString("AnswerUserID");
+//            answerDescription = resultSet.getString("AnswerDescription");
+//
+//            answer = answerFactory.createAnswer(answerDescription, answerUserID);
+//            listQuestions.add(questionFactory.createQuestion(questionDescription, questionUserID, answer, questionID));
+//        }
+//
+//        resultSet.close();
+//        preparedStatement.close();
+//        connection.close();
+//
+//        return listQuestions;
         String questionUserID;
         String answerUserID;
         String questionDescription;
         String answerDescription;
         Answer answer;
+        String questionID;
         ArrayList<Question> listQuestions = new ArrayList<>();
 
         query = "SELECT * FROM Comments WHERE ProductID = ?";
@@ -58,19 +85,16 @@ public class DatabaseQuestionReadDataAccessObject implements QuestionReadDataAcc
         preparedStatement.setString(1, productID);
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
+            questionID = resultSet.getString("CommentID");
             questionUserID = resultSet.getString("QuestionUserID");
             questionDescription = resultSet.getString("QuestionDescription");
             answerUserID = resultSet.getString("AnswerUserID");
             answerDescription = resultSet.getString("AnswerDescription");
 
             answer = answerFactory.createAnswer(answerDescription, answerUserID);
-            listQuestions.add(questionFactory.createQuestion(questionDescription, questionUserID, answer, questionUserID));
+            listQuestions.add(questionFactory.createQuestion(questionDescription, questionUserID, answer, questionID));
+
         }
-
-        resultSet.close();
-        preparedStatement.close();
-        connection.close();
-
         return listQuestions;
     }
 }
