@@ -25,7 +25,7 @@ public class InMemoryUserUpdateNameDataAccessObject implements UserUpdateNameDat
      */
     public InMemoryUserUpdateNameDataAccessObject(ArrayList<User> listUser, UserFactory userFactory) {
         this.userFactory = userFactory;
-        users = new ArrayList<>(listUser);
+        users = listUser;
     }
 
     /**

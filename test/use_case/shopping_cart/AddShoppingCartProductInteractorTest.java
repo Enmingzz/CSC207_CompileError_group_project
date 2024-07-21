@@ -34,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AddShoppingCartProductInteractorTest {
 
     private Product product;
+    private Product dupeProduct;
     private User user;
     private ShoppingCart shoppingCart;
     private ShoppingCart shoppingCartDupe;
@@ -115,7 +116,7 @@ class AddShoppingCartProductInteractorTest {
 
         Schedule schedule2 = scheduleFactory.createSchedule(buyerTime2, sellerTime2);
 
-        product = productFactory.createProduct(
+        dupeProduct = productFactory.createProduct(
                 image2, description2, title2, price2, rating2, state2, eTransferEmail2, sellerStudentNumber2, address2,
                 listTags2, productID2, schedule2
         );
@@ -137,8 +138,12 @@ class AddShoppingCartProductInteractorTest {
         float totalPrice = 0;
         ArrayList<Product> listProducts = new ArrayList<>();
 
+        ArrayList<Product> newListProducts = new ArrayList<>();
+        newListProducts.add(dupeProduct);
+
+
         shoppingCart = shoppingCartFactory.createShoppingCart(totalPrice, studentNumber, listProducts);
-        shoppingCartDupe = shoppingCartFactory.createShoppingCart(totalPrice, studentNumber, listProducts);
+        shoppingCartDupe = shoppingCartFactory.createShoppingCart(totalPrice, studentNumber, newListProducts);
 
         initialShoppingCarts = new ArrayList<>();
         initialShoppingCarts.add(shoppingCart);
@@ -220,9 +225,9 @@ class AddShoppingCartProductInteractorTest {
         };
 
         ShoppingCartReadDataAccessInterface shoppingCartReadDataAccessObject =
-                new InMemoryShoppingCartReadDataAccessObject(initialShoppingCarts);
+                new InMemoryShoppingCartReadDataAccessObject(initialShoppingCartsDuplicate);
         ShoppingCartUpdateAddDataAccessInterface shoppingCartUpdateAddDataAccessObject =
-                new InMemoryShoppingCartUpdateAddDataAccessObject(initialShoppingCarts);
+                new InMemoryShoppingCartUpdateAddDataAccessObject(initialShoppingCartsDuplicate);
 
         AddShoppingCartProductInputData inputData =
                 new AddShoppingCartProductInputData(product, user);
