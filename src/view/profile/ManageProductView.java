@@ -168,5 +168,7 @@ public class ManageProductView extends JPanel implements ActionListener, Propert
         if (newState.getModifyProductMessage() != null) {
             JOptionPane.showMessageDialog(this, newState.getModifyProductMessage());
         }
+        newState.setModifyProductMessage(null);
+        manageProductViewModel.setState(newState);
     }
 }

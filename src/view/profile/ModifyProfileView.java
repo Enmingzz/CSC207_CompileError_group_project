@@ -165,9 +165,9 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
         topBar.repaint();
         topBar.revalidate();
 
-        if (Objects.equals(state.getMessage(), "Did not change anything")) {
-            JOptionPane.showMessageDialog(this, state.getMessage());
-        }
-        state.setMessage("");
+//        if (Objects.equals(state.getMessage(), "Did not change anything")) {
+//            JOptionPane.showMessageDialog(this, state.getMessage());
+//        }
+//        state.setMessage("");
     }
 }

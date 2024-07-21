@@ -107,7 +107,7 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
                               UploadImageController uploadImageController
                               ) {
         this.viewModifyProductViewModel = viewModifyProductViewModel;
-//        viewModifyProductViewModel.addPropertyChangeListener(this);
+        viewModifyProductViewModel.addPropertyChangeListener(this);
         this.modifyProductController = modifyProductController;
         this.manageProductController = manageProductController;
         this.uploadImageController = uploadImageController;
@@ -232,100 +232,95 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         productModification.add(imageLabel);
 
         //create all the different panels
-
-        class TitleInputFieldListener implements KeyListener {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                ViewModifyProductState state = viewModifyProductViewModel.getState();
-                state.setTitle(titleInputField.getText() + e.getKeyChar());
-                viewModifyProductViewModel.setState(state);
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        }
-        ;
-        class DescriptionInputFieldListener implements KeyListener {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                ViewModifyProductState state = viewModifyProductViewModel.getState();
-                state.setDescription(descriptionInputField.getText() + e.getKeyChar());
-                viewModifyProductViewModel.setState(state);
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        }
-        ;
-        class PriceInputFieldListener implements KeyListener {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                ViewModifyProductState state = viewModifyProductViewModel.getState();
-                state.setPrice(priceInputField.getText() + e.getKeyChar());
-                viewModifyProductViewModel.setState(state);
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        };
-        class ETransferEmailInputFieldListener implements KeyListener {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                ViewModifyProductState state = viewModifyProductViewModel.getState();
-                state.setEmail(emailInputField.getText() + e.getKeyChar());
-                viewModifyProductViewModel.setState(state);
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        };
-        class AddressInputFieldListener implements KeyListener {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                ViewModifyProductState state = viewModifyProductViewModel.getState();
-                state.setAddress(addressInputField.getText() + e.getKeyChar());
-                viewModifyProductViewModel.setState(state);
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        };
+//
+//        class TitleInputFieldListener implements KeyListener {
+//            @Override
+//            public void keyTyped(KeyEvent e) {
+//                ViewModifyProductState state = viewModifyProductViewModel.getState();
+//                state.setTitle(titleInputField.getText() + e.getKeyChar());
+//                viewModifyProductViewModel.setState(state);
+//            }
+//
+//            @Override
+//            public void keyPressed(KeyEvent e) {
+//            }
+//
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//            }
+//        }
+//        ;
+//        class DescriptionInputFieldListener implements KeyListener {
+//            @Override
+//            public void keyTyped(KeyEvent e) {
+//                ViewModifyProductState state = viewModifyProductViewModel.getState();
+//                state.setDescription(descriptionInputField.getText() + e.getKeyChar());
+//                viewModifyProductViewModel.setState(state);
+//            }
+//
+//            @Override
+//            public void keyPressed(KeyEvent e) {
+//            }
+//
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//            }
+//        }
+//        ;
+//        class PriceInputFieldListener implements KeyListener {
+//            @Override
+//            public void keyTyped(KeyEvent e) {
+//                ViewModifyProductState state = viewModifyProductViewModel.getState();
+//                state.setPrice(priceInputField.getText() + e.getKeyChar());
+//                viewModifyProductViewModel.setState(state);
+//            }
+//
+//            @Override
+//            public void keyPressed(KeyEvent e) {
+//            }
+//
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//            }
+//        };
+//        class ETransferEmailInputFieldListener implements KeyListener {
+//            @Override
+//            public void keyTyped(KeyEvent e) {
+//                ViewModifyProductState state = viewModifyProductViewModel.getState();
+//                state.setEmail(emailInputField.getText() + e.getKeyChar());
+//                viewModifyProductViewModel.setState(state);
+//            }
+//
+//            @Override
+//            public void keyPressed(KeyEvent e) {
+//            }
+//
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//            }
+//        };
+//        class AddressInputFieldListener implements KeyListener {
+//            @Override
+//            public void keyTyped(KeyEvent e) {
+//                ViewModifyProductState state = viewModifyProductViewModel.getState();
+//                state.setAddress(addressInputField.getText() + e.getKeyChar());
+//                viewModifyProductViewModel.setState(state);
+//            }
+//
+//            @Override
+//            public void keyPressed(KeyEvent e) {
+//            }
+//
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//            }
+//        };
 
         class ChangeProductListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(changeProduct)) {
                     try {
-                        descriptionInputField.setText("");
-                        titleInputField.setText("");
-                        addressInputField.setText("");
-                        priceInputField.setText("");
-                        emailInputField.setText("");
                         if (image instanceof BufferedImage || image == null) {
                             modifyProductController.execute(
                                     viewModifyProductViewModel.getState().getUser(),
@@ -377,6 +372,11 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
                                             emailInputField.getText(),
                                     (Image) bufferedImage);
                         }
+                        descriptionInputField.setText("");
+                        titleInputField.setText("");
+                        addressInputField.setText("");
+                        priceInputField.setText("");
+                        emailInputField.setText("");
 
 // =======
 //                         //TODO delete later this is to test if the input data is correct for the change product used case
@@ -435,11 +435,11 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         cancel.addActionListener(new CancelButtonListener());
         uploadImageButton.addActionListener(new uploadImageButtonListener());
 
-        descriptionInputField.addKeyListener(new DescriptionInputFieldListener());
-        titleInputField.addKeyListener(new TitleInputFieldListener());
-        addressInputField.addKeyListener(new AddressInputFieldListener());
-        priceInputField.addKeyListener(new PriceInputFieldListener());
-        emailInputField.addKeyListener(new ETransferEmailInputFieldListener());
+//        descriptionInputField.addKeyListener(new DescriptionInputFieldListener());
+//        titleInputField.addKeyListener(new TitleInputFieldListener());
+//        addressInputField.addKeyListener(new AddressInputFieldListener());
+//        priceInputField.addKeyListener(new PriceInputFieldListener());
+//        emailInputField.addKeyListener(new ETransferEmailInputFieldListener());
 
         //TODO think about the input fields and display fields
 
