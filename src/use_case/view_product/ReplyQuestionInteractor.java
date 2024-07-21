@@ -44,6 +44,10 @@ public class ReplyQuestionInteractor implements ReplyQuestionInputBoundary {
         System.out.println("this is the answer content:::::::" + answerDescription);
 
         Question completeQuestion = questionFactory.createQuestion(questionContent, product.getSellerStudentNumber(), sellerAnswer, questionID);
+
+        System.out.println("this is the answer" + completeQuestion.getAnswer().getDescription());
+        System.out.println("this is the uuid" + completeQuestion.getQuestionID());
+
         questionUpdateDataAccessObject.updateQuestion(completeQuestion);//TODO: this DAO might have issue
 
         ReplyQuestionOutputData replyQuestionOutputData = new ReplyQuestionOutputData("question successfully answered", replyQuestionInputData.getQuestion());

@@ -349,7 +349,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         topBar = new TopBarSampleView(this.signupViewModel.getState().getUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
 
-        this.add(topBar, BorderLayout.NORTH);
+        //this.add(topBar, BorderLayout.NORTH);
         topBar.removeAll();
         topBar.add(new JLabel(signupViewModel.TITLE_LABEL));
         topBar.repaint();

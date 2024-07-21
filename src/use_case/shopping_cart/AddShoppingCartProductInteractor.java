@@ -58,9 +58,12 @@ public class AddShoppingCartProductInteractor implements AddShoppingCartProductI
             if (Objects.equals(product.getProductID(), addProduct.getProductID())) {
                 isFailed = true;
                 addShoppingCartProductPresenter.prepareFailedView("Product already in Shopping Cart");
-            } else if (!Objects.equals(product.getState(), 0)) {
-               addShoppingCartProductPresenter.prepareFailedView("Product has already been sold");
             }
+
+        }
+        if (!Objects.equals(addProduct.getState(), 0)) {
+            addShoppingCartProductPresenter.prepareFailedView("Product has already been sold");
+            isFailed = true;
         }
 
         if (!isFailed) {
