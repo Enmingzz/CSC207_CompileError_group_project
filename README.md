@@ -39,6 +39,37 @@
 
 #### Creating a product or posting 
 
+When on a main page, and you want to create a product for posting, navigate by clicking on the github icon (to the right of the "Log Out" button").
+You should arrive on the page as displayed below.
+
+<img width="1357" alt="Screenshot 2024-07-21 at 18 25 01" src="https://github.com/user-attachments/assets/16583982-c1c7-4d2d-ba6d-7800245f99d6">
+
+Then, click on "Manage Product" on the left. You should arrive on the page displayed below.
+
+<img width="1350" alt="Screenshot 2024-07-21 at 18 26 14" src="https://github.com/user-attachments/assets/9d265921-267d-4f5b-becd-4255dacb2a5e">
+
+Click on the "Add product" button on the right. You should arrive on the page displayed as below.
+
+<img width="1357" alt="Screenshot 2024-07-21 at 18 27 24" src="https://github.com/user-attachments/assets/cce5a6b8-14c5-4204-b5c0-392a0dfefa32">
+
+Fill in "Product Title", "Product Description", "Product Price" (This should be a float of at most 2 decimal places), "Product eTransfer Email", "Product Pickup Address", and select one of the 3 tags (hold command/ctrl depending on mac/windows respectively to select multiple). Then click on "Upload Image" at the bottom of the page. You should see a popup page as shown below.
+
+<img width="1350" alt="Screenshot 2024-07-21 at 18 32 04" src="https://github.com/user-attachments/assets/fce1003a-4772-432b-b528-53285a20991c">
+
+Once image has been uploaded, a popup should appear prompting image has been added, then you should see the image uploaded below as shown.
+
+<img width="1335" alt="Screenshot 2024-07-21 at 18 33 17" src="https://github.com/user-attachments/assets/c2c3c077-0c7b-4edf-aea4-c82550311130">
+
+if a field is empty, an error message is prompted as shown below.
+
+<img width="1297" alt="image" src="https://github.com/user-attachments/assets/5dafe051-0b96-43c1-a8fe-1f981c619154">
+
+If all fields are valid, then the product will be created successfully. You should now see it in your "Manage Product" page and "Main Page", as shown below (Don't mind the formatting, this will be fixed in Phase 2).
+
+<img width="1297" alt="image" src="https://github.com/user-attachments/assets/590d77be-3c6b-43f7-8e64-2260322f922b">
+
+<img width="216" alt="image" src="https://github.com/user-attachments/assets/139817a0-d5d6-49e0-b25c-3e7721319018">
+
 #### Modifying a product or posting 
 
 ### 3. A Buyer's POV 
