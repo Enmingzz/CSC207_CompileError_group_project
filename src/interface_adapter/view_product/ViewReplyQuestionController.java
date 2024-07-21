@@ -9,12 +9,12 @@ import use_case.view_product.ViewReplyQuestionInputData;
 import java.sql.SQLException;
 
 public class ViewReplyQuestionController {
-    final ViewReplyQuestionInputBoundary replyQuestionInteractor;
+    final ViewReplyQuestionInputBoundary viewReplyQuestionInteractor;
     public ViewReplyQuestionController(ViewReplyQuestionInputBoundary viewReplyQuestionInputBoundary){
-        this.replyQuestionInteractor = viewReplyQuestionInputBoundary;
+        this.viewReplyQuestionInteractor = viewReplyQuestionInputBoundary;
     }
     public void execute(Product product, User user, Question question) throws SQLException {
         ViewReplyQuestionInputData viewReplyQuestionInputData = new ViewReplyQuestionInputData(product, user, question);
-        replyQuestionInteractor.execute(viewReplyQuestionInputData);
+        viewReplyQuestionInteractor.execute(viewReplyQuestionInputData);
     }
 }

@@ -15,7 +15,8 @@ public class ViewReplyQuestionPresenter implements ViewReplyQuestionOutputBounda
     }
     public void prepareSuccessView(ViewReplyQuestionOutputData viewReplyQuestionOutputData){
         ReplyQuestionState replyQuestionState = replyQuestionViewModel.getState();
-        replyQuestionState.setQuestion(replyQuestionState.getQuestion());
+        replyQuestionState.setQuestion(viewReplyQuestionOutputData.getQuestion());
+        System.out.println("this is the presenter viewreplyquesitonpresenter::::: is set question correct?"+ replyQuestionState.getQuestion().getDescription());
         replyQuestionState.setProduct(viewReplyQuestionOutputData.getProduct());
         replyQuestionState.setUser(viewReplyQuestionOutputData.getSeller());
 
