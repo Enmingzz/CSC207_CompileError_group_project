@@ -29,7 +29,7 @@ public class ViewModifyProductInteractor implements ViewModifyProductInputBounda
      *
      * @param viewModifyProductInputData the input data required for viewing the modify product screen, including the user and product information
      */
-    public void execute(ViewModifyProductInputData viewModifyProductInputData) {
+    public void execute(ViewModifyProductInputData viewModifyProductInputData) throws SQLException, IOException {
         ViewModifyProductOutputData viewModifyProductOutputData = new ViewModifyProductOutputData(
                 viewModifyProductInputData.getUser(),
                 viewModifyProductInputData.getProduct()
