@@ -67,10 +67,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * The entrance for the whole program. Run this to start using.
- * Should initialize all view pages and all view models.
- * Use viewCreateFactory to produce view pages.
- * At final stage, set the initial active viewModel to the MainPageViewModel
+ * The Main class is the entry point for the application.
+ * It sets up the main JFrame and initializes all views, view models, and use case factories.
+ * It also sets the initial states for various view models and adds all views to the CardLayout.
  */
 
 public class Main {
@@ -142,7 +141,7 @@ public class Main {
         BuyerViewProductView buyerViewProductView =
                 BuyerViewProductUseCaseFactory.create(viewManagerModel, mainPageViewModel, shoppingCartViewModel,
                         viewProfileViewModel, buyerViewProductViewModel, searchProductViewModel,
-                        signupViewModel, loginViewModel);
+                        signupViewModel, loginViewModel, viewUserProfileViewModel);
         SellerScheduleView sellerScheduleView = SellerScheduleUseCaseFactory.create(sellerSelectScheduleViewModel,
                 viewManagerModel, manageProductViewModel, signupViewModel, loginViewModel, shoppingCartViewModel,
                 mainPageViewModel, searchProductViewModel, viewProfileViewModel);
