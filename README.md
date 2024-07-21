@@ -75,7 +75,8 @@ If all fields are valid, then the product will be created successfully. You shou
 
 <img width="1297" alt="image" src="https://github.com/user-attachments/assets/590d77be-3c6b-43f7-8e64-2260322f922b">
 
-<img width="216" alt="image" src="https://github.com/user-attachments/assets/139817a0-d5d6-49e0-b25c-3e7721319018">
+<img width="1314" alt="image" src="https://github.com/user-attachments/assets/268d2d9b-8387-4075-9733-1208a14059f9">
+
 
 #### Modifying a product or posting 
 
