@@ -111,7 +111,6 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
                 mainPageController));
         topBar.repaint();
         topBar.revalidate();
-
         ViewProfileState state = (ViewProfileState) evt.getNewValue();
     }
 }
