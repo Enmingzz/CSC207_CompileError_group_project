@@ -83,10 +83,10 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
 
 
 
-        studentNumberViewField.setText(viewModel.getState().getUser().getStudentNumber());
-        studentNameViewField.setText(viewModel.getState().getUser().getName());
-        studentEmailViewField.setText(viewModel.getState().getUser().getEmail());
-        studentRatingViewField.setText(String.valueOf(viewModel.getState().getUser().getUserRating()));
+        studentNumberViewField.setText(viewModel.getState().getSellerUser().getStudentNumber());
+        studentNameViewField.setText(viewModel.getState().getSellerUser().getName());
+        studentEmailViewField.setText(viewModel.getState().getSellerUser().getEmail());
+        studentRatingViewField.setText(String.valueOf(viewModel.getState().getSellerUser().getUserRating()));
 
         ProfileLabelTextPanel userNameInfo = new ProfileLabelTextPanel(new JLabel(profileViewModel.USERNAME_LABEL), studentNameViewField);
         ProfileLabelTextPanel userIDInfo = new ProfileLabelTextPanel(new JLabel(profileViewModel.USERID_LABEL), studentNumberViewField);
@@ -105,16 +105,13 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         topBar.removeAll();
-        topBar.add(new TopBarSampleView(viewModel.getState().getUser(),
+        topBar.add(new TopBarSampleView(viewModel.getState().getBuyerUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController,
                 shoppingCartController, logOutController, viewProfileController,
                 mainPageController));
         topBar.repaint();
         topBar.revalidate();
         ViewProfileState state = (ViewProfileState) evt.getNewValue();
-
-
-
 
     }
 }

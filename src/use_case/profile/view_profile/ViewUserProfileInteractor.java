@@ -1,5 +1,6 @@
 package use_case.profile.view_profile;
 
+import data_access.interfaces.product.ProductReadByUserDataAccessInterface;
 import data_access.interfaces.user.UserReadDataAccessInterface;
 import data_access.objects.user.DatabaseUserReadDataAccessObject;
 import entity.product.Product;
@@ -12,15 +13,20 @@ public class ViewUserProfileInteractor implements ViewUserProfileInputBoundary{
 
     private final ViewUserProfileOutputBoundary viewUserProfilePresenter;
     private final UserReadDataAccessInterface databaseUserReadDataAccessObject;
+    private final ProductReadByUserDataAccessInterface databaseProductReadDataAccessObject;
 
-    public ViewUserProfileInteractor(ViewUserProfileOutputBoundary viewUserProfilePresenter, UserReadDataAccessInterface databaseUserReadDataAccessObject) {
+    public ViewUserProfileInteractor(ViewUserProfileOutputBoundary viewUserProfilePresenter,
+                                     UserReadDataAccessInterface databaseUserReadDataAccessObject,
+                                     ProductReadByUserDataAccessInterface databaseProductReadDataAccessObject) {
         this.viewUserProfilePresenter = viewUserProfilePresenter;
         this.databaseUserReadDataAccessObject = databaseUserReadDataAccessObject;
+        this.databaseProductReadDataAccessObject = databaseProductReadDataAccessObject;
     }
 
     @Override
     public void execute(ViewUserProfileInputData userProfileInputData) throws SQLException {
-        User seller = databaseUserReadDataAccessObject.getUser(userProfileInputData.getSellerStudentNumber())
+        User seller =
+                databaseUserReadDataAccessObject.getUser(userProfileInputData.getSellerStudentNumber());
         ArrayList<Product> products = getProducts(seller);
         ViewUserProfileOutputData viewUserProfileOutput =
                 new ViewUserProfileOutputData(seller,
