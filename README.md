@@ -81,6 +81,25 @@ If all fields are valid, then the product will be created successfully. You shou
 
 #### Modifying a product or posting 
 
+To modify a product, it must not have been purchased by any other user. You do so by navigating to the "Manage Product" page as mentioned before. Click on the "Modify" button for the product you desire to modify, and you should arrive on the following page.
+
+<img width="1339" alt="Screenshot 2024-07-21 at 18 57 28" src="https://github.com/user-attachments/assets/7db2a6a4-6480-4d6c-b4cb-d6645663f701">
+
+Choose the field you want to edit, and enter the new value you desire. Leave the fields you don't want to change as blank. Example shown below with changing address only.
+
+<img width="1365" alt="Screenshot 2024-07-21 at 18 59 24" src="https://github.com/user-attachments/assets/dec5a479-ebbe-4d88-a8c3-2dc6e0ec6f2b">
+
+Click "Modify Product" at bottom left of view. You shold be prompted as shown below.
+
+<img width="1364" alt="image" src="https://github.com/user-attachments/assets/8ec1a600-3cc6-4f4a-bd0b-f11ae01d8d83">
+
+You should be navigated to the "Manage Product" view. Now if you click "Show Detail", we should see the address being changed to BA 3185.
+
+<img width="1211" alt="image" src="https://github.com/user-attachments/assets/25dd8cbe-11fa-4daa-8794-8e86c6dc72d0">
+
+
+
+
 ### 3. A Buyer's POV 
 
 #### Using the Search bar to search for products
