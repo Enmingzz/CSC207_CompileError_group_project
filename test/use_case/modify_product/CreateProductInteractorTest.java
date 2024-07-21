@@ -109,7 +109,7 @@ class CreateProductInteractorTest {
     }
 
     @Test
-    void prepareSuccessfulViewTest2() throws IOException, SQLException {
+    void prepareFailedView1() throws IOException, SQLException {
         /** This is a test where the image fails to upload */
 
         image = null;
@@ -142,11 +142,11 @@ class CreateProductInteractorTest {
     }
 
     @Test
-    void prepareSuccessfulViewTest3() throws IOException, SQLException {
+    void prepareFailedView2() throws IOException, SQLException {
         /** This is a test where the image fails to upload */
 
-        image = null;
-        description = "It was worn once";
+        image = ImageIO.read(new File("src/pic/testpic1.png"));
+        description = "";
         price = "9";
         priceFloat = Float.parseFloat(price);
         title = "Red Dress";
@@ -162,7 +162,7 @@ class CreateProductInteractorTest {
             }
             @Override
             public void prepareFailedView(String error) {
-                assertEquals(error, "You must upload a valid image of the product.");
+                assertEquals(error, "You must indicate a valid price of the product.");
             }
         };
 

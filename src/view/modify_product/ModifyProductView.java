@@ -7,6 +7,7 @@ import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
+import interface_adapter.modify_product.CreateProductState;
 import interface_adapter.modify_product.ModifyProductController;
 import interface_adapter.modify_product.ViewModifyProductState;
 import interface_adapter.modify_product.ViewModifyProductViewModel;
@@ -59,8 +60,12 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
     ImagePanel displayImage;
     JPanel productModification;
 
-    private final JTextField description = new JTextField();
-    private final JTextField price = new JTextField();
+    private JTextField description = new JTextField(100);
+    private JTextField price = new JTextField(100);
+
+    private final JTextField testDescription = new JTextField(100);
+    private final JTextField testPrice = new JTextField(100);
+
 
     public ModifyProductView( ViewModifyProductViewModel viewModifyProductViewModel,
                               ModifyProductController modifyProductController,
@@ -130,7 +135,51 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         final JLabel tagsLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TAGS);
         String tagsString = (product == null)? "": String.join(", ", product.getListTags());
         final JLabel tags = new JLabel(tagsString);
+        //TODO DELETE THIS ENTIRE SECTION PERHAPS
+        LabelTextPanel testDESCRIPTION = new LabelTextPanel(new JLabel(viewModifyProductViewModel.PRODUCT_DESCRIPTION_LABEL), testDescription);
+        LabelTextPanel testPRICE = new LabelTextPanel(new JLabel(viewModifyProductViewModel.PRODUCT_PRICE_LABEL), testPrice);
 
+        class TestDescriptionInputFieldListener implements KeyListener{
+            @Override
+            public void keyTyped(KeyEvent e) {
+                ViewModifyProductState state = viewModifyProductViewModel.getState();
+                state.setDescription(testDescription.getText() + e.getKeyChar());
+                viewModifyProductViewModel.setState(state);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        }
+
+        class TestPriceInputFieldListener implements KeyListener{
+            @Override
+            public void keyTyped(KeyEvent e) {
+                ViewModifyProductState state = viewModifyProductViewModel.getState();
+                state.setDescription(testPrice.getText() + e.getKeyChar());
+                viewModifyProductViewModel.setState(state);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        }
+
+        productInformation.add(testDescription);
+        productInformation.add(testPrice);
+
+        testDESCRIPTION.addKeyListener(new TestDescriptionInputFieldListener());
+        testPRICE.addKeyListener(new TestPriceInputFieldListener());
+
+        //TODO DELETE ABOVE
 //        productInformation = new ModifyProductTextPanel( titleLabel,  title,
 //                 descriptionLabel,  description,  priceLabel,  price,
 //                 eTransferEmailLabel,  eTransferEmail,  addressLabel,  address,
@@ -151,6 +200,7 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         productInformation.add(tags);
 
         //create all the different panels
+
 
         class DescriptionInputFieldListener implements KeyListener{
             @Override
@@ -191,11 +241,14 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
                 if (evt.getSource().equals(changeProduct)) {
                     try {
                         //TODO delete later this is to test if the input data is correct for the change product used case
-                        System.out.println("description: " + description.getText());
-                        System.out.println("price: " + viewModifyProductViewModel.getState().getPrice());
+                        System.out.println("description: " + testDescription.getText());
+                        System.out.println("price: " + testPrice.getText());
+
+//                        modifyProductController.execute(viewModifyProductViewModel.getState().getUser(), viewModifyProductViewModel.getState().getProduct(),
+//                                viewModifyProductViewModel.getState().getDescription(), viewModifyProductViewModel.getState().getPrice());
 
                         modifyProductController.execute(viewModifyProductViewModel.getState().getUser(), viewModifyProductViewModel.getState().getProduct(),
-                                viewModifyProductViewModel.getState().getDescription(), viewModifyProductViewModel.getState().getPrice());
+                                testDescription.getText(), testPrice.getText());
                     } catch (SQLException | IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -283,6 +336,17 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         final JLabel tagsLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TAGS);
         String tagsString = String.join(", ", product.getListTags());
         final JLabel tags = new JLabel(tagsString);
+
+
+        //TODO DELETE BELOW LATER
+        final JTextField testDescription = new JTextField(100);
+        JTextField testPrice = new JTextField(100);
+        LabelTextPanel testDESCRIPTION = new LabelTextPanel(new JLabel(viewModifyProductViewModel.PRODUCT_DESCRIPTION_LABEL), testDescription);
+        LabelTextPanel testPRICE = new LabelTextPanel(new JLabel(viewModifyProductViewModel.PRODUCT_PRICE_LABEL), testPrice);
+
+        productInformation.add(testDescription);
+        productInformation.add(testPrice);
+        //TODO DELETE ABOVE LATER
 
 //        productInformation = new ModifyProductTextPanel( titleLabel,  title,
 //                descriptionLabel,  description,  priceLabel,  price,
