@@ -1,11 +1,11 @@
 package use_case.view_product;
 
-import entity.comment.CommonQuestion;
-import entity.comment.Question;
+import entity.comment.*;
 import entity.product.CommonProduct;
 import entity.product.Product;
 import entity.schedule.CommonScheduleFactory;
 import entity.schedule.Schedule;
+import entity.user.CommonUser;
 import entity.user.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +36,10 @@ class PublishQuestionInputDataTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        Question question  = new CommonQuestion("", "", null, "");
+        CommonAnswerFactory answerFactory = new CommonAnswerFactory();
+
+        Answer empty_ans = answerFactory.createAnswer("", "");
+        Question question  = new CommonQuestion("", "", empty_ans, "");
 
         Image image = ImageIO.read(new File("D:/24 summer/csc207/CSC207_CompileError_group_project/src/pic/testpic1.png"));
         String des = " ";
@@ -57,7 +60,9 @@ class PublishQuestionInputDataTest {
         Product product = new CommonProduct(image, des, title, price, state, rating, eTransferEmail,
                 sellerStudentNumber, address, listTags, productID, schedule);
 
-        publishQuestionInputData = new PublishQuestionInputData(question, product);
+        User commonUser = new CommonUser("hanrui", "222", "hanrui@mail", 0, "123");
+
+        publishQuestionInputData = new PublishQuestionInputData(question, product, commonUser);
     }
 
     @AfterEach
@@ -69,7 +74,7 @@ class PublishQuestionInputDataTest {
      */
     @Test
     void getQuestion() {
-        Question question  = new CommonQuestion("", "", null, "");
+        Question question  = new CommonQuestion("", "", new CommonAnswer("", ""), "");
         assertEquals(question, publishQuestionInputData.getQuestion());
     }
 

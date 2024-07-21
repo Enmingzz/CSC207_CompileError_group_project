@@ -9,10 +9,10 @@ import java.sql.SQLException;
 
 public class ViewReplyQuestionInteractor implements ViewReplyQuestionInputBoundary {
 
-    private final ViewReplyQuestionOutputBoundary replyPresenter;
+    private final ViewReplyQuestionOutputBoundary viewReplyPresenter;
 
     public ViewReplyQuestionInteractor(ViewReplyQuestionOutputBoundary viewReplyQuestionOutputBoundary){
-        this.replyPresenter = viewReplyQuestionOutputBoundary;
+        this.viewReplyPresenter = viewReplyQuestionOutputBoundary;
     }
     @Override
     public void execute(ViewReplyQuestionInputData viewReplyQuestionInputData) throws SQLException {
@@ -22,6 +22,6 @@ public class ViewReplyQuestionInteractor implements ViewReplyQuestionInputBounda
         Question question = viewReplyQuestionInputData.getQuestion();
 
         ViewReplyQuestionOutputData replyQuestionOutputData2 = new ViewReplyQuestionOutputData(seller, product, question);
-        replyPresenter.prepareSuccessView(replyQuestionOutputData2);
+        viewReplyPresenter.prepareSuccessView(replyQuestionOutputData2);
     }
 }

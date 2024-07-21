@@ -10,6 +10,7 @@ import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.profile.view_profile.ViewProfileController;
+import interface_adapter.profile.view_profile.ViewUserProfileController;
 import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.ViewSignupPageController;
@@ -40,6 +41,7 @@ import java.util.Objects;
 public class NonloggedInProductView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "non login view product view";
     private final UnloggedInViewModel nonLoggedInViewModel;
+    private final ViewUserProfileController viewUserProfileController;
 
     //Top Bar stuff
     private final GetSearchPageController getSearchPageController;
@@ -53,13 +55,14 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
 
     private final JButton cancel;
     private final JButton addToCart;
+    private final JButton viewUserProfile;
 
     private JPanel productInfo = new JPanel();
     private JPanel qAInfo = new JPanel();
     private JPanel topBar;
     private final JPanel titlePanel = new JPanel();
     private JPanel qA_TextPanel = new JPanel();
-    BuyerQAInfoLabelTextPanel singleQa;
+    private BuyerQAInfoLabelTextPanel singleQa;
     private final JLabel image = new JLabel();
 
     private ProductInfoLabelTextPanel imageInfo;
@@ -94,8 +97,10 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
                                   ViewSignupPageController viewSignupPageController,
                                   ShoppingCartController shoppingCartController,
                                   LogOutController logOutController,
-                                  ViewProfileController viewProfileController){
+                                  ViewProfileController viewProfileController,
+                                  ViewUserProfileController viewUserProfileController){
         this.nonLoggedInViewModel = nonLoggedInViewModel;
+        this.viewUserProfileController = viewUserProfileController;
 
         this.getSearchPageController = getSearchPageController;
         this.viewSignupPageController  = viewSignupPageController;
@@ -150,6 +155,10 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
         productInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         productInfo.setLayout(new BoxLayout(productInfo, BoxLayout.Y_AXIS));
 
+        if(nonLoggedInViewModel.getState().getProduct() != null) {
+            System.out.println("this is the initial :::price::::::" + nonLoggedInViewModel.getState().getProduct().getPrice());
+        }
+
         titlePanel.add(title);
         productInfo.add(titlePanel);
         productInfo.add(_titleInfo);
@@ -186,6 +195,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
             qA_TextPanel.add(singleQa);
         }
 
+        qA_TextPanel.setLayout(new BoxLayout(qA_TextPanel, BoxLayout.Y_AXIS));
         qAInfo.add(qA_title);
         qAInfo.add(new JScrollPane(qA_TextPanel));
 
@@ -193,10 +203,12 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
         //(3)buttons
         JPanel buttons = new JPanel();
         cancel = new JButton(nonLoggedInViewModel.CANCEL_BUTTON_LABEL);
+        viewUserProfile = new JButton(nonLoggedInViewModel.VIEW_USER_PROFILE_BUTTON);
         addToCart = new JButton(nonLoggedInViewModel.ADD_TO_CART);
 
 
         buttons.add(cancel);
+        buttons.add(viewUserProfile);
         buttons.add(addToCart);
 
 
@@ -206,6 +218,22 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
                 if (evt.getSource().equals(addToCart)) {
                     try {
                         viewLoginPageController.execute();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+
+        class ViewUserProfileButtonListener implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(viewUserProfile)) {
+                    try {
+                        System.out.println("click view user profile button");
+                        viewUserProfileController.execute(
+                                nonLoggedInViewModel.getState().getProduct().getSellerStudentNumber(),
+                                nonLoggedInViewModel.getState().getUser());
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -230,6 +258,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
         }
 
         addToCart.addActionListener(new AddTtoCartButtonListener());
+        viewUserProfile.addActionListener(new ViewUserProfileButtonListener());
         cancel.addActionListener(new CancelButtonListener());
 //
 //        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -246,7 +275,8 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
         centerPanel.add(qAInfo);
         this.add(topBar, BorderLayout.NORTH);
         this.add(centerPanel, BorderLayout.CENTER);
-        this.add(cancel, BorderLayout.SOUTH);
+
+        this.add(buttons, BorderLayout.SOUTH);
         this.add(new JPanel(), BorderLayout.EAST);
         this.add(new JPanel(), BorderLayout.WEST);
     }
@@ -264,6 +294,9 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
 
     @Override
     public void propertyChange(PropertyChangeEvent evt){
+        qAInfo.setLayout(new BoxLayout(qAInfo, BoxLayout.Y_AXIS));
+        qAInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+
         UnloggedInState newState = (UnloggedInState) evt.getNewValue();
         if(newState.getIsChanged()){
             JLabel title= new JLabel(String.valueOf(newState.getProduct().getTitle()));
@@ -278,9 +311,20 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
             JLabel proId = new JLabel(String.valueOf(newState.getProduct().getProductID()));
 //            this.productInfo = new ProductInfoLabelTextPanel(title, image, des, price, rating, pro_state, address,lstTags, proId);
 
+            System.out.println("this is the price::::::" + newState.getProduct().getPrice());
             nonLoggedInViewModel.setState(newState);
 
             qA_TextPanel.removeAll();
+
+            _titleInfo.removeAll();
+            imageInfo.removeAll();
+            descriptionInfo.removeAll();
+            ratingInfo.removeAll();
+            priceInfo.removeAll();
+            stateInfo.removeAll();
+            addressInfo.removeAll();
+            lstTagsInfo.removeAll();
+            productIDInfo.removeAll();
 
             _titleInfo.setText(title);
             imageInfo.setText(image);

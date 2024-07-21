@@ -33,7 +33,7 @@ public class ChangeProductDescription implements ChangeProductDescriptionInterfa
      * @throws SQLException if there is an error with the SQL execution
      */
     public Product execute(Product changedProduct, String description) throws SQLException {
-        if (Objects.equals(description, "")) {
+        if (Objects.equals(description, changedProduct.getDescription())) {
             return changedProduct;
         } else {
             ProductFactory commonProductFactory = new CommonProductFactory();

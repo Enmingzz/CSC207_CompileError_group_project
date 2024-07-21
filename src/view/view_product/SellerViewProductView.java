@@ -45,12 +45,12 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
     private final LogOutController logOutController;
     private final ViewProfileController viewProfileController;
     private final MainPageController mainPageController;
-    private final ViewReplyQuestionController replyQuestionController;
+    private final ViewReplyQuestionController viewReplyQuestionController;
 
     private final SellerViewProductViewModel sellerViewProductViewModel;
 
     private final JButton cancel;
-    JButton replyButton = new JButton("Reply");
+//    JButton replyButton = new JButton("Reply");
 
     private JPanel topBar;
 
@@ -74,7 +74,7 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
      * Constructor for the SellerViewProductView class.
      *
      * @param sellerViewProductViewModel the view model for the seller view product
-     * @param replyQuestionController the controller for replying to questions
+     * @param viewReplyQuestionController the controller for replying to questions
      * @param mainPageController the controller for navigating to the main page
      * @param getSearchPageController the controller for searching products
      * @param viewSignupPageController the controller for navigating to the signup page
@@ -84,7 +84,7 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
      * @param viewProfileController the controller for viewing the profile page
      */
     public SellerViewProductView(SellerViewProductViewModel sellerViewProductViewModel,
-                                 ViewReplyQuestionController replyQuestionController,
+                                 ViewReplyQuestionController viewReplyQuestionController,
                                  MainPageController mainPageController,
                                  GetSearchPageController getSearchPageController,
                                  ViewSignupPageController viewSignupPageController,
@@ -101,7 +101,7 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
         this.sellerViewProductViewModel = sellerViewProductViewModel;
-        this.replyQuestionController = replyQuestionController;
+        this.viewReplyQuestionController = viewReplyQuestionController;
 
         UserFactory commonUserFactory = new CommonUserFactory();
         User commonUser = commonUserFactory.createUser("", "", "", 0, "");
@@ -170,6 +170,7 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
 
         for (Question question : lst_question) {
 
+            JButton replyButton = new JButton("Reply");
             String answer_content = question.getAnswer().getDescription();
             String question_content = question.getDescription();
 
@@ -185,7 +186,7 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
                         try{
                             SellerViewProductState sellerViewProductState = sellerViewProductViewModel.getState();
                             Product product = sellerViewProductState.getProduct();
-                            replyQuestionController.execute(product, sellerViewProductState.getUser(), question);
+                            viewReplyQuestionController.execute(product, sellerViewProductState.getUser(), question);
                         }catch (Exception ex){
                             throw new RuntimeException(ex);
                         }
@@ -254,6 +255,7 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
         SellerViewProductState newState = (SellerViewProductState) evt.getNewValue();
         if (!Objects.equals(newState.getPromptStr(), "")){
             JOptionPane.showMessageDialog(this, newState.getPromptStr());
+            sellerViewProductViewModel.getState().setPromptStr("");
         }else if(newState.getIsChanged()){
             sellerViewProductViewModel.setState(newState);
 
@@ -276,6 +278,16 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
 ////            productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
 ////                    lstTags, productID);
 
+            _titleInfo.removeAll();
+            imageInfo.removeAll();
+            descriptionInfo.removeAll();
+            ratingInfo.removeAll();
+            priceInfo.removeAll();
+            stateInfo.removeAll();
+            addressInfo.removeAll();
+            lstTagsInfo.removeAll();
+            productIDInfo.removeAll();
+
             imageInfo.setText(image);
             descriptionInfo.setText(description);
             priceInfo.setText(price);
@@ -289,7 +301,7 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
             ArrayList<Question> lst_question = newState.getQuestion();
 
             for (Question question : lst_question) {
-
+                JButton replyButton = new JButton("Reply");
                 String answer_content = question.getAnswer().getDescription();
                 String question_content = question.getDescription();
 
@@ -304,7 +316,8 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
                             try{
                                 SellerViewProductState sellerViewProductState = sellerViewProductViewModel.getState();
                                 Product product = sellerViewProductState.getProduct();
-                                replyQuestionController.execute(product, sellerViewProductState.getUser(), question);
+                                System.out.println("question_des in button listener, delivered by replyquestioncontroller" + question.getDescription());
+                                viewReplyQuestionController.execute(product, sellerViewProductState.getUser(), question);
                             }catch (Exception ex){
                                 throw new RuntimeException(ex);
                             }
@@ -328,6 +341,7 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
                     mainPageController));
             topBar.repaint();
             topBar.revalidate();
+
             newState.setIsChanged(false);
         }
     }

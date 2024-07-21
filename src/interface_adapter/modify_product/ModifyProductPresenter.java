@@ -13,10 +13,13 @@ import java.util.Objects;
 
 public class ModifyProductPresenter implements ChangeProductOutputBoundary {
     private final ManageProductViewModel manageProductViewModel;
+    private final ViewModifyProductViewModel viewModifyProductViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    public ModifyProductPresenter(ManageProductViewModel manageProductViewModel, ViewManagerModel viewManagerModel) {
+    public ModifyProductPresenter(ManageProductViewModel manageProductViewModel, ViewManagerModel viewManagerModel,
+                                  ViewModifyProductViewModel viewModifyProductViewModel) {
         this.manageProductViewModel = manageProductViewModel;
+        this.viewModifyProductViewModel = viewModifyProductViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
@@ -33,9 +36,9 @@ public class ModifyProductPresenter implements ChangeProductOutputBoundary {
         }
         manageProductState.setProduct(productList);
         //TODO delete later this is only for testing
-        System.out.println(changeProductOutputData.getMessage());
-        System.out.println(changeProductOutputData.getProduct().getDescription());
-        System.out.println(changeProductOutputData.getProduct().getPrice());
+//        System.out.println(changeProductOutputData.getMessage());
+//        System.out.println(changeProductOutputData.getProduct().getDescription());
+//        System.out.println(changeProductOutputData.getProduct().getPrice());
 
         String message = changeProductOutputData.getMessage();
         manageProductState.setModifyProductMessage(message);
@@ -45,7 +48,16 @@ public class ModifyProductPresenter implements ChangeProductOutputBoundary {
         viewManagerModel.setActiveView(manageProductViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
 
-        manageProductState.setModifyProductMessage(null);
-        manageProductViewModel.setState(manageProductState);
+//        manageProductState.setModifyProductMessage(null);
+//        manageProductViewModel.setState(manageProductState);
+    }
+
+    public void prepareFailView(ChangeProductOutputData changeProductOutputData) {
+        ViewModifyProductState state = viewModifyProductViewModel.getState();
+        state.setMessage(changeProductOutputData.getMessage());
+
+        viewModifyProductViewModel.setState(state);
+        manageProductViewModel.firePropertyChanged();
+
     }
 }

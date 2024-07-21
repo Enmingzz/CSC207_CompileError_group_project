@@ -1,5 +1,7 @@
 package use_case.view_product;
 
+import entity.user.CommonUser;
+import entity.user.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +14,9 @@ class PublishQuestionOutputDataTest {
 
     @BeforeEach
     void setUp() {
-        outputData = new PublishQuestionOutputData("question successfully published");
+        User commonUser = new CommonUser("hanrui", "222", "hanrui@mail", 0, "123");
+
+        outputData = new PublishQuestionOutputData("question successfully published", "new question", commonUser);
     }
 
     @AfterEach
