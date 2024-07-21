@@ -1,11 +1,11 @@
 package use_case.modify_product;
 
 import data_access.in_memory.product.InMemoryProductReadByIdDataAccessObject;
-import data_access.in_memory.product.InMemoryProductUpdateAddressDataAccessObject;
 import data_access.in_memory.product.InMemoryProductUpdateDescriptionDataAccessObject;
+import data_access.in_memory.product.InMemoryProductUpdateNameDataAccessObject;
 import data_access.interfaces.product.ProductReadByIdDataAccessInterface;
-import data_access.interfaces.product.ProductUpdateAddressDataAccessInterface;
 import data_access.interfaces.product.ProductUpdateDescriptionDataAccessInterface;
+import data_access.interfaces.product.ProductUpdateNameDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.Product;
 import entity.product.ProductFactory;
@@ -26,17 +26,17 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit test for ChangeProductAddress.
+ * Unit test for ChangeProductTitle.
  */
-class ChangeProductAddressTest {
+class ChangeProductTitleTest {
 
     private Product product;
-    private String changedAddress;
+    private String changedTitle;
     private ArrayList<Product> productsList;
     private String productID;
 
-    private ProductUpdateAddressDataAccessInterface inMemoryProductUpdateAddressDataAccessObject;
-    private ChangeProductAddress changeProductAddress;
+    private ProductUpdateNameDataAccessInterface inMemoryProductUpdateNameDataAccessObject;
+    private ChangeProductTitle changeProductTitle;
 
     /**
      * Sets up the test environment before each test.
@@ -69,8 +69,8 @@ class ChangeProductAddressTest {
         productsList = new ArrayList<>();
         productsList.add(product);
 
-        inMemoryProductUpdateAddressDataAccessObject = new InMemoryProductUpdateAddressDataAccessObject(productsList);
-        changeProductAddress = new ChangeProductAddress(inMemoryProductUpdateAddressDataAccessObject);
+        inMemoryProductUpdateNameDataAccessObject = new InMemoryProductUpdateNameDataAccessObject(productsList);
+        changeProductTitle = new ChangeProductTitle(inMemoryProductUpdateNameDataAccessObject);
     }
 
     /**
@@ -81,20 +81,20 @@ class ChangeProductAddressTest {
     }
 
     /**
-     * Tests the execute method of ChangeProductAddress to ensure it correctly updates the product Address.
+     * Tests the execute method of ChangedProductTitle to ensure it correctly updates the product name/title.
      *
      * @throws IOException if there is an error during execution.
      * @throws SQLException if there is an error with SQL execution.
      */
     @Test
     void executeTrueTest() throws IOException, SQLException {
-        // The description is changed
-        changedAddress = "BA2210";
+        // The title is changed
+        changedTitle = "This was once used by a dog.";
 
         ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
                 new InMemoryProductReadByIdDataAccessObject(productsList);
-        Product newProduct = changeProductAddress.execute(product, changedAddress);
-        assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(product.getProductID()).getAddress(), changedAddress);
+        Product newProduct = changeProductTitle.execute(product, changedTitle);
+        assertEquals(product.getTitle(), changedTitle);
 
         assertEquals(product.getPrice(),
                 newProduct.getPrice());
@@ -102,9 +102,9 @@ class ChangeProductAddressTest {
                 newProduct.getImage());
         assertEquals(product.getDescription(),
                 newProduct.getDescription());
-        assertEquals(product.getTitle(),
-                newProduct.getTitle());
 
+        assertEquals(product.getAddress(),
+                newProduct.getAddress());
         assertEquals(product.getSchedule().getBuyerTime(),
                 newProduct.getSchedule().getBuyerTime());
         assertEquals(product.getSchedule().getSellerTime(),
@@ -122,14 +122,18 @@ class ChangeProductAddressTest {
 
     @Test
     void executeTrueTest2() throws IOException, SQLException {
-        // Uploads the same address, checks the if branch of the class
-        changedAddress = "123College";
+        // The input title is the same
+        changedTitle = "Red Dress";
 
-        Product newProduct = changeProductAddress.execute(product, changedAddress);
-        assertEquals(newProduct.getAddress(), product.getAddress());
+        ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
+                new InMemoryProductReadByIdDataAccessObject(productsList);
+        Product newProduct = changeProductTitle.execute(product, changedTitle);
+        assertEquals(product.getTitle(), changedTitle);
 
         assertEquals(product.getPrice(),
                 newProduct.getPrice());
+        assertEquals(product.getImage(),
+                newProduct.getImage());
         assertEquals(product.getDescription(),
                 newProduct.getDescription());
         assertEquals(product.getTitle(),

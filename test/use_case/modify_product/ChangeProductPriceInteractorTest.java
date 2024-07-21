@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit test for ChangeProductPriceInteractor.
+ * Unit test for ChangeProductPrice.
  */
 class ChangeProductPriceInteractorTest {
 
@@ -93,10 +93,98 @@ class ChangeProductPriceInteractorTest {
         changedPrice = "100";
         ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
                 new InMemoryProductReadByIdDataAccessObject(productsList);
-        Product modifiedProduct = changeProductPrice.execute(product, changedPrice);
+        Product newProduct = changeProductPrice.execute(product, changedPrice);
         float floatChangedPrice = Float.parseFloat(changedPrice);
         assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(product.getProductID()).getPrice(), floatChangedPrice);
-        assertEquals(modifiedProduct.getPrice(), floatChangedPrice);
+        assertEquals(newProduct.getPrice(), floatChangedPrice);
+
+        assertEquals(product.getImage(),
+                newProduct.getImage());
+        assertEquals(product.getDescription(),
+                newProduct.getDescription());
+        assertEquals(product.getTitle(),
+                newProduct.getTitle());
+
+        assertEquals(product.getAddress(),
+                newProduct.getAddress());
+        assertEquals(product.getSchedule().getBuyerTime(),
+                newProduct.getSchedule().getBuyerTime());
+        assertEquals(product.getSchedule().getSellerTime(),
+                newProduct.getSchedule().getSellerTime());
+        assertEquals(product.getState(),
+                newProduct.getState());
+
+        assertEquals(product.getSellerStudentNumber(),
+                newProduct.getSellerStudentNumber());
+        assertEquals(product.geteTransferEmail(),
+                newProduct.geteTransferEmail());
+        assertEquals(product.getListTags(),
+                newProduct.getListTags());
     }
+
+    @Test
+    void executeTrueInvalidPrice1() throws IOException, SQLException {
+        //The price entered is not a positive float
+        changedPrice = "-99";
+        Product newProduct = changeProductPrice.execute(product, changedPrice);
+        assertEquals(newProduct.getPrice(), product.getPrice());
+
+        assertEquals(product.getImage(),
+                newProduct.getImage());
+        assertEquals(product.getDescription(),
+                newProduct.getDescription());
+        assertEquals(product.getTitle(),
+                newProduct.getTitle());
+
+        assertEquals(product.getAddress(),
+                newProduct.getAddress());
+        assertEquals(product.getSchedule().getBuyerTime(),
+                newProduct.getSchedule().getBuyerTime());
+        assertEquals(product.getSchedule().getSellerTime(),
+                newProduct.getSchedule().getSellerTime());
+        assertEquals(product.getState(),
+                newProduct.getState());
+
+        assertEquals(product.getSellerStudentNumber(),
+                newProduct.getSellerStudentNumber());
+        assertEquals(product.geteTransferEmail(),
+                newProduct.geteTransferEmail());
+        assertEquals(product.getListTags(),
+                newProduct.getListTags());
+    }
+
+
+    @Test
+    void executeTrueInvalidPrice2() throws IOException, SQLException {
+        //The price entered is not a float
+        changedPrice = "-1sdf";
+        Product newProduct = changeProductPrice.execute(product, changedPrice);
+        assertEquals(newProduct.getPrice(), product.getPrice());
+
+        assertEquals(product.getImage(),
+                newProduct.getImage());
+        assertEquals(product.getDescription(),
+                newProduct.getDescription());
+        assertEquals(product.getTitle(),
+                newProduct.getTitle());
+
+        assertEquals(product.getAddress(),
+                newProduct.getAddress());
+        assertEquals(product.getSchedule().getBuyerTime(),
+                newProduct.getSchedule().getBuyerTime());
+        assertEquals(product.getSchedule().getSellerTime(),
+                newProduct.getSchedule().getSellerTime());
+        assertEquals(product.getState(),
+                newProduct.getState());
+
+        assertEquals(product.getSellerStudentNumber(),
+                newProduct.getSellerStudentNumber());
+        assertEquals(product.geteTransferEmail(),
+                newProduct.geteTransferEmail());
+        assertEquals(product.getListTags(),
+                newProduct.getListTags());
+    }
+
+
 
 }
