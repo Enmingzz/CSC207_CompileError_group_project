@@ -22,17 +22,17 @@ public class ViewUserProfileViewModel extends ViewModel {
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    private ViewProfileState state = new ViewProfileState(commonUserFactory);
+    private ViewUserProfileState state = new ViewUserProfileState(commonUserFactory);
 
     public ViewUserProfileViewModel() {
         super("user profile view");
     }
 
-    public ViewProfileState getState() {
+    public ViewUserProfileState getState() {
         return state;
     }
 
-    public void setState(ViewProfileState state) {
+    public void setState(ViewUserProfileState state) {
         this.state = state;
     }
 
