@@ -6,7 +6,9 @@ import interface_adapter.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-
+/**
+ * ViewModel for viewing the user's profile, responsible for managing the state and notifying listeners of changes.
+ */
 public class ViewProfileViewModel extends ViewModel {
 
     private final UserFactory commonUserFactory = new CommonUserFactory();
@@ -24,24 +26,40 @@ public class ViewProfileViewModel extends ViewModel {
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     private ViewProfileState state = new ViewProfileState(commonUserFactory);
-
+    /**
+     * Constructs a {@link ViewProfileViewModel} with the specified view name.
+     */
     public ViewProfileViewModel() {
         super("profile view");
     }
-
+    /**
+     * Gets the current state of the view profile view model.
+     *
+     * @return the current state
+     */
     public ViewProfileState getState() {
         return state;
     }
-
+    /**
+     * Sets the state of the view profile view model.
+     *
+     * @param state the new state to set
+     */
     public void setState(ViewProfileState state) {
         this.state = state;
     }
-
+    /**
+     * Fires a property change event to notify listeners of state changes.
+     */
     @Override
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
     }
-
+    /**
+     * Adds a property change listener to listen for state changes.
+     *
+     * @param listener the listener to add
+     */
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);

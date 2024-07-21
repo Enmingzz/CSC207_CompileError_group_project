@@ -13,13 +13,22 @@ import java.util.List;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
+/**
+ * Presenter for confirming an action in the shopping cart, responsible for preparing the view model and triggering view updates.
+ */
 public class ConfirmPresenter implements ConfirmOutputBoundary {
 
     private final RateProductViewModel rateProductViewModel;
     private final ShoppingCartViewModel shoppingCartViewModel;
     private ViewManagerModel viewManagerModel;
 
+    /**
+     * Constructs a {@link ConfirmPresenter} with the specified view models and view manager model.
+     *
+     * @param rateProductViewModel the view model for rating a product
+     * @param shoppingCartViewModel the view model for the shopping cart
+     * @param viewManagerModel the view manager model to manage view changes
+     */
     public ConfirmPresenter(RateProductViewModel rateProductViewModel,
                             ShoppingCartViewModel shoppingCartViewModel,
                             ViewManagerModel viewManagerModel) {
@@ -27,7 +36,14 @@ public class ConfirmPresenter implements ConfirmOutputBoundary {
         this.shoppingCartViewModel = shoppingCartViewModel;
         this.viewManagerModel = viewManagerModel;
     }
-
+    /**
+     * Prepares the success view by updating the rate product state and the shopping cart state,
+     * and triggering property changes.
+     *
+     * @param response the output data containing the confirmed product
+     * @throws SQLException if a database access error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     public void prepareSuccessView(ConfirmOutputData response) throws SQLException, IOException {
         RateProductState rateProductState = rateProductViewModel.getState();

@@ -28,7 +28,11 @@ public class ViewModifyProfilePresenter implements ViewModifyProfileOutputBounda
         this.userFactory = userFactory;
     }
 
-
+    /**
+     * Prepares the successful view by updating the modify profile state and triggering property changes.
+     *
+     * @param response the output data containing the user information
+     */
     public void prepareSuccessfulView(ViewModifyProfileOutputData response){
         //ModifyProfileState state = new ModifyProfileState(userFactory);
         ModifyProfileState state = modifyProfileViewModel.getState();
@@ -44,6 +48,11 @@ public class ViewModifyProfilePresenter implements ViewModifyProfileOutputBounda
         state.setModified(false);
     }
 
+    /**
+     * Prepares the failed view by updating the modify profile state and triggering property changes.
+     *
+     * @param response the output data containing the failure message
+     */
     public void prepareFailedView(ViewModifyProfileOutputData response){
 
     }
