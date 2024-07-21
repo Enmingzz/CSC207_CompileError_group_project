@@ -21,6 +21,7 @@ public class SignupViewModel extends ViewModel {
 
     public final String SIGNUP_BUTTON_LABEL = "Sign up";
     public final String SEND_EMAIL_VERIFICATION_LABEL = "send";
+    public final String EMAIL_AT = "@mail.utoronto.ca";
 
     private SignupState state = new SignupState();
 

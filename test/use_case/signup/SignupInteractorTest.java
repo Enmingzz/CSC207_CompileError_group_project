@@ -1,5 +1,6 @@
 package use_case.signup;
 
+import data_access.in_memory.shopping_cart.InMemoryShoppingCartCreateDataAccessObject;
 import data_access.in_memory.user.InMemoryUserCreateDataAccessObject;
 import data_access.in_memory.user.InMemoryUserDataReadAccessObject;
 import data_access.interfaces.shopping_cart.ShoppingCartCreateDataAccessInterface;
@@ -45,10 +46,13 @@ class SignupInteractorTest {
 
     @Test
     void existsByStudentNumber() throws SQLException {
+        signupInputData = new SignupInputData("hanrui", "123456", "123456", "hanrui@mail",
+                "1234","1234",
+                "11111");
         inMemoryUserCreateDataAccessObject =
                 new InMemoryUserCreateDataAccessObject(new ArrayList<User>());
         inMemoryUserDataReadAccessObject = new InMemoryUserDataReadAccessObject(users, userFactory);
-        assertEquals(true, inMemoryUserDataReadAccessObject.getUser("11111"));
+        assertEquals("hanrui", inMemoryUserDataReadAccessObject.getUser("11111").getName());
         signupPresenter = new SignupOutputBoundary() {
             @Override
             public void presentSuccessfulView(SignupOutputData response) {
@@ -60,20 +64,27 @@ class SignupInteractorTest {
                 assertEquals("user already exists", response.getError());
             }
         };
+
+        signupInteractor = new SignupInteractor(inMemoryUserCreateDataAccessObject,
+                inMemoryUserDataReadAccessObject, signupPresenter, userFactory, inMemoryShoppingCartCreateDataAccessObject);
+        signupInteractor.execute(signupInputData);
     }
 
     @Test
     void successfulView() throws SQLException {
         signupInputData = new SignupInputData("hanrui", "123456", "123456", "hanrui@mail",
                 "1234","1234",
-                "11111");
+                "12345");
         user = new CommonUser("hanrui", "123456", "hanrui@mail", 0, "11111");
         users.add(user);
         signupPresenter = new SignupOutputBoundary() {
             @Override
             public void presentSuccessfulView(SignupOutputData response) {
-                assertEquals("no error", response.getError());
-                assertEquals(user, response.getUser());
+                assertEquals("successful", response.getError());
+                assertEquals(signupInputData.getUsername(), response.getUser().getName());
+                assertEquals(signupInputData.getStudentNumber(), response.getUser().getStudentNumber());
+                assertEquals(signupInputData.getEmailAddress(), response.getUser().getEmail());
+                assertEquals(signupInputData.getPassword(), response.getUser().getPassword());
             }
 
             @Override
@@ -82,6 +93,9 @@ class SignupInteractorTest {
             }
         };
 
+        inMemoryShoppingCartCreateDataAccessObject =
+                new InMemoryShoppingCartCreateDataAccessObject();
+        inMemoryUserCreateDataAccessObject = new InMemoryUserCreateDataAccessObject(users);
         inMemoryUserDataReadAccessObject = new InMemoryUserDataReadAccessObject(users, userFactory);
         signupInteractor = new SignupInteractor(inMemoryUserCreateDataAccessObject,
          inMemoryUserDataReadAccessObject, signupPresenter, userFactory, inMemoryShoppingCartCreateDataAccessObject);
@@ -92,7 +106,7 @@ class SignupInteractorTest {
     void passwordDoesNotMatch() throws SQLException {
         signupInputData = new SignupInputData("hanrui", "123456", "123", "hanrui@mail",
                 "1234","1234",
-                "11111");
+                "123456");
         signupPresenter = new SignupOutputBoundary() {
 
             @Override
@@ -115,8 +129,8 @@ class SignupInteractorTest {
     @Test
     void validationCodeDoesNotMatch() throws SQLException {
         signupInputData = new SignupInputData("hanrui", "123456", "123456", "hanrui@mail",
-                "1234","1234",
-                "11111");
+                "1234","123",
+                "1234");
 
         signupPresenter = new SignupOutputBoundary() {
 
@@ -127,7 +141,7 @@ class SignupInteractorTest {
 
             @Override
             public void presentFailedView(SignupOutputData response) {
-                assertEquals("Wrong verification code", response.getError());
+                assertEquals("wrong verification code", response.getError());
             }
         };
 
@@ -141,7 +155,7 @@ class SignupInteractorTest {
     void userDoesExit() throws SQLException {
         signupInputData = new SignupInputData("hanrui", "123456", "123456", "hanrui@mail",
                 "1234","1234",
-                "12345");
+                "11111");
 
         signupPresenter = new SignupOutputBoundary() {
 
@@ -156,6 +170,7 @@ class SignupInteractorTest {
             }
         };
 
+        inMemoryUserCreateDataAccessObject = new InMemoryUserCreateDataAccessObject(users);
         inMemoryUserDataReadAccessObject = new InMemoryUserDataReadAccessObject(users, userFactory);
         signupInteractor = new SignupInteractor(inMemoryUserCreateDataAccessObject,
                 inMemoryUserDataReadAccessObject, signupPresenter, userFactory, inMemoryShoppingCartCreateDataAccessObject);
@@ -166,8 +181,8 @@ class SignupInteractorTest {
     @Test
     void haveNotSendValidationCode() throws SQLException {
         signupInputData = new SignupInputData("hanrui", "123456", "123456", "hanrui@mail",
-                "1234","",
-                "11111");
+                "","1234",
+                "12345");
 
         signupPresenter = new SignupOutputBoundary() {
 
@@ -178,7 +193,7 @@ class SignupInteractorTest {
 
             @Override
             public void presentFailedView(SignupOutputData response) {
-                assertEquals("Need to send verification code fist", response.getError());
+                assertEquals("need to send verification code first", response.getError());
             }
         };
 

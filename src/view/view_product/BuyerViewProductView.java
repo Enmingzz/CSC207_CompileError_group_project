@@ -119,39 +119,20 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         JLabel title = new JLabel(buyerViewProductViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-
-
-        //(1)product_info
-        Product wtv_product = buyerViewProductViewModel.getState().getProduct();
         productInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         productInfo.setLayout(new BoxLayout(productInfo, BoxLayout.Y_AXIS));
 
         final JLabel message = new JLabel("There is no product!");
 
-        //(2)show q_and_a
         qAInfo = new JPanel();
 
         final JLabel qA_title = new JLabel("Q&A:");
 
-        ArrayList<Question> lst_question = buyerViewProductViewModel.getState().getQuestion();
         final JPanel qA_TextPanel = new JPanel();
-        for (Question question : lst_question) {
-
-            String answer_content = question.getAnswer().getDescription();
-            String question_content = question.getDescription();
-
-            JLabel q = new JLabel(question_content);
-            JLabel a = new JLabel(answer_content);
-
-            BuyerQAInfoLabelTextPanel panel = new BuyerQAInfoLabelTextPanel(q, a);
-            qA_TextPanel.add(panel);
-        }
 
         qAInfo.add(qA_title);
         qAInfo.add(qA_TextPanel);
 
-
-        //(3)add_question
         JPanel addQuestionInfo = new JPanel();
 
         JLabel input_question_title = new JLabel(buyerViewProductViewModel.INPUT_QUESTION_TITLE);
@@ -162,8 +143,6 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         publishQuestion = new JButton(buyerViewProductViewModel.ADD_QUESTION);
         addQuestionInfo.add(publishQuestion);
 
-
-        //(4)some_discrete_buttons
         JPanel buttons = new JPanel();
         cancel = new JButton(buyerViewProductViewModel.CANCEL_BUTTON_LABEL);
         addToCart = new JButton(buyerViewProductViewModel.ADD_TO_CART);

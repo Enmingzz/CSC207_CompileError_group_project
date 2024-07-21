@@ -32,7 +32,7 @@ class SignupOutputDataTest {
 
     @Test
     void getError() {
-        assertEquals(null, signupOutputData.getError());
+        assertEquals("no error", signupOutputData.getError());
     }
 
 }
