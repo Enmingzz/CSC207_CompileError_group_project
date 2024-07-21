@@ -35,9 +35,14 @@
   - Enter your student number: Input field for the student number.
   - Enter password: Input field for the password.
 - Button:
-- Log in: Authenticates the user and grants access to the application.
+ - Log in: Authenticates the user and grants access to the application.
 
 - ![image](https://github.com/user-attachments/assets/852ed544-e0b4-4012-b560-358eb0eb8333)
+
+- If the password does not match the sign up password.
+- A Error message will show up as following:
+ - ![image](https://github.com/user-attachments/assets/19d9bf36-2f21-4e66-98b3-77095a39e124)
+
 
 #### Viewing Profile (the three branches) 
 - After log in, the View Profile Page will show up.
@@ -51,8 +56,12 @@
 - Buttons:
   - Confirm: Saves the updated information.
   - Back: Returns to the Viewing Profile screen.
-  - 
+    
 - ![image](https://github.com/user-attachments/assets/fb33fdef-e2b2-47a2-a461-9e6887e80f0d)
+
+- If the user didn't change anything, a Error message will show up as following:
+  - ![image](https://github.com/user-attachments/assets/0484a562-6d6c-4254-a67f-bd10356d535e)
+
 
 ### #Manage products 
 - The manage products Page displays a list of products with details and options to:
