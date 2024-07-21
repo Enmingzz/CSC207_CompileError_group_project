@@ -89,8 +89,25 @@ import view.profile.ModifyProfileView;
 
 import java.sql.SQLException;
 
+/**
+ * Factory class to create instances related to the modify profile use case.
+ */
 public class ModifyProfileUseCaseFactory {
 
+    /**
+     * Creates an instance of {@link ModifyProfileView} with the necessary controllers and view models.
+     *
+     * @param viewManagerModel       the view manager model
+     * @param mainPageViewModel      the main page view model
+     * @param shoppingCartViewModel  the shopping cart view model
+     * @param searchProductViewModel the search product view model
+     * @param viewProfileViewModel   the view profile view model
+     * @param signUpViewModel        the signup view model
+     * @param loginViewModel         the login view model
+     * @param modifyProfileViewModel the modify profile view model
+     * @return an instance of {@link ModifyProfileView}
+     * @throws SQLException if a database access error occurs
+     */
     public static ModifyProfileView create(ViewManagerModel viewManagerModel,
                                            MainPageViewModel mainPageViewModel,
                                            ShoppingCartViewModel shoppingCartViewModel,
@@ -133,6 +150,13 @@ public class ModifyProfileUseCaseFactory {
 
     }
 
+    /**
+     * Creates an instance of {@link ViewLoginPageController}.
+     *
+     * @param viewManagerModel the view manager model
+     * @param loginViewModel   the login view model
+     * @return an instance of {@link ViewLoginPageController}
+     */
     private static ViewLoginPageController createViewLoginPageController(ViewManagerModel viewManagerModel,
                                                                          LoginViewModel loginViewModel){
         ViewLoginPageOutputBoundary viewLoginPageOutputpresenter =
@@ -142,6 +166,13 @@ public class ModifyProfileUseCaseFactory {
         return new ViewLoginPageController(viewLoginPageInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ViewSignupPageController}.
+     *
+     * @param viewManagerModel the view manager model
+     * @param signupViewModel  the signup view model
+     * @return an instance of {@link ViewSignupPageController}
+     */
     private static ViewSignupPageController createViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
         ViewSignupPageOutputBoundary viewSignupPagePresenter =
                 new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
@@ -150,6 +181,14 @@ public class ModifyProfileUseCaseFactory {
         return new ViewSignupPageController(viewSignupPageInteractor);
     }
 
+    /**
+     * Creates an instance of {@link SearchProductByNameController}.
+     *
+     * @param viewManagerModel     the view manager model
+     * @param searchProductViewModel the search product view model
+     * @return an instance of {@link SearchProductByNameController}
+     * @throws SQLException if a database access error occurs
+     */
     private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
 
         DatabaseProductReadByNameDataAccessObjectFactoryInterface daoFactory = new DatabaseProductReadByNameDataAccessObjectFactory();
@@ -191,6 +230,14 @@ public class ModifyProfileUseCaseFactory {
         return new ShoppingCartController(showShoppingCartInteractor);
     }
 
+    /**
+     * Creates an instance of {@link MainPageController}.
+     *
+     * @param mainPageViewModel the main page view model
+     * @param viewManagerModel  the view manager model
+     * @return an instance of {@link MainPageController}
+     * @throws SQLException if a database access error occurs
+     */
     private static MainPageController createMainPageController(MainPageViewModel mainPageViewModel, ViewManagerModel viewManagerModel) throws SQLException {
         ShowMainPageOutputBoundary showMainPagePresenter = new MainPagePresenter(mainPageViewModel, viewManagerModel);
         DataBaseProductReadAllDataAccessObjectFactoryInterface dataBaseProductReadAllDataAccessObjectFactoryInterface = new DatabaseProductReadAllDataAccessObjectFactory();
@@ -203,6 +250,14 @@ public class ModifyProfileUseCaseFactory {
         return new MainPageController(showMainPageInteractor);
     }
 
+    /**
+     * Creates an instance of {@link LogOutController}.
+     *
+     * @param viewManagerModel  the view manager model
+     * @param mainPageViewModel the main page view model
+     * @return an instance of {@link LogOutController}
+     * @throws SQLException if a database access error occurs
+     */
     private static LogOutController createLogOutController(ViewManagerModel viewManagerModel,
                                                            MainPageViewModel mainPageViewModel) throws SQLException {
         LogOutOutputBoundary LogOutPresenter = new LogOutPresenter(mainPageViewModel,
@@ -211,6 +266,13 @@ public class ModifyProfileUseCaseFactory {
         return new LogOutController(logOutInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ViewProfileController}.
+     *
+     * @param viewManagerModel   the view manager model
+     * @param profileViewModel the profile view model
+     * @return an instance of {@link ViewProfileController}
+     */
     private static ViewProfileController createProfileController(ViewManagerModel viewManagerModel,
                                                                  ViewProfileViewModel profileViewModel) {
         ViewProfileOutputBoundary viewProfilePresenter = new ViewProfilePresenter(profileViewModel,
@@ -219,6 +281,14 @@ public class ModifyProfileUseCaseFactory {
         return new ViewProfileController(viewProfileInteractor);
     }
 
+    /**
+     * Creates an instance of {@link GetSearchPageController}.
+     *
+     * @param viewManagerModel     the view manager model
+     * @param searchProductViewModel the search product view model
+     * @return an instance of {@link GetSearchPageController}
+     * @throws SQLException if a database access error occurs
+     */
     private static GetSearchPageController createGetSearchPageController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
         GetSearchViewOutputBoundary getSearchViewPresenter =
                 new GetSearchPagePresenter(searchProductViewModel, viewManagerModel);
@@ -232,6 +302,15 @@ public class ModifyProfileUseCaseFactory {
         return new GetSearchPageController(getSearchViewInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ModifyProfileController}.
+     *
+     * @param modifyProfileViewModel the modify profile view model
+     * @param viewProfileViewModel   the view profile view model
+     * @param viewManagerModel       the view manager model
+     * @return an instance of {@link ModifyProfileController}
+     * @throws SQLException if a database access error occurs
+     */
     private static ModifyProfileController createModifyProfileController(ModifyProfileViewModel modifyProfileViewModel,
                                                                          ViewProfileViewModel viewProfileViewModel,
                                                                          ViewManagerModel viewManagerModel) throws SQLException {
@@ -257,6 +336,14 @@ public class ModifyProfileUseCaseFactory {
         return new ModifyProfileController(modifyProfileInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ManageProductController}.
+     *
+     * @param viewManagerModel      the view manager model
+     * @param manageProductViewModel the manage product view model
+     * @return an instance of {@link ManageProductController}
+     * @throws SQLException if a database access error occurs
+     */
     private static ManageProductController createManageProductController(
             ViewManagerModel viewManagerModel, ManageProductViewModel manageProductViewModel) throws SQLException {
         ManageProductOutputBoundary manageProductPresenter =
@@ -273,6 +360,13 @@ public class ModifyProfileUseCaseFactory {
         return new ManageProductController(manageProductInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ViewModifyProductController}.
+     *
+     * @param viewModifyProductViewModel the modify product view model
+     * @param viewManagerModel           the view manager model
+     * @return an instance of {@link ViewModifyProductController}
+     */
     private static ViewModifyProductController createModifyProductController(ViewModifyProductViewModel viewModifyProductViewModel, ViewManagerModel viewManagerModel){
         ViewModifyProductOutputBoundary presenter = new ViewModifyProductPresenter(viewModifyProductViewModel, viewManagerModel);
         ViewModifyProductInputBoundary modifyProductInteractor = new ViewModifyProductInteractor(presenter);

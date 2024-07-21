@@ -17,18 +17,35 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * In-memory implementation of {@link ShoppingCartCreateDataAccessInterface} to create and manage shopping carts.
+ */
 public class InMemoryShoppingCartCreateDataAccessObject implements ShoppingCartCreateDataAccessInterface {
 
     private ArrayList<ShoppingCart> shoppingCarts;
 
+    /**
+     * Constructs an empty in-memory shopping cart data access object.
+     */
     public InMemoryShoppingCartCreateDataAccessObject() {
         this.shoppingCarts = new ArrayList<>();
     }
 
+    /**
+     * Constructs an in-memory shopping cart data access object with a predefined list of shopping carts.
+     *
+     * @param shoppingCarts the list of shopping carts to initialize with
+     */
     public InMemoryShoppingCartCreateDataAccessObject(ArrayList<ShoppingCart> shoppingCarts) {
         this.shoppingCarts = shoppingCarts;
     }
 
+    /**
+     * Saves a new shopping cart for the given user.
+     *
+     * @param user the user for whom the shopping cart is to be saved
+     * @throws SQLException if a database access error occurs
+     */
     @Override
     public void saveShoppingCart(User user) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
@@ -39,6 +56,11 @@ public class InMemoryShoppingCartCreateDataAccessObject implements ShoppingCartC
         this.shoppingCarts.add(shoppingCart);
     }
 
+    /**
+     * Retrieves all shopping carts.
+     *
+     * @return a list of all shopping carts
+     */
     public ArrayList<ShoppingCart> getAllShoppingCarts() {
 
         ArrayList<ShoppingCart> copyAllCarts = new ArrayList<>();

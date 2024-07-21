@@ -14,18 +14,37 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * In-memory implementation of {@link ProductReadByNameDataAccessInterface} to retrieve products by their name.
+ */
 public class InMemoryProductReadByNameDataAccessObject implements ProductReadByNameDataAccessInterface {
 
     private ArrayList<Product> products;
 
+    /**
+     * Constructs an empty in-memory product data access object.
+     */
     public InMemoryProductReadByNameDataAccessObject() {
         products = new ArrayList<>();
     }
 
+    /**
+     * Constructs an in-memory product data access object with a predefined list of products.
+     *
+     * @param products the list of products to initialize with
+     */
     public InMemoryProductReadByNameDataAccessObject(ArrayList<Product> products) {
         this.products = products;
     }
 
+    /**
+     * Retrieves products by their name.
+     *
+     * @param name the name of the products to retrieve
+     * @return a list of products with the specified name
+     * @throws SQLException if a database access error occurs
+     * @throws IOException  if an I/O error occurs
+     */
     @Override
     public ArrayList<Product> getProductByName(String name) throws SQLException, IOException {
         ArrayList<Product> outputProducts = new ArrayList<>();

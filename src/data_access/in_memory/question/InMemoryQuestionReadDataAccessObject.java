@@ -7,21 +7,40 @@ import entity.product.Product;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * In-memory implementation of {@link QuestionReadDataAccessInterface} to read questions associated with products.
+ */
 public class InMemoryQuestionReadDataAccessObject implements QuestionReadDataAccessInterface {
 
     private ArrayList<Question> questions;
     private ArrayList<Product> products;
 
+    /**
+     * Constructs an empty in-memory question data access object.
+     */
     public InMemoryQuestionReadDataAccessObject() {
         this.questions = new ArrayList<>();
         this.products = new ArrayList<>();
     }
 
+    /**
+     * Constructs an in-memory question data access object with predefined lists of questions and products.
+     *
+     * @param questions the list of questions to initialize with
+     * @param products  the list of products to initialize with
+     */
     public InMemoryQuestionReadDataAccessObject(ArrayList<Question> questions, ArrayList<Product> products) {
         this.questions = questions;
         this.products = products;
     }
 
+    /**
+     * Retrieves questions associated with a product ID.
+     *
+     * @param productID the ID of the product to retrieve questions for
+     * @return a list of questions associated with the specified product ID
+     * @throws SQLException if a database access error occurs
+     */
     @Override
     public ArrayList<Question> getQuestion(String productID) throws SQLException {
         ArrayList<Question> returnedQuestions = new ArrayList<>();

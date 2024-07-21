@@ -14,17 +14,35 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * In-memory implementation of {@link ProductUpdatePriceDataAccessInterface} to update the price of a product.
+ */
 public class InMemoryProductUpdatePriceDataAccessObject implements ProductUpdatePriceDataAccessInterface {
 
     private ArrayList<Product> products;
 
+    /**
+     * Constructs an empty in-memory product data access object.
+     */
     public InMemoryProductUpdatePriceDataAccessObject() {
         products = new ArrayList<>();
     }
 
+    /**
+     * Constructs an in-memory product data access object with a predefined list of products.
+     *
+     * @param products the list of products to initialize with
+     */
     public InMemoryProductUpdatePriceDataAccessObject(ArrayList<Product> products) {
         this.products = products;
     }
+    /**
+     * Updates the price of a product.
+     *
+     * @param updatedProduct the product with the new price
+     * @param price          the new price of the product
+     * @throws SQLException if a database access error occurs
+     */
     @Override
     public void updateProductPrice(Product updatedProduct, float price) throws SQLException {
         for (int i = 0; i < products.size(); i++) {

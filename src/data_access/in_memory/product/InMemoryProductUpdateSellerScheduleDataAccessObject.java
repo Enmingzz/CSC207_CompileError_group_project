@@ -14,17 +14,35 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * In-memory implementation of {@link ProductUpdateSellerScheduleDataAccessInterface} to update the seller's schedule of a product.
+ */
 public class InMemoryProductUpdateSellerScheduleDataAccessObject implements ProductUpdateSellerScheduleDataAccessInterface {
 
     private ArrayList<Product> products;
 
+    /**
+     * Constructs an empty in-memory product data access object.
+     */
     public InMemoryProductUpdateSellerScheduleDataAccessObject() {
         this.products = new ArrayList<>();
     }
 
+    /**
+     * Constructs an in-memory product data access object with a predefined list of products.
+     *
+     * @param products the list of products to initialize with
+     */
     public InMemoryProductUpdateSellerScheduleDataAccessObject(ArrayList<Product> products) {
         this.products = products;
     }
+    /**
+     * Updates the seller's schedule of a product.
+     *
+     * @param updatedProduct the product with the new seller's schedule
+     * @param listTimes      the new list of seller's schedule times
+     * @throws SQLException if a database access error occurs
+     */
     @Override
     public void updateSellerSchedule(Product updatedProduct, ArrayList<LocalDateTime> listTimes) throws SQLException {
         for (int i = 0; i < products.size(); i++) {
