@@ -4,6 +4,7 @@ import use_case.modify_product.UploadImageInputBoundary;
 import use_case.modify_product.UploadImageInputData;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Controller for handling image upload operations.
@@ -29,7 +30,7 @@ public class UploadImageController {
      * Creates an instance of {@link UploadImageInputData} and invokes the {@link UploadImageInputBoundary}
      * to perform the image upload operation.
      */
-    public void execute() throws IOException {
+    public void execute() throws IOException, SQLException {
         UploadImageInputData uploadImageInputData = new UploadImageInputData();
         uploadImageInteractor.execute(uploadImageInputData);
     }

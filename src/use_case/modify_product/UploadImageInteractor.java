@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.sql.SQLException;
 
 /**
  * The UploadImageInteractor class provides functionality to upload an image file from the user's filesystem
@@ -38,7 +39,7 @@ public class UploadImageInteractor extends JFrame implements UploadImageInputBou
      *
      * @param uploadImageInputData the input data for uploading the image
      */
-    public void execute(UploadImageInputData uploadImageInputData) {
+    public void execute(UploadImageInputData uploadImageInputData) throws SQLException, IOException {
         JFileChooser fileChooser = new JFileChooser();
         // Set default directory to Desktop
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home"), "Desktop"));

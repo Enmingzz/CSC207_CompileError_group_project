@@ -17,6 +17,7 @@ import javax.swing.text.View;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -72,7 +73,7 @@ class ViewModifyProductInteractorTest {
     void tearDown() {
     }
     @Test
-    void prepareSuccessfulViewTest() {
+    void prepareSuccessfulViewTest() throws SQLException, IOException {
         ViewModifyProductOutputBoundary viewModifyProductPresenter = new ViewModifyProductOutputBoundary() {
             @Override
             public void prepareSuccessfulView(ViewModifyProductOutputData viewModifyProductOutputData) {

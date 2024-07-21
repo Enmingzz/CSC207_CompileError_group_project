@@ -179,7 +179,13 @@ public class AllProductsPanel extends JPanel{
                             public void actionPerformed(ActionEvent event) {
                                 if (event.getSource().equals(ratingButton)) {
                                     User user = shoppingCartViewModel.getState().getUser();
-                                    getRatePageController.execute(user, product);
+                                    try {
+                                        getRatePageController.execute(user, product);
+                                    } catch (SQLException e) {
+                                        throw new RuntimeException(e);
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
 
                                 }
                             }
