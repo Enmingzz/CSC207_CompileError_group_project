@@ -1,6 +1,7 @@
 package use_case.modify_product;
 
 import data_access.interfaces.product.ProductUpdateDescriptionDataAccessInterface;
+import data_access.interfaces.product.ProductUpdateNameDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.Product;
 import entity.product.ProductFactory;
@@ -8,32 +9,29 @@ import entity.product.ProductFactory;
 import java.sql.SQLException;
 import java.util.Objects;
 
-import static java.lang.Float.parseFloat;
+public class ChangeProductTitle implements ChangeProductTitleInterface{
+    private final ProductUpdateNameDataAccessInterface productUpdateNameDataAccessInterface;
 
-public class ChangeProductDescription implements ChangeProductDescriptionInterface{
-    private final ProductUpdateDescriptionDataAccessInterface productUpdateDescriptionDataAccessInterface;
-
-    public ChangeProductDescription(ProductUpdateDescriptionDataAccessInterface productUpdateDescriptionDataAccessInterface) {
-        this.productUpdateDescriptionDataAccessInterface = productUpdateDescriptionDataAccessInterface;
+    public ChangeProductTitle(ProductUpdateNameDataAccessInterface productUpdateNameDataAccessInterface) {
+        this.productUpdateNameDataAccessInterface = productUpdateNameDataAccessInterface;
     }
 
-    public Product execute(Product changedProduct, String description) throws SQLException {
-        if (Objects.equals(description, changedProduct.getDescription())) {
+    public Product execute(Product changedProduct, String title) throws SQLException {
+        if (Objects.equals(title, changedProduct.getTitle())) {
             return changedProduct;
         }
         else {
             //System.out.println(System.identityHashCode(changedProduct));
             ProductFactory commonProductFactory = new CommonProductFactory();
             Product newProduct = commonProductFactory.createProduct(changedProduct.getImage(),
-                    description, changedProduct.getTitle(),
+                    changedProduct.getDescription(), title,
                     changedProduct.getPrice(),
                     changedProduct.getRating(),
                     changedProduct.getState(), changedProduct.geteTransferEmail(),
                     changedProduct.getSellerStudentNumber(), changedProduct.getAddress(),
                     changedProduct.getListTags(), changedProduct.getProductID(),
                     changedProduct.getSchedule());
-            productUpdateDescriptionDataAccessInterface.updateProductDescription(changedProduct,
-                    description);
+            productUpdateNameDataAccessInterface.updateProductName(changedProduct, title);
             return newProduct;
         }
     }

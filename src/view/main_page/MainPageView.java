@@ -116,7 +116,7 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
         ArrayList<Product> allProducts = mainPageViewModel.getState().getAllProducts();
 
         allProductsPanel = new AllProductsPanel(allProducts, mainPageViewModel, viewProductController);
-        this.add(allProductsPanel);
+        this.add(new JScrollPane(allProductsPanel));
 
 
 //        Wrong implementation of MainPAgeView, left for reference

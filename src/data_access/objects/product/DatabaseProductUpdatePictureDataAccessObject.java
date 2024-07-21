@@ -49,7 +49,7 @@ public class DatabaseProductUpdatePictureDataAccessObject implements ProductUpda
 
         BufferedImage bufferedImage = (BufferedImage) image;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, "jpg", baos);
+        ImageIO.write(bufferedImage, "png", baos);
         byte[] arrayImageByte = baos.toByteArray();
 
         preparedStatement.setBytes(1, arrayImageByte);
