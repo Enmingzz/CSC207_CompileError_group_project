@@ -76,7 +76,10 @@ public class NonLoggedInViewProductUseFactory {
         ShoppingCartController shoppingCartController = createShoppingCartController(viewManagerModel, shoppingCartViewModel);
         ViewProfileController viewProfileController = createProfileController(viewManagerModel, profileViewModel);
 
-        return new NonloggedInProductView(unloggedInViewModel, viewLoginPageController, mainPageController, getSearchPageController, viewSignupPageController, shoppingCartController, logOutController, viewProfileController);
+
+        return new NonloggedInProductView(unloggedInViewModel, viewLoginPageController, mainPageController,
+                getSearchPageController, viewSignupPageController, shoppingCartController, logOutController, viewProfileController,
+                view);
     }
 
     /**

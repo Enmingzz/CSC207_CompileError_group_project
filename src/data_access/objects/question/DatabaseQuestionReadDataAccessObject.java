@@ -50,6 +50,7 @@ public class DatabaseQuestionReadDataAccessObject implements QuestionReadDataAcc
         String answerUserID;
         String questionDescription;
         String answerDescription;
+        String questionID;
         Answer answer;
         ArrayList<Question> listQuestions = new ArrayList<>();
 
@@ -58,13 +59,14 @@ public class DatabaseQuestionReadDataAccessObject implements QuestionReadDataAcc
         preparedStatement.setString(1, productID);
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
+            questionID = resultSet.getString("CommentID");
             questionUserID = resultSet.getString("QuestionUserID");
             questionDescription = resultSet.getString("QuestionDescription");
             answerUserID = resultSet.getString("AnswerUserID");
             answerDescription = resultSet.getString("AnswerDescription");
 
             answer = answerFactory.createAnswer(answerDescription, answerUserID);
-            listQuestions.add(questionFactory.createQuestion(questionDescription, questionUserID, answer, questionUserID));
+            listQuestions.add(questionFactory.createQuestion(questionDescription, questionUserID, answer, questionID));
         }
 
         resultSet.close();
