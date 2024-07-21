@@ -36,7 +36,9 @@ class AddShoppingCartProductInteractorTest {
     private Product product;
     private User user;
     private ShoppingCart shoppingCart;
+    private ShoppingCart shoppingCartDupe;
     private ArrayList<ShoppingCart> initialShoppingCarts;
+    private ArrayList<ShoppingCart> initialShoppingCartsDuplicate;
 
     @BeforeEach
     void setUp() throws IOException {
@@ -81,6 +83,45 @@ class AddShoppingCartProductInteractorTest {
                 listTags, productID, schedule
         );
 
+        Image image2 = ImageIO.read(new File("src/pic/testpic1.png"));
+
+        String description2 = "This is a description";
+
+        String title2 = "This is a title";
+
+        float price2 = 1;
+
+        Integer rating2 = 0;
+
+        int state2 = 0;
+
+        String eTransferEmail2 = "example@email.com";
+
+        String sellerStudentNumber2 = "1234567890";
+
+        String address2 = "BA 3175";
+
+        ArrayList<String> listTags2 = new ArrayList<>();
+
+        listTags2.add("Tag 1");
+
+        listTags2.add("Tag 2");
+
+        String productID2 = "id_1";
+
+        LocalDateTime buyerTime2 = null;
+
+        ArrayList<LocalDateTime> sellerTime2 = new ArrayList<>();
+
+        Schedule schedule2 = scheduleFactory.createSchedule(buyerTime2, sellerTime2);
+
+        product = productFactory.createProduct(
+                image2, description2, title2, price2, rating2, state2, eTransferEmail2, sellerStudentNumber2, address2,
+                listTags2, productID2, schedule2
+        );
+
+
+
         UserFactory userFactory = new CommonUserFactory();
 
         String name = "username";
@@ -97,9 +138,12 @@ class AddShoppingCartProductInteractorTest {
         ArrayList<Product> listProducts = new ArrayList<>();
 
         shoppingCart = shoppingCartFactory.createShoppingCart(totalPrice, studentNumber, listProducts);
+        shoppingCartDupe = shoppingCartFactory.createShoppingCart(totalPrice, studentNumber, listProducts);
 
         initialShoppingCarts = new ArrayList<>();
         initialShoppingCarts.add(shoppingCart);
+        initialShoppingCartsDuplicate = new ArrayList<>();
+        initialShoppingCartsDuplicate.add(shoppingCartDupe);
     }
 
     @AfterEach
@@ -136,6 +180,41 @@ class AddShoppingCartProductInteractorTest {
             @Override
             public void prepareFailedView(String errorMessage) {
                 assert(false);
+
+            }
+        };
+
+        ShoppingCartReadDataAccessInterface shoppingCartReadDataAccessObject =
+                new InMemoryShoppingCartReadDataAccessObject(initialShoppingCarts);
+        ShoppingCartUpdateAddDataAccessInterface shoppingCartUpdateAddDataAccessObject =
+                new InMemoryShoppingCartUpdateAddDataAccessObject(initialShoppingCarts);
+
+        AddShoppingCartProductInputData inputData =
+                new AddShoppingCartProductInputData(product, user);
+
+        AddShoppingCartProductInputBoundary interactor =
+                new AddShoppingCartProductInteractor(shoppingCartUpdateAddDataAccessObject,
+                        mockShoppingCartPresenter, shoppingCartReadDataAccessObject);
+
+        interactor.addProductToShoppingCart(inputData);
+
+
+
+    }
+
+    @Test
+    void duplicationFailedAddShoppingCart() throws SQLException, IOException {
+
+
+        AddShoppingCartProductOutputBoundary mockShoppingCartPresenter = new AddShoppingCartProductOutputBoundary() {
+            @Override
+            public void prepareSuccessView(AddShoppingCartProductOutputData response) {
+                assert false;
+            }
+
+            @Override
+            public void prepareFailedView(String errorMessage) {
+               assertEquals("Product already in Shopping Cart", errorMessage);
 
             }
         };
