@@ -28,7 +28,7 @@ import java.sql.SQLException;
 
 public class UserProfileView extends JPanel implements PropertyChangeListener {
     public final String viewName = "UserProfile View";
-    private final ViewProfileViewModel viewModel;
+    private final ViewUserProfileViewModel viewModel;
     private final ViewProfileController viewProfileController;
     private final MainPageController mainPageController;
     private final ShoppingCartController shoppingCartController;
@@ -81,6 +81,8 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
         JLabel title = new JLabel(viewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+
+
         studentNumberViewField.setText(viewModel.getState().getUser().getStudentNumber());
         studentNameViewField.setText(viewModel.getState().getUser().getName());
         studentEmailViewField.setText(viewModel.getState().getUser().getEmail());
@@ -98,8 +100,6 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
         this.add(userIDInfo);
         this.add(userEmail);
         this.add(userRating);
-
-        this.setVisible(true);
     }
 
     @Override
@@ -113,6 +113,8 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
         topBar.revalidate();
 
         ViewProfileState state = (ViewProfileState) evt.getNewValue();
+
+
     }
 }
 
