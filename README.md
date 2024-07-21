@@ -24,6 +24,17 @@
 ## 3. Exploring the Program 
 
 ### 0. Explaining the TOP bar
+The top bar exists on almost every page of our program. 
+- if you didn't login, it will be like:
+
+  ![image](https://github.com/user-attachments/assets/eefda7e2-2ed6-4f0f-b3e3-ae8dd1381182)
+
+- if you are logged in, it will be like:
+
+  
+  ![image](https://github.com/user-attachments/assets/5fa50470-6cca-4ff7-b903-98e37e40a28e)
+
+by clicking on the buttons, you can jump to the related page. the button with image of github cat will send you to your user profile page. it can be the user profile image in the future extension.
 
 ### 1. Profile 
 
@@ -33,13 +44,28 @@
 
 #### Viewing Profile (the three branches) 
 
-### #Modifying profile 
+#### Modifying profile 
 
 ### 2. From a Seller's POV 
 
 #### Creating a product or posting 
 
 #### Modifying a product or posting 
+
+#### Replying a question
+- As a seller of a product, you can reply any questions displayed in the Q&A panel
+
+
+![image](https://github.com/user-attachments/assets/ea53aa96-4f33-4874-a818-537d4e113cfa)
+
+- By clicking on the reply button.
+
+  ![image](https://github.com/user-attachments/assets/61830996-a718-478e-8f47-a3607f70fbbb)
+
+- then you can view the answers you just replyed.(but for now, the when you go back to the view product detail page, the button covers your answer and so there is a ui problem. To view the following page, please first go to another page and then go back. )
+![image](https://github.com/user-attachments/assets/8d99b434-05ed-4a45-9814-f9b597eae364)
+
+
 
 ### 3. A Buyer's POV 
 
@@ -77,8 +103,29 @@
   - The search results will display products that have the selected tag.
 
 #### Viewing specific details of a product 
+- Unlogged in buyer:
+  -click on the button under the product and you can view the product details, but when click on the add to cart button, you will jump to the login page.
+- Already logged in buyer:
+  - click on the button under the product and you can view the product details:
+
+  <img width="748" alt="unlogged_in butter_fly" src="https://github.com/user-attachments/assets/1d92ba30-0797-4deb-84a7-8ecb1f57129e">  
 
 #### Using the Q&A section in a product 
+- Unlogged in buyer:
+  you can only see the question on the right side, but you cannot ask questions.
+
+  ![image](https://github.com/user-attachments/assets/bedb2bdc-fac6-4cb8-a439-5f8bd8431a0d)
+
+- Already logged in buyer: you can see the Q&A panel on the right side of the page.
+
+  - To publish a new question:
+    you enter the new question at the bottom of the page press the publish button.
+  
+    <img width="792" alt="login_ask_question" src="https://github.com/user-attachments/assets/9589c37b-bc7b-4605-b4b3-77df1b1ee801">
+  -then you will see the newly added quesiton
+
+  
+    <img width="755" alt="successfullyaskedaquestion" src="https://github.com/user-attachments/assets/553faa2b-18f9-4489-bae6-4301405ba7a3">
 
 #### Shopping cart 
 
