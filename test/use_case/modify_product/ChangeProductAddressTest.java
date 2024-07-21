@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit test for ChangeProductDescriptionInteractor.
+ * Unit test for ChangeProductAddress.
  */
 class ChangeProductAddressTest {
 
@@ -81,7 +81,7 @@ class ChangeProductAddressTest {
     }
 
     /**
-     * Tests the execute method of ChangeProductDescription to ensure it correctly updates the product description.
+     * Tests the execute method of ChangeProductAddress to ensure it correctly updates the product Address.
      *
      * @throws IOException if there is an error during execution.
      * @throws SQLException if there is an error with SQL execution.
@@ -93,7 +93,62 @@ class ChangeProductAddressTest {
 
         ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
                 new InMemoryProductReadByIdDataAccessObject(productsList);
-        changeProductAddress.execute(product, changedAddress);
+        Product newProduct = changeProductAddress.execute(product, changedAddress);
         assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(product.getProductID()).getAddress(), changedAddress);
+
+        assertEquals(product.getPrice(),
+                newProduct.getPrice());
+        assertEquals(product.getImage(),
+                newProduct.getImage());
+        assertEquals(product.getDescription(),
+                newProduct.getDescription());
+        assertEquals(product.getTitle(),
+                newProduct.getTitle());
+
+        assertEquals(product.getSchedule().getBuyerTime(),
+                newProduct.getSchedule().getBuyerTime());
+        assertEquals(product.getSchedule().getSellerTime(),
+                newProduct.getSchedule().getSellerTime());
+        assertEquals(product.getState(),
+                newProduct.getState());
+
+        assertEquals(product.getSellerStudentNumber(),
+                newProduct.getSellerStudentNumber());
+        assertEquals(product.geteTransferEmail(),
+                newProduct.geteTransferEmail());
+        assertEquals(product.getListTags(),
+                newProduct.getListTags());
+    }
+
+    @Test
+    void executeTrueTest2() throws IOException, SQLException {
+        // Uploads the same address, checks the if branch of the class
+        changedAddress = "123College";
+
+        Product newProduct = changeProductAddress.execute(product, changedAddress);
+        assertEquals(newProduct.getAddress(), product.getAddress());
+
+        assertEquals(product.getPrice(),
+                newProduct.getPrice());
+        assertEquals(product.getDescription(),
+                newProduct.getDescription());
+        assertEquals(product.getTitle(),
+                newProduct.getTitle());
+
+        assertEquals(product.getAddress(),
+                newProduct.getAddress());
+        assertEquals(product.getSchedule().getBuyerTime(),
+                newProduct.getSchedule().getBuyerTime());
+        assertEquals(product.getSchedule().getSellerTime(),
+                newProduct.getSchedule().getSellerTime());
+        assertEquals(product.getState(),
+                newProduct.getState());
+
+        assertEquals(product.getSellerStudentNumber(),
+                newProduct.getSellerStudentNumber());
+        assertEquals(product.geteTransferEmail(),
+                newProduct.geteTransferEmail());
+        assertEquals(product.getListTags(),
+                newProduct.getListTags());
     }
 }
