@@ -59,8 +59,8 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
     ImagePanel displayImage;
     JPanel productModification;
 
-    private final JTextField description = new JTextField();
-    private final JTextField price = new JTextField();
+    private JTextField description = new JTextField();
+    private JTextField price = new JTextField();
 
     public ModifyProductView( ViewModifyProductViewModel viewModifyProductViewModel,
                               ModifyProductController modifyProductController,
@@ -74,7 +74,7 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
                               ViewProfileController viewProfileController
                               ) {
         this.viewModifyProductViewModel = viewModifyProductViewModel;
-        viewModifyProductViewModel.addPropertyChangeListener(this);
+//        viewModifyProductViewModel.addPropertyChangeListener(this);
         this.modifyProductController = modifyProductController;
         this.manageProductController = manageProductController;
 
@@ -86,6 +86,9 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         this.logOutController = logOutController;
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
+
+        viewModifyProductViewModel.addPropertyChangeListener(this);
+
 
         this.setLayout(new BorderLayout());
 
@@ -263,7 +266,7 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         topBar.revalidate();
 
         ViewModifyProductState state = (ViewModifyProductState) evt.getNewValue();
-        viewModifyProductViewModel.setState(state);
+//        viewModifyProductViewModel.setState(state);
 
         Product product = state.getProduct();
         productInformation.removeAll();
@@ -273,9 +276,11 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         final JLabel titleLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
         final JLabel title = new JLabel(product.getTitle());
         final JLabel descriptionLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
-        final JTextField description = new JTextField(product.getDescription());
+        description.setText(product.getDescription());
+//        final JTextField description = new JTextField(product.getDescription());
         final JLabel priceLabel = new JLabel(viewModifyProductViewModel.PRODUCT_PRICE_LABEL);
-        final JTextField price = new JTextField(String.valueOf(product.getPrice()));
+//        final JTextField price = new JTextField(String.valueOf(product.getPrice()));
+        price.setText(String.valueOf(product.getPrice()));
         final JLabel eTransferEmailLabel = new JLabel(viewModifyProductViewModel.PRODUCT_ETRANSFER_EMAIL_LABEL);
         final JLabel eTransferEmail = new JLabel(product.geteTransferEmail());
         final JLabel addressLabel = new JLabel(viewModifyProductViewModel.PRODUCT_ADDRESS);
@@ -301,6 +306,9 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         productInformation.add(address);
         productInformation.add(tagsLabel);
         productInformation.add(tags);
+        productInformation.repaint();
+        productInformation.revalidate();
+
 
         contentPanel.add(displayImage, BorderLayout.WEST);
 

@@ -42,7 +42,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
 
         this.setLayout(new BorderLayout());
 
-        System.out.println(" topBar " + user.getName() + " " + user.getPassword());
+        //System.out.println(" topBar " + user.getName() + " " + user.getPassword());
         //(1)search button
         searchButton = new JButton("Search");
         class SearchButtonListener implements ActionListener{

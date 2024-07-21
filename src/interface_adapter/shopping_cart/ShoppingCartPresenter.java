@@ -27,7 +27,9 @@ public class ShoppingCartPresenter implements ShowShoppingCartOutputBoundary {
         float totalPrice = 0;
 
         for (Product product : listProducts) {
-            totalPrice += product.getPrice();
+            if (product.getState() != -1) {
+                totalPrice += product.getPrice();
+            }
         }
 
         shoppingCartState.setTotalPrice(totalPrice);

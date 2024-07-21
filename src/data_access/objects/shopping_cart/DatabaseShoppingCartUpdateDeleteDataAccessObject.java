@@ -49,7 +49,7 @@ public class DatabaseShoppingCartUpdateDeleteDataAccessObject implements Shoppin
         resultSet.next();
 
         String rowList = resultSet.getString("ListProductsID");
-        ArrayList<String> listProductsID = new ArrayList<>(List.of(rowList.substring(1, rowList.length() - 1).split(",")));
+        ArrayList<String> listProductsID = new ArrayList<>(List.of(rowList.substring(1, rowList.length() - 1).split(", ")));
         listProductsID.remove(product.getProductID());
 
         query = "UPDATE Carts SET ListProductsID = ? WHERE UserID = ?";
