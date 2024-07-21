@@ -47,6 +47,7 @@ public class ViewModifyProductViewModel extends ViewModel {
 
     @Override
     public void firePropertyChanged() {
+        System.out.println("view modify product view model fire property changed");
         support.firePropertyChange("state", null, this.state);
     }
 

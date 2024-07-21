@@ -1,5 +1,6 @@
 package use_case.view_product;
 
+import entity.comment.CommonAnswer;
 import entity.comment.CommonQuestion;
 import entity.comment.Question;
 import entity.product.CommonProduct;
@@ -52,7 +53,7 @@ class ViewReplyQuestionInteractorTest {
         seller = new CommonUser("ginger cat", "111", "ginger@mail.utoronto.ca",
                 5, "1234567890");
 
-        question = new CommonQuestion("how much is it?", "1234567890", null, "123");
+        question = new CommonQuestion("how much is it?", "1234567890", new CommonAnswer("", ""), "123");
 
     }
 

@@ -26,13 +26,16 @@ public class RateProductPresenter implements RateProductOutputBoundary {
     @Override
     public void prepareSuccessfulView(RateProductOutputData rateProductOutputData) {
         ShoppingCartState shoppingCartState = shoppingCartViewModel.getState();
+        float totalPrice = shoppingCartState.getTotalPrice();
         ArrayList<Product> productList = shoppingCartState.getListProducts();
-        for(Product pro : productList) {
-            if(Objects.equals(pro.getProductID(), rateProductOutputData.getProduct().getProductID())) {
-                productList.remove(pro);
+        for (int i = 0; i < productList.size(); i++) {
+            if (productList.get(i).getProductID().equals(rateProductOutputData.getProduct().getProductID())) {
+                productList.remove(productList.get(i));
+                totalPrice -= productList.get(i).getPrice();
             }
         }
         shoppingCartState.setListProducts(productList);
+        shoppingCartState.setTotalPrice(totalPrice);
         shoppingCartViewModel.setState(shoppingCartState);
         shoppingCartViewModel.firePropertyChanged();
         //since we want to return to the shopping cart view, we need to call setActiveView

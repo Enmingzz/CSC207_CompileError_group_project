@@ -103,8 +103,6 @@ public class ChangeProductInteractor implements ChangeProductInputBoundary{
         changedProduct = changeProductTitleInterface.execute(changedProduct,
                 changeProductInputData.getTitle());
 
-
-
         ChangeProductOutputData changeProductOutputData = (!Objects.equals(changedProduct.geteTransferEmail(),
                 orignProduct.geteTransferEmail()) |
                 !Objects.equals(changedProduct.getDescription(), orignProduct.getDescription()) |
@@ -122,6 +120,83 @@ public class ChangeProductInteractor implements ChangeProductInputBoundary{
         } else {
             changeProductOutputBoundary.prepareFailView(changeProductOutputData);
         }
+// =======
+//         if (!Objects.equals(changeProductInputData.getChangedDescription(), "") & changeProductInputData.getChangedDescription() != null) {
+//             descriptionFlag = true;
+//         }
+//         else {
+//             descriptionFlag = false;
+//         }
+//         /** Next we will check if the new price they enetered is valid. There will be two
+//          * conditions to check.*/
+//         String price = changeProductInputData.getChangedPrice();
+//         //first we will test if the price entered is a float and a positive number
+//         float floatPrice;
+//         try {
+//             floatPrice = parseFloat(price);
+//             if(floatPrice >= 0) {
+//                 priceFlag = true;
+//             }
+//             else{
+//                 priceFlag = false;
+//             }
+//         } catch (NumberFormatException e) {
+//             priceFlag = false;
+//         }
+//         //Next we need to verify that the amount they entered has at most 2 decimal places
+//         if(priceFlag) {
+//             int decimalPointIndex = price.indexOf('.');
+//             if(price.indexOf('.') >= 0) {
+//                 String decimalPart = price.substring(decimalPointIndex);
+//                 if(decimalPart.length() > 2) {
+//                     priceFlag = false;
+//                 }
+//             }
+//         }
+
+//         if (descriptionFlag & priceFlag) {
+//             //If the new description and price they inputted are both valid
+//             ProductFactory commonProductFactory = new CommonProductFactory();
+// //            Product newProduct = commonProductFactory.createProduct(changedProduct.getImage(),
+// //                    changeProductInputData.getChangedDescription(), changedProduct.getTitle(),
+// //                    parseFloat(changeProductInputData.getChangedPrice()),
+// //                    changedProduct.getRating(),
+// //                    changedProduct.getState(), changedProduct.geteTransferEmail(),
+// //                    changedProduct.getSellerStudentNumber(), changedProduct.getAddress(),
+// //                    changedProduct.getListTags(), changedProduct.getProductID(),
+// //                    changedProduct.getSchedule());
+
+//             changedProduct = changeProductPriceInterface.execute(changedProduct,
+//                     changeProductInputData.getChangedPrice());
+//             changedProduct = changeProductDescriptionInterface.execute(changedProduct,
+//                     changeProductInputData.getChangedDescription());
+//             ChangeProductOutputData changeProductOutputData =
+//                     new ChangeProductOutputData(changedProduct,
+//                     "Successfully modified product", changeProductInputData.getUser());
+//             changeProductOutputBoundary.prepareSuccessfulView(changeProductOutputData);
+//         }
+//         else if(descriptionFlag) {
+//             changedProduct = changeProductDescriptionInterface.execute(changedProduct,
+//                     changeProductInputData.getChangedDescription());
+//             //If only the description was successfully modified
+//             ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changedProduct,
+//                     "Only the price failed to update", changeProductInputData.getUser());
+//             changeProductOutputBoundary.prepareSuccessfulView(changeProductOutputData);
+//         }
+//         else if(priceFlag) {
+//             //If only the description was successfully modified
+//             changedProduct = changeProductPriceInterface.execute(changedProduct,
+//                     changeProductInputData.getChangedPrice());
+//             ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changedProduct,
+//                     "Only the description failed to update", changeProductInputData.getUser());
+//             changeProductOutputBoundary.prepareSuccessfulView(changeProductOutputData);
+//         }
+//         else {
+//             //If both of the description and price failed to upload, then don't make the update.
+//             ChangeProductOutputData changeProductOutputData = new ChangeProductOutputData(changeProductInputData.getProduct(),
+//                     "Both the description and price failed to update", changeProductInputData.getUser());
+// >>>>>>> main
+
 
 
 

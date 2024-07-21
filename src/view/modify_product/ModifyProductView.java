@@ -87,9 +87,12 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 
 //    ImagePanel displayImage;
 
-
 //    private final JTextField description = new JTextField();
 //    private final JTextField price = new JTextField();
+// =======
+//     private JTextField description = new JTextField();
+//     private JTextField price = new JTextField();
+// >>>>>>> main
 
     public ModifyProductView( ViewModifyProductViewModel viewModifyProductViewModel,
                               ModifyProductController modifyProductController,
@@ -104,7 +107,7 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
                               UploadImageController uploadImageController
                               ) {
         this.viewModifyProductViewModel = viewModifyProductViewModel;
-        viewModifyProductViewModel.addPropertyChangeListener(this);
+//        viewModifyProductViewModel.addPropertyChangeListener(this);
         this.modifyProductController = modifyProductController;
         this.manageProductController = manageProductController;
         this.uploadImageController = uploadImageController;
@@ -118,6 +121,9 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
 
+        viewModifyProductViewModel.addPropertyChangeListener(this);
+
+
         this.setLayout(new BorderLayout());
 
         UserFactory commonUserFactory = new CommonUserFactory();
@@ -125,6 +131,8 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         topBar = new TopBarSampleView(commonUser,
                 getSearchPageController, viewSignupPageController, viewLoginPageController,
                 shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
+        this.add(topBar, BorderLayout.NORTH);
 
         //TODO check if this image works
 //        displayImage = (viewModifyProductViewModel.getState().getProduct() == null)?
@@ -370,6 +378,14 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
                                     (Image) bufferedImage);
                         }
 
+// =======
+//                         //TODO delete later this is to test if the input data is correct for the change product used case
+//                         System.out.println("description: " + description.getText());
+//                         System.out.println("price: " + viewModifyProductViewModel.getState().getPrice());
+
+//                         modifyProductController.execute(viewModifyProductViewModel.getState().getUser(), viewModifyProductViewModel.getState().getProduct(),
+//                                 viewModifyProductViewModel.getState().getDescription(), viewModifyProductViewModel.getState().getPrice());
+// >>>>>>> main
                     } catch (SQLException | IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -470,7 +486,7 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         topBar.revalidate();
 
         ViewModifyProductState state = (ViewModifyProductState) evt.getNewValue();
-        viewModifyProductViewModel.setState(state);
+//        viewModifyProductViewModel.setState(state);
 
         if (Objects.equals(state.getMessage(), "You didn't Change any thing!")) {
             JOptionPane.showMessageDialog(this, state.getMessage());
@@ -487,6 +503,15 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 //        final JLabel priceLabel = new JLabel(viewModifyProductViewModel.PRODUCT_PRICE_LABEL);
 //        final JTextField price = new JTextField(String.valueOf(product.getPrice()));
 //        final JLabel eTransferEmailLabel = new JLabel(viewModifyProductViewModel.PRODUCT_ETRANSFER_EMAIL_LABEL);
+// =======
+//         final JLabel descriptionLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
+//         description.setText(product.getDescription());
+// //        final JTextField description = new JTextField(product.getDescription());
+//         final JLabel priceLabel = new JLabel(viewModifyProductViewModel.PRODUCT_PRICE_LABEL);
+// //        final JTextField price = new JTextField(String.valueOf(product.getPrice()));
+//         price.setText(String.valueOf(product.getPrice()));
+//         final JLabel eTransferEmailLabel = new JLabel(viewModifyProductViewModel.PRODUCT_ETRANSFER_EMAIL_LABEL);
+// >>>>>>> main
         final JLabel eTransferEmail = new JLabel(product.geteTransferEmail());
 //        final JLabel addressLabel = new JLabel(viewModifyProductViewModel.PRODUCT_ADDRESS);
         final JLabel address = new JLabel(product.getAddress());
@@ -524,10 +549,29 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 
 //        contentPanel.repaint();
 //        contentPanel.revalidate();
+// =======
+//         productInformation.add(titleLabel);
+//         productInformation.add(title);
+//         productInformation.add(descriptionLabel);
+//         productInformation.add(description);
+//         productInformation.add(priceLabel);
+//         productInformation.add(price);
+//         productInformation.add(eTransferEmailLabel);
+//         productInformation.add(eTransferEmail);
+//         productInformation.add(addressLabel);
+//         productInformation.add(address);
+//         productInformation.add(tagsLabel);
+//         productInformation.add(tags);
+//         productInformation.repaint();
+//         productInformation.revalidate();
 
-//        if (state.getModifyProductMessage() != "" || state.getModifyProductMessage() == null) {
-//            JOptionPane.showMessageDialog(this, state.getModifyProductMessage());
-//        }
+
+//         contentPanel.add(displayImage, BorderLayout.WEST);
+
+//         contentPanel.repaint();
+//         contentPanel.revalidate();
+// >>>>>>> main
+
 //        JOptionPane.showMessageDialog(this, state.getDescription());
 
 

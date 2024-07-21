@@ -135,6 +135,7 @@ class AddShoppingCartProductInteractorTest {
 
             @Override
             public void prepareFailedView(String errorMessage) {
+                assert(false);
 
             }
         };

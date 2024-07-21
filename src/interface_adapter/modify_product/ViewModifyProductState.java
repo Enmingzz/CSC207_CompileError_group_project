@@ -1,5 +1,6 @@
 package interface_adapter.modify_product;
 
+import entity.product.CommonProductFactory;
 import entity.product.Product;
 import entity.product.ProductFactory;
 import entity.user.User;
@@ -9,8 +10,8 @@ import java.awt.*;
 import java.beans.PropertyChangeSupport;
 
 public class ViewModifyProductState {
-    private User user;
-    private Product product;
+    private User user = null;
+    private Product product = null;
 
     private String description = "";
     private String price = "";

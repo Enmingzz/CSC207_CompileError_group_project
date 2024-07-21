@@ -73,7 +73,7 @@ public class DatabaseShoppingCartReadDataAccessObject implements ShoppingCartRea
                     resultSet.getString("ListProductsID").length() - 1).split(", ")));
 
             for (String item : rowProducts) {
-                product = databaseProductReadByIdDataAccessObject.getProductById(item);
+                product = databaseProductReadByIdDataAccessObject.getProductById(item.trim());
                 listProducts.add(product);
             }
 

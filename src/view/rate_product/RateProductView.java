@@ -1,6 +1,11 @@
 package view.rate_product;
 
+import entity.product.CommonProductFactory;
 import entity.product.Product;
+import entity.product.ProductFactory;
+import entity.schedule.CommonScheduleFactory;
+import entity.schedule.Schedule;
+import entity.schedule.ScheduleFactory;
 import entity.user.CommonUserFactory;
 import entity.user.User;
 import entity.user.UserFactory;
@@ -18,6 +23,7 @@ import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.ViewSignupPageController;
 import view.TopBarSampleView;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,8 +32,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class RateProductView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -50,7 +59,7 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
     private final JButton createRating;
     private final JButton cancel;
 
-    RateProductLabelTextPanel showProduct;
+    JPanel showProduct = new JPanel();
     JPanel getRating;
     private JPanel topBar;
 
@@ -67,7 +76,7 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
                            ShoppingCartController shoppingCartController,
                            LogOutController logOutController,
                            ViewProfileController viewProfileController
-                           ) {
+                           ) throws IOException {
         this.rateProductViewModel = rateProductViewModel;
         this.getSearchPageController = getSearchPageController;
         this.mainPageController = mainPageController;
@@ -77,9 +86,45 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
         this.logOutController = logOutController;
         this.viewProfileController = viewProfileController;
 
-        JPanel topBar = new TopBarSampleView(this.rateProductViewModel.getState().getUser(),
-                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
+        //TODO: FIX CA IN THIS AREA
+        UserFactory commonUserFactory = new CommonUserFactory();
+        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
+//        ProductFactory productFactory = new CommonProductFactory();
+//        ScheduleFactory scheduleFactory = new CommonScheduleFactory();
+//
+//        Image productImage = ImageIO.read(new File("src/pic/testpic1.png"));
+//
+//        String description = "";
+//
+//        String productTitle = "";
+//
+//        float productPrice = 0;
+//
+//        Integer rating = 0;
+//
+//        int state = 0;
+//
+//        String eTransferEmail = "";
+//
+//        String sellerStudentNumber = "";
+//
+//        String address = "";
+//
+//        ArrayList<String> listTags = new ArrayList<>();
+//
+//        String productID = "";
+//
+//        LocalDateTime buyerTime = null;
+//
+//        ArrayList<LocalDateTime> sellerTime = new ArrayList<>();
+//
+//        Schedule schedule = scheduleFactory.createSchedule(buyerTime, sellerTime);
+//
+//        Product product = productFactory.createProduct(
+//                productImage, description, productTitle, productPrice, rating, state, eTransferEmail, sellerStudentNumber, address,
+//                listTags, productID, schedule
+//        );
+
 
         rateProductViewModel.addPropertyChangeListener(this);
         this.rateProductController = rateProductController;
@@ -95,13 +140,17 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
         buttons.add(createRating);
 
         //(1) show the product information
+        if (rateProductViewModel.getState().getProduct() != null) {
+            Product product = rateProductViewModel.getState().getProduct();
+//            JLabel image = new JLabel(String.valueOf(product.getImage()));
+            JLabel paneledImage = new JLabel();
+            paneledImage.setIcon(new ImageIcon(product.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+            JLabel _title = new JLabel(product.getTitle());
+            JLabel price = new JLabel(String.valueOf(product.getPrice()));
 
-        Product product = rateProductViewModel.getState().getProduct();
-        final JLabel image = new JLabel(String.valueOf(product.getImage()));
-        final JLabel _title = new JLabel(product.getTitle());
-        final JLabel price = new JLabel(String.valueOf(product.getPrice()));
+            showProduct = new RateProductLabelTextPanel(paneledImage, _title, price);
+        }
 
-        showProduct = new RateProductLabelTextPanel(image, _title, price);
 
         //(2) show the rating
         getRating = new JPanel();
@@ -163,8 +212,6 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
             }
         }
 
-        UserFactory commonUserFactory = new CommonUserFactory();
-        User commonUser = commonUserFactory.createUser("", "", "", 0, "");
         topBar = new TopBarSampleView(commonUser,
                 getSearchPageController, viewSignupPageController, viewLoginPageController,
                 shoppingCartController, logOutController, viewProfileController, mainPageController);
@@ -175,11 +222,18 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
         cancel.addActionListener(new CancelButtonListener());
 
         //TODO write how the layout will be
-        this.setLayout(new BorderLayout());
-        this.add(title, BorderLayout.CENTER);
-        this.add(showProduct, BorderLayout.WEST);
-        this.add(getRating, BorderLayout.EAST);
-        this.add(buttons, BorderLayout.SOUTH);
+//        this.setLayout(new BorderLayout());
+//        this.add(title, BorderLayout.CENTER);
+//        this.add(showProduct, BorderLayout.WEST);
+//        this.add(getRating, BorderLayout.EAST);
+//        this.add(buttons, BorderLayout.SOUTH);
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.add(title);
+        this.add(showProduct);
+        this.add(getRating);
+        this.add(buttons);
+
     }
 
     @Override
@@ -188,10 +242,23 @@ public class RateProductView extends JPanel implements ActionListener, PropertyC
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        System.out.println("rate page state updated");
         RateProductState state = (RateProductState) evt.getNewValue();
         if(state.getRatingError() != null) {
             JOptionPane.showMessageDialog(this, state.getRatingError());
         }
+
+        showProduct.removeAll();
+        Product product = state.getProduct();
+        JLabel paneledImage = new JLabel();
+        paneledImage.setIcon(new ImageIcon(product.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        JLabel _title = new JLabel(product.getTitle());
+        JLabel price = new JLabel(String.valueOf(product.getPrice()));
+
+        showProduct.add(new RateProductLabelTextPanel(paneledImage, _title, price));
+        showProduct.repaint();
+        showProduct.revalidate();
+
 
         topBar.removeAll();
         topBar.add(new TopBarSampleView(rateProductViewModel.getState().getUser(),
