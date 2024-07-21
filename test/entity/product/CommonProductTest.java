@@ -27,8 +27,10 @@ class CommonProductTest {
 
     @BeforeEach
     void setUp() throws IOException {
+        tags = new ArrayList<>();
         tags.add("tag1");
-        image = ImageIO.read(new File("/src/pic/testpic1"));
+        image = null;
+        //image = ImageIO.read(new File("../src/pic/testpic1.png"));
         time = LocalDateTime.now();
         localDateTimeList = new ArrayList<>();
         localDateTimeList.add(time);
@@ -68,7 +70,7 @@ class CommonProductTest {
 
     @Test
     void getState() {
-        assertEquals("hanrui@mail", commonProduct.getState());
+        assertEquals(0, commonProduct.getState());
     }
 
     @Test
@@ -83,12 +85,12 @@ class CommonProductTest {
 
     @Test
     void getAddress() {
-        assertEquals("hanrui@mail", commonProduct.getAddress());
+        assertEquals("hanrui123456", commonProduct.getAddress());
     }
 
     @Test
     void getListTags() {
-        assertEquals("hanrui@mail", commonProduct.getListTags());
+        assertEquals(tags, commonProduct.getListTags());
     }
 
     @Test
