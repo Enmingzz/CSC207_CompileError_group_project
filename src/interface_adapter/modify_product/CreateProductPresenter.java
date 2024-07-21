@@ -44,23 +44,13 @@ public class CreateProductPresenter implements CreateProductOutputBoundary {
     @Override
     public void prepareFailedView(String error){
         CreateProductState createProductState = viewCreateProductViewModel.getState();
-        if(Objects.equals(error, "You must upload a valid image of the product.")) {
-            createProductState.setImageError(error);
-        }
-        else if(Objects.equals(error, "You must indicate a valid price of the product.")) {
-            createProductState.setPirceError(error);
-        }
-        else if(Objects.equals(error, "You must provide a valid eTransfer email for the product.")) {
-            createProductState.seteTransferEmailError(error);
-        }
-        else if(Objects.equals(error, "You must provide a valid address for the pickup location.")) {
-            createProductState.setAddressError(error);
-        }
-        else if(Objects.equals(error, "You must select at least one tag for the product.")) {
-            createProductState.setListTagsError(error);
-        }
+//        createProductState = new CreateProductState(createProductState);
+        createProductState.setCreateProductError(error);
+
         viewCreateProductViewModel.setState(createProductState);
         viewCreateProductViewModel.firePropertyChanged();
+
+        createProductState.setCreateProductError(null);
     }
 
 }
