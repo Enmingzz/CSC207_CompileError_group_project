@@ -66,12 +66,24 @@ public class SignupInteractor implements SignupInputBoundary {
         User user = userFactory.createUser(signupInputData.getUsername(), signupInputData.getPassword(),
                 signupInputData.getEmailAddress(), 0, signupInputData.getStudentNumber());
 
-        if (existsByStudentNumber(signupInputData)) {
+        if (signupInputData.getStudentNumber().isEmpty()){
+            SignupOutputData signupOutputData = new SignupOutputData(user, "student number cannot" +
+                    " be " +
+                    "empty");
+            signupPresenter.presentFailedView(signupOutputData);
+        } else if (existsByStudentNumber(signupInputData)) {
             SignupOutputData signupOutputData = new SignupOutputData(user, "user already exists");
             signupPresenter.presentFailedView(signupOutputData);
         } else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
             SignupOutputData signupOutputData = new SignupOutputData(user, "password does not " +
                     "match");
+            signupPresenter.presentFailedView(signupOutputData);
+        } else if(signupInputData.getUsername().isEmpty()){
+            SignupOutputData signupOutputData = new SignupOutputData(user, "user name cannot be empty");
+            signupPresenter.presentFailedView(signupOutputData);
+        } else if(signupInputData.getPassword().isEmpty()) {
+            SignupOutputData signupOutputData = new SignupOutputData(user, "password cannot be " +
+                    "empty");
             signupPresenter.presentFailedView(signupOutputData);
         } else if (signupInputData.getGeneratedVerificationCode().isEmpty()) {
             SignupOutputData signupOutputData = new SignupOutputData(user, "need to send verification code first");
@@ -80,7 +92,7 @@ public class SignupInteractor implements SignupInputBoundary {
             SignupOutputData signupOutputData = new SignupOutputData(user, "wrong verification " +
                     "code");
             signupPresenter.presentFailedView(signupOutputData);
-        } else {
+        }else {
             userCreateDataAccessObject.saveUser(user);
             shoppingCartCreateDataAccessObject.saveShoppingCart(user);
 

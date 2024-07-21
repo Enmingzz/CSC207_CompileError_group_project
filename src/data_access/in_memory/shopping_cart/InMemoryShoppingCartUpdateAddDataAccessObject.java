@@ -17,19 +17,37 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * In-memory implementation of {@link ShoppingCartUpdateAddDataAccessInterface} to add items to shopping carts.
+ */
 public class InMemoryShoppingCartUpdateAddDataAccessObject implements ShoppingCartUpdateAddDataAccessInterface {
 
     private ArrayList<ShoppingCart> shoppingCarts;
 
+    /**
+     * Constructs an empty in-memory shopping cart data access object.
+     */
     public InMemoryShoppingCartUpdateAddDataAccessObject() {
         this.shoppingCarts = new ArrayList<>();
     }
 
+    /**
+     * Constructs an in-memory shopping cart data access object with a predefined list of shopping carts.
+     *
+     * @param shoppingCarts the list of shopping carts to initialize with
+     */
     public InMemoryShoppingCartUpdateAddDataAccessObject(ArrayList<ShoppingCart> shoppingCarts) {
 
         this.shoppingCarts = shoppingCarts;
     }
 
+    /**
+     * Updates the shopping cart by adding the specified product and adjusting the total price.
+     *
+     * @param user          the user whose shopping cart is to be updated
+     * @param updatedProduct the product to be added to the shopping cart
+     * @throws SQLException if a database access error occurs
+     */
     @Override
     public void updateShoppingCart(User user, Product updatedProduct) throws SQLException {
         for (int i = 0; i< shoppingCarts.size(); i++) {

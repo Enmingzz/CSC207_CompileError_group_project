@@ -50,8 +50,8 @@ public class DatabaseQuestionReadDataAccessObject implements QuestionReadDataAcc
         String answerUserID;
         String questionDescription;
         String answerDescription;
-        String questionID;
         Answer answer;
+        String questionID;
         ArrayList<Question> listQuestions = new ArrayList<>();
 
         query = "SELECT * FROM Comments WHERE ProductID = ?";
