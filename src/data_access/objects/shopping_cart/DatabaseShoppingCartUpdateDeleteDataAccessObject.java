@@ -50,6 +50,9 @@ public class DatabaseShoppingCartUpdateDeleteDataAccessObject implements Shoppin
 
         String rowList = resultSet.getString("ListProductsID");
         ArrayList<String> listProductsID = new ArrayList<>(List.of(rowList.substring(1, rowList.length() - 1).split(", ")));
+        for (int i = 0; i < listProductsID.size(); i++){
+            listProductsID.set(i, listProductsID.get(i).trim());
+        }
         listProductsID.remove(product.getProductID());
 
         query = "UPDATE Carts SET ListProductsID = ? WHERE UserID = ?";
