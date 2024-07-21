@@ -39,7 +39,11 @@ class ChangeProductInteractorTest {
     private ArrayList<Product> productsList;
     private String productID;
 
-
+    /**
+     * Sets up the test environment before each test.
+     *
+     * @throws IOException if there is an error reading the image file.
+     */
     @BeforeEach
     void setUp() throws IOException {
         String name = "Calico";
@@ -77,11 +81,20 @@ class ChangeProductInteractorTest {
         productsList.add(product);
     }
 
+    /**
+     * Cleans up the test environment after each test.
+     */
     @AfterEach
     void tearDown() {
     }
 
-    //There will be a total of 4 tests as there is a total of 4 different cases:
+    /**
+     * Tests the scenario where all modifications are successful.
+     *
+     * @throws IOException if there is an error during execution.
+     * @throws SQLException if there is an error with SQL execution.
+     */
+
     @Test
     void prepareSuccessfulViewTest1() throws IOException, SQLException {
         /** This is the test where all three modifications are successful. Thus, all the changed values should be updated
@@ -127,6 +140,13 @@ class ChangeProductInteractorTest {
         changeProductInteractor.execute(inputData); //This sends Output Data to the successPresenter
     }
 
+    /**
+     * Tests the scenario where only the description update is successful.
+     *
+     * @throws IOException if there is an error during execution.
+     * @throws SQLException if there is an error with SQL execution.
+     */
+
     @Test
     void prepareSuccessfulViewTest2() throws IOException, SQLException {
         /** This is the test where only the description works and the new price they entered is invalid. */
@@ -165,6 +185,13 @@ class ChangeProductInteractorTest {
         ChangeProductInputData inputData = new ChangeProductInputData(user, product, changedDescription, changedPrice);
         changeProductInteractor.execute(inputData); //This sends Output Data to the successPresenter
     }
+
+    /**
+     * Tests the scenario where only the price update is successful.
+     *
+     * @throws IOException if there is an error during execution.
+     * @throws SQLException if there is an error with SQL execution.
+     */
 
     @Test
     void prepareSuccessfulViewTest3() throws IOException, SQLException {
@@ -205,6 +232,14 @@ class ChangeProductInteractorTest {
         ChangeProductInputData inputData = new ChangeProductInputData(user, product, changedDescription, changedPrice);
         changeProductInteractor.execute(inputData); //This sends Output Data to the successPresenter
     }
+
+
+    /**
+     * Tests the scenario where both the description and price updates fail.
+     *
+     * @throws IOException if there is an error during execution.
+     * @throws SQLException if there is an error with SQL execution.
+     */
 
     @Test
     void prepareSuccessfulViewTest4() throws IOException, SQLException {
