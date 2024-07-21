@@ -14,18 +14,36 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * In-memory implementation of {@link ProductUpdateTransferEmailDataAccessInterface} to update the transfer email of a product.
+ */
 public class InMemoryProductUpdateTransferEmailDataAccessObject implements ProductUpdateTransferEmailDataAccessInterface {
 
     private ArrayList<Product> products;
 
+    /**
+     * Constructs an empty in-memory product data access object.
+     */
     public InMemoryProductUpdateTransferEmailDataAccessObject() {
         products = new ArrayList<>();
     }
 
+    /**
+     * Constructs an in-memory product data access object with a predefined list of products.
+     *
+     * @param products the list of products to initialize with
+     */
     public InMemoryProductUpdateTransferEmailDataAccessObject(ArrayList<Product> products) {
         this.products = products;
     }
 
+    /**
+     * Updates the transfer email of a product.
+     *
+     * @param updatedProduct the product with the new transfer email
+     * @param eMail          the new transfer email of the product
+     * @throws SQLException if a database access error occurs
+     */
     @Override
     public void updateProductEmail(Product updatedProduct, String eMail) throws SQLException {
         for (int i = 0; i < products.size(); i++) {

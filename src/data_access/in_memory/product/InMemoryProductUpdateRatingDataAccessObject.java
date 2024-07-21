@@ -14,19 +14,36 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
-
+/**
+ * In-memory implementation of {@link ProductUpdateRatingDataAccessInterface} to update the rating of a product.
+ */
 public class InMemoryProductUpdateRatingDataAccessObject implements ProductUpdateRatingDataAccessInterface {
 
     private ArrayList<Product> products;
 
+    /**
+     * Constructs an empty in-memory product data access object.
+     */
     public InMemoryProductUpdateRatingDataAccessObject() {
         products = new ArrayList<>();
     }
 
+    /**
+     * Constructs an in-memory product data access object with a predefined list of products.
+     *
+     * @param products the list of products to initialize with
+     */
     public InMemoryProductUpdateRatingDataAccessObject(ArrayList<Product> products) {
         this.products = products;
     }
 
+    /**
+     * Updates the rating of a product.
+     *
+     * @param updatedProduct the product with the new rating
+     * @param rating         the new rating of the product
+     * @throws SQLException if a database access error occurs
+     */
     @Override
     public void updateProductRating(Product updatedProduct, int rating) throws SQLException {
         for (int i = 0; i < products.size(); i++) {

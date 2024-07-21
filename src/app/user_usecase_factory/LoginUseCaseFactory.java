@@ -63,10 +63,29 @@ import javax.swing.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Factory class to create instances related to the login use case.
+ */
 public class LoginUseCaseFactory {
 
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private LoginUseCaseFactory() {}
 
+    /**
+     * Creates an instance of {@link LoginView} with the necessary controllers and view models.
+     *
+     * @param viewManagerModel       the view manager model
+     * @param loginViewModel         the login view model
+     * @param mainPageViewModel      the main page view model
+     * @param shoppingCartViewModel  the shopping cart view model
+     * @param profileViewModel       the profile view model
+     * @param buyerViewProductViewModel the buyer view product view model
+     * @param searchProductViewModel the search product view model
+     * @param signupViewModel        the signup view model
+     * @return an instance of {@link LoginView}
+     */
     public static LoginView create(ViewManagerModel viewManagerModel,
                                    LoginViewModel loginViewModel,
                                    MainPageViewModel mainPageViewModel,
@@ -108,6 +127,14 @@ public class LoginUseCaseFactory {
         return null;
     }
 
+    /**
+     * Creates an instance of {@link ViewSignupPageController}.
+     *
+     * @param viewManagerModel the view manager model
+     * @param signupViewModel  the signup view model
+     * @return an instance of {@link ViewSignupPageController}
+     * @throws SQLException if a database access error occurs
+     */
     private static ViewSignupPageController createViewSignupPageController(ViewManagerModel viewManagerModel,
                                                                            SignupViewModel signupViewModel) throws SQLException{
         ViewSignupPageOutputBoundary preseter = new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
@@ -115,6 +142,17 @@ public class LoginUseCaseFactory {
         ViewSignupPageInputBoundary interactor = new ViewSignupPageInteractor(preseter);
         return new ViewSignupPageController(interactor);
     }
+
+    /**
+     * Creates an instance of {@link LoginController}.
+     *
+     * @param viewManagerModel  the view manager model
+     * @param loginViewModel    the login view model
+     * @param mainPageViewModel the main page view model
+     * @return an instance of {@link LoginController}
+     * @throws IOException  if an I/O error occurs
+     * @throws SQLException if a database access error occurs
+     */
     private static LoginController createUserLoginUseCase(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, MainPageViewModel mainPageViewModel) throws IOException, SQLException {
 
         LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel, loginViewModel, mainPageViewModel);
@@ -153,6 +191,16 @@ public class LoginUseCaseFactory {
         return new ShoppingCartController(showShoppingCartInteractor);
     }
 
+    /**
+     * Creates an instance of {@link SignupController}.
+     *
+     * @param viewManagerModel the view manager model
+     * @param signupViewModel  the signup view model
+     * @param loginViewModel   the login view model
+     * @return an instance of {@link SignupController}
+     * @throws IOException  if an I/O error occurs
+     * @throws SQLException if a database access error occurs
+     */
     private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel) throws IOException, SQLException {
 
         DatabaseUserCreateDataAccessObjectFactoryInterface databaseUserCreateDataAccessObjectFactory = new DatabaseUserCreateDataAccessObjectFactory();
@@ -173,6 +221,13 @@ public class LoginUseCaseFactory {
         return new SignupController(userSignupInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ViewSignupPageController}.
+     *
+     * @param viewManagerModel the view manager model
+     * @param signupViewModel  the signup view model
+     * @return an instance of {@link ViewSignupPageController}
+     */
     private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
         ViewSignupPageOutputBoundary viewSignupPagePresenter =
                 new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
@@ -181,6 +236,14 @@ public class LoginUseCaseFactory {
         return new ViewSignupPageController(viewSignupPageInteractor);
     }
 
+    /**
+     * Creates an instance of {@link MainPageController}.
+     *
+     * @param mainPageViewModel the main page view model
+     * @param viewManagerModel  the view manager model
+     * @return an instance of {@link MainPageController}
+     * @throws SQLException if a database access error occurs
+     */
     private static MainPageController createMainPageController(MainPageViewModel mainPageViewModel, ViewManagerModel viewManagerModel) throws SQLException {
         ShowMainPageOutputBoundary showMainPagePresenter = new MainPagePresenter(mainPageViewModel, viewManagerModel);
         DataBaseProductReadAllDataAccessObjectFactoryInterface dataBaseProductReadAllDataAccessObjectFactoryInterface = new DatabaseProductReadAllDataAccessObjectFactory();
@@ -193,6 +256,14 @@ public class LoginUseCaseFactory {
         return new MainPageController(showMainPageInteractor);
     }
 
+    /**
+     * Creates an instance of {@link LogOutController}.
+     *
+     * @param viewManagerModel  the view manager model
+     * @param mainPageViewModel the main page view model
+     * @return an instance of {@link LogOutController}
+     * @throws SQLException if a database access error occurs
+     */
     private static LogOutController createLogOutController(ViewManagerModel viewManagerModel,
                                                            MainPageViewModel mainPageViewModel) throws SQLException {
         LogOutOutputBoundary LogOutPresenter = new LogOutPresenter(mainPageViewModel,
@@ -201,6 +272,14 @@ public class LoginUseCaseFactory {
         return new LogOutController(logOutInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ViewProfileController}.
+     *
+     * @param viewManagerModel the view manager model
+     * @param profileViewModel the profile view model
+     * @return an instance of {@link ViewProfileController}
+     * @throws IOException if an I/O error occurs
+     */
     private static ViewProfileController createProfileController(ViewManagerModel viewManagerModel,
                                                                  ViewProfileViewModel profileViewModel) throws IOException {
         ViewProfileOutputBoundary viewProfilePresenter = new ViewProfilePresenter(profileViewModel,
@@ -209,6 +288,14 @@ public class LoginUseCaseFactory {
         return new ViewProfileController(viewProfileInteractor);
     }
 
+    /**
+     * Creates an instance of {@link GetSearchPageController}.
+     *
+     * @param viewManagerModel    the view manager model
+     * @param searchProductViewModel the search product view model
+     * @return an instance of {@link GetSearchPageController}
+     * @throws SQLException if a database access error occurs
+     */
     private static GetSearchPageController createGetSearchPageController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
         GetSearchViewOutputBoundary getSearchViewPresenter =
                 new GetSearchPagePresenter(searchProductViewModel, viewManagerModel);
@@ -222,6 +309,13 @@ public class LoginUseCaseFactory {
         return new GetSearchPageController(getSearchViewInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ViewLoginPageController}.
+     *
+     * @param loginViewModel   the login view model
+     * @param viewManagerModel the view manager model
+     * @return an instance of {@link ViewLoginPageController}
+     */
     private static ViewLoginPageController createViewLoginPageController(LoginViewModel loginViewModel,
                                                                          ViewManagerModel viewManagerModel){
 

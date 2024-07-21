@@ -14,10 +14,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * In-memory implementation of {@link ProductReadByTagDataAccessInterface} to retrieve products by their tag.
+ */
 public class InMemoryProductReadByTagDataAccessObject implements ProductReadByTagDataAccessInterface {
 
     private ArrayList<Product> products;
 
+    /**
+     * Constructs an empty in-memory product data access object.
+     */
     public InMemoryProductReadByTagDataAccessObject() {
         this.products = new ArrayList<>();
     }

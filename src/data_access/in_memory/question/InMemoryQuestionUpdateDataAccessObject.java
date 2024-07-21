@@ -14,21 +14,39 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * In-memory implementation of {@link QuestionUpdateDataAccessInterface} to update questions.
+ */
 public class InMemoryQuestionUpdateDataAccessObject implements QuestionUpdateDataAccessInterface {
 
     private ArrayList<Question> questions;
     private ArrayList<Product> products;
 
+    /**
+     * Constructs an empty in-memory question data access object.
+     */
     public InMemoryQuestionUpdateDataAccessObject() {
         this.questions = new ArrayList<>();
         this.products = new ArrayList<>();
     }
 
+    /**
+     * Constructs an in-memory question data access object with predefined lists of questions and products.
+     *
+     * @param questions the list of questions to initialize with
+     * @param products  the list of products to initialize with
+     */
     public InMemoryQuestionUpdateDataAccessObject(ArrayList<Question> questions, ArrayList<Product> products) {
         this.questions = questions;
         this.products = products;
     }
 
+    /**
+     * Updates a question.
+     *
+     * @param question the question to update
+     * @throws SQLException if a database access error occurs
+     */
     @Override
     public void updateQuestion(Question question) throws SQLException {
 

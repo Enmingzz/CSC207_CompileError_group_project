@@ -13,18 +13,37 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * In-memory implementation of {@link ProductReadByIdDataAccessInterface} to retrieve products by their ID.
+ */
 public class InMemoryProductReadByIdDataAccessObject implements ProductReadByIdDataAccessInterface {
 
     private ArrayList<Product> products;
 
+    /**
+     * Constructs an empty in-memory product data access object.
+     */
     public InMemoryProductReadByIdDataAccessObject() {
         this.products = new ArrayList<>();
     }
 
+    /**
+     * Constructs an in-memory product data access object with a predefined list of products.
+     *
+     * @param products the list of products to initialize with
+     */
     public InMemoryProductReadByIdDataAccessObject(ArrayList<Product> products) {
         this.products = products;
     }
 
+    /**
+     * Retrieves a product by its ID.
+     *
+     * @param productID the ID of the product to retrieve
+     * @return a copy of the product with the specified ID, or null if not found
+     * @throws SQLException if a database access error occurs
+     * @throws IOException  if an I/O error occurs
+     */
     @Override
     public Product getProductById(String productID) throws SQLException, IOException {
         for (Product product : products) {

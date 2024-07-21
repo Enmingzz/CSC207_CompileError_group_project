@@ -14,18 +14,36 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * In-memory implementation of {@link ProductUpdateStateDataAccessInterface} to update the state of a product.
+ */
 public class InMemoryProductUpdateStateDataAccessObject implements ProductUpdateStateDataAccessInterface {
 
     private ArrayList<Product> products;
 
+    /**
+     * Constructs an empty in-memory product data access object.
+     */
     public InMemoryProductUpdateStateDataAccessObject() {
         this.products = new ArrayList<>();
     }
 
+    /**
+     * Constructs an in-memory product data access object with a predefined list of products.
+     *
+     * @param products the list of products to initialize with
+     */
     public InMemoryProductUpdateStateDataAccessObject(ArrayList<Product> products) {
         this.products = products;
     }
 
+    /**
+     * Updates the state of a product.
+     *
+     * @param updatedProduct the product with the new state
+     * @param state          the new state of the product
+     * @throws SQLException if a database access error occurs
+     */
     @Override
     public void updateProductState(Product updatedProduct, int state) throws SQLException {
         for (int i = 0; i < products.size(); i++) {
