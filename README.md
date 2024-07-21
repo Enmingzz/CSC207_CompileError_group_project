@@ -28,6 +28,10 @@
 ### 1. Profile 
 
 #### Creating Account and Logging in 
+-click the sign up button on the left of the top bar, it will naviagte to the sign up view.
+<img width="1365" alt="image" src="https://github.com/user-attachments/assets/b8bb85df-cf7d-4f53-8f2b-7a517c28d90b">
+
+
 
 #### Creating an Account and Logging 
 
