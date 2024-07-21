@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 class ChangeProductInteractorTest {
     private User user;
-    private String changedDescription ;
+    private String changedDescription;
     private String changedPrice;
     private String changedAddress;
     private String changedTitle;
@@ -121,6 +121,7 @@ class ChangeProductInteractorTest {
                 assertEquals(changeProductOutputData.getUser(), user);
                 //Together these are testing if the interactor has performed its functionalities
             }
+
             @Override
             public void prepareFailView(ChangeProductOutputData changeProductOutputData) {
             }
@@ -162,6 +163,7 @@ class ChangeProductInteractorTest {
             @Override
             public void prepareSuccessfulView(ChangeProductOutputData changeProductOutputData) throws SQLException, IOException {
             }
+
             @Override
             public void prepareFailView(ChangeProductOutputData changeProductOutputData) {
                 assertEquals("You didn't Change any thing!", changeProductOutputData.getMessage());
@@ -184,123 +186,4 @@ class ChangeProductInteractorTest {
         ChangeProductInputData inputData = new ChangeProductInputData(user, product, changedDescription, changedPrice, changedAddress, changedTitle, changedEmail, changedImage);
         changeProductInteractor.execute(inputData); //This sends Output Data to the successPresenter
     }
-
-//    @Test
-//    void prepareSuccessfulViewTest2() throws IOException, SQLException {
-//        /** This is the test where only the description works and the new price they entered is invalid. */
-//
-//        changedDescription = "This dress was bought in 1984.";
-//        changedPrice = "-3";
-//
-//        ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
-//                new InMemoryProductReadByIdDataAccessObject(productsList);
-//
-//        ChangeProductOutputBoundary changeProductPresenter = new ChangeProductOutputBoundary() {
-//            //This prepareSuccessfulView test is to ensure that
-//            @Override
-//            public void prepareSuccessfulView(ChangeProductOutputData changeProductOutputData) throws SQLException, IOException {
-//                //First test if the required changes have been made and correctly outputted
-//                assertEquals(changedDescription, changeProductOutputData.getProduct().getDescription());
-//                assertEquals(product.getPrice(), changeProductOutputData.getProduct().getPrice());
-//                //The price should remain the same
-//                assertEquals("Only the price failed to update", changeProductOutputData.getMessage());
-//                //Goes into the database to see if the product has actually been changed in the database
-//                Product dataBaseProduct = inMemoryProductReadByIdDataAccessObject.getProductById(productID);
-//                assertEquals(dataBaseProduct.getDescription(), changeProductOutputData.getProduct().getDescription());
-//                assertEquals(dataBaseProduct.getPrice(), changeProductOutputData.getProduct().getPrice());
-//
-//                //Together these are testing if the interactor has performed its functionalities, that is both change the product in the database and pass the correct updated product to the Presenter.
-//            }
-//        };
-//        //mock database
-//
-//        ProductUpdatePriceDataAccessInterface productUpdatePriceDataAccessObject = new InMemoryProductUpdatePriceDataAccessObject(productsList);
-//        ProductUpdateDescriptionDataAccessInterface productUpdateDescriptionDataAccessInterface = new InMemoryProductUpdateDescriptionDataAccessObject(productsList);
-//
-//        ChangeProductInteractor changeProductInteractor = new ChangeProductInteractor(changeProductPresenter, productUpdatePriceDataAccessObject,
-//                productUpdateDescriptionDataAccessInterface);
-//
-//        ChangeProductInputData inputData = new ChangeProductInputData(user, product, changedDescription, changedPrice);
-//        changeProductInteractor.execute(inputData); //This sends Output Data to the successPresenter
-//    }
-//
-//    @Test
-//    void prepareSuccessfulViewTest3() throws IOException, SQLException {
-//        /** This is the test where only the price works and the new description they entered is invalid. */
-//
-//        changedDescription = "";
-//        changedPrice = "12";
-//        float changedPriceFloat = Float.parseFloat(changedPrice);
-//
-//        ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
-//                new InMemoryProductReadByIdDataAccessObject(productsList);
-//
-//        ChangeProductOutputBoundary changeProductPresenter = new ChangeProductOutputBoundary() {
-//            //This prepareSuccessfulView test is to ensure that
-//            @Override
-//            public void prepareSuccessfulView(ChangeProductOutputData changeProductOutputData) throws SQLException, IOException {
-//                //First test if the required changes have been made and correctly outputted
-//                assertEquals(product.getDescription(), changeProductOutputData.getProduct().getDescription());
-//                assertEquals(changedPriceFloat, changeProductOutputData.getProduct().getPrice());
-//                //The price should remain the same
-//                assertEquals("Only the description failed to update", changeProductOutputData.getMessage());
-//                //Goes into the database to see if the product has actually been changed in the database
-//                Product dataBaseProduct = inMemoryProductReadByIdDataAccessObject.getProductById(productID);
-//                assertEquals(dataBaseProduct.getDescription(), changeProductOutputData.getProduct().getDescription());
-//                assertEquals(dataBaseProduct.getPrice(), changeProductOutputData.getProduct().getPrice());
-//
-//                //Together these are testing if the interactor has performed its functionalities, that is both change the product in the database and pass the correct updated product to the Presenter.
-//            }
-//        };
-//        //mock database
-//
-//        ProductUpdatePriceDataAccessInterface productUpdatePriceDataAccessObject = new InMemoryProductUpdatePriceDataAccessObject(productsList);
-//        ProductUpdateDescriptionDataAccessInterface productUpdateDescriptionDataAccessInterface = new InMemoryProductUpdateDescriptionDataAccessObject(productsList);
-//
-//        ChangeProductInteractor changeProductInteractor = new ChangeProductInteractor(changeProductPresenter, productUpdatePriceDataAccessObject,
-//                productUpdateDescriptionDataAccessInterface);
-//
-//        ChangeProductInputData inputData = new ChangeProductInputData(user, product, changedDescription, changedPrice);
-//        changeProductInteractor.execute(inputData); //This sends Output Data to the successPresenter
-//    }
-//
-//    @Test
-//    void prepareSuccessfulViewTest4() throws IOException, SQLException {
-//        /** This is the test where both the description and price fails to update. */
-//
-//        changedDescription = "";
-//        changedPrice = "-3";
-//        float changedPriceFloat = Float.parseFloat(changedPrice);
-//
-//        ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
-//                new InMemoryProductReadByIdDataAccessObject(productsList);
-//
-//        ChangeProductOutputBoundary changeProductPresenter = new ChangeProductOutputBoundary() {
-//            //This prepareSuccessfulView test is to ensure that
-//            @Override
-//            public void prepareSuccessfulView(ChangeProductOutputData changeProductOutputData) throws SQLException, IOException {
-//                //First test if the required changes have been made and correctly outputted
-//                assertEquals(product.getDescription(), changeProductOutputData.getProduct().getDescription());
-//                assertEquals(product.getPrice(), changeProductOutputData.getProduct().getPrice());
-//                //The price should remain the same
-//                assertEquals("Both the description and price failed to update", changeProductOutputData.getMessage());
-//                //Goes into the database to see if the product has actually been changed in the database
-//                Product dataBaseProduct = inMemoryProductReadByIdDataAccessObject.getProductById(productID);
-//                assertEquals(dataBaseProduct.getDescription(), changeProductOutputData.getProduct().getDescription());
-//                assertEquals(dataBaseProduct.getPrice(), changeProductOutputData.getProduct().getPrice());
-//
-//                //Together these are testing if the interactor has performed its functionalities, that is both change the product in the database and pass the correct updated product to the Presenter.
-//            }
-//        };
-//        //mock database
-//
-//        ProductUpdatePriceDataAccessInterface productUpdatePriceDataAccessObject = new InMemoryProductUpdatePriceDataAccessObject(productsList);
-//        ProductUpdateDescriptionDataAccessInterface productUpdateDescriptionDataAccessInterface = new InMemoryProductUpdateDescriptionDataAccessObject(productsList);
-//
-//        ChangeProductInteractor changeProductInteractor = new ChangeProductInteractor(changeProductPresenter, productUpdatePriceDataAccessObject,
-//                productUpdateDescriptionDataAccessInterface);
-//
-//        ChangeProductInputData inputData = new ChangeProductInputData(user, product, changedDescription, changedPrice);
-//        changeProductInteractor.execute(inputData); //This sends Output Data to the successPresenter
-//    }
 }

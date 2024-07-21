@@ -23,7 +23,7 @@ public class InMemoryUserUpdatePasswordDataAccessObject implements UserUpdatePas
      * @param userFactory the factory for creating user objects
      */
     public InMemoryUserUpdatePasswordDataAccessObject(ArrayList<User> listUser, UserFactory userFactory) {
-        this.users = new ArrayList<>(listUser);
+        this.users = listUser;
         this.userFactory = userFactory;
     }
 

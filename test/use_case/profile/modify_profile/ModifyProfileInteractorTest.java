@@ -94,7 +94,7 @@ class ModifyProfileInteractorTest {
             @Override
             public void prepareSuccessfulView(ModifyProfileOutputData modifyProfileOutputData) {
                 assertEquals("Have successfully changed password", modifyProfileOutputData.getMessage());
-                assertEquals(newPassword, users.get(0).getName());
+                assertEquals(newPassword, users.get(0).getPassword());
             }
 
             @Override
