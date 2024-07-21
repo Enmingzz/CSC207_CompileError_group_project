@@ -42,7 +42,7 @@ public class ChangeProductInteractor implements ChangeProductInputBoundary{
 
         Product changedProduct = changeProductInputData.getProduct();
         Product orignProduct = changeProductInputData.getProduct();
-        boolean noChangeFlag;
+//        boolean noChangeFlag;
 
 //        boolean descriptionFlag;
 //        boolean priceFlag;

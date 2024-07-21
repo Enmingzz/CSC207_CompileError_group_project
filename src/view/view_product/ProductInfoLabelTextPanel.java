@@ -16,17 +16,18 @@ public class ProductInfoLabelTextPanel extends JPanel {
 //        this.add(productID);
 //    }
 
-    private JLabel textField;
+    private JLabel label;
 
     public ProductInfoLabelTextPanel(JLabel label, JLabel textField) {
         this.removeAll();
         this.add(label);
-        this.textField = textField;
-        this.add(this.textField);
+        this.add(textField);
+        this.label = label;
     }
 
     public void setText(JLabel textField){
-        this.remove(this.textField);
+        this.removeAll();
+        this.add(this.label);
         this.add(textField);
     }
 }
