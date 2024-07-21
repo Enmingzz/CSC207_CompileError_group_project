@@ -32,14 +32,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserProfileView extends JPanel implements PropertyChangeListener {
-    public final String viewName = "user profile View";
+    public final String viewName = "user profile view";
     private final ViewUserProfileViewModel viewModel;
     private final ViewProductController viewProductController;
     private final ViewProfileController viewProfileController;
     private final MainPageController mainPageController;
     private final ShoppingCartController shoppingCartController;
-    private final LoginController loginController;
-    private final SignupController signupController;
 
     //Top Bar stuff
     private final GetSearchPageController getSearchPageController;
@@ -51,14 +49,13 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
     private JLabel studentNameViewField = new JLabel();
     private JLabel studentEmailViewField = new JLabel();
     private JLabel studentRatingViewField = new JLabel();
+    private JPanel infoPanel = new JPanel();
     private JPanel topBar;
     private JPanel allProductsPanel;
     public UserProfileView(MainPageController mainPageController,
                            ShoppingCartController shoppingCartController,
                            ViewUserProfileViewModel profileViewModel,
                            ViewProfileController viewProfileController,
-                           LoginController loginController,
-                           SignupController signupController,
                            GetSearchPageController getSearchPageController,
                            ViewSignupPageController viewSignupPageController,
                            ViewLoginPageController viewLoginPageController,
@@ -69,8 +66,7 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
         this.shoppingCartController = shoppingCartController;
-        this.loginController = loginController;
-        this.signupController = signupController;
+
 
         //top bar initialize
         this.getSearchPageController = getSearchPageController;
@@ -102,11 +98,13 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        this.add(title);
-        this.add(userNameInfo);
-        this.add(userIDInfo);
-        this.add(userEmail);
-        this.add(userRating);
+        infoPanel.add(title);
+        infoPanel.add(userNameInfo);
+        infoPanel.add(userIDInfo);
+        infoPanel.add(userEmail);
+        infoPanel.add(userRating);
+
+        this.add(infoPanel, BorderLayout.CENTER);
 
         ArrayList<Product> allProducts = viewModel.getState().getListProduct();
 
@@ -124,6 +122,18 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
                 mainPageController));
         topBar.repaint();
         topBar.revalidate();
+
+        studentNumberViewField.setText(viewModel.getState().getSellerUser().getStudentNumber());
+        studentNameViewField.setText(viewModel.getState().getSellerUser().getName());
+        studentEmailViewField.setText(viewModel.getState().getSellerUser().getEmail());
+        studentRatingViewField.setText(String.valueOf(viewModel.getState().getSellerUser().getUserRating()));
+
+        infoPanel.repaint();
+        infoPanel.revalidate();
+        this.repaint();
+        this.revalidate();
+
+        this.add(infoPanel, BorderLayout.CENTER);
 
         ViewUserProfileState state = (ViewUserProfileState) evt.getNewValue();
 

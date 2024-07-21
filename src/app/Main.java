@@ -186,9 +186,18 @@ public class Main {
                 searchProductViewModel, signupViewModel, loginViewModel, shoppingCartViewModel, mainPageViewModel, viewProfileViewModel,
                 manageProductViewModel);
 
-        UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel,
-                signupViewModel, loginViewModel, mainPageViewModel, viewProfileViewModel,
-                shoppingCartViewModel, manageProductViewModel);
+        UserProfileView userProfileView = UserProfileUseCaseFactory.create(
+                viewManagerModel,
+                signupViewModel,
+                loginViewModel,
+                mainPageViewModel,
+                shoppingCartViewModel,
+                buyerViewProductViewModel,
+                sellerViewProductViewModel,
+                unloggedInViewModel,
+                viewProfileViewModel,
+                searchProductViewModel,
+                viewUserProfileViewModel);
 
         RateProductView rateProductView = RateProductUseCaseFactory.create(
                 rateProductViewModel,
