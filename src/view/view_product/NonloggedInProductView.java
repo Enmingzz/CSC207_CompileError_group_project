@@ -150,6 +150,10 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
         productInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         productInfo.setLayout(new BoxLayout(productInfo, BoxLayout.Y_AXIS));
 
+        if(nonLoggedInViewModel.getState().getProduct() != null) {
+            System.out.println("this is the initial :::price::::::" + nonLoggedInViewModel.getState().getProduct().getPrice());
+        }
+
         titlePanel.add(title);
         productInfo.add(titlePanel);
         productInfo.add(_titleInfo);
@@ -186,6 +190,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
             qA_TextPanel.add(singleQa);
         }
 
+        qA_TextPanel.setLayout(new BoxLayout(qA_TextPanel, BoxLayout.Y_AXIS));
         qAInfo.add(qA_title);
         qAInfo.add(new JScrollPane(qA_TextPanel));
 
@@ -265,6 +270,9 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
 
     @Override
     public void propertyChange(PropertyChangeEvent evt){
+        qAInfo.setLayout(new BoxLayout(qAInfo, BoxLayout.Y_AXIS));
+        qAInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+
         UnloggedInState newState = (UnloggedInState) evt.getNewValue();
         if(newState.getIsChanged()){
             JLabel title= new JLabel(String.valueOf(newState.getProduct().getTitle()));
@@ -279,9 +287,20 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
             JLabel proId = new JLabel(String.valueOf(newState.getProduct().getProductID()));
 //            this.productInfo = new ProductInfoLabelTextPanel(title, image, des, price, rating, pro_state, address,lstTags, proId);
 
+            System.out.println("this is the price::::::" + newState.getProduct().getPrice());
             nonLoggedInViewModel.setState(newState);
 
             qA_TextPanel.removeAll();
+
+            _titleInfo.removeAll();
+            imageInfo.removeAll();
+            descriptionInfo.removeAll();
+            ratingInfo.removeAll();
+            priceInfo.removeAll();
+            stateInfo.removeAll();
+            addressInfo.removeAll();
+            lstTagsInfo.removeAll();
+            productIDInfo.removeAll();
 
             _titleInfo.setText(title);
             imageInfo.setText(image);
