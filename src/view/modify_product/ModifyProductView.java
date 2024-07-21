@@ -7,7 +7,10 @@ import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
-import interface_adapter.modify_product.*;
+import interface_adapter.modify_product.CreateProductState;
+import interface_adapter.modify_product.ModifyProductController;
+import interface_adapter.modify_product.ViewModifyProductState;
+import interface_adapter.modify_product.ViewModifyProductViewModel;
 import interface_adapter.profile.manage_product.ManageProductController;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.search_product.GetSearchPageController;
@@ -87,12 +90,12 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 
 //    ImagePanel displayImage;
 
-//    private final JTextField description = new JTextField();
-//    private final JTextField price = new JTextField();
-// =======
-//     private JTextField description = new JTextField();
-//     private JTextField price = new JTextField();
-// >>>>>>> main
+    private JTextField description = new JTextField(100);
+    private JTextField price = new JTextField(100);
+
+    private final JTextField testDescription = new JTextField(100);
+    private final JTextField testPrice = new JTextField(100);
+
 
     public ModifyProductView( ViewModifyProductViewModel viewModifyProductViewModel,
                               ModifyProductController modifyProductController,
@@ -154,30 +157,69 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 
         //(1) show the product information while
         Product product = viewModifyProductViewModel.getState().getProduct();
-        final JLabel description = new JLabel();
-        final JLabel title = new JLabel();
-        final JLabel email = new JLabel();
-        final JLabel address = new JLabel();
-        final JLabel price = new JLabel();
+        final JLabel titleLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
+        final JLabel title = (product == null)? new JLabel(""): new JLabel(product.getTitle());
+        final JLabel descriptionLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
+        if (product != null) {
+            description.setText(product.getDescription());
+        }
+        final JLabel priceLabel = new JLabel(viewModifyProductViewModel.PRODUCT_PRICE_LABEL);
+        if (product != null) {
+            price.setText(String.valueOf(product.getPrice()));
+        }
+        final JLabel eTransferEmailLabel = new JLabel(viewModifyProductViewModel.PRODUCT_ETRANSFER_EMAIL_LABEL);
+        final JLabel eTransferEmail = (product == null)? new JLabel(""): new JLabel(product.geteTransferEmail());
+        final JLabel addressLabel = new JLabel(viewModifyProductViewModel.PRODUCT_ADDRESS);
+        final JLabel address = (product == null)? new JLabel(""): new JLabel(product.getAddress());
+        final JLabel tagsLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TAGS);
+        String tagsString = (product == null)? "": String.join(", ", product.getListTags());
+        final JLabel tags = new JLabel(tagsString);
+        //TODO DELETE THIS ENTIRE SECTION PERHAPS
+        LabelTextPanel testDESCRIPTION = new LabelTextPanel(new JLabel(viewModifyProductViewModel.PRODUCT_DESCRIPTION_LABEL), testDescription);
+        LabelTextPanel testPRICE = new LabelTextPanel(new JLabel(viewModifyProductViewModel.PRODUCT_PRICE_LABEL), testPrice);
 
-//        final JLabel titleLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
-//        final JLabel title = (product == null)? new JLabel(""): new JLabel(product.getTitle());
-//        final JLabel descriptionLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TITLE_LABEL);
-//        if (product != null) {
-//            description.setText(product.getDescription());
-//        }
-//        final JLabel priceLabel = new JLabel(viewModifyProductViewModel.PRODUCT_PRICE_LABEL);
-//        if (product != null) {
-//            price.setText(String.valueOf(product.getPrice()));
-//        }
-//        final JLabel eTransferEmailLabel = new JLabel(viewModifyProductViewModel.PRODUCT_ETRANSFER_EMAIL_LABEL);
-//        final JLabel eTransferEmail = (product == null)? new JLabel(""): new JLabel(product.geteTransferEmail());
-//        final JLabel addressLabel = new JLabel(viewModifyProductViewModel.PRODUCT_ADDRESS);
-//        final JLabel address = (product == null)? new JLabel(""): new JLabel(product.getAddress());
-//        final JLabel tagsLabel = new JLabel(viewModifyProductViewModel.PRODUCT_TAGS);
-//        String tagsString = (product == null)? "": String.join(", ", product.getListTags());
-//        final JLabel tags = new JLabel(tagsString);
+        class TestDescriptionInputFieldListener implements KeyListener{
+            @Override
+            public void keyTyped(KeyEvent e) {
+                ViewModifyProductState state = viewModifyProductViewModel.getState();
+                state.setDescription(testDescription.getText() + e.getKeyChar());
+                viewModifyProductViewModel.setState(state);
+            }
 
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        }
+
+
+        class TestPriceInputFieldListener implements KeyListener{
+            @Override
+            public void keyTyped(KeyEvent e) {
+                ViewModifyProductState state = viewModifyProductViewModel.getState();
+                state.setDescription(testPrice.getText() + e.getKeyChar());
+                viewModifyProductViewModel.setState(state);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        }
+
+        productInformation.add(testDescription);
+        productInformation.add(testPrice);
+
+        testDESCRIPTION.addKeyListener(new TestDescriptionInputFieldListener());
+        testPRICE.addKeyListener(new TestPriceInputFieldListener());
+
+        //TODO DELETE ABOVE
 //        productInformation = new ModifyProductTextPanel( titleLabel,  title,
 //                 descriptionLabel,  description,  priceLabel,  price,
 //                 eTransferEmailLabel,  eTransferEmail,  addressLabel,  address,
@@ -232,95 +274,57 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         productModification.add(imageLabel);
 
         //create all the different panels
-//
-//        class TitleInputFieldListener implements KeyListener {
-//            @Override
-//            public void keyTyped(KeyEvent e) {
-//                ViewModifyProductState state = viewModifyProductViewModel.getState();
-//                state.setTitle(titleInputField.getText() + e.getKeyChar());
-//                viewModifyProductViewModel.setState(state);
-//            }
-//
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//            }
-//
-//            @Override
-//            public void keyReleased(KeyEvent e) {
-//            }
-//        }
-//        ;
-//        class DescriptionInputFieldListener implements KeyListener {
-//            @Override
-//            public void keyTyped(KeyEvent e) {
-//                ViewModifyProductState state = viewModifyProductViewModel.getState();
-//                state.setDescription(descriptionInputField.getText() + e.getKeyChar());
-//                viewModifyProductViewModel.setState(state);
-//            }
-//
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//            }
-//
-//            @Override
-//            public void keyReleased(KeyEvent e) {
-//            }
-//        }
-//        ;
-//        class PriceInputFieldListener implements KeyListener {
-//            @Override
-//            public void keyTyped(KeyEvent e) {
-//                ViewModifyProductState state = viewModifyProductViewModel.getState();
-//                state.setPrice(priceInputField.getText() + e.getKeyChar());
-//                viewModifyProductViewModel.setState(state);
-//            }
-//
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//            }
-//
-//            @Override
-//            public void keyReleased(KeyEvent e) {
-//            }
-//        };
-//        class ETransferEmailInputFieldListener implements KeyListener {
-//            @Override
-//            public void keyTyped(KeyEvent e) {
-//                ViewModifyProductState state = viewModifyProductViewModel.getState();
-//                state.setEmail(emailInputField.getText() + e.getKeyChar());
-//                viewModifyProductViewModel.setState(state);
-//            }
-//
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//            }
-//
-//            @Override
-//            public void keyReleased(KeyEvent e) {
-//            }
-//        };
-//        class AddressInputFieldListener implements KeyListener {
-//            @Override
-//            public void keyTyped(KeyEvent e) {
-//                ViewModifyProductState state = viewModifyProductViewModel.getState();
-//                state.setAddress(addressInputField.getText() + e.getKeyChar());
-//                viewModifyProductViewModel.setState(state);
-//            }
-//
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//            }
-//
-//            @Override
-//            public void keyReleased(KeyEvent e) {
-//            }
-//        };
+
+
+
+        class DescriptionInputFieldListener implements KeyListener{
+            @Override
+            public void keyTyped(KeyEvent e) {
+                ViewModifyProductState state = viewModifyProductViewModel.getState();
+                state.setDescription(description.getText() + e.getKeyChar());
+                viewModifyProductViewModel.setState(state);            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        }
+
+        class PriceInputFieldListener implements KeyListener{
+            @Override
+            public void keyTyped(KeyEvent e) {
+                ViewModifyProductState state = viewModifyProductViewModel.getState();
+                state.setPrice(price.getText() + e.getKeyChar());
+                viewModifyProductViewModel.setState(state);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        }
 
         class ChangeProductListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(changeProduct)) {
                     try {
+                        //TODO delete later this is to test if the input data is correct for the change product used case
+                        System.out.println("description: " + testDescription.getText());
+                        System.out.println("price: " + testPrice.getText());
+
+//                        modifyProductController.execute(viewModifyProductViewModel.getState().getUser(), viewModifyProductViewModel.getState().getProduct(),
+//                                viewModifyProductViewModel.getState().getDescription(), viewModifyProductViewModel.getState().getPrice());
+
+                        modifyProductController.execute(viewModifyProductViewModel.getState().getUser(), viewModifyProductViewModel.getState().getProduct(),
+                                testDescription.getText(), testPrice.getText());
+=======
                         if (image instanceof BufferedImage || image == null) {
                             modifyProductController.execute(
                                     viewModifyProductViewModel.getState().getUser(),
@@ -378,14 +382,7 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
                         priceInputField.setText("");
                         emailInputField.setText("");
 
-// =======
-//                         //TODO delete later this is to test if the input data is correct for the change product used case
-//                         System.out.println("description: " + description.getText());
-//                         System.out.println("price: " + viewModifyProductViewModel.getState().getPrice());
 
-//                         modifyProductController.execute(viewModifyProductViewModel.getState().getUser(), viewModifyProductViewModel.getState().getProduct(),
-//                                 viewModifyProductViewModel.getState().getDescription(), viewModifyProductViewModel.getState().getPrice());
-// >>>>>>> main
                     } catch (SQLException | IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -538,6 +535,17 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
             imageLabel.setIcon(new ImageIcon(product.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
         }
 
+
+
+        //TODO DELETE BELOW LATER
+        final JTextField testDescription = new JTextField(100);
+        JTextField testPrice = new JTextField(100);
+        LabelTextPanel testDESCRIPTION = new LabelTextPanel(new JLabel(viewModifyProductViewModel.PRODUCT_DESCRIPTION_LABEL), testDescription);
+        LabelTextPanel testPRICE = new LabelTextPanel(new JLabel(viewModifyProductViewModel.PRODUCT_PRICE_LABEL), testPrice);
+
+        productInformation.add(testDescription);
+        productInformation.add(testPrice);
+        //TODO DELETE ABOVE LATER
 
 //        productInformation = new ModifyProductTextPanel( titleLabel,  title,
 //                descriptionLabel,  description,  priceLabel,  price,
