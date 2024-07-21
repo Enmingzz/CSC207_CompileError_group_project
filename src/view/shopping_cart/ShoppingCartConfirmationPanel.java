@@ -7,10 +7,11 @@ import javax.swing.*;
  */
 
 public class ShoppingCartConfirmationPanel extends JPanel{
-    ShoppingCartConfirmationPanel(JButton viewProductButton, JLabel priceLabel, JButton confirmButton){
+    ShoppingCartConfirmationPanel(JButton viewProductButton, JLabel priceLabel, JLabel scheculeLabel, JButton confirmButton){
 
         this.add(viewProductButton);
         this.add(priceLabel);
+        this.add(scheculeLabel);
         this.add(confirmButton);
     }
 }
