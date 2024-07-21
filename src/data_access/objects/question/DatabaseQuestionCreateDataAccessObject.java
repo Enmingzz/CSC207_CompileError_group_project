@@ -39,11 +39,18 @@ public class DatabaseQuestionCreateDataAccessObject implements QuestionCreateDat
                 "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
                 "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
 
-        query = "INSERT INTO Comments (ProductID, QuestionUserID, QuestionDescription) VALUES (?,?,?)";
+//        query = "INSERT INTO Comments (ProductID, QuestionUserID, QuestionDescription) VALUES (?,?,?)";
+//        preparedStatement = connection.prepareStatement(query);
+//        preparedStatement.setString(1, product.getProductID());
+//        preparedStatement.setString(2, question.getStudentNumber());
+//        preparedStatement.setString(3, question.getDescription());
+//        preparedStatement.executeUpdate();
+        query = "INSERT INTO Comments (CommentID, ProductID, QuestionUserID, QuestionDescription) VALUES (?,?,?,?)";
         preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, product.getProductID());
-        preparedStatement.setString(2, question.getStudentNumber());
-        preparedStatement.setString(3, question.getDescription());
+        preparedStatement.setString(1, question.getQuestionID());
+        preparedStatement.setString(2, product.getProductID());
+        preparedStatement.setString(3, question.getStudentNumber());
+        preparedStatement.setString(4, question.getDescription());
         preparedStatement.executeUpdate();
 
         preparedStatement.close();

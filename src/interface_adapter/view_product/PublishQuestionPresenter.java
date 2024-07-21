@@ -28,11 +28,13 @@ public class PublishQuestionPresenter implements PublishQuestionOutputBoundary {
         String new_ques_str = publishQuestionOutputData.getNewQuestion();
         QuestionFactory questionFactory = new CommonQuestionFactory();
         String student_num = publishQuestionOutputData.getQuestionUser().getStudentNumber();
-        String questionId = "LocalDateTime.now()";
+        String questionId = publishQuestionOutputData.getQuestion().getQuestionID();
+
         AnswerFactory answerFactory = new CommonAnswerFactory();
         Answer ans = answerFactory.createAnswer("", "");
 
         Question question = questionFactory.createQuestion(new_ques_str, student_num, ans, questionId);
+        System.out.println("QuestionId in publishquestion presenter" + questionId);
 
         buyerViewProductState.getQuestion().add(question);
 

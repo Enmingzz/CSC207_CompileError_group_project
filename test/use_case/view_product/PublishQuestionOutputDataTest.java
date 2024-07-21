@@ -1,5 +1,8 @@
 package use_case.view_product;
 
+import entity.comment.CommonAnswer;
+import entity.comment.CommonQuestion;
+import entity.comment.Question;
 import entity.user.CommonUser;
 import entity.user.User;
 import org.junit.jupiter.api.AfterEach;
@@ -15,8 +18,10 @@ class PublishQuestionOutputDataTest {
     @BeforeEach
     void setUp() {
         User commonUser = new CommonUser("hanrui", "222", "hanrui@mail", 0, "123");
-
-        outputData = new PublishQuestionOutputData("question successfully published", "new question", commonUser);
+        Question question = new CommonQuestion("description", "123", new CommonAnswer("111",
+                "111"), "123345");
+        outputData = new PublishQuestionOutputData("question successfully published", "new " +
+                "question", commonUser, question);
     }
 
     @AfterEach

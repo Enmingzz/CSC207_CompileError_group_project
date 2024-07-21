@@ -1,11 +1,13 @@
 package use_case.modify_product;
 
 import data_access.in_memory.product.InMemoryProductReadByIdDataAccessObject;
-import data_access.in_memory.product.InMemoryProductUpdateAddressDataAccessObject;
 import data_access.in_memory.product.InMemoryProductUpdateDescriptionDataAccessObject;
+import data_access.in_memory.product.InMemoryProductUpdateNameDataAccessObject;
+import data_access.in_memory.product.InMemoryProductUpdateTransferEmailDataAccessObject;
 import data_access.interfaces.product.ProductReadByIdDataAccessInterface;
-import data_access.interfaces.product.ProductUpdateAddressDataAccessInterface;
 import data_access.interfaces.product.ProductUpdateDescriptionDataAccessInterface;
+import data_access.interfaces.product.ProductUpdateNameDataAccessInterface;
+import data_access.interfaces.product.ProductUpdateTransferEmailDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.Product;
 import entity.product.ProductFactory;
@@ -26,17 +28,17 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit test for ChangeProductAddress.
+ * Unit test for ChangeProductEmail.
  */
-class ChangeProductAddressTest {
+class ChangeProductEmailTest {
 
     private Product product;
-    private String changedAddress;
+    private String changedEmail;
     private ArrayList<Product> productsList;
     private String productID;
 
-    private ProductUpdateAddressDataAccessInterface inMemoryProductUpdateAddressDataAccessObject;
-    private ChangeProductAddress changeProductAddress;
+    private ProductUpdateTransferEmailDataAccessInterface inMemoryProductUpdateETransferEmailDataAccessObject;
+    private ChangeProductEmail changeProductEmail;
 
     /**
      * Sets up the test environment before each test.
@@ -69,8 +71,8 @@ class ChangeProductAddressTest {
         productsList = new ArrayList<>();
         productsList.add(product);
 
-        inMemoryProductUpdateAddressDataAccessObject = new InMemoryProductUpdateAddressDataAccessObject(productsList);
-        changeProductAddress = new ChangeProductAddress(inMemoryProductUpdateAddressDataAccessObject);
+        inMemoryProductUpdateETransferEmailDataAccessObject = new InMemoryProductUpdateTransferEmailDataAccessObject(productsList);
+        changeProductEmail = new ChangeProductEmail(inMemoryProductUpdateETransferEmailDataAccessObject);
     }
 
     /**
@@ -81,7 +83,7 @@ class ChangeProductAddressTest {
     }
 
     /**
-     * Tests the execute method of ChangeProductAddress to ensure it correctly updates the product Address.
+     * Tests the execute method of ChangeProductEmail to ensure it correctly updates the product eTransfer email.
      *
      * @throws IOException if there is an error during execution.
      * @throws SQLException if there is an error with SQL execution.
@@ -89,12 +91,12 @@ class ChangeProductAddressTest {
     @Test
     void executeTrueTest() throws IOException, SQLException {
         // The description is changed
-        changedAddress = "BA2210";
+        changedEmail = "1233@gmail.com";
 
         ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
                 new InMemoryProductReadByIdDataAccessObject(productsList);
-        Product newProduct = changeProductAddress.execute(product, changedAddress);
-        assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(product.getProductID()).getAddress(), changedAddress);
+        Product newProduct = changeProductEmail.execute(product, changedEmail);
+        assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(product.getProductID()).geteTransferEmail(), changedEmail);
 
         assertEquals(product.getPrice(),
                 newProduct.getPrice());
@@ -105,6 +107,8 @@ class ChangeProductAddressTest {
         assertEquals(product.getTitle(),
                 newProduct.getTitle());
 
+        assertEquals(product.getAddress(),
+                newProduct.getAddress());
         assertEquals(product.getSchedule().getBuyerTime(),
                 newProduct.getSchedule().getBuyerTime());
         assertEquals(product.getSchedule().getSellerTime(),
@@ -114,19 +118,18 @@ class ChangeProductAddressTest {
 
         assertEquals(product.getSellerStudentNumber(),
                 newProduct.getSellerStudentNumber());
-        assertEquals(product.geteTransferEmail(),
-                newProduct.geteTransferEmail());
+
         assertEquals(product.getListTags(),
                 newProduct.getListTags());
     }
 
     @Test
     void executeTrueTest2() throws IOException, SQLException {
-        // Uploads the same address, checks the if branch of the class
-        changedAddress = "123College";
+        // Uploads the same email, checks the if branch of the class
+        changedEmail = "calico.cat@mail.utoronto.ca";
 
-        Product newProduct = changeProductAddress.execute(product, changedAddress);
-        assertEquals(newProduct.getAddress(), product.getAddress());
+        Product newProduct = changeProductEmail.execute(product, changedEmail);
+        assertEquals(newProduct.geteTransferEmail(), product.geteTransferEmail());
 
         assertEquals(product.getPrice(),
                 newProduct.getPrice());
