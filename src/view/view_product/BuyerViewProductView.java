@@ -31,6 +31,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * The BuyerViewProductView class for the product view pages.
@@ -249,10 +250,14 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
                         CommonQuestionFactory questionFactory = new CommonQuestionFactory();
                         CommonAnswerFactory answerFactory = new CommonAnswerFactory();
 
+                        UUID uuid = UUID.randomUUID();
+
                         Answer empty_ans = answerFactory.createAnswer("", "");
                         Question new_question = questionFactory.createQuestion(question_content,
-                                buyerViewProductViewModel.getState().getProduct().getSellerStudentNumber(), empty_ans, Objects.toString(LocalDateTime.now()));
+                                buyerViewProductViewModel.getState().getProduct().getSellerStudentNumber(), empty_ans, uuid.toString());
 
+                        System.out.println("this is the initial uuid:::::::::::tosting version:" + uuid.toString());
+                        System.out.println("this is the initial uuid:::::::::::tosting version:" + uuid);
                         publishQuestionController.execute(new_question, que_product, buyerViewProductViewModel.getState().getUser());
 
                         buyerViewProductViewModel.getState().setPrompt_words("");
