@@ -79,8 +79,7 @@ public class UserProfileUseCaseFactory {
         MainPageController mainPageController =
                 UserProfileUseCaseFactory.createMainPageController(mainPageViewModel,
                         viewManagerModel);
-        Shopping
-        return new UserProfileView()
+
         return null;
     }
 

@@ -9,6 +9,8 @@ import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.profile.view_profile.ViewProfileController;
+import interface_adapter.profile.view_profile.ViewUserProfileController;
+import interface_adapter.profile.view_profile.ViewUserProfileState;
 import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.ViewSignupPageController;
@@ -55,6 +57,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
     private final LogOutController logOutController;
     private final ViewProfileController viewProfileController;
     private final MainPageController mainPageController;
+    private final ViewUserProfileController viewUserProfileController;
 
 
     private final JButton cancel;
@@ -67,6 +70,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
     private JPanel qA_TextPanel = new JPanel();
     private final JPanel titlePanel = new JPanel();
     private BuyerQAInfoLabelTextPanel singleQa;
+    private final JButton viewUserProfile;
 
 
     /**
@@ -82,6 +86,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
      * @param shoppingCartController the controller for managing the shopping cart.
      * @param logOutController the controller for handling logout process.
      * @param viewProfileController the controller for viewing user profile.
+     * @param viewUserProfileController the controller for viewing other user profile
      */
     public BuyerViewProductView(BuyerViewProductViewModel buyerViewProductViewModel,
                                 AddToCartController addToCartController, PublishQuestionController publishQuestionController,
@@ -92,7 +97,8 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
                                 ViewLoginPageController viewLoginPageController,
                                 ShoppingCartController shoppingCartController,
                                 LogOutController logOutController,
-                                ViewProfileController viewProfileController){
+                                ViewProfileController viewProfileController,
+                                ViewUserProfileController viewUserProfileController){
         this.buyerViewProductViewModel = buyerViewProductViewModel;
 
         //top bar initialize
@@ -103,6 +109,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         this.logOutController = logOutController;
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
+        this.viewUserProfileController = viewUserProfileController;
 
         UserFactory commonUserFactory = new CommonUserFactory();
         User commonUser = commonUserFactory.createUser("", "", "", 0, "");
@@ -184,6 +191,25 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
                     try {
                         addToCartController.execute(buyerViewProductViewModel.getState().getUser(),
                                 buyerViewProductViewModel.getState().getProduct());
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+
+        viewUserProfile = new JButton(buyerViewProductViewModel.VIEW_USER_PROFILE_BUTTON);
+        buttons.add(viewUserProfile);
+
+        class ViewUserProfileButtonListener implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(viewUserProfile)) {
+                    try {
+                        System.out.println("click view user profile button");
+                        viewUserProfileController.execute(
+                                buyerViewProductViewModel.getState().getProduct().getSellerStudentNumber(),
+                                buyerViewProductViewModel.getState().getUser());
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
