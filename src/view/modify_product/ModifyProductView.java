@@ -94,6 +94,8 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         topBar = new TopBarSampleView(commonUser,
                 getSearchPageController, viewSignupPageController, viewLoginPageController,
                 shoppingCartController, logOutController, viewProfileController, mainPageController);
+        this.add(topBar);
+        this.add(topBar, BorderLayout.NORTH);
 
         //TODO check if this image works
         displayImage = (viewModifyProductViewModel.getState().getProduct() == null)?
@@ -188,8 +190,12 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(changeProduct)) {
                     try {
+                        //TODO delete later this is to test if the input data is correct for the change product used case
+                        System.out.println("description: " + description.getText());
+                        System.out.println("price: " + viewModifyProductViewModel.getState().getPrice());
+
                         modifyProductController.execute(viewModifyProductViewModel.getState().getUser(), viewModifyProductViewModel.getState().getProduct(),
-                                description.getText(), price.getText());
+                                viewModifyProductViewModel.getState().getDescription(), viewModifyProductViewModel.getState().getPrice());
                     } catch (SQLException | IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -301,9 +307,6 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
         contentPanel.repaint();
         contentPanel.revalidate();
 
-//        if (state.getModifyProductMessage() != "" || state.getModifyProductMessage() == null) {
-//            JOptionPane.showMessageDialog(this, state.getModifyProductMessage());
-//        }
 //        JOptionPane.showMessageDialog(this, state.getDescription());
 
 

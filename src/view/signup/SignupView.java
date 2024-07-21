@@ -127,7 +127,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 new JLabel(signupViewModel.PASSWORD_LABEL), passwordInputField);
         SignupLabelTextPanel repeatPasswordInfo = new SignupLabelTextPanel(
                 new JLabel(signupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
-        SignupLabelTextPanel emailInfo = new SignupLabelTextPanel(new JLabel(signupViewModel.EMAIL_LABEL), emailInputField);
+        JPanel emailInfo = new JPanel();
+        emailInfo.add(new JLabel(signupViewModel.EMAIL_LABEL));
+        emailInfo.add(emailInputField);
+        emailInfo.add(new JLabel(signupViewModel.EMAIL_AT));
         SignupLabelTextPanel verificationCodeInfo = new SignupLabelTextPanel(new JLabel(signupViewModel.VERIFICATION_LABEL), verificationCodeInputField);
         SignupLabelTextPanel studentNumberInfo = new SignupLabelTextPanel(new JLabel(signupViewModel.STUDENT_NUMBER_LABEL), studentNameInputField);
 

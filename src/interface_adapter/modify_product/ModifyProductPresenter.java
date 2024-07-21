@@ -32,6 +32,10 @@ public class ModifyProductPresenter implements ChangeProductOutputBoundary {
             }
         }
         manageProductState.setProduct(productList);
+        //TODO delete later this is only for testing
+        System.out.println(changeProductOutputData.getMessage());
+        System.out.println(changeProductOutputData.getProduct().getDescription());
+        System.out.println(changeProductOutputData.getProduct().getPrice());
 
         String message = changeProductOutputData.getMessage();
         manageProductState.setModifyProductMessage(message);
@@ -40,5 +44,8 @@ public class ModifyProductPresenter implements ChangeProductOutputBoundary {
 
         viewManagerModel.setActiveView(manageProductViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
+
+        manageProductState.setModifyProductMessage(null);
+        manageProductViewModel.setState(manageProductState);
     }
 }
