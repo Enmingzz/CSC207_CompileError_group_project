@@ -1,12 +1,18 @@
 package interface_adapter.view_product;
 
 import entity.comment.*;
+import entity.product.CommonProductFactory;
 import entity.product.Product;
+import entity.product.ProductFactory;
+import entity.user.CommonUserFactory;
 import entity.user.User;
+import entity.user.UserFactory;
 
 public class ReplyQuestionState {
     private QuestionFactory questionFactory = new CommonQuestionFactory();
     private AnswerFactory answerFactory = new CommonAnswerFactory();
+//    private ProductFactory productFactory = new CommonProductFactory();
+
     private Question question = questionFactory.createQuestion("", "", answerFactory.createAnswer("", ""),"" );
     private Product product = null;
     private User user = null;

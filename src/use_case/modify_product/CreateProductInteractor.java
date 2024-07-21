@@ -44,6 +44,8 @@ public class CreateProductInteractor implements CreateProductInputBoundary{
         }
         boolean image = !(createProductInputData.getImage() == null);
 
+        boolean description = !(Objects.equals(createProductInputData.getDescription(), ""));
+
         boolean title =  !(Objects.equals(createProductInputData.getTitle(), ""));
         boolean eTransferEmail = !(Objects.equals(createProductInputData.geteTransferEmail(), ""));
         boolean address = !(Objects.equals(createProductInputData.getAddress(), ""));
@@ -51,6 +53,9 @@ public class CreateProductInteractor implements CreateProductInputBoundary{
 
         if (!image) {
             createProductPresenter.prepareFailedView("You must upload a valid image of the product.");
+        }
+        else if (!description) {
+            createProductPresenter.prepareFailedView("You must enter a valid description for the product.");
         }
         else if(!price) {
             createProductPresenter.prepareFailedView("You must indicate a valid price of the product.");

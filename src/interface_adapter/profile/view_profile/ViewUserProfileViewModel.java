@@ -14,13 +14,10 @@ public class ViewUserProfileViewModel extends ViewModel {
     public final String TITLE_LABEL = "Profile View";
     public final String USERID_LABEL = "Student ID";
     public final String USERNAME_LABEL = "Name";
-    public final String PASSWORD_LABEL = "Password";
+    public final String PRODUCT_TITLE_LABEL = "Product Title";
     public final String USEREMAIL_LABEL = "UofT Email";
     public final String USERRATING_LABLE = "Rating";
 
-    public final String MANAGEPRODUCT_BUTTONLABEL = "Manage Product";
-    public final String VIEW_PROFILE_BOTTON_LABEL = "View Profile";
-    public final String MODIFYPROFILE_BUTTON_LABEL = "Modify Profile";
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 

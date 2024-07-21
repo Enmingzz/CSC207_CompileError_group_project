@@ -230,6 +230,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(viewUserProfile)) {
                     try {
+                        System.out.println("click view user profile button");
                         viewUserProfileController.execute(
                                 nonLoggedInViewModel.getState().getProduct().getSellerStudentNumber(),
                                 nonLoggedInViewModel.getState().getUser());
