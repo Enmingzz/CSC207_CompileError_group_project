@@ -82,7 +82,7 @@ class ReplyQuestionInteractorTest {
             @Override
             public void prepareSuccessView(ReplyQuestionOutputData replyQuestionOutputData) {
                 assertEquals(question,replyQuestionOutputData.getQuestion());
-                assertEquals("question successfully published", replyQuestionOutputData.getOutputStr());
+                assertEquals("question successfully answered", replyQuestionOutputData.getOutputStr());
             }
         };
         ReplyQuestionInputData inputData = new ReplyQuestionInputData(product, seller, question, answerDescription);

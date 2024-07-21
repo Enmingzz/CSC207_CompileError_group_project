@@ -214,9 +214,9 @@ public class Main {
 //                shoppingCartViewModel, mainPageViewModel, viewProfileViewModel);
 //        SearchByTagPanel searchByTagPanel = SearchByTagUseCaseFactory.create(viewManagerModel, mainPageViewModel); TODO not sure if the two types of search panels should be added?
 
-        /**
-         * initialize state
-         */
+
+        //initialize state
+
 
         LoginState loginState = loginViewModel.getState();
         loginState.setUser(commonUserFactory.createUser("", "", "", 0, ""));

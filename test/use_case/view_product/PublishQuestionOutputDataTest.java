@@ -16,7 +16,7 @@ class PublishQuestionOutputDataTest {
     void setUp() {
         User commonUser = new CommonUser("hanrui", "222", "hanrui@mail", 0, "123");
 
-        outputData = new PublishQuestionOutputData("question successfully published", "new question", commonUser);
+        outputData = new PublishQuestionOutputData("question successfully published", "new question", commonUser, outputData.getQuestion());
     }
 
     @AfterEach
