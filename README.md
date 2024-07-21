@@ -77,7 +77,8 @@ If you want to remove an item from cart, simply click the "Remove From Cart" but
 
 #### Purchasing a product 
 
-If you want to purchase a product from your cart, simply click Buy Product. Then the seller will be prompted to select a schedule, and your display will appaer as below.
+If you want to purchase a product from your cart, simply click Buy Product. Then the seller will be prompted to select a schedule, and your display will appear as below.
+
 <img width="681" alt="Screenshot 2024-07-21 at 18 06 15" src="https://github.com/user-attachments/assets/8a548b7a-cb2e-4680-bced-5effeaaf5e03">
 
 ### 4. Completing the trade 
