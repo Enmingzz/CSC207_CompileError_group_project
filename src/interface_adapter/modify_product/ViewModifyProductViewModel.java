@@ -20,8 +20,16 @@ public class ViewModifyProductViewModel extends ViewModel {
     public final String PRODUCT_ADDRESS = "Product Pickup Address";
     public final String PRODUCT_TAGS = "Product tags";
 
+    public final String OLD_PRICE_LABEL = "Old-Price";
+    public final String OLD_DESCRIPTION_LABEL = "Old-Description";
+    public final String OLD_EMAIL_LABEL = "Old-TransferEmail";
+    public final String OLD_TITLE_LABEL = "Old-Title";
+    public final String OLD_ADDRESS_LABEL = "Old-Address";
+
+
     public final String CHANGEPRODUCT_BUTTON_LABEL = "Modify product";
     public final String CANCEL_BUTTON_LABEL = "Cancel";
+    public final String UPDATE_IMAGE_BUTTON_LABEL = "Upload Image";
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
 

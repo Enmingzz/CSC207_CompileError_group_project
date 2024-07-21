@@ -23,7 +23,7 @@ public class ChangeProductPrice implements ChangeProductPriceInterface {
         float floatPrice = 0;
         try {
             floatPrice = parseFloat(price);
-            if(floatPrice >= 0) {
+            if(floatPrice >= 0 || floatPrice != changedProduct.getPrice()) {
                 validPrice = true;
             }
             else{
@@ -41,16 +41,21 @@ public class ChangeProductPrice implements ChangeProductPriceInterface {
             }
         }
 
-        productUpdatePriceDataAccessInterface.updateProductPrice(changedProduct, floatPrice);
-        ProductFactory commonProductFactory = new CommonProductFactory();
-        Product newProduct = commonProductFactory.createProduct(changedProduct.getImage(),
-                changedProduct.getDescription(), changedProduct.getTitle(),
-                parseFloat(price),
-                changedProduct.getRating(),
-                changedProduct.getState(), changedProduct.geteTransferEmail(),
-                changedProduct.getSellerStudentNumber(), changedProduct.getAddress(),
-                changedProduct.getListTags(), changedProduct.getProductID(),
-                changedProduct.getSchedule());
-        return newProduct;
+        if (validPrice){
+            productUpdatePriceDataAccessInterface.updateProductPrice(changedProduct, floatPrice);
+            ProductFactory commonProductFactory = new CommonProductFactory();
+            Product newProduct = commonProductFactory.createProduct(changedProduct.getImage(),
+                    changedProduct.getDescription(), changedProduct.getTitle(),
+                    parseFloat(price),
+                    changedProduct.getRating(),
+                    changedProduct.getState(), changedProduct.geteTransferEmail(),
+                    changedProduct.getSellerStudentNumber(), changedProduct.getAddress(),
+                    changedProduct.getListTags(), changedProduct.getProductID(),
+                    changedProduct.getSchedule());
+            return newProduct;
+        }
+        return changedProduct;
+
+
     }
 }
