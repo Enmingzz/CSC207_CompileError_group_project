@@ -10,6 +10,7 @@ import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.profile.view_profile.ViewProfileController;
+import interface_adapter.profile.view_profile.ViewUserProfileController;
 import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.ViewSignupPageController;
@@ -40,6 +41,7 @@ import java.util.Objects;
 public class NonloggedInProductView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "non login view product view";
     private final UnloggedInViewModel nonLoggedInViewModel;
+    private final ViewUserProfileController viewUserProfileController;
 
     //Top Bar stuff
     private final GetSearchPageController getSearchPageController;
@@ -53,6 +55,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
 
     private final JButton cancel;
     private final JButton addToCart;
+    private final JButton viewUserProfile;
 
     private JPanel productInfo = new JPanel();
     private JPanel qAInfo = new JPanel();
@@ -94,8 +97,10 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
                                   ViewSignupPageController viewSignupPageController,
                                   ShoppingCartController shoppingCartController,
                                   LogOutController logOutController,
-                                  ViewProfileController viewProfileController){
+                                  ViewProfileController viewProfileController,
+                                  ViewUserProfileController viewUserProfileController){
         this.nonLoggedInViewModel = nonLoggedInViewModel;
+        this.viewUserProfileController = viewUserProfileController;
 
         this.getSearchPageController = getSearchPageController;
         this.viewSignupPageController  = viewSignupPageController;
@@ -198,10 +203,12 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
         //(3)buttons
         JPanel buttons = new JPanel();
         cancel = new JButton(nonLoggedInViewModel.CANCEL_BUTTON_LABEL);
+        viewUserProfile = new JButton(nonLoggedInViewModel.VIEW_USER_PROFILE_BUTTON);
         addToCart = new JButton(nonLoggedInViewModel.ADD_TO_CART);
 
 
         buttons.add(cancel);
+        buttons.add(viewUserProfile);
         buttons.add(addToCart);
 
 
@@ -211,6 +218,22 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
                 if (evt.getSource().equals(addToCart)) {
                     try {
                         viewLoginPageController.execute();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+
+        class ViewUserProfileButtonListener implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(viewUserProfile)) {
+                    try {
+                        System.out.println("click view user profile button");
+                        viewUserProfileController.execute(
+                                nonLoggedInViewModel.getState().getProduct().getSellerStudentNumber(),
+                                nonLoggedInViewModel.getState().getUser());
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -235,6 +258,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
         }
 
         addToCart.addActionListener(new AddTtoCartButtonListener());
+        viewUserProfile.addActionListener(new ViewUserProfileButtonListener());
         cancel.addActionListener(new CancelButtonListener());
 //
 //        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
