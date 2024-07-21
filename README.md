@@ -54,19 +54,24 @@
 
 Once logged in, one should see the "Shopping Cart" button.
 Once you click it, you should see a list of all products that you have added to your cart, as well as the total price.
+
 <img width="840" alt="Screenshot 2024-07-21 at 17 49 39" src="https://github.com/user-attachments/assets/65e8965e-3169-4714-a767-0a3cef97f900">
 
 To add a product to cart, simply click on the button below the image of a product (note, it cannot be a product you are
  currently selling). Then click "Add to shopping cart"
+ 
 <img width="1355" alt="Screenshot 2024-07-21 at 17 47 33" src="https://github.com/user-attachments/assets/6a372637-1778-4872-9cc1-3844a1caf5d3">
 
 Now if you check your shopping cart again, it should be added in, with the total price updated (I took the liberty to add other products).
+
 <img width="567" alt="Screenshot 2024-07-21 at 17 52 32" src="https://github.com/user-attachments/assets/eb451f46-4df2-485a-9d5d-e08b266f0b2d">
 
 If you attempt to add the same product again, an error message appears.
+
 <img width="1190" alt="Screenshot 2024-07-21 at 18 02 30" src="https://github.com/user-attachments/assets/04cd8091-66ff-4e0b-9f48-11b6a4750c90">
 
 If you want to remove an item from cart, simply click the "Remove From Cart" button (size of button is still waiting to be adjusted in phase 2).
+
 <img width="1273" alt="Screenshot 2024-07-21 at 18 04 44" src="https://github.com/user-attachments/assets/0011660b-bb67-4adc-956b-058be6b970a0">
 
 
