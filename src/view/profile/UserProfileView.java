@@ -9,7 +9,7 @@ import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.profile.view_profile.ViewProfileState;
-import interface_adapter.profile.view_profile.ViewProfileViewModel;
+import interface_adapter.profile.view_profile.ViewUserProfileViewModel;
 import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.SignupController;
@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class UserProfileView extends JPanel implements PropertyChangeListener {
-    public final String viewName = "UserProfile View";
+    public final String viewName = "user profile View";
     private final ViewUserProfileViewModel viewModel;
     private final ViewProfileController viewProfileController;
     private final MainPageController mainPageController;
@@ -49,7 +49,7 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
 
     public UserProfileView(MainPageController mainPageController,
                            ShoppingCartController shoppingCartController,
-                           ViewProfileViewModel profileViewModel,
+                           ViewUserProfileViewModel profileViewModel,
                            ViewProfileController viewProfileController,
                            LoginController loginController,
                            SignupController signupController,
