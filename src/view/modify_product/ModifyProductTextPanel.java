@@ -26,15 +26,9 @@ public class ModifyProductTextPanel extends JPanel {
 //
 //    }
 
-    private JTextField textField = null;
-
     public ModifyProductTextPanel() {}
 
     public void setText(JLabel label, JTextField textField) {
-        if (this.textField != null) {
-            this.remove(this.textField);
-        }
-        this.textField = textField;
         this.add(label);
         this.add(textField);
     }
