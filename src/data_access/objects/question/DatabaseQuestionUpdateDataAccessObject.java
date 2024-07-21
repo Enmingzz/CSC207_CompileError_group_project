@@ -37,11 +37,11 @@ public class DatabaseQuestionUpdateDataAccessObject implements QuestionUpdateDat
                 "database=207Project;user=root207@207project;password={Project207};encrypt=true;trustServerCertificate=false;" +
                 "hostNameInCertificate=*.database.windows.net;loginTimeout=30");
 
-        query = "UPDATE Comments SET AnswerUserID = ?, AnswerDescription = ? WHERE QuestionUserID = ?";
+        query = "UPDATE Comments SET AnswerUserID = ?, AnswerDescription = ? WHERE CommentID = ?";
         preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, question.getAnswer().getStudentNumber());
         preparedStatement.setString(2, question.getAnswer().getDescription());
-        preparedStatement.setString(3, question.getStudentNumber());
+        preparedStatement.setString(3, question.getQuestionID());
         preparedStatement.executeUpdate();
 
         preparedStatement.close();
