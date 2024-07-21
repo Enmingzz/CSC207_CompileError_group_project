@@ -8,6 +8,7 @@ import entity.user.User;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * The SearchProductByNameInteractor class implements the SearchProductByNameInputBoundary interface
@@ -47,7 +48,7 @@ public class SearchProductByNameInteractor implements SearchProductByNameInputBo
         // Filter products based on whether their titles/names contain the search term
         ArrayList<Product> matchingProducts = new ArrayList<>();
         for (Product product : allProducts) {
-            if (!exactMatchProducts.contains(product) && product.getTitle().contains(searchTerm)) {
+            if (!Objects.equals(product.getTitle(), inputData.getProductName()) && product.getTitle().contains(searchTerm)) {
                 matchingProducts.add(product);
             }
         }

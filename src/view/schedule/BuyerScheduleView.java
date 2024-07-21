@@ -166,7 +166,6 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
-        this.add(new JLabel("Available Times:"));
         this.add(timeSelectPanel);
         this.add(buttons);
 
