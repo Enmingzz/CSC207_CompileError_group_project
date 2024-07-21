@@ -39,7 +39,6 @@ public class EmailVerificationInteractor implements EmailVerificationInputBounda
         props.setProperty("mail.transport.protocol", "smtp");
         props.setProperty("mail.smtp.host", "smtp.qq.com");
         props.setProperty("mail.smtp.auth", "true");
-
         final String smtpPort = "465";
         props.setProperty("mail.smtp.port", smtpPort);
         props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
@@ -53,7 +52,11 @@ public class EmailVerificationInteractor implements EmailVerificationInputBounda
         int code = rand.nextInt(900000) + 100000;
         String messagetosend = Integer.toString(code);
 
-        MimeMessage message = createMimeMessage(session, "3232085039@qq.com", email.getEmail(), "Verify", messagetosend);
+        String utEmail = email.getEmail() + "@mail.utoronto.ca";
+        System.out.println(utEmail);
+
+        MimeMessage message = createMimeMessage(session, "3232085039@qq.com", utEmail, "Verify",
+                messagetosend);
 
         Transport transport = session.getTransport();
 
