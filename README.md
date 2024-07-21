@@ -28,8 +28,29 @@
 ### 1. Profile 
 
 #### Creating Account and Logging in 
+- The sign-up view allows new users to create an account by entering necessary details.
+- The sign-up view Page provides fields for users to enter their details:
+  - Enter student number: Input field for the student number.
+  - Choose username: Input field for the username.
+  - Choose password: Input field for the password.
+  - Enter password again: Input field to confirm the password.
+  - Enter email: Input field for the email (domain @mail.utoronto.ca is preset).
+  - Enter verification code: Input field for the verification code.
+- Button:
+  - Sign Up: Registers the user and creates a new account.
+  - Send: send the code to your utoronto email.
+
+- ![image](https://github.com/user-attachments/assets/822192e7-c16c-483d-9d41-000ca4cc1263)
+- If the student number already has a account then the error message will show up as:
+  - ![image](https://github.com/user-attachments/assets/0ea4e1db-8888-495e-b7f2-03207728dba4)
+ 
+- If the Password dose not match then the error message will show up as:
+  - ![image](https://github.com/user-attachments/assets/e86aa12d-4446-4037-a7ef-fb0aa463bd75)
+
+
 
 #### Creating an Account and Logging 
+- After Sign Up the Login Page will show up.
 - The login view allows users to authenticate by entering their student number and password.
 - The login view Page provides fields for users to enter their credentials:
   - Enter your student number: Input field for the student number.
