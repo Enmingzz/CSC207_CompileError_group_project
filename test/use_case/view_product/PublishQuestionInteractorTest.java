@@ -13,6 +13,8 @@ import entity.product.ProductFactory;
 import entity.schedule.CommonScheduleFactory;
 import entity.schedule.Schedule;
 import entity.schedule.ScheduleFactory;
+import entity.user.CommonUser;
+import entity.user.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -87,7 +89,10 @@ class PublishQuestionInteractorTest {
             }
         };
 
-        PublishQuestionInputData inputData = new PublishQuestionInputData(question, product);
+        User commonUser = new CommonUser("hanrui", "222", "hanrui@mail", 0, "123");
+
+
+        PublishQuestionInputData inputData = new PublishQuestionInputData(question, product, commonUser);
         PublishQuestionInputBoundary interactor = new PublishQuestionInteractor(questionRepository,
                 new CommonQuestionFactory(), successPresenter);
 

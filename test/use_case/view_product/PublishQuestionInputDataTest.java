@@ -5,6 +5,7 @@ import entity.product.CommonProduct;
 import entity.product.Product;
 import entity.schedule.CommonScheduleFactory;
 import entity.schedule.Schedule;
+import entity.user.CommonUser;
 import entity.user.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -59,7 +60,9 @@ class PublishQuestionInputDataTest {
         Product product = new CommonProduct(image, des, title, price, state, rating, eTransferEmail,
                 sellerStudentNumber, address, listTags, productID, schedule);
 
-        publishQuestionInputData = new PublishQuestionInputData(question, product);
+        User commonUser = new CommonUser("hanrui", "222", "hanrui@mail", 0, "123");
+
+        publishQuestionInputData = new PublishQuestionInputData(question, product, commonUser);
     }
 
     @AfterEach
