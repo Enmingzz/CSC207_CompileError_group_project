@@ -23,9 +23,7 @@ import interface_adapter.logout.LogOutPresenter;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.main_page.MainPagePresenter;
 import interface_adapter.main_page.MainPageViewModel;
-import interface_adapter.modify_product.ModifyProductController;
-import interface_adapter.modify_product.ModifyProductPresenter;
-import interface_adapter.modify_product.ViewModifyProductViewModel;
+import interface_adapter.modify_product.*;
 import interface_adapter.profile.manage_product.ManageProductController;
 import interface_adapter.profile.manage_product.ManageProductPresenter;
 import interface_adapter.profile.manage_product.ManageProductViewModel;
@@ -77,7 +75,8 @@ public class ModifyProductUseCaseFactory {
                                            ViewProfileViewModel viewProfileViewModel,
                                            ManageProductViewModel manageProductViewModel
                                            ) throws SQLException, IOException {
-        ModifyProductController modifyProductController = createmodifyProductController(viewManagerModel, manageProductViewModel);
+        ModifyProductController modifyProductController = createmodifyProductController(viewManagerModel, manageProductViewModel,
+                viewModifyProductViewModel);
 
 
         ManageProductController manageProductController = createManageProductController(viewManagerModel,
@@ -97,6 +96,8 @@ public class ModifyProductUseCaseFactory {
                 createProfileController(viewManagerModel, viewProfileViewModel);
         MainPageController mainPageController = createMainPageController(mainPageViewModel, viewManagerModel);
 
+        UploadImageController uploadImageController = createUploadImageController(viewModifyProductViewModel);
+
 
         //TODO implements this method
         return new ModifyProductView(viewModifyProductViewModel,
@@ -108,17 +109,19 @@ public class ModifyProductUseCaseFactory {
                 viewLoginPageController,
                 shoppingCartController,
                 logOutController,
-                viewProfileController);
+                viewProfileController, uploadImageController);
     }
 
 
     private  static ModifyProductController createmodifyProductController(ViewManagerModel viewManagerModel,
-                                                                          ManageProductViewModel manageProductViewModel) throws SQLException {
+                                                                          ManageProductViewModel manageProductViewModel,
+                                                                          ViewModifyProductViewModel viewModifyProductViewModel) throws SQLException {
 
         //TODO might need modification in interactor, since we cannot initialize the
         // ChangeProductDescriptionInterface, ChangeProductPriceInterface, ChangeProductPictureInterface, by using
         // databaseinterfaceFactorires?
-        ChangeProductOutputBoundary presenter = new ModifyProductPresenter(manageProductViewModel, viewManagerModel);
+        ChangeProductOutputBoundary presenter = new ModifyProductPresenter(manageProductViewModel, viewManagerModel,
+                viewModifyProductViewModel);
 
         DatabaseProductUpdateDescriptionDataAccessObjectFactoryInterface databaseProductUpdateDescriptionDataAccessObjectFactory
                 = new DatabaseProductUpdateDescriptionDataAccessObjectFactory();
@@ -131,8 +134,29 @@ public class ModifyProductUseCaseFactory {
         ProductUpdatePriceDataAccessInterface productUpdatePriceDataAccessObject =
                 databaseProductUpdatePriceDataAccessObjectFactory.create();
 
+        DatabaseProductUpdateAddressDataAccessObjectFactoryInterface databaseProductUpdateAddressDataAccessObjectFactoryInterface
+                = new DatabaseProductUpdateAddressDataAccessObjectFactory();
+        ProductUpdateAddressDataAccessInterface productUpdateAddressDataAccessInterface =
+                databaseProductUpdateAddressDataAccessObjectFactoryInterface.create();
+
+        DatabaseProductUpdateNameDataAccessObjectFactoryInterface databaseProductUpdateNameDataAccessObjectFactoryInterface
+                = new DatabaseProductUpdateNameDataAccessObjectFactory();
+        ProductUpdateNameDataAccessInterface productUpdateNameDataAccessInterface =
+                databaseProductUpdateNameDataAccessObjectFactoryInterface.create();
+
+        DatabaseProductUpdatePictureDataAccessObjectFactoryInterface databaseProductUpdatePictureDataAccessObjectFactoryInterface
+                = new DatabaseProductUpdatePictureDataAccessObjectFactory();
+        ProductUpdatePictureDataAccessInterface productUpdatePictureDataAccessInterface =
+                databaseProductUpdatePictureDataAccessObjectFactoryInterface.create();
+
+        DatabaseProductUpdateTransferEmailDataAccessObjectFactoryInterface databaseProductUpdateTransferEmailDataAccessObjectFactoryInterface
+                = new DatabaseProductUpdateTransferEmailDataAccessObjectFactory();
+        ProductUpdateTransferEmailDataAccessInterface productUpdateTransferEmailDataAccessInterface =
+                databaseProductUpdateTransferEmailDataAccessObjectFactoryInterface.create();
+
         ChangeProductInputBoundary interactor = new ChangeProductInteractor(presenter, productUpdatePriceDataAccessObject,
-                productUpdateDescriptionDataAccessObject);
+                productUpdateDescriptionDataAccessObject, productUpdateAddressDataAccessInterface, productUpdateNameDataAccessInterface,
+                productUpdatePictureDataAccessInterface, productUpdateTransferEmailDataAccessInterface);
         return new ModifyProductController(interactor);
     }
 
@@ -223,5 +247,10 @@ public class ModifyProductUseCaseFactory {
         return new GetSearchPageController(getSearchViewInteractor);
     }
 
-
+    private static UploadImageController createUploadImageController(ViewModifyProductViewModel viewModifyProductViewModel){
+        UploadImageOutputBoundary uploadImagePresenter = new UploadImagePresenter(viewModifyProductViewModel);
+        UploadImageInputBoundary uploadImageInteractor =
+                new UploadImageInteractor(uploadImagePresenter);
+        return new UploadImageController(uploadImageInteractor);
+    }
 }

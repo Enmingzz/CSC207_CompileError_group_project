@@ -14,6 +14,7 @@ public class BuyerViewProductViewModel extends ViewModel {
     public final String ADD_QUESTION = "Publish question";
     public final String ADD_TO_CART = "Add to shopping cart";
     public final String INPUT_QUESTION_TITLE = "My new question as follows:";
+    public final String VIEW_USER_PROFILE_BUTTON = "View Seller's Profile";
 
     public final String CANCEL_BUTTON_LABEL = "Cancel";
 

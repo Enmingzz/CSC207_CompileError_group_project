@@ -29,6 +29,9 @@ class ChangeProductInputDataTest {
     private User user;
     private String changedDescription ;
     private String changedPrice;
+    private  String address;
+    private  String title;
+    private  String email;
     private Product product;
 
     @BeforeEach
@@ -44,6 +47,9 @@ class ChangeProductInputDataTest {
 
         changedDescription = "This dress was bought in 1984.";
         changedPrice = "12.3";
+        address = "New Street";
+        title = "New Title";
+        this.email = "newemail@mail.com";
 
         Image image = ImageIO.read(new File("src/pic/testpic1.png"));
         String description = "It was worn once";
@@ -67,7 +73,8 @@ class ChangeProductInputDataTest {
         product = productFactory.createProduct(image, description, title, price, state, rating, eTransferEmail, sellerStudentNumber, address,
                 listTags, productID, schedule);
 
-        changeProductInputData = new ChangeProductInputData(user, product, changedDescription, changedPrice);
+        changeProductInputData = new ChangeProductInputData(user, product, changedDescription, changedPrice,
+                this.address, this.title, this.email, null);
     }
 
     @Test
@@ -86,6 +93,19 @@ class ChangeProductInputDataTest {
     void getChangedPrice() {
         assertEquals(changedPrice, changeProductInputData.getChangedPrice());
     }
+    @Test
+    void getAddress() {
+        assertEquals(address, changeProductInputData.getAddress());
+    }
+    @Test
+    void getTitle() {
+        assertEquals(title, changeProductInputData.getTitle());
+    }
+    @Test
+    void getEmail() {
+        assertEquals(email, changeProductInputData.getEmail());
+    }
+
     @AfterEach
     void tearDown() {
     }

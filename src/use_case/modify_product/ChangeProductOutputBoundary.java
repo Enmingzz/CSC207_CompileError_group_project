@@ -8,4 +8,5 @@ import java.sql.SQLException;
 public interface ChangeProductOutputBoundary {
     public void prepareSuccessfulView(ChangeProductOutputData changeProductOutputData) throws SQLException, IOException;
 
+    public void prepareFailView(ChangeProductOutputData changeProductOutputData);
 }

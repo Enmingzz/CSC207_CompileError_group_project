@@ -26,7 +26,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Objects;
 
 /**
  * A view for managing products, which extends JFrame and implements ActionListener and PropertyChangeListener.
@@ -133,7 +132,7 @@ public class ManageProductView extends JPanel implements ActionListener, Propert
         mainPanel.removeAll();
 
         for (Product product: manageProductViewModel.getState().getProduct()) {
-            MangeSingleProductView panel = new MangeSingleProductView(manageProductViewModel.getState().getUser(),
+            ManageSingleProductView panel = new ManageSingleProductView(manageProductViewModel.getState().getUser(),
                     product, manageProductViewModel, viewProductController,
                     viewModifyProductController, deleteProductController, getSellerSchedulePageController);
             mainPanel.add(panel);
@@ -166,8 +165,10 @@ public class ManageProductView extends JPanel implements ActionListener, Propert
 
         message.setText(manageProductViewModel.getState().getModifyProductMessage());
 
-        if (newState.getModifyProductMessage() != null || !Objects.equals(newState.getModifyProductMessage(), "")) {
+        if (newState.getModifyProductMessage() != null) {
             JOptionPane.showMessageDialog(this, newState.getModifyProductMessage());
         }
+        newState.setModifyProductMessage(null);
+        manageProductViewModel.setState(newState);
     }
 }
