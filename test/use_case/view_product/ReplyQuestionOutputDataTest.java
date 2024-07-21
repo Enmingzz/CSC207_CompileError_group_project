@@ -1,5 +1,6 @@
 package use_case.view_product;
 
+import entity.comment.CommonAnswer;
 import entity.comment.CommonQuestion;
 import entity.comment.Question;
 import org.junit.jupiter.api.AfterEach;
@@ -13,7 +14,7 @@ class ReplyQuestionOutputDataTest {
 
     @BeforeEach
     void setUp() {
-        Question question = new CommonQuestion("how much is it?", "1234567890", null, "123");
+        Question question = new CommonQuestion("how much is it?", "1234567890", new CommonAnswer("", ""), "123");
         replyQuestionOutputData = new ReplyQuestionOutputData("question successfully answered", question);
     }
 
@@ -28,7 +29,7 @@ class ReplyQuestionOutputDataTest {
 
     @Test
     void getQuestion() {
-        Question question = new CommonQuestion("how much is it?", "1234567890", null, "123");
+        Question question = new CommonQuestion("how much is it?", "1234567890", new CommonAnswer("", ""), "123");
         assertEquals(question, replyQuestionOutputData.getQuestion());
     }
 }

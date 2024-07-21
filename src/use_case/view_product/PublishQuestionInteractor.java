@@ -32,7 +32,8 @@ public class PublishQuestionInteractor implements PublishQuestionInputBoundary{
 
         questionCreateDataAccessObject.saveQuestion(question, questionProduct);
 
-        PublishQuestionOutputData publishQuestionOutputData =  new PublishQuestionOutputData("question successfully published");
+        PublishQuestionOutputData publishQuestionOutputData =  new PublishQuestionOutputData("question successfully published",
+                publishQuestionInputData.getQuestion().getDescription(), publishQuestionInputData.getUser());
         publishPresenter.prepareSuccessView(publishQuestionOutputData);
     }
 }

@@ -33,12 +33,15 @@ public class RateProductInteractor implements RateProductInputBoundary{
             rateProductOutputBoundary.prepareFailedView("You must input a valid integral rating from 1 to 5.");
         }
 
-        if(validRating) {
+        if (validRating) {
             productUpdateStateDataAccessInterface.updateProductState(rateProductInputData.getProduct(), -1);
             productUpdateRatingDataAccessInterface.updateProductRating(rateProductInputData.getProduct(), intRating);
 
             RateProductOutputData rateProductOutputData = new RateProductOutputData(rateProductInputData.getUser(), rateProductInputData.getProduct());
             rateProductOutputBoundary.prepareSuccessfulView(rateProductOutputData);
+        } else {
+            rateProductOutputBoundary.prepareFailedView("You must input a valid integral rating from 1 to 5.");
+
         }
 
     }

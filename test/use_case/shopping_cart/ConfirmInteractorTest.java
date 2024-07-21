@@ -123,11 +123,11 @@ class ConfirmInteractorTest {
 
         ConfirmInputData inputData = new ConfirmInputData(user, product);
 
+        ProductUpdateStateDataAccessInterface productUpdateStateDataAccessInterface =
+                new InMemoryProductUpdateStateDataAccessObject(initialProducts);
+
         ProductReadByIdDataAccessInterface productReadByIdDataAccessInterface =
                 new InMemoryProductReadByIdDataAccessObject(initialProducts);
-
-        ProductUpdateStateDataAccessInterface productUpdateStateDataAccessInterface =
-                new InMemoryProductUpdateStateDataAccessObject();
 
         ConfirmInteractor confirmInteractor = new ConfirmInteractor(mockPresenter,
                 productUpdateStateDataAccessInterface, productReadByIdDataAccessInterface

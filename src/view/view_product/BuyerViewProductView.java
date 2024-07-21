@@ -1,7 +1,6 @@
 package view.view_product;
 
-import entity.comment.CommonQuestionFactory;
-import entity.comment.Question;
+import entity.comment.*;
 import entity.product.Product;
 import entity.user.CommonUserFactory;
 import entity.user.User;
@@ -63,11 +62,12 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
     private final JButton publishQuestion;
 
     JPanel productInfo;
-    JPanel qAInfo;
+    JPanel qAInfo = new JPanel();
     private JPanel topBar;
     private JPanel qA_TextPanel = new JPanel();
-    final JPanel singleQa = new JPanel();
     private final JPanel titlePanel = new JPanel();
+    private BuyerQAInfoLabelTextPanel singleQa;
+
 
     /**
      * Constructs a BuyerViewProductView with specific controllers and view model.
@@ -110,7 +110,6 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
                 getSearchPageController, viewSignupPageController, viewLoginPageController,
                 shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
-        //TODO implement the shared top bar
 
         this.buyerViewProductViewModel.addPropertyChangeListener(this);
 
@@ -119,20 +118,45 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         JLabel title = new JLabel(buyerViewProductViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+
+
+        //(1)product_info
+        Product wtv_product = buyerViewProductViewModel.getState().getProduct();
         productInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         productInfo.setLayout(new BoxLayout(productInfo, BoxLayout.Y_AXIS));
 
         final JLabel message = new JLabel("There is no product!");
 
-        qAInfo = new JPanel();
+        //(2)show q_and_a
+
+        qAInfo.setLayout(new BoxLayout(qAInfo, BoxLayout.Y_AXIS));
+        qAInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
         final JLabel qA_title = new JLabel("Q&A:");
 
-        final JPanel qA_TextPanel = new JPanel();
+        ArrayList<Question> lst_question = buyerViewProductViewModel.getState().getQuestion();
 
+        qA_TextPanel = new JPanel();
+        for (Question question : lst_question) {
+
+            String answer_content = question.getAnswer().getDescription();
+            String question_content = question.getDescription();
+
+            JLabel q = new JLabel(question_content);
+            JLabel a = new JLabel(answer_content);
+
+//            BuyerQAInfoLabelTextPanel panel = new BuyerQAInfoLabelTextPanel(q, a);
+            singleQa = new BuyerQAInfoLabelTextPanel(q, a);
+            qA_TextPanel.add(singleQa);
+        }
+
+
+        qA_TextPanel.setLayout(new BoxLayout(qA_TextPanel, BoxLayout.Y_AXIS));
         qAInfo.add(qA_title);
-        qAInfo.add(qA_TextPanel);
+        qAInfo.add(new JScrollPane(qA_TextPanel));
 
+
+        //(3)add_question
         JPanel addQuestionInfo = new JPanel();
 
         JLabel input_question_title = new JLabel(buyerViewProductViewModel.INPUT_QUESTION_TITLE);
@@ -143,6 +167,8 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         publishQuestion = new JButton(buyerViewProductViewModel.ADD_QUESTION);
         addQuestionInfo.add(publishQuestion);
 
+
+        //(4)some_discrete_buttons
         JPanel buttons = new JPanel();
         cancel = new JButton(buyerViewProductViewModel.CANCEL_BUTTON_LABEL);
         addToCart = new JButton(buyerViewProductViewModel.ADD_TO_CART);
@@ -166,28 +192,22 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         }
 
 
-        class QuestionInputKeyListener implements KeyListener{
-            @Override
-            public void keyTyped(KeyEvent event){
-                BuyerViewProductState buyerViewProductState = buyerViewProductViewModel.getState();
-                String question_content = questionInputField.getText() + event.getKeyChar();
+//        class QuestionInputKeyListener implements KeyListener{
+//            @Override
+//            public void keyTyped(KeyEvent event){
+//                BuyerViewProductState buyerViewProductState = buyerViewProductViewModel.getState();
+//                String question_content = questionInputField.getText() + event.getKeyChar();
+//
+//
+//            }
+//            @Override
+//            public void keyPressed(KeyEvent e) {
+//            }
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//            }
+//        }
 
-                CommonQuestionFactory questionFactory = new CommonQuestionFactory();
-                Question newquestion = questionFactory.createQuestion(question_content,
-                        buyerViewProductViewModel.getState().getProduct().getSellerStudentNumber(), null, Objects.toString(LocalDateTime.now()));
-                ArrayList<Question> lst_question = buyerViewProductViewModel.getState().getQuestion();
-                lst_question.add(newquestion);
-
-                buyerViewProductState.setLst_question(lst_question);
-                buyerViewProductViewModel.setState(buyerViewProductState);
-            }
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        }
 
         class QuestionPublishButtonListener implements ActionListener{
             @Override
@@ -197,11 +217,18 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
                         Product que_product = buyerViewProductViewModel.getState().getProduct();
 
                         String question_content = questionInputField.getText();
-                        CommonQuestionFactory questionFactory = new CommonQuestionFactory();
-                        Question new_question = questionFactory.createQuestion(question_content,
-                                buyerViewProductViewModel.getState().getProduct().getSellerStudentNumber(), null, Objects.toString(LocalDateTime.now()));
 
-                        publishQuestionController.execute(new_question, que_product);
+                        CommonQuestionFactory questionFactory = new CommonQuestionFactory();
+                        CommonAnswerFactory answerFactory = new CommonAnswerFactory();
+
+                        Answer empty_ans = answerFactory.createAnswer("", "");
+                        Question new_question = questionFactory.createQuestion(question_content,
+                                buyerViewProductViewModel.getState().getProduct().getSellerStudentNumber(), empty_ans, Objects.toString(LocalDateTime.now()));
+
+                        publishQuestionController.execute(new_question, que_product, buyerViewProductViewModel.getState().getUser());
+
+                        buyerViewProductViewModel.getState().setPrompt_words("");
+                        questionInputField.setText("");
                     }catch (SQLException e){
                         throw new RuntimeException(e);
                     }
@@ -226,7 +253,6 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
 
 
         addToCart.addActionListener(new AddTtoCartButtonListener());
-        questionInputField.addKeyListener(new QuestionInputKeyListener());
         publishQuestion.addActionListener(new QuestionPublishButtonListener());
         cancel.addActionListener(new CancelButtonListener());
 
@@ -266,6 +292,8 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
 
         productInfo.removeAll();
         qAInfo.removeAll();
+        qA_TextPanel.removeAll();
+
         productInfo.add(titlePanel);
 
         Product wtv_product = newState.getProduct();
@@ -298,21 +326,31 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
 
 
         for (Question question : lst_question) {
-
+            System.out.println(question.getDescription());
             String answer_content = question.getAnswer().getDescription();
             String question_content = question.getDescription();
 
             JLabel q = new JLabel(question_content);
             JLabel a = new JLabel(answer_content);
-            singleQa.add(q);
-            singleQa.add(a);
+
+            singleQa = new BuyerQAInfoLabelTextPanel(q, a);
 
             qA_TextPanel.add(singleQa);
-            singleQa.removeAll();
+//            singleQa.removeAll();
         }
+
+        qA_TextPanel.repaint();
+        qA_TextPanel.revalidate();
+
+        JLabel qA_title = new JLabel("Q&A: ");
+
+        qAInfo.add(qA_title);
         qAInfo.add(qA_TextPanel);
+
+
         qAInfo.repaint();
         qAInfo.revalidate();
+
         productInfo.repaint();
         productInfo.revalidate();
 

@@ -4,10 +4,7 @@ import data_access.in_memory.question.InMemoryQuestionReadDataAccessObject;
 import data_access.in_memory.question.InMemoryQuestionUpdateDataAccessObject;
 import data_access.interfaces.question.QuestionReadDataAccessInterface;
 import data_access.interfaces.question.QuestionUpdateDataAccessInterface;
-import entity.comment.CommonAnswerFactory;
-import entity.comment.CommonQuestion;
-import entity.comment.CommonQuestionFactory;
-import entity.comment.Question;
+import entity.comment.*;
 import entity.product.CommonProduct;
 import entity.product.Product;
 import entity.schedule.CommonScheduleFactory;
@@ -44,7 +41,7 @@ class ReplyQuestionInteractorTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        question  = new CommonQuestion("", "", null, "123");
+        question  = new CommonQuestion("", "", new CommonAnswer("", ""), "123");
 
         Image image = ImageIO.read(new File("src/pic/testpic1.png"));
         String des = " ";

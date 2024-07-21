@@ -1,5 +1,6 @@
 package use_case.view_product;
 
+import entity.comment.CommonAnswer;
 import entity.comment.CommonQuestion;
 import entity.comment.Question;
 import entity.product.CommonProduct;
@@ -30,7 +31,7 @@ class ViewReplyQuestionInputDataTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        question  = new CommonQuestion("", "", null, "123");
+        question  = new CommonQuestion("", "", new CommonAnswer("", ""), "123");
 
         Image image = ImageIO.read(new File("src/pic/testpic1.png"));
         String des = " ";

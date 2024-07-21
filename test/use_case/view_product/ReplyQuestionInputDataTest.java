@@ -1,8 +1,6 @@
 package use_case.view_product;
 
-import entity.comment.CommonQuestion;
-import entity.comment.Question;
-import entity.comment.QuestionFactory;
+import entity.comment.*;
 import entity.product.CommonProduct;
 import entity.product.Product;
 import entity.schedule.CommonScheduleFactory;
@@ -33,7 +31,10 @@ class ReplyQuestionInputDataTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        question  = new CommonQuestion("", "", null, "123");
+        CommonAnswerFactory answerFactory = new CommonAnswerFactory();
+
+        Answer empty_ans = answerFactory.createAnswer("", "");
+        Question question  = new CommonQuestion("", "", empty_ans, "123");
 
         Image image = ImageIO.read(new File("src/pic/testpic1.png"));
         String des = " ";

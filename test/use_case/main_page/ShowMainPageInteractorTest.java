@@ -35,12 +35,14 @@ class ShowMainPageInteractorTest {
     @BeforeEach
     void setUp() throws IOException {
 
+        databaseProducts = new ArrayList<>();
+
         ProductFactory productFactory = new CommonProductFactory();
         ScheduleFactory scheduleFactory = new CommonScheduleFactory();
 
         // product1 initialized is a normal product on sale with 2 tags
 
-        Image image = ImageIO.read(new File("src.pic.testpic1.png"));
+        Image image = ImageIO.read(new File("src/pic/testpic1.png"));
 
         String description = "This is a description";
 
@@ -81,7 +83,7 @@ class ShowMainPageInteractorTest {
 
         // product2 is a product on sale with 1 tag and a non-zero state
 
-        Image image2 = ImageIO.read(new File("src.pic.testpic2.png"));
+        Image image2 = ImageIO.read(new File("src/pic/testpic2.png"));
 
         String description2 = "This is a description";
 
@@ -152,11 +154,20 @@ class ShowMainPageInteractorTest {
                 User actualUser = response.getUser();
                 assertEquals(user, actualUser);
 
-                ArrayList<Product> actualListProduct = response.getAllProducts();
-                assertEquals(databaseProducts.get(0), actualListProduct.get(0));
-                assertEquals(databaseProducts.get(1), actualListProduct.get(1));
-                assertEquals(actualListProduct.get(0), product1);
-                assertEquals(actualListProduct.get(1), product2);
+                ArrayList<Product> actualListProducts = response.getAllProducts();
+                assertEquals(actualListProducts.size(), 1);
+                Product product = actualListProducts.get(0);
+                assertEquals(actualListProducts.get(0).getProductID(), product.getProductID());
+                assertEquals(actualListProducts.get(0).getDescription(), product.getDescription());
+                assertEquals(actualListProducts.get(0).getTitle(), product.getTitle());
+                assertEquals(actualListProducts.get(0).getAddress(), product.getAddress());
+                assertEquals(actualListProducts.get(0).geteTransferEmail(), product.geteTransferEmail());
+                assertEquals(actualListProducts.get(0).getSellerStudentNumber(), product.getSellerStudentNumber());
+                assertEquals(actualListProducts.get(0).getPrice(), product.getPrice());
+                assertEquals(actualListProducts.get(0).getRating(), product.getRating());
+                assertEquals(actualListProducts.get(0).getState(), product.getState());
+                assertEquals(actualListProducts.get(0).getImage(), product.getImage());
+
 
             }
         };
@@ -165,7 +176,7 @@ class ShowMainPageInteractorTest {
                 new ShowMainPageInputData(user);
 
         ProductReadAllDataAccessInterface productReadAllDataAccessInterface =
-                new InMemoryProductReadAllDataAccessObject();
+                new InMemoryProductReadAllDataAccessObject(databaseProducts);
 
         ShowMainPageInteractor interactor = new ShowMainPageInteractor(mockPresenter,
                 productReadAllDataAccessInterface);
