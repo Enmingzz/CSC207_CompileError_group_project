@@ -120,7 +120,7 @@ You should be navigated to the "Manage Product" view. Now if you click "Show Det
   - Enter the text in the search text box. Note that the search is case-sensitive.
   - Click the search button.
   
-  ![image](https://github.com/user-attachments/assets/fd22fda2-9750-4e1f-95cb-93ad9d2f3a9a)
+  ![image](https://github.com/user-attachments/assets/00ab1b4f-9efd-44cb-a9f3-4e448bf39605)
 
   - The search results will display products whose names (titles) contain the entered search text. Products with names that exactly match the search text will be displayed first, followed by products with partial matches.
  
@@ -173,13 +173,11 @@ If you want to purchase a product from your cart, simply click Buy Product. Then
 
 ### 4. Completing the trade 
 
-#### Buyer Select Schedule 
-
 #### Seller Select Schedule 
 
-![image](https://github.com/user-attachments/assets/86a1164a-4132-4837-bdff-5ab02b17346c)
+  ![image](https://github.com/user-attachments/assets/86a1164a-4132-4837-bdff-5ab02b17346c)
 
-![image](https://github.com/user-attachments/assets/83688dfe-6db7-4aff-985f-c10bf664df98)
+  ![image](https://github.com/user-attachments/assets/83688dfe-6db7-4aff-985f-c10bf664df98)
 
 
 - After a buyer purchases a product from the shopping cart, the seller can find a "Schedule Meeting Times" button next to this product in the manage product page in their profile, for selecting the times they are available to meet the buyer
@@ -196,15 +194,39 @@ If you want to purchase a product from your cart, simply click Buy Product. Then
   ![image](https://github.com/user-attachments/assets/38153443-74d0-42b4-8473-b7a9b701fd7a)
 
 - Select a time from the list and click the "Remove" button to remove it.
+- Click the "Cancel" button to return to the Manage Product page without selecting times.
 
   ![image](https://github.com/user-attachments/assets/3a3cefef-0d1e-4a3c-b80b-28016ee80668)
-  
+
 - Once seller have added all the available times, click the "Confirm" button. The buyer will then be prompted to select a meeting time among these available times.
 
+#### Buyer Select Schedule 
 
+  ![image](https://github.com/user-attachments/assets/cbe8c7b6-ee8d-4561-bb0a-e16248e2600c)
 
+- After the seller has selected the available times, the buyer can find a "Choose Schedule" button next to this product in the shopping cart.
 
+  ![image](https://github.com/user-attachments/assets/6cfc6486-e772-4648-b70d-f1e0deb4f13a)
+ 
+- click this button to go to the buyer schedule page. Buyer can select a meeting time from the seller's available times in this page.
 
+  ![image](https://github.com/user-attachments/assets/3d210cb0-829b-4ea3-adc3-62064a4b2172)
+
+- Use the dropdown to choose an available time provided by the seller.
+
+- Click the "Cancel" button to return to the shopping cart without selecting a time.
+  
+  ![image](https://github.com/user-attachments/assets/977e5e9b-46d3-43d3-9014-b8ea730f2a88)
+
+- Click the "Confirm Schedule" button to confirm the selected meeting time.
+
+  ![image](https://github.com/user-attachments/assets/5f961eac-822f-4563-80bd-12b82eab5b66)
+
+- After confirming a meeting time, the buyer can see the scheduled meeting time in the shopping cart.
+
+  ![image](https://github.com/user-attachments/assets/63d63c7c-438d-4916-8dd0-c4f79709f8b5)
+
+- Seller can see the time in the Manage Product page.
 
 
 
