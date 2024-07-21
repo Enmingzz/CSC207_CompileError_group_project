@@ -162,7 +162,8 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
         // products display starts here
         ArrayList<Product> products = viewModel.getState().getProducts();
         allProductsPanel = new AllProductsPanel(products, viewModel, viewProductController);
-        this.add(allProductsPanel);
+//        this.add(allProductsPanel);
+        this.add(new JScrollPane(allProductsPanel), BorderLayout.CENTER);
 
         // Wrong implementation of SearchProductView, left for reference
 //        int _i = 0;

@@ -52,6 +52,7 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
     private final JButton selectButton;
     private final JButton cancelButton;
     private JPanel topBar;
+    private JPanel timeSelectPanel;
 
     /**
      * Constructs a BuyerScheduleView with the specified view model, controller, and top bar controllers.
@@ -106,6 +107,9 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
         cancelButton = new JButton(viewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancelButton);
 
+        timeSelectPanel = new JPanel();
+        timeSelectPanel.setLayout(new FlowLayout());
+        timeSelectPanel.add(new JLabel("Please select a time for meeting the seller: "));
         availableTimesComboBox = new JComboBox<>();
         if (viewModel.getState().getProduct() != null){
             ArrayList<LocalDateTime> availableTimes = viewModel.getState().getProduct().getSchedule().getSellerTime();
@@ -113,6 +117,7 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
                 availableTimesComboBox.addItem(time);
             }
         }
+        timeSelectPanel.add(availableTimesComboBox);
 
 
         selectButton.addActionListener(
@@ -162,7 +167,7 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
 
         this.add(title);
         this.add(new JLabel("Available Times:"));
-        this.add(availableTimesComboBox);
+        this.add(timeSelectPanel);
         this.add(buttons);
 
 
@@ -179,13 +184,18 @@ public class BuyerScheduleView extends JPanel implements ActionListener, Propert
         if (state.getError() != null) {
             JOptionPane.showMessageDialog(this, state.getError());
         }
-        availableTimesComboBox.removeAll();
+
+        timeSelectPanel.removeAll();
+        timeSelectPanel.setLayout(new FlowLayout());
+        timeSelectPanel.add(new JLabel("Please select a time for meeting the seller: "));
+        availableTimesComboBox = new JComboBox<>();
         ArrayList<LocalDateTime> availableTimes = state.getProduct().getSchedule().getSellerTime();
         for (LocalDateTime time : availableTimes) {
             availableTimesComboBox.addItem(time);
         }
-        availableTimesComboBox.repaint();
-        availableTimesComboBox.revalidate();
+        timeSelectPanel.add(availableTimesComboBox);
+        timeSelectPanel.repaint();
+        timeSelectPanel.revalidate();
 
         topBar.removeAll();
         topBar.add(new TopBarSampleView(viewModel.getState().getBuyer(),
