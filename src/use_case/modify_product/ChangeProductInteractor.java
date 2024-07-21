@@ -11,6 +11,12 @@ import java.util.Objects;
 
 import static java.lang.Float.parseFloat;
 
+/**
+ * Interactor class responsible for handling product modifications. It serves as the intermediary
+ * between the input boundary and the data access objects, coordinating the modification of various
+ * product attributes.
+ */
+
 public class ChangeProductInteractor implements ChangeProductInputBoundary{
 
     private final ChangeProductOutputBoundary changeProductOutputBoundary;
@@ -20,6 +26,18 @@ public class ChangeProductInteractor implements ChangeProductInputBoundary{
     private final ChangeProductEmailInterface changeProductEmailInterface;
     private final ChangeProductImageInterface changeProductImageInterface;
     private final ChangeProductTitleInterface changeProductTitleInterface;
+
+    /**
+     * Constructs a ChangeProductInteractor instance with the specified dependencies.
+     *
+     * @param changeProductOutputBoundary the output boundary for presenting the results of product modifications
+     * @param productUpdatePriceDataAccessInterface the data access interface for updating the product price
+     * @param productUpdateDescriptionDataAccessInterface the data access interface for updating the product description
+     * @param productUpdateAddressDataAccessInterface the data access interface for updating the product address
+     * @param productUpdateNameDataAccessInterface the data access interface for updating the product name
+     * @param productUpdatePictureDataAccessInterface the data access interface for updating the product picture
+     * @param productUpdateTransferEmailDataAccessInterface the data access interface for updating the product transfer email
+     */
 
     public ChangeProductInteractor(ChangeProductOutputBoundary changeProductOutputBoundary,
                                    ProductUpdatePriceDataAccessInterface productUpdatePriceDataAccessInterface,
@@ -38,6 +56,14 @@ public class ChangeProductInteractor implements ChangeProductInputBoundary{
         this.changeProductTitleInterface = new ChangeProductTitle(productUpdateNameDataAccessInterface);
     }
 
+    /**
+     * Executes the product modification process based on the provided input data.
+     *
+     * @param changeProductInputData the input data containing the product and the changes to be made
+     * @throws SQLException if a database access error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
     public void execute(ChangeProductInputData changeProductInputData) throws SQLException, IOException {
 
         Product changedProduct = changeProductInputData.getProduct();
