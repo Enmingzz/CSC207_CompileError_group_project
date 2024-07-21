@@ -167,7 +167,6 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
             }
         });
 
-
         class TitleInputFieldListener implements KeyListener {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -183,8 +182,8 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
             @Override
             public void keyReleased(KeyEvent e) {
             }
-        }
-        ;
+        };
+
         class DescriptionInputFieldListener implements KeyListener {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -200,8 +199,8 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
             @Override
             public void keyReleased(KeyEvent e) {
             }
-        }
-        ;
+        };
+
         class PriceInputFieldListener implements KeyListener {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -218,6 +217,7 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
             public void keyReleased(KeyEvent e) {
             }
         };
+
         class ETransferEmailInputFieldListener implements KeyListener {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -234,6 +234,7 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
             public void keyReleased(KeyEvent e) {
             }
         };
+
         class AddressInputFieldListener implements KeyListener {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -249,14 +250,19 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
             @Override
             public void keyReleased(KeyEvent e) {
             }
-        }
-        ;
+        };
 
         class CancelButtonListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(cancel)) {
                     try {
+                        titleInputField.setText("");
+                        descriptionInputField.setText("");
+                        priceInputField.setText("");
+                        eTransferEmailInputField.setText("");
+                        addressInputField.setText("");
+
                         CreateProductState state = viewCreateProductViewModel.getState();
                         User user = state.getUser();
                         manageProductController.execute(user);
@@ -312,20 +318,23 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(createProduct)) {
                     try {
+
 //                        CreateProductState state = new CreateProductState();
                         //TODO This is a helper
                         if (image instanceof BufferedImage) {
-                            System.out.println("This is a valid image to pass Database");
                             createProductController.execute(viewCreateProductViewModel.getState().getUser(), image,
                                     descriptionInputField.getText(), priceInputField.getText(), titleInputField.getText(),
                                     eTransferEmailInputField.getText(), addressInputField.getText(), arrayListTags);
 
-                        } else if (image == null) {
-                            createProductController.execute(viewCreateProductViewModel.getState().getUser(), image,
-                                    descriptionInputField.getText(), priceInputField.getText(), titleInputField.getText(),
-                                    eTransferEmailInputField.getText(), addressInputField.getText(), arrayListTags);
 
-                        } else {
+                        }
+//                        else if (image == null) {
+//                            createProductController.execute(viewCreateProductViewModel.getState().getUser(), image,
+//                                    descriptionInputField.getText(), priceInputField.getText(), titleInputField.getText(),
+//                                    eTransferEmailInputField.getText(), addressInputField.getText(), arrayListTags);
+//
+//                        }
+                        else {
                             // Create a BufferedImage with the same width, height, and type as the original Image
                                 BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 
@@ -338,6 +347,11 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
                                     descriptionInputField.getText(), priceInputField.getText(), titleInputField.getText(),
                                     eTransferEmailInputField.getText(), addressInputField.getText(), arrayListTags);
                         }
+                        titleInputField.setText("");
+                        descriptionInputField.setText("");
+                        priceInputField.setText("");
+                        eTransferEmailInputField.setText("");
+                        addressInputField.setText("");
                         //
                     } catch (SQLException | IOException e) {
                         throw new RuntimeException(e);
@@ -369,7 +383,11 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
         imageLabel = new JLabel();
         mainPanel.add(imageLabel);
 
+        this.setLayout(new BorderLayout(1, 1));
+
         this.add(mainPanel, BorderLayout.CENTER);
+        this.add(new JPanel(), BorderLayout.WEST);
+        this.add(new JPanel(), BorderLayout.EAST);
     }
 
     @Override

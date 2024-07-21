@@ -69,7 +69,10 @@ public class MangeSingleProductView extends JPanel implements PropertyChangeList
             ratingViewField.setText(String.valueOf(product.getRating()));
         }
 
-        imageViewField.setIcon(new ImageIcon(product.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        if (product.getImage() != null){
+            imageViewField.setIcon(new ImageIcon(product.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        }
+
         priceViewField.setText(product.getPrice() + " $");
 
         if (product.getState() == 0){

@@ -21,8 +21,8 @@ public class ProductInfoLabelTextPanel extends JPanel {
     public ProductInfoLabelTextPanel(JLabel label, JLabel textField) {
         this.removeAll();
         this.add(label);
-        this.add(textField);
         this.textField = textField;
+        this.add(this.textField);
     }
 
     public void setText(JLabel textField){

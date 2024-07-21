@@ -13,10 +13,13 @@ import java.util.Objects;
 
 public class ModifyProductPresenter implements ChangeProductOutputBoundary {
     private final ManageProductViewModel manageProductViewModel;
+    private final ViewModifyProductViewModel viewModifyProductViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    public ModifyProductPresenter(ManageProductViewModel manageProductViewModel, ViewManagerModel viewManagerModel) {
+    public ModifyProductPresenter(ManageProductViewModel manageProductViewModel, ViewManagerModel viewManagerModel,
+                                  ViewModifyProductViewModel viewModifyProductViewModel) {
         this.manageProductViewModel = manageProductViewModel;
+        this.viewModifyProductViewModel = viewModifyProductViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
@@ -40,5 +43,14 @@ public class ModifyProductPresenter implements ChangeProductOutputBoundary {
 
         viewManagerModel.setActiveView(manageProductViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
+    }
+
+    public void prepareFailView(ChangeProductOutputData changeProductOutputData) {
+        ViewModifyProductState state = viewModifyProductViewModel.getState();
+        state.setMessage(changeProductOutputData.getMessage());
+
+        viewModifyProductViewModel.setState(state);
+        manageProductViewModel.firePropertyChanged();
+
     }
 }
