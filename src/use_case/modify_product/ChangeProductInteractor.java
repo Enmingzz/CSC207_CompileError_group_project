@@ -39,7 +39,7 @@ public class ChangeProductInteractor implements ChangeProductInputBoundary{
 //        System.out.println(descriptionFlag);
 //        System.out.println(priceFlag);;
 
-        if (changeProductInputData.getChangedDescription() != "") {
+        if (!Objects.equals(changeProductInputData.getChangedDescription(), "") & changeProductInputData.getChangedDescription() != null) {
             descriptionFlag = true;
         }
         else {
@@ -49,7 +49,7 @@ public class ChangeProductInteractor implements ChangeProductInputBoundary{
          * conditions to check.*/
         String price = changeProductInputData.getChangedPrice();
         //first we will test if the price entered is a float and a positive number
-        float floatPrice = 0;
+        float floatPrice;
         try {
             floatPrice = parseFloat(price);
             if(floatPrice >= 0) {
@@ -71,7 +71,6 @@ public class ChangeProductInteractor implements ChangeProductInputBoundary{
                 }
             }
         }
-
 
         if (descriptionFlag & priceFlag) {
             //If the new description and price they inputted are both valid

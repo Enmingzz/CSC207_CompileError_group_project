@@ -37,6 +37,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CreateProductView extends JPanel implements ActionListener, ListSelectionListener, PropertyChangeListener {
 
@@ -391,7 +392,7 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
 
         CreateProductState newState = (CreateProductState) evt.getNewValue();
 
-        if (newState.getCreateProductError() != null) {
+        if (newState.getCreateProductError() != null & !Objects.equals(newState.getCreateProductError(), "")) {
             JOptionPane.showMessageDialog(this, newState.getCreateProductError());}
         else {
             viewCreateProductViewModel.setState(newState);

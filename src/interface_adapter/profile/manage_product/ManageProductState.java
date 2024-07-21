@@ -10,7 +10,7 @@ public class ManageProductState {
     private Product product;
     private User user;
     private ArrayList<Product> products = new ArrayList<Product>();
-    private String modifyProductMessage = "";
+    private String modifyProductMessage = null;
 
     public ManageProductState(ProductFactory productFactory) {
     }
