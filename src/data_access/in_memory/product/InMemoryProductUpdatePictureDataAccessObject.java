@@ -15,17 +15,36 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * In-memory implementation of {@link ProductUpdatePictureDataAccessInterface} to update the picture of a product.
+ */
 public class InMemoryProductUpdatePictureDataAccessObject implements ProductUpdatePictureDataAccessInterface {
 
     private ArrayList<Product> products;
 
+    /**
+     * Constructs an empty in-memory product data access object.
+     */
     public InMemoryProductUpdatePictureDataAccessObject() {
         this.products = new ArrayList<>();
     }
 
+    /**
+     * Constructs an in-memory product data access object with a predefined list of products.
+     *
+     * @param products the list of products to initialize with
+     */
     public InMemoryProductUpdatePictureDataAccessObject(ArrayList<Product> products) {
         this.products = products;
     }
+    /**
+     * Updates the picture of a product.
+     *
+     * @param updatedProduct the product with the new picture
+     * @param image          the new picture of the product
+     * @throws SQLException if a database access error occurs
+     * @throws IOException  if an I/O error occurs
+     */
     @Override
     public void updateProductPicture(Product updatedProduct, Image image) throws SQLException, IOException {
         for (int i = 0; i < products.size(); i++) {

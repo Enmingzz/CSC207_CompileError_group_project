@@ -24,7 +24,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
 import java.util.Arrays;
-
+/**
+ * The {@link LoginView} class represents the login view in the application.
+ * It handles user interactions for logging in and displays the login interface.
+ */
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "log in";
@@ -50,6 +53,19 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final JButton logInButton;
     private final JPanel logInPanel = new JPanel();
 
+    /**
+     * Constructs a new {@link LoginView}.
+     *
+     * @param loginViewModel        the login view model
+     * @param loginController       the login controller
+     * @param mainPageController    the main page controller
+     * @param getSearchPageController the search page controller
+     * @param viewSignupPageController the signup page controller
+     * @param viewLoginPageController the login page controller
+     * @param shoppingCartController the shopping cart controller
+     * @param logOutController      the logout controller
+     * @param viewProfileController the profile view controller
+     */
     public LoginView(LoginViewModel loginViewModel,
                      LoginController loginController,
                      MainPageController mainPageController,

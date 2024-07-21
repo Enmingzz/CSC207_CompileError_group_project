@@ -199,8 +199,6 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
             }
         }
 
-        viewUserProfile = new JButton(buyerViewProductViewModel.VIEW_USER_PROFILE_BUTTON);
-        buttons.add(viewUserProfile);
 
         class ViewUserProfileButtonListener implements ActionListener {
             @Override
@@ -217,6 +215,10 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
                 }
             }
         }
+        viewUserProfile = new JButton(buyerViewProductViewModel.VIEW_USER_PROFILE_BUTTON);
+        viewUserProfile.addActionListener(new ViewUserProfileButtonListener());
+        buttons.add(viewUserProfile);
+
 
 
 //        class QuestionInputKeyListener implements KeyListener{

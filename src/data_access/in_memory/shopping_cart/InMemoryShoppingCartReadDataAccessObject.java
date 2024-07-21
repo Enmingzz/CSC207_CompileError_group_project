@@ -17,19 +17,38 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * In-memory implementation of {@link ShoppingCartReadDataAccessInterface} to read shopping cart data.
+ */
 public class InMemoryShoppingCartReadDataAccessObject implements ShoppingCartReadDataAccessInterface {
 
     private ArrayList<ShoppingCart> shoppingCarts;
 
+    /**
+     * Constructs an empty in-memory shopping cart data access object.
+     */
     public InMemoryShoppingCartReadDataAccessObject() {
         this.shoppingCarts = new ArrayList<>();
     }
 
+    /**
+     * Constructs an in-memory shopping cart data access object with a predefined list of shopping carts.
+     *
+     * @param shoppingCarts the list of shopping carts to initialize with
+     */
     public InMemoryShoppingCartReadDataAccessObject(ArrayList<ShoppingCart> shoppingCarts) {
 
         this.shoppingCarts = shoppingCarts;
     }
 
+    /**
+     * Retrieves the shopping cart associated with the specified user ID.
+     *
+     * @param userID the ID of the user whose shopping cart is to be retrieved
+     * @return the shopping cart associated with the specified user ID
+     * @throws SQLException if a database access error occurs
+     * @throws IOException  if an I/O error occurs
+     */
     @Override
     public ShoppingCart getShoppingCart(String userID) throws SQLException, IOException {
         for (ShoppingCart shoppingCart : this.shoppingCarts) {

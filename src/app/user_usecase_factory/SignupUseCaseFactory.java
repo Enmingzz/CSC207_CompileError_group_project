@@ -65,11 +65,30 @@ import javax.swing.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Factory class to create instances related to the signup use case.
+ */
 public class SignupUseCaseFactory {
 
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private SignupUseCaseFactory() {
     }
 
+    /**
+     * Creates an instance of {@link SignupView} with the necessary controllers and view models.
+     *
+     * @param viewManagerModel       the view manager model
+     * @param loginViewModel         the login view model
+     * @param signupViewModel        the signup view model
+     * @param mainPageViewModel      the main page view model
+     * @param shoppingCartViewModel  the shopping cart view model
+     * @param searchProductViewModel the search product view model
+     * @param LoginViewModel         the login view model
+     * @param viewProfileViewModel   the view profile view model
+     * @return an instance of {@link SignupView}
+     */
     public static SignupView create(ViewManagerModel viewManagerModel,
                                     LoginViewModel loginViewModel,
                                     SignupViewModel signupViewModel,
@@ -114,7 +133,14 @@ public class SignupUseCaseFactory {
         return null;
     }
 
-
+    /**
+     * Creates an instance of {@link SearchProductByNameController}.
+     *
+     * @param viewManagerModel       the view manager model
+     * @param searchProductViewModel the search product view model
+     * @return an instance of {@link SearchProductByNameController}
+     * @throws SQLException if a database access error occurs
+     */
     private static SearchProductByNameController createSearchProductByNameController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
 
 
@@ -133,6 +159,16 @@ public class SignupUseCaseFactory {
         return new SearchProductByNameController(interactor);
     }
 
+    /**
+     * Creates an instance of {@link SignupController}.
+     *
+     * @param viewManagerModel the view manager model
+     * @param signupViewModel  the signup view model
+     * @param loginViewModel   the login view model
+     * @return an instance of {@link SignupController}
+     * @throws IOException  if an I/O error occurs
+     * @throws SQLException if a database access error occurs
+     */
     private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel) throws IOException, SQLException {
 
         DatabaseUserCreateDataAccessObjectFactoryInterface databaseUserCreateDataAccessObjectFactory
@@ -157,6 +193,13 @@ public class SignupUseCaseFactory {
         return new SignupController(userSignupInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ViewSignupPageController}.
+     *
+     * @param viewManagerModel the view manager model
+     * @param signupViewModel  the signup view model
+     * @return an instance of {@link ViewSignupPageController}
+     */
     private static ViewSignupPageController creatViewSignupPageController(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel){
         ViewSignupPageOutputBoundary viewSignupPagePresenter =
                 new ViewSignupPagePresenter(viewManagerModel, signupViewModel);
@@ -165,6 +208,13 @@ public class SignupUseCaseFactory {
         return new ViewSignupPageController(viewSignupPageInteractor);
     }
 
+    /**
+     * Creates an instance of {@link EmailVerificationController}.
+     *
+     * @param viewManagerModel the view manager model
+     * @param signupViewModel  the signup view model
+     * @return an instance of {@link EmailVerificationController}
+     */
     private static EmailVerificationController createEmailVerifyUseCase(ViewManagerModel viewManagerModel,
                                                                         SignupViewModel signupViewModel) {
         EmailVerificationOutputBoundary emailVerificationOutputBoundary = new
@@ -199,6 +249,14 @@ public class SignupUseCaseFactory {
         return new ShoppingCartController(showShoppingCartInteractor);
     }
 
+    /**
+     * Creates an instance of {@link MainPageController}.
+     *
+     * @param mainPageViewModel the main page view model
+     * @param viewManagerModel  the view manager model
+     * @return an instance of {@link MainPageController}
+     * @throws SQLException if a database access error occurs
+     */
     private static MainPageController createMainPageController(MainPageViewModel mainPageViewModel, ViewManagerModel viewManagerModel) throws SQLException {
         ShowMainPageOutputBoundary showMainPagePresenter = new MainPagePresenter(mainPageViewModel, viewManagerModel);
         DataBaseProductReadAllDataAccessObjectFactoryInterface dataBaseProductReadAllDataAccessObjectFactoryInterface = new DatabaseProductReadAllDataAccessObjectFactory();
@@ -221,6 +279,16 @@ public class SignupUseCaseFactory {
 //        return new ViewLoginPageController(viewLoginPageInteractor);
 //    }
 
+    /**
+     * Creates an instance of {@link LoginController}.
+     *
+     * @param viewManagerModel  the view manager model
+     * @param loginViewModel    the login view model
+     * @param mainPageViewModel the main page view model
+     * @return an instance of {@link LoginController}
+     * @throws IOException  if an I/O error occurs
+     * @throws SQLException if a database access error occurs
+     */
     private static LoginController createUserLoginUseCase(ViewManagerModel viewManagerModel, LoginViewModel
             loginViewModel, MainPageViewModel mainPageViewModel) throws IOException, SQLException {
 
@@ -235,6 +303,13 @@ public class SignupUseCaseFactory {
         return new LoginController(userLoginInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ViewLoginPageController}.
+     *
+     * @param loginViewModel   the login view model
+     * @param viewManagerModel the view manager model
+     * @return an instance of {@link ViewLoginPageController}
+     */
     private static ViewLoginPageController createViewLoginPageController(LoginViewModel loginViewModel, ViewManagerModel viewManagerModel){
 
         ViewLoginPageOutputBoundary viewLoginPagePresenter = new ViewLoginPagePresenter(loginViewModel, viewManagerModel);
@@ -243,7 +318,14 @@ public class SignupUseCaseFactory {
         return new ViewLoginPageController(viewLoginPageInteractor);
     }
 
-
+    /**
+     * Creates an instance of {@link LogOutController}.
+     *
+     * @param viewManagerModel  the view manager model
+     * @param mainPageViewModel the main page view model
+     * @return an instance of {@link LogOutController}
+     * @throws SQLException if a database access error occurs
+     */
     private static LogOutController createLogOutController(ViewManagerModel viewManagerModel,
                                                            MainPageViewModel mainPageViewModel) throws SQLException {
         LogOutOutputBoundary LogOutPresenter = new LogOutPresenter(mainPageViewModel,
@@ -252,6 +334,14 @@ public class SignupUseCaseFactory {
         return new LogOutController(logOutInteractor);
     }
 
+    /**
+     * Creates an instance of {@link ViewProfileController}.
+     *
+     * @param viewManagerModel   the view manager model
+     * @param profileViewModel the profile view model
+     * @return an instance of {@link ViewProfileController}
+     * @throws IOException if an I/O error occurs
+     */
     private static ViewProfileController createProfileController(ViewManagerModel viewManagerModel,
                                                                  ViewProfileViewModel profileViewModel) throws IOException {
         ViewProfileOutputBoundary viewProfilePresenter = new ViewProfilePresenter(profileViewModel,
@@ -260,6 +350,14 @@ public class SignupUseCaseFactory {
         return new ViewProfileController(viewProfileInteractor);
     }
 
+    /**
+     * Creates an instance of {@link GetSearchPageController}.
+     *
+     * @param viewManagerModel       the view manager model
+     * @param searchProductViewModel the search product view model
+     * @return an instance of {@link GetSearchPageController}
+     * @throws SQLException if a database access error occurs
+     */
     private static GetSearchPageController createGetSearchPageController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
         GetSearchViewOutputBoundary getSearchViewPresenter =
                 new GetSearchPagePresenter(searchProductViewModel, viewManagerModel);
@@ -273,6 +371,14 @@ public class SignupUseCaseFactory {
         return new GetSearchPageController(getSearchViewInteractor);
     }
 
+    /**
+     * Creates an instance of {@link SearchProductByTagController}.
+     *
+     * @param viewManagerModel       the view manager model
+     * @param searchProductViewModel the search product view model
+     * @return an instance of {@link SearchProductByTagController}
+     * @throws SQLException if a database access error occurs
+     */
     private static SearchProductByTagController createSearchProductByTagController(ViewManagerModel viewManagerModel, SearchProductViewModel searchProductViewModel) throws SQLException {
         SearchProductByTagOutputBoundary presenter = new SearchProductByTagPresenter(searchProductViewModel, viewManagerModel);
 

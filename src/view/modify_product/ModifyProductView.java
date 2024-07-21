@@ -583,5 +583,3 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
 //        description
 //    }
 }
-
-

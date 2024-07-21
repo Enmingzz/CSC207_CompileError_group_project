@@ -17,18 +17,36 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * In-memory implementation of {@link ShoppingCartUpdateDeleteDataAccessInterface} to update and delete items from shopping carts.
+ */
 public class InMemoryShoppingCartUpdateDeleteDataAccessObject implements ShoppingCartUpdateDeleteDataAccessInterface {
 
     private ArrayList<ShoppingCart> shoppingCarts;
 
+    /**
+     * Constructs an empty in-memory shopping cart data access object.
+     */
     public InMemoryShoppingCartUpdateDeleteDataAccessObject() {
         this.shoppingCarts = new ArrayList<>();
     }
 
+    /**
+     * Constructs an in-memory shopping cart data access object with a predefined list of shopping carts.
+     *
+     * @param shoppingCarts the list of shopping carts to initialize with
+     */
     public InMemoryShoppingCartUpdateDeleteDataAccessObject(ArrayList<ShoppingCart> shoppingCarts) {
         this.shoppingCarts = shoppingCarts;
     }
 
+    /**
+     * Updates the shopping cart by removing the specified product and adjusting the total price.
+     *
+     * @param user          the user whose shopping cart is to be updated
+     * @param updatedProduct the product to be removed from the shopping cart
+     * @throws SQLException if a database access error occurs
+     */
     @Override
     public void updateShoppingCart(User user, Product updatedProduct) throws SQLException {
         for (int i = 0; i < shoppingCarts.size(); i++) {

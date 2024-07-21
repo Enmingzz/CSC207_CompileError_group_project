@@ -130,10 +130,12 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
 
         infoPanel.repaint();
         infoPanel.revalidate();
-        this.repaint();
-        this.revalidate();
+
 
         this.add(infoPanel, BorderLayout.CENTER);
+
+
+
 
         ViewUserProfileState state = (ViewUserProfileState) evt.getNewValue();
 
@@ -143,6 +145,9 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
         allProductsPanel.add(new ViewUserProductPanel(allProducts, viewModel, viewProductController));
         allProductsPanel.repaint();
         allProductsPanel.revalidate();
+
+        this.repaint();
+        this.revalidate();
 
     }
 }

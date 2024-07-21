@@ -1,8 +1,10 @@
 package use_case.modify_product;
 
 import data_access.in_memory.product.InMemoryProductReadByIdDataAccessObject;
+import data_access.in_memory.product.InMemoryProductUpdateAddressDataAccessObject;
 import data_access.in_memory.product.InMemoryProductUpdateDescriptionDataAccessObject;
 import data_access.interfaces.product.ProductReadByIdDataAccessInterface;
+import data_access.interfaces.product.ProductUpdateAddressDataAccessInterface;
 import data_access.interfaces.product.ProductUpdateDescriptionDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.Product;
@@ -26,15 +28,15 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Unit test for ChangeProductDescriptionInteractor.
  */
-class ChangeProductDescriptionInteractorTest {
+class ChangeProductAddressTest {
 
     private Product product;
-    private String changedDescription;
+    private String changedAddress;
     private ArrayList<Product> productsList;
     private String productID;
 
-    private ProductUpdateDescriptionDataAccessInterface inMemoryProductUpdateDescriptionDataAccessObject;
-    private ChangeProductDescription changeProductDescription;
+    private ProductUpdateAddressDataAccessInterface inMemoryProductUpdateAddressDataAccessObject;
+    private ChangeProductAddress changeProductAddress;
 
     /**
      * Sets up the test environment before each test.
@@ -67,8 +69,8 @@ class ChangeProductDescriptionInteractorTest {
         productsList = new ArrayList<>();
         productsList.add(product);
 
-        inMemoryProductUpdateDescriptionDataAccessObject = new InMemoryProductUpdateDescriptionDataAccessObject(productsList);
-        changeProductDescription = new ChangeProductDescription(inMemoryProductUpdateDescriptionDataAccessObject);
+        inMemoryProductUpdateAddressDataAccessObject = new InMemoryProductUpdateAddressDataAccessObject(productsList);
+        changeProductAddress = new ChangeProductAddress(inMemoryProductUpdateAddressDataAccessObject);
     }
 
     /**
@@ -87,11 +89,11 @@ class ChangeProductDescriptionInteractorTest {
     @Test
     void executeTrueTest() throws IOException, SQLException {
         // The description is changed
-        changedDescription = "This was once used by a dog.";
+        changedAddress = "BA2210";
 
         ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
                 new InMemoryProductReadByIdDataAccessObject(productsList);
-        changeProductDescription.execute(product, changedDescription);
-        assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(product.getProductID()).getDescription(), changedDescription);
+        changeProductAddress.execute(product, changedAddress);
+        assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(product.getProductID()).getAddress(), changedAddress);
     }
 }
