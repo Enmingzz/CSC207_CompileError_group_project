@@ -59,7 +59,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
     private JPanel topBar;
     private final JPanel titlePanel = new JPanel();
     private JPanel qA_TextPanel = new JPanel();
-    BuyerQAInfoLabelTextPanel singleQa;
+    private BuyerQAInfoLabelTextPanel singleQa;
     private final JLabel image = new JLabel();
 
     private ProductInfoLabelTextPanel imageInfo;
@@ -246,7 +246,8 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
         centerPanel.add(qAInfo);
         this.add(topBar, BorderLayout.NORTH);
         this.add(centerPanel, BorderLayout.CENTER);
-        this.add(cancel, BorderLayout.SOUTH);
+
+        this.add(buttons, BorderLayout.SOUTH);
         this.add(new JPanel(), BorderLayout.EAST);
         this.add(new JPanel(), BorderLayout.WEST);
     }
