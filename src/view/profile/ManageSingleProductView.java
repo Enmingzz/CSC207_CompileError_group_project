@@ -2,31 +2,20 @@ package view.profile;
 
 import entity.product.Product;
 import entity.user.User;
-import interface_adapter.login.ViewLoginPageController;
-import interface_adapter.logout.LogOutController;
-import interface_adapter.main_page.MainPageController;
 import interface_adapter.modify_product.DeleteProductController;
 import interface_adapter.modify_product.ViewModifyProductController;
-import interface_adapter.profile.manage_product.ManageProductState;
 import interface_adapter.profile.manage_product.ManageProductViewModel;
-import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.schedule.GetSellerSchedulePageController;
-import interface_adapter.schedule.SellerSelectScheduleController;
-import interface_adapter.search_product.GetSearchPageController;
-import interface_adapter.shopping_cart.ShoppingCartController;
-import interface_adapter.signup.ViewSignupPageController;
 import interface_adapter.view_product.ViewProductController;
-import view.TopBarSampleView;
 import view.profile.ProfileHelper.*;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.time.format.DateTimeFormatter;
 
-public class MangeSingleProductView extends JPanel implements PropertyChangeListener {
+public class ManageSingleProductView extends JPanel implements PropertyChangeListener {
     private final Product product;
     private final User user;
     private final ManageProductViewModel manageProductViewModel;
@@ -47,11 +36,11 @@ public class MangeSingleProductView extends JPanel implements PropertyChangeList
     private final JButton showDetil;
     private JButton selectTime;
 
-    public MangeSingleProductView(User user, Product product, ManageProductViewModel manageProductViewModel,
-                                  ViewProductController viewProductController,
-                                  ViewModifyProductController viewModifyProductController,
-                                  DeleteProductController deleteProductController,
-                                  GetSellerSchedulePageController getSellerSchedulePageController) {
+    public ManageSingleProductView(User user, Product product, ManageProductViewModel manageProductViewModel,
+                                   ViewProductController viewProductController,
+                                   ViewModifyProductController viewModifyProductController,
+                                   DeleteProductController deleteProductController,
+                                   GetSellerSchedulePageController getSellerSchedulePageController) {
         this.setLayout(new BorderLayout());
         this.setSize(100, 100);
         this.product = product;
