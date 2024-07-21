@@ -5,8 +5,8 @@ import use_case.profile.view_profile.ViewUserProfileInputData;
 
 public class ViewUserProfileController {
 
-    public void execute(User seller, User buyer) {
-        ViewUserProfileInputData viewUserProfileInputData= new ViewUserProfileInputData(seller, buyer);
+    public void execute(String sellerStudentNumber, User buyer) {
+        ViewUserProfileInputData viewUserProfileInputData= new ViewUserProfileInputData(sellerStudentNumber, buyer);
     }
 
 }

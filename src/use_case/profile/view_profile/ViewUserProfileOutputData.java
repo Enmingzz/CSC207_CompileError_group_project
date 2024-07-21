@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 public class ViewUserProfileOutputData {
 
-    private User seller;
-    private User buyer;
-    private ArrayList<Product> productList;
+    private final User seller;
+    private final User buyer;
+    private final ArrayList<Product> productList;
 
     public ViewUserProfileOutputData(User seller, User buyer, ArrayList<Product> productList) {
         this.seller = seller;
@@ -21,12 +21,12 @@ public class ViewUserProfileOutputData {
         return seller;
     }
 
-    public void setSeller(User seller) {
-        this.seller = seller;
-    }
-
     public User getBuyer() {
         return buyer;
+    }
+
+    public ArrayList<Product> getProductList() {
+        return productList;
     }
 
 }
