@@ -64,7 +64,7 @@ public class AddShoppingCartProductInteractor implements AddShoppingCartProductI
         if (!isFailed) {
             shoppingCartUpdateAddDataAccessObject.updateShoppingCart(user, addProduct);
 
-            float totalPrice = shoppingCart.getTotalPrice() + addProduct.getPrice();
+            float totalPrice = addProduct.getPrice();
             ShoppingCart newShoppingCart = shoppingCartReadDataAccessObject.getShoppingCart(user.getStudentNumber());
             ArrayList<Product> listProducts = newShoppingCart.getListProducts();
             AddShoppingCartProductOutputData addShoppingCartProductOutputData = new AddShoppingCartProductOutputData(user, listProducts, totalPrice, "");
