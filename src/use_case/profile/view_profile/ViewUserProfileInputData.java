@@ -4,16 +4,16 @@ import entity.user.User;
 
 public class ViewUserProfileInputData {
 
-    private User seller;
+    private final String sellerStudentNumber;
     private User buyer;
 
-    public ViewUserProfileInputData(User user, User buyer) {
-        this.seller = user;
-        this.buyer = user;
+    public ViewUserProfileInputData(String sellerStudentNumber, User buyer) {
+        this.sellerStudentNumber = sellerStudentNumber;
+        this.buyer = buyer;
     }
 
-    public User getSeller() {
-        return seller;
+    public String getSellerStudentNumber() {
+        return sellerStudentNumber;
     }
     public User getBuyer(){
         return buyer;
