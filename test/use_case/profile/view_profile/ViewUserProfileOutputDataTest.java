@@ -37,8 +37,9 @@ class ViewUserProfileOutputDataTest {
     @BeforeEach
     void setUp() throws IOException {
         products = new ArrayList<>();
+        tags = new ArrayList<>();
         tags.add("tag1");
-        image = ImageIO.read(new File("/src/pic/testpic1"));
+        image = null;
         time = LocalDateTime.now();
         localDateTimeList = new ArrayList<>();
         localDateTimeList.add(time);

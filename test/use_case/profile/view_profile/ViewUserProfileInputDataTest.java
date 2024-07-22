@@ -27,7 +27,7 @@ class ViewUserProfileInputDataTest {
 
     @Test
     void getSellerStudentNumber() {
-        assertEquals(seller, viewUserProfileInputData.getSellerStudentNumber());
+        assertEquals(seller.getStudentNumber(), viewUserProfileInputData.getSellerStudentNumber());
 
     }
 
