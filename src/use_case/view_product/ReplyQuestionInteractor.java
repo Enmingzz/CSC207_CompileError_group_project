@@ -11,6 +11,10 @@ import entity.product.Product;
 
 import java.sql.SQLException;
 
+/**
+ * The ReplyQuestionInteractor class implements the use case for replying to a question.
+ * It interacts with the data access layer to update the question with the reply and uses the output boundary to present the result.
+ */
 public class ReplyQuestionInteractor implements ReplyQuestionInputBoundary {
     private final QuestionUpdateDataAccessInterface questionUpdateDataAccessObject;
     private final QuestionReadDataAccessInterface questionReadDataAccessObject;
@@ -18,17 +22,33 @@ public class ReplyQuestionInteractor implements ReplyQuestionInputBoundary {
     private final AnswerFactory answerFactory;
     private final QuestionFactory questionFactory;
 
+    /**
+     * Constructs a ReplyQuestionInteractor with the specified data access interfaces, output boundary, and factories.
+     *
+     * @param questionUpdateDataAccessInterface the data access interface for updating questions.
+     * @param replyQuestionOutputBoundary the output boundary for presenting the result of the reply question use case.
+     * @param questionReadDataAccessObject the data access interface for reading questions.
+     * @param answerFactory the factory for creating answers.
+     * @param questionFactory the factory for creating questions.
+     */
     public ReplyQuestionInteractor(QuestionUpdateDataAccessInterface questionUpdateDataAccessInterface,
                                    ReplyQuestionOutputBoundary replyQuestionOutputBoundary,
                                    QuestionReadDataAccessInterface questionReadDataAccessObject,
                                    AnswerFactory answerFactory,
-                                   QuestionFactory questionFactory){
+                                   QuestionFactory questionFactory) {
         this.questionUpdateDataAccessObject = questionUpdateDataAccessInterface;
         this.replyPresenter = replyQuestionOutputBoundary;
         this.questionReadDataAccessObject = questionReadDataAccessObject;
         this.answerFactory = answerFactory;
         this.questionFactory = questionFactory;
     }
+
+    /**
+     * Executes the use case of replying to a question.
+     *
+     * @param replyQuestionInputData the input data required to reply to a question.
+     * @throws SQLException if there is an error while interacting with the database.
+     */
     @Override
     public void execute(ReplyQuestionInputData replyQuestionInputData) throws SQLException {
         String answerDescription = replyQuestionInputData.getAnswerDescription();
@@ -40,17 +60,25 @@ public class ReplyQuestionInteractor implements ReplyQuestionInputBoundary {
 
         String questionID = replyQuestionInputData.getQuestion().getQuestionID();
 
-        System.out.println("this is the question i'm replying:::::::" + questionContent);
+        System.out.println("this is the question I'm replying to:::::::" + questionContent);
         System.out.println("this is the answer content:::::::" + answerDescription);
 
-        Question completeQuestion = questionFactory.createQuestion(questionContent, product.getSellerStudentNumber(), sellerAnswer, questionID);
+        Question completeQuestion = questionFactory.createQuestion(
+                questionContent,
+                product.getSellerStudentNumber(),
+                sellerAnswer,
+                questionID
+        );
 
-        System.out.println("this is the answer" + completeQuestion.getAnswer().getDescription());
-        System.out.println("this is the uuid" + completeQuestion.getQuestionID());
+        System.out.println("this is the answer:::::::" + completeQuestion.getAnswer().getDescription());
+        System.out.println("this is the uuid:::::::" + completeQuestion.getQuestionID());
 
-        questionUpdateDataAccessObject.updateQuestion(completeQuestion);//TODO: this DAO might have issue
+        questionUpdateDataAccessObject.updateQuestion(completeQuestion);
 
-        ReplyQuestionOutputData replyQuestionOutputData = new ReplyQuestionOutputData("question successfully answered", replyQuestionInputData.getQuestion());
+        ReplyQuestionOutputData replyQuestionOutputData = new ReplyQuestionOutputData(
+                "question successfully answered",
+                replyQuestionInputData.getQuestion()
+        );
         replyPresenter.prepareSuccessView(replyQuestionOutputData);
     }
 }

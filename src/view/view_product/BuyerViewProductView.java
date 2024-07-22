@@ -34,12 +34,17 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * The BuyerViewProductView class for the product view pages.
- * Two controller:
- *      AddToCartController is used to transfer the user from the product view page to the shopping cart page.
- *      PublishQuestionController is used to let the user publish their questions.
- *      MainPageController is used to transfer the seller to the main page when they click cancel button.
- *
+ * The BuyerViewProductView class represents the view for the product detail page from a buyer's perspective.
+ * This class handles the display of product information, Q&A, and allows actions such as adding a product to the cart
+ * and publishing questions.
+ * <p>
+ * Controllers:
+ * - AddToCartController: Transfers the user from the product view page to the shopping cart page.
+ * - PublishQuestionController: Allows the user to publish their questions.
+ * - MainPageController: Transfers the seller to the main page when the cancel button is clicked.
+ * - GetSearchPageController, ViewSignupPageController, ViewLoginPageController, ShoppingCartController,
+ *   LogOutController, ViewProfileController, ViewUserProfileController: Controllers for various user actions.
+ * </p>
  */
 
 public class BuyerViewProductView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -85,9 +90,9 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
      * @param viewSignupPageController the controller for the signup page view.
      * @param viewLoginPageController the controller for the login page view.
      * @param shoppingCartController the controller for managing the shopping cart.
-     * @param logOutController the controller for handling logout process.
-     * @param viewProfileController the controller for viewing user profile.
-     * @param viewUserProfileController the controller for viewing other user profile
+     * @param logOutController the controller for handling the logout process.
+     * @param viewProfileController the controller for viewing the user's profile.
+     * @param viewUserProfileController the controller for viewing other user profiles.
      */
     public BuyerViewProductView(BuyerViewProductViewModel buyerViewProductViewModel,
                                 AddToCartController addToCartController, PublishQuestionController publishQuestionController,
@@ -312,6 +317,10 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
      * is successfully performed.
      * @param evt A PropertyChangeEvent object describing the event source
      *          and the property that has changed.
+
+     * Pop up the prompt window when a state change is detected in ReplyQuestionPresenter to notify the user that their action
+     * is successfully performed.
+     *
      */
 
     @Override
