@@ -27,7 +27,7 @@ class ViewModifyProductInputDataTest {
     void setUp() throws IOException {
         user = new CommonUser("Calico", "Cat123", "calico.cat@mail.utoronto.ca", 4, "1010101010");
 
-        Image image = ImageIO.read(new File("D:/24 summer/csc207/CSC207_CompileError_group_project/src/pic/testpic1.png"));
+        Image image = ImageIO.read(new File("src/pic/testpic1.png"));
         String description = "It was worn once";
         float price = 2;
         String title = "Red Dress";
