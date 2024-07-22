@@ -93,8 +93,9 @@ class ChangeProductTitleTest {
 
         ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
                 new InMemoryProductReadByIdDataAccessObject(productsList);
+
         Product newProduct = changeProductTitle.execute(product, changedTitle);
-        assertEquals(product.getTitle(), changedTitle);
+        assertEquals(newProduct.getTitle(), changedTitle);
 
         assertEquals(product.getPrice(),
                 newProduct.getPrice());

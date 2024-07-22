@@ -17,6 +17,7 @@ import entity.user.CommonUserFactory;
 import entity.user.User;
 import entity.user.UserFactory;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
@@ -65,8 +67,8 @@ public class RateProductInteractorTest {
         String description = "It was worn once";
         float price = 2;
         String title = "Red Dress";
-        int state = 1;
-        Integer rating = 3;
+        int state = 4;
+        Integer rating = 0;
         String eTransferEmail = "calico.cat@mail.utoronto.ca";
         String sellerStudentNumber = "1010101010";
         String address = "123College";
@@ -76,10 +78,10 @@ public class RateProductInteractorTest {
         Schedule schedule = scheduleFactory.createSchedule(time, arrayList);
         ArrayList<String> listTags = new ArrayList<>();
         listTags.add("clothes");
-        String productID = "ASDASD";
+        productID = "ASDASD";
 
         ProductFactory productFactory = new CommonProductFactory();
-        product = productFactory.createProduct(image, description, title, price, state, rating, eTransferEmail, sellerStudentNumber, address,
+        product = productFactory.createProduct(image, description, title, price, rating, state, eTransferEmail, sellerStudentNumber, address,
                 listTags, productID, schedule);
 
         productsList = new ArrayList<>();
@@ -94,8 +96,8 @@ public class RateProductInteractorTest {
     @Test
     void prepareSuccessfulViewTest() throws IOException, SQLException {
         //The case that the rating is successfully created
-        productRating = "1";
-        int productRatingInt = Integer.parseInt(productRating);
+        productRating = "2";
+        Integer productRatingInt = Integer.parseInt(productRating);
         ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
                 new InMemoryProductReadByIdDataAccessObject(productsList);
 
@@ -105,11 +107,38 @@ public class RateProductInteractorTest {
             @Override
             public void prepareSuccessfulView(RateProductOutputData rateProductOutputData) throws SQLException, IOException {
                 //check if the state and the product rating are both successfully modified
-                assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(productID).getRating(), productRating);
+                assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(productID).getRating(), productRatingInt);
                 assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(productID).getState(), -1);
                 //Now check if the output data are correct
-                assertEquals(rateProductOutputData.getProduct(), inMemoryProductReadByIdDataAccessObject.getProductById(productID));
+
+                //TODO modify this part as well
                 assertEquals(rateProductOutputData.getUser(), user);
+
+
+                Assertions.assertEquals(rateProductOutputData.getProduct().getPrice(),
+                        inMemoryProductReadByIdDataAccessObject.getProductById(productID).getPrice());
+                Assertions.assertEquals(rateProductOutputData.getProduct().getImage(),
+                        inMemoryProductReadByIdDataAccessObject.getProductById(productID).getImage());
+                Assertions.assertEquals(rateProductOutputData.getProduct().getDescription(),
+                        inMemoryProductReadByIdDataAccessObject.getProductById(productID).getDescription());
+                Assertions.assertEquals(rateProductOutputData.getProduct().getTitle(),
+                        inMemoryProductReadByIdDataAccessObject.getProductById(productID).getTitle());
+
+                Assertions.assertEquals(rateProductOutputData.getProduct().getAddress(),
+                        inMemoryProductReadByIdDataAccessObject.getProductById(productID).getAddress());
+                Assertions.assertEquals(rateProductOutputData.getProduct().getSchedule().getBuyerTime(),
+                        inMemoryProductReadByIdDataAccessObject.getProductById(productID).getSchedule().getBuyerTime());
+                Assertions.assertEquals(rateProductOutputData.getProduct().getSchedule().getSellerTime(),
+                        inMemoryProductReadByIdDataAccessObject.getProductById(productID).getSchedule().getSellerTime());
+                Assertions.assertEquals(rateProductOutputData.getProduct().getState(),
+                        inMemoryProductReadByIdDataAccessObject.getProductById(productID).getState());
+
+                Assertions.assertEquals(rateProductOutputData.getProduct().getSellerStudentNumber(),
+                        inMemoryProductReadByIdDataAccessObject.getProductById(productID).getSellerStudentNumber());
+                Assertions.assertEquals(rateProductOutputData.getProduct().geteTransferEmail(),
+                        inMemoryProductReadByIdDataAccessObject.getProductById(productID).geteTransferEmail());
+                Assertions.assertEquals(rateProductOutputData.getProduct().getListTags(),
+                        inMemoryProductReadByIdDataAccessObject.getProductById(productID).getListTags());
             }
 
             @Override
@@ -131,7 +160,7 @@ public class RateProductInteractorTest {
     @Test
     void prepareFailedView1() throws IOException, SQLException {
         //The case where the rating provided is not an integer
-        productRating = "1.4";
+        productRating = "3.4";
         ProductReadByIdDataAccessInterface inMemoryProductReadByIdDataAccessObject =
                 new InMemoryProductReadByIdDataAccessObject(productsList);
 
@@ -144,7 +173,8 @@ public class RateProductInteractorTest {
             @Override
             public void prepareFailedView(String error) throws SQLException, IOException {
                 //check if the state and the product rating are both unchanged
-                assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(productID).getRating(), null);
+
+                assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(productID).getRating().toString(), "0");
                 assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(productID).getState(), 4);
                 //Now check if the error mesage is correct
                 assertEquals(error, "You must input a valid integral rating from 1 to 5.");
@@ -176,7 +206,7 @@ public class RateProductInteractorTest {
             @Override
             public void prepareFailedView(String error) throws SQLException, IOException {
                 //check if the state and the product rating are both unchanged
-                assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(productID).getRating(), null);
+                assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(productID).getRating().toString(), "0");
                 assertEquals(inMemoryProductReadByIdDataAccessObject.getProductById(productID).getState(), 4);
                 //Now check if the error message is correct
                 assertEquals(error, "You must input a valid integral rating from 1 to 5.");
