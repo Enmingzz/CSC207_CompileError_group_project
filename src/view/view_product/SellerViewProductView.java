@@ -26,11 +26,13 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * The SellerViewProductView class for the product view pages.
- * Two controller:
- *      ReplyQuestionController which is used to transfer the seller to the reply page when they click reply button.
- *      MainPageController is used to transfer the seller to the main page when they click cancel button.
- *
+ * The SellerViewProductView class represents the view for the product detail page from a seller's perspective.
+ * It includes functionality to display product information, questions and answers, and allows actions such as replying to questions.
+ * <p>
+ * Controllers:
+ * - ViewReplyQuestionController: Transfers the seller to the reply page when they click the reply button.
+ * - MainPageController: Transfers the seller to the main page when they click the cancel button.
+ * </p>
  */
 
 public class SellerViewProductView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -71,17 +73,17 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
     private ProductInfoLabelTextPanel lstTagsInfo;
     private ProductInfoLabelTextPanel productIDInfo;
     /**
-     * Constructor for the SellerViewProductView class.
+     * Constructs a SellerViewProductView with specific controllers and view model.
      *
-     * @param sellerViewProductViewModel the view model for the seller view product
-     * @param viewReplyQuestionController the controller for replying to questions
-     * @param mainPageController the controller for navigating to the main page
-     * @param getSearchPageController the controller for searching products
-     * @param viewSignupPageController the controller for navigating to the signup page
-     * @param viewLoginPageController the controller for navigating to the login page
-     * @param shoppingCartController the controller for managing the shopping cart
-     * @param logOutController the controller for logging out
-     * @param viewProfileController the controller for viewing the profile page
+     * @param sellerViewProductViewModel the view model containing state and operations for product viewing.
+     * @param viewReplyQuestionController the controller for replying to questions.
+     * @param mainPageController the controller for navigating to the main page.
+     * @param getSearchPageController the controller for accessing the search page.
+     * @param viewSignupPageController the controller for the signup page view.
+     * @param viewLoginPageController the controller for the login page view.
+     * @param shoppingCartController the controller for managing the shopping cart.
+     * @param logOutController the controller for handling logout process.
+     * @param viewProfileController the controller for viewing user profile.
      */
     public SellerViewProductView(SellerViewProductViewModel sellerViewProductViewModel,
                                  ViewReplyQuestionController viewReplyQuestionController,

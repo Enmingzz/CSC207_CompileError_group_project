@@ -27,9 +27,12 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * This class provides a graphical user interface for sellers to reply to questions posed by potential buyers
- * regarding their products. It includes features such as input fields for answers and mechanisms to publish those
- * answers. This view integrates with various controllers for handling user navigation and actions.
+ * This class provides a view for sellers to reply to questions related to their products.
+ * It includes functionality to display the question, input an answer, and publish the answer.
+ * <p>
+ * The class uses several controllers to manage user interaction with the application and to update the view
+ * according to user actions and application state changes.
+ * </p>
  */
 
 public class SellerReplyView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -205,6 +208,8 @@ public class SellerReplyView extends JPanel implements ActionListener, PropertyC
     }
 
     /**
+     * Responds to property changes and updates the UI accordingly. This method ensures that the view reflects
+     * the current state of the model after changes occur.
      * Responds to property changes and updates the UI accordingly. This method ensures that the view reflects
      * the current state of the model after changes occur.
      *
