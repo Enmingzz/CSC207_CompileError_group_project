@@ -1,6 +1,7 @@
 ## Steps to run and use this program 
 
 # Warning: Should use the UofT internet to have the access to the remote SQL database.
+**To log in, please use user id:207207207, password 3175. if you dont want to sign up a new account.**
 
 ## 0. Clone the project form Github to a local repository in IntelliJ 
 
