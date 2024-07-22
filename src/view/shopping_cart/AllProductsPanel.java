@@ -160,7 +160,7 @@ public class AllProductsPanel extends JPanel{
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy, HH:mm");
                 String formattedDateTime = product.getSchedule().getBuyerTime().format(formatter);
-                JLabel scheduleLabel = new JLabel("schedule meeting time: " + formattedDateTime);
+                JLabel scheduleLabel = new JLabel("scheduled meeting time: " + formattedDateTime);
 
 
                 ShoppingCartConfirmationPanel confirmationPanel = new ShoppingCartConfirmationPanel(

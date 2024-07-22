@@ -29,7 +29,7 @@ class ViewUserProfileOutputDataTest {
     private Schedule commonSchedule;
     private LocalDateTime startTime;
     private Image image;
-    private ArrayList<String> tags = new ArrayList<>();
+    private ArrayList<String> tags;
     private LocalDateTime time;
     private ArrayList<LocalDateTime> localDateTimeList;
     private Product commonProduct;
@@ -37,8 +37,9 @@ class ViewUserProfileOutputDataTest {
     @BeforeEach
     void setUp() throws IOException {
         products = new ArrayList<>();
+        tags = new ArrayList<>();
         tags.add("tag1");
-        image = ImageIO.read(new File("src/pic/testpic1.png"));
+        image = null;
         time = LocalDateTime.now();
         localDateTimeList = new ArrayList<>();
         localDateTimeList.add(time);

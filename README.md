@@ -1,5 +1,7 @@
 ## Steps to run and use this program 
 
+# Warning: Should use the UofT internet to have the access to the remote SQL database.
+
 ## 0. Clone the project form Github to a local repository in IntelliJ 
 
 ## 1. Downloading APIs and packages and adding them to 
