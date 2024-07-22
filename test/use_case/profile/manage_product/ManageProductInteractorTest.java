@@ -59,7 +59,7 @@ class ManageProductInteractorTest {
         manageProductOutputBoundary = new ManageProductOutputBoundary() {
             @Override
             public void prepareSuccessfulView(ManageProductOutputData manageProductOutputData) {
-                assertNull(manageProductOutputData.getProducts());
+                assertEquals(manageProductOutputData.getProducts().size(), 0);
             }
         };
         manageProductInteractor = new ManageProductInteractor(manageProductOutputBoundary, inMemoryProductReadByUserDataAccessObject);
@@ -69,7 +69,7 @@ class ManageProductInteractorTest {
     @Test
     void successTestProductsDifferentSellerID() throws SQLException, IOException {
         for (int i = 0; i < 3; i++){
-            image = ImageIO.read(new File("/src/pic/testpic1"));
+            image = ImageIO.read(new File("src/pic/testpic1.png"));
             time = LocalDateTime.now();
             localDateTimeList = new ArrayList<>();
             localDateTimeList.add(time);
@@ -101,7 +101,7 @@ class ManageProductInteractorTest {
     @Test
     void successTestNoProducts() throws SQLException, IOException {
         for (int i = 0; i < 3; i++){
-            image = ImageIO.read(new File("/src/pic/testpic1"));
+            image = ImageIO.read(new File("src/pic/testpic1.png"));
             time = LocalDateTime.now();
             localDateTimeList = new ArrayList<>();
             localDateTimeList.add(time);
@@ -118,7 +118,7 @@ class ManageProductInteractorTest {
         manageProductOutputBoundary = new ManageProductOutputBoundary() {
             @Override
             public void prepareSuccessfulView(ManageProductOutputData manageProductOutputData) {
-                assertNull(manageProductOutputData.getProducts());
+                assertEquals(manageProductOutputData.getProducts().size(), 0);
             }
         };
         manageProductInteractor = new ManageProductInteractor(manageProductOutputBoundary, inMemoryProductReadByUserDataAccessObject);

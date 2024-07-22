@@ -1,14 +1,17 @@
 package interface_adapter.modify_product;
 
-import entity.product.CommonProductFactory;
 import entity.product.Product;
-import entity.product.ProductFactory;
 import entity.user.User;
-import interface_adapter.ViewModel;
 
 import java.awt.*;
-import java.beans.PropertyChangeSupport;
 
+/**
+ * Represents the state of the view for modifying a product.
+ *
+ * This class holds the state information required for displaying and modifying
+ * a product, including details about the product, user, and any relevant
+ * messages or images.
+ */
 public class ViewModifyProductState {
     private User user = null;
     private Product product = null;
@@ -23,27 +26,41 @@ public class ViewModifyProductState {
     private String path = "";
     private Image image = null;
 
+    /**
+     * Constructs a ViewModifyProductState with the specified user, product, and product details.
+     *
+     * @param user The user who owns or is modifying the product.
+     * @param product The product being modified.
+     * @param description The description of the product.
+     * @param price The price of the product.
+     * @param email The email for eTransfer related to the product.
+     * @param title The title of the product.
+     * @param address The address associated with the product.
+     */
     public ViewModifyProductState(User user, Product product,
                                   String description, String price, String email, String title, String address) {
         this.user = user;
         this.product = product;
 
         this.description = description;
-        this.email = price;
-        this.title = price;
-        this.address = price;
         this.price = price;
+        this.email = email;
+        this.title = title;
+        this.address = address;
     }
 
-//    public ViewModifyProductState(String description, String price) {
-//        this.description = description;
-//        this.price = price;
-//    }
-
+    /**
+     * Constructs an empty ViewModifyProductState.
+     * This constructor allows setting properties individually later.
+     */
     public ViewModifyProductState() {
     }
 
-    public User getUser() {return user;}
+    // Getters and Setters for each property
+
+    public User getUser() {
+        return user;
+    }
 
     public void setUser(User user) {
         this.user = user;
@@ -60,6 +77,7 @@ public class ViewModifyProductState {
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -67,6 +85,7 @@ public class ViewModifyProductState {
     public String getPrice() {
         return price;
     }
+
     public void setPrice(String price) {
         this.price = price;
     }
@@ -74,6 +93,7 @@ public class ViewModifyProductState {
     public String getAddress() {
         return address;
     }
+
     public void setAddress(String address) {
         this.address = address;
     }
@@ -81,6 +101,7 @@ public class ViewModifyProductState {
     public String getTitle() {
         return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -88,11 +109,15 @@ public class ViewModifyProductState {
     public String getEmail() {
         return email;
     }
-    public void setEmail(String email) {this.email = email;}
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getPath() {
         return path;
     }
+
     public void setPath(String path) {
         this.path = path;
     }
@@ -100,6 +125,7 @@ public class ViewModifyProductState {
     public Image getImage() {
         return image;
     }
+
     public void setImage(Image image) {
         this.image = image;
     }
@@ -107,9 +133,8 @@ public class ViewModifyProductState {
     public String getMessage() {
         return message;
     }
+
     public void setMessage(String message) {
         this.message = message;
     }
-
-
 }

@@ -19,6 +19,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -65,7 +66,7 @@ public class GetRatePageInteractorTest {
     void tearDown() {
     }
     @Test
-    void prepareSuccessfulViewTest() {
+    void prepareSuccessfulViewTest() throws SQLException, IOException {
 
         GetRatePageOutputBoundary getRatePagePresenter = new GetRatePageOutputBoundary() {
             @Override
