@@ -33,7 +33,7 @@ class CreateProductInputDataTest {
     @BeforeEach
     void setUp() throws IOException {
         user = new CommonUser("Calico", "Cat123", "calico.cat@mail.utoronto.ca", 4, "1010101010");
-        image = ImageIO.read(new File("D:/24 summer/csc207/CSC207_CompileError_group_project/src/pic/testpic1.png"));
+        image = ImageIO.read(new File("src/pic/testpic1.png"));
         description = "It was worn once";
         price = "2";
         title = "Red Dress";
