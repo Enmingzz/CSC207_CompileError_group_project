@@ -160,7 +160,7 @@ public class AllProductsPanel extends JPanel{
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy, HH:mm");
                 String formattedDateTime = product.getSchedule().getBuyerTime().format(formatter);
-                JLabel scheduleLabel = new JLabel("schedule meeting time: " + formattedDateTime);
+                JLabel scheduleLabel = new JLabel("scheduled meeting time: " + formattedDateTime);
 
 
                 ShoppingCartConfirmationPanel confirmationPanel = new ShoppingCartConfirmationPanel(
@@ -179,7 +179,13 @@ public class AllProductsPanel extends JPanel{
                             public void actionPerformed(ActionEvent event) {
                                 if (event.getSource().equals(ratingButton)) {
                                     User user = shoppingCartViewModel.getState().getUser();
-                                    getRatePageController.execute(user, product);
+                                    try {
+                                        getRatePageController.execute(user, product);
+                                    } catch (SQLException e) {
+                                        throw new RuntimeException(e);
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
 
                                 }
                             }

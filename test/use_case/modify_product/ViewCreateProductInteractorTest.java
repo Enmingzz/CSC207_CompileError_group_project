@@ -9,6 +9,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ViewCreateProductInteractorTest {
@@ -32,7 +35,7 @@ class ViewCreateProductInteractorTest {
     void tearDown() {
     }
     @Test
-    void prepareSuccessfulViewTest() {
+    void prepareSuccessfulViewTest() throws SQLException, IOException {
 
         ViewCreateProductOutputBoundary viewCreateProductPresenter = new ViewCreateProductOutputBoundary() {
             @Override

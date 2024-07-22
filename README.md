@@ -1,5 +1,7 @@
 ## Steps to run and use this program 
 
+# Warning: Should use the UofT internet to have the access to the remote SQL database.
+
 ## 0. Clone the project form Github to a local repository in IntelliJ 
 
 ## 1. Downloading APIs and packages and adding them to 
@@ -311,8 +313,8 @@ If you want to purchase a product from your cart, simply click Buy Product. Then
 
 - After the seller has selected the available times, the buyer can find a "Choose Schedule" button next to this product in the shopping cart.
 
-  ![image](https://github.com/user-attachments/assets/6cfc6486-e772-4648-b70d-f1e0deb4f13a)
- 
+  ![image](https://github.com/user-attachments/assets/e142b17f-0e11-46fb-af6c-14b7e73bb0e5)
+
 - click this button to go to the buyer schedule page. Buyer can select a meeting time from the seller's available times in this page.
 
   ![image](https://github.com/user-attachments/assets/3d210cb0-829b-4ea3-adc3-62064a4b2172)

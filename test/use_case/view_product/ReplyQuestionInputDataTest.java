@@ -69,23 +69,27 @@ class ReplyQuestionInputDataTest {
 
     @Test
     void getProduct() throws IOException {
+        replyQuestionInputData = new ReplyQuestionInputData(product, seller, question, answerDescription);
         assertEquals(product, replyQuestionInputData.getProduct());
     }
 
     @Test
     void getQuestion() {
+        replyQuestionInputData = new ReplyQuestionInputData(product, seller, question, answerDescription);
 //        question  = new CommonQuestion("", "", null);
         assertEquals(question, replyQuestionInputData.getQuestion());
     }
 
     @Test
     void getSeller() {
+        replyQuestionInputData = new ReplyQuestionInputData(product, seller, question, answerDescription);
 //        seller = new CommonUser("ginger cat", "111", "ginger@mail.utoronto.ca", 5, "1009834342");
         assertEquals(seller, replyQuestionInputData.getSeller());
     }
 
     @Test
     void getAnswerDescription() {
+        replyQuestionInputData = new ReplyQuestionInputData(product, seller, question, answerDescription);
 //        String answerDescription = "ginger ginger";
         assertEquals(answerDescription, replyQuestionInputData.getAnswerDescription());
     }

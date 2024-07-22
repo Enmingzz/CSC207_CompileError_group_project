@@ -418,7 +418,13 @@ public class ModifyProductView extends JPanel implements ActionListener, Propert
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(uploadImageButton)) {
-                    uploadImageController.execute();
+                    try {
+                        uploadImageController.execute();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                     ImageIcon imageIcon = new ImageIcon(viewModifyProductViewModel.getState().getPath());
                     image = imageIcon.getImage();
                     Image scaledImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
