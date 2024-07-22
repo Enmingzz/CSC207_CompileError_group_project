@@ -50,7 +50,7 @@ class ViewReplyQuestionOutputDataTest {
         seller = new CommonUser("ginger cat", "111", "ginger@mail.utoronto.ca",
                 5, "1234567890");
 
-        ViewReplyQuestionOutputData viewReplyQuestionOutputData = new ViewReplyQuestionOutputData(seller, product, question);
+        outputData = new ViewReplyQuestionOutputData(seller, product, question);
     }
 
     @AfterEach
