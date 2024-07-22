@@ -7,7 +7,9 @@
 
 ## 1. Downloading APIs and packages and adding them to 
 - go to https://javaee.github.io/javamail/ and download **javax.mail.jar**
-- go to https://learn.microsoft.com/en-us/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server?view=sql-server-ver16 and download
+- go to https://learn.microsoft.com/en-us/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server?view=sql-server-ver16 and download https://go.microsoft.com/fwlink/?linkid=2276808.
+  - Unzip this folder.
+  - Find **mssql-jdbc-12.6.3.jre11.jar** in sqljdbc_12.6/chs/jars/ Notice that If your java version is 8 then using the **mssql-jdbc-12.6.3.jre8.jar**
 
 - Open IntelliJ and go to File -> Project Structure -> Modules -> Dependencies. In here, click the '+' icon and select ‘JARs or directories' and add the downloaded Jar files.
 
