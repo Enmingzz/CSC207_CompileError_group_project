@@ -339,4 +339,13 @@ If you want to purchase a product from your cart, simply click Buy Product. Then
 - Seller can see the time in the Manage Product page.
 
 
+#### Providing a rating 
+- Go to the shopping cart, and select "rate product".
+- In the rate page, you can enter an **integer** rating and then press "Complete Rating".
+![image](https://github.com/user-attachments/assets/f8d8a15b-a406-4faa-94a4-cc004585a13a)
+- Then you will be broguht back to the shopping cart page.
+
+
+
+
 
