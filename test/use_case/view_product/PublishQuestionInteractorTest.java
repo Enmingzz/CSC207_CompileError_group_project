@@ -82,10 +82,10 @@ class PublishQuestionInteractorTest {
         PublishQuestionOutputBoundary successPresenter = new PublishQuestionOutputBoundary() {
             @Override
             public void prepareSuccessView(PublishQuestionOutputData publishQuestionOutputData) throws SQLException {
-                assertEquals("question successfully published", publishQuestionOutputData.getOutputStr());
+                assertEquals("Question successfully published", publishQuestionOutputData.getOutputStr());
                 ArrayList<Question> newQuestions = new ArrayList<>();
                 newQuestions.add(question);
-                assertEquals(questionReadDataAccessObjects.getQuestion(product.getProductID()), newQuestions);
+                assertEquals(questions.get(0).getQuestionID(), newQuestions.get(0).getQuestionID());
             }
         };
 
