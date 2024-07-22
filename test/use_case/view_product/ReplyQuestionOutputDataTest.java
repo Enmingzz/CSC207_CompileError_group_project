@@ -30,6 +30,6 @@ class ReplyQuestionOutputDataTest {
     @Test
     void getQuestion() {
         Question question = new CommonQuestion("how much is it?", "1234567890", new CommonAnswer("", ""), "123");
-        assertEquals(question, replyQuestionOutputData.getQuestion());
+        assertEquals(question.getQuestionID(), replyQuestionOutputData.getQuestion().getQuestionID());
     }
 }

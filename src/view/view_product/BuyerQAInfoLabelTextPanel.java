@@ -15,6 +15,8 @@ import java.awt.*;
 public class BuyerQAInfoLabelTextPanel extends JPanel {
     /**
      * Constructs a new panel containing a question and an answer label.
+     * The panel uses a vertical box layout to arrange the labels one below the other,
+     * and a border is added around the panel.
      *
      * @param question the {@link JLabel} that contains the question text.
      * @param answer the {@link JLabel} that contains the answer text.

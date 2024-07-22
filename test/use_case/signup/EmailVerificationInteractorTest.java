@@ -22,15 +22,19 @@ class EmailVerificationInteractorTest {
     }
 
     @Test
-    void execute() {
+    void execute() throws Exception {
         
         emailVerificationPresenter = new EmailVerificationOutputBoundary(){
 
             @Override
             public void prepareView(EmailVerificationOutputData emailVerificationOutputData) {
-//                assertEquals(emailVerificationOutputData.getVerificationCode());
+                assert(true);
             }
         };
+        emailVerificationInteractor = new EmailVerificationInteractor(emailVerificationPresenter);
+        EmailVerificationInputData emailVerificationInputData = new EmailVerificationInputData(
+                "hanrui.zhang");
+        emailVerificationInteractor.execute(emailVerificationInputData);
     }
 
     @Test

@@ -15,7 +15,7 @@ public class ViewProfileOutputDataTest {
     @BeforeEach
     void setUp() {
         user = new CommonUser("hanrui", "123456", "hanrui@mail", 0, "123456");
-        viewProfileOutputData = new ViewProfileOutputData(user);
+
     }
 
     @AfterEach
@@ -24,6 +24,7 @@ public class ViewProfileOutputDataTest {
 
     @Test
     public void getUser() {
+        viewProfileOutputData = new ViewProfileOutputData(user);
         assertEquals(user, viewProfileOutputData.getUser());
     }
 }

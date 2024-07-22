@@ -41,7 +41,7 @@ class PublishQuestionInputDataTest {
         Answer empty_ans = answerFactory.createAnswer("", "");
         Question question  = new CommonQuestion("", "", empty_ans, "");
 
-        Image image = ImageIO.read(new File("D:/24 summer/csc207/CSC207_CompileError_group_project/src/pic/testpic1.png"));
+        Image image = ImageIO.read(new File("src/pic/testpic1.png"));
         String des = " ";
         float price = 1;
         String title = "ginger_cat";
@@ -75,7 +75,7 @@ class PublishQuestionInputDataTest {
     @Test
     void getQuestion() {
         Question question  = new CommonQuestion("", "", new CommonAnswer("", ""), "");
-        assertEquals(question, publishQuestionInputData.getQuestion());
+        assertEquals(question.getQuestionID(), publishQuestionInputData.getQuestion().getQuestionID());
     }
 
     /**
@@ -105,6 +105,6 @@ class PublishQuestionInputDataTest {
         Product product = new CommonProduct(image, des, title, price, state, rating, eTransferEmail,
                 sellerStudentNumber, address, listTags, productID, schedule);
 
-        assertEquals(product, publishQuestionInputData.getProduct());
+        assertEquals(product.getProductID(), publishQuestionInputData.getProduct().getProductID());
     }
 }

@@ -32,9 +32,10 @@ import java.util.Objects;
  * This class provides a view for non-logged-in users to explore product details. It includes functionality
  * to display product information, questions and answers related to the product, and options to navigate
  * to other parts of the application like login or signup pages.
- *
+ * <p>
  * The class uses several controllers to manage user interaction with the application and to update the view
  * according to user actions and application state changes.
+ * </p>
  */
 
 
@@ -88,6 +89,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
      * @param shoppingCartController controller to handle shopping cart operations.
      * @param logOutController controller to manage logout operations.
      * @param viewProfileController controller to view user profiles.
+     * @param viewUserProfileController controller to view other user profiles.
      */
 
     public NonloggedInProductView(UnloggedInViewModel nonLoggedInViewModel,
@@ -290,6 +292,11 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
      * the current state of the model after changes occur.
      *
      * @param evt the property change event, indicating changes in the model state that may affect the view.
+
+    /**
+     * Responds to property changes and updates the UI accordingly. This method ensures that the view reflects
+     * the current state of the model after changes occur.
+     *
      */
 
     @Override

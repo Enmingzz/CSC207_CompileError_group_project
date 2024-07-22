@@ -1,5 +1,7 @@
 ## Steps to run and use this program 
 
+# Warning: Should use the UofT internet to have the access to the remote SQL database.
+
 ## 0. Clone the project form Github to a local repository in IntelliJ 
 
 ## 1. Downloading APIs and packages and adding them to 
@@ -24,6 +26,17 @@
 ## 3. Exploring the Program 
 
 ### 0. Explaining the TOP bar
+The top bar exists on almost every page of our program. 
+- if you didn't login, it will be like:
+
+  ![image](https://github.com/user-attachments/assets/eefda7e2-2ed6-4f0f-b3e3-ae8dd1381182)
+
+- if you are logged in, it will be like:
+
+  
+  ![image](https://github.com/user-attachments/assets/5fa50470-6cca-4ff7-b903-98e37e40a28e)
+
+by clicking on the buttons, you can jump to the related page. the button with image of github cat will send you to your user profile page. it can be the user profile image in the future extension.
 
 ### 1. Profile 
 
@@ -71,6 +84,7 @@
 - The profile viewing section provides a detailed view of the user's profile, displaying essential information such as:
 - ![image](https://github.com/user-attachments/assets/102e42a1-8c75-4859-8324-f04d631f785e)
 
+
 ### #Modifying profile 
 - The modify profile Page provides fields for users to enter and update their profile information:
   - Enter Name: Input field to update the user's name.
@@ -99,6 +113,7 @@
   - Image
 
 - ![image](https://github.com/user-attachments/assets/3e5c7745-cdb2-48f1-a8ca-a8563d36d524)
+
 
 ### 2. From a Seller's POV 
 
@@ -156,6 +171,19 @@ You should be navigated to the "Manage Product" view. Now if you click "Show Det
 <img width="1211" alt="image" src="https://github.com/user-attachments/assets/25dd8cbe-11fa-4daa-8794-8e86c6dc72d0">
 
 
+#### Replying a question
+- As a seller of a product, you can reply any questions displayed in the Q&A panel
+
+
+![image](https://github.com/user-attachments/assets/ea53aa96-4f33-4874-a818-537d4e113cfa)
+
+- By clicking on the reply button.
+
+  ![image](https://github.com/user-attachments/assets/61830996-a718-478e-8f47-a3607f70fbbb)
+
+- then you can view the answers you just replyed.(but for now, the when you go back to the view product detail page, the button covers your answer and so there is a ui problem. To view the following page, please first go to another page and then go back. )
+![image](https://github.com/user-attachments/assets/8d99b434-05ed-4a45-9814-f9b597eae364)
+
 
 
 ### 3. A Buyer's POV 
@@ -194,8 +222,29 @@ You should be navigated to the "Manage Product" view. Now if you click "Show Det
   - The search results will display products that have the selected tag.
 
 #### Viewing specific details of a product 
+- Unlogged in buyer:
+  -click on the button under the product and you can view the product details, but when click on the add to cart button, you will jump to the login page.
+- Already logged in buyer:
+  - click on the button under the product and you can view the product details:
+
+  <img width="748" alt="unlogged_in butter_fly" src="https://github.com/user-attachments/assets/1d92ba30-0797-4deb-84a7-8ecb1f57129e">  
 
 #### Using the Q&A section in a product 
+- Unlogged in buyer:
+  you can only see the question on the right side, but you cannot ask questions.
+
+  ![image](https://github.com/user-attachments/assets/bedb2bdc-fac6-4cb8-a439-5f8bd8431a0d)
+
+- Already logged in buyer: you can see the Q&A panel on the right side of the page.
+
+  - To publish a new question:
+    you enter the new question at the bottom of the page press the publish button.
+  
+    <img width="792" alt="login_ask_question" src="https://github.com/user-attachments/assets/9589c37b-bc7b-4605-b4b3-77df1b1ee801">
+  -then you will see the newly added quesiton
+
+  
+    <img width="755" alt="successfullyaskedaquestion" src="https://github.com/user-attachments/assets/553faa2b-18f9-4489-bae6-4301405ba7a3">
 
 #### Shopping cart 
 
@@ -264,8 +313,8 @@ If you want to purchase a product from your cart, simply click Buy Product. Then
 
 - After the seller has selected the available times, the buyer can find a "Choose Schedule" button next to this product in the shopping cart.
 
-  ![image](https://github.com/user-attachments/assets/6cfc6486-e772-4648-b70d-f1e0deb4f13a)
- 
+  ![image](https://github.com/user-attachments/assets/e142b17f-0e11-46fb-af6c-14b7e73bb0e5)
+
 - click this button to go to the buyer schedule page. Buyer can select a meeting time from the seller's available times in this page.
 
   ![image](https://github.com/user-attachments/assets/3d210cb0-829b-4ea3-adc3-62064a4b2172)

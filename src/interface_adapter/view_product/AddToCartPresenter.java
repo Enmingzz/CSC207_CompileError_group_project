@@ -7,11 +7,22 @@ import interface_adapter.shopping_cart.ShoppingCartViewModel;
 import use_case.shopping_cart.AddShoppingCartProductOutputData;
 import use_case.shopping_cart.AddShoppingCartProductOutputBoundary;
 
-public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary{
+/**
+ * The AddToCartPresenter class implements the AddShoppingCartProductOutputBoundary
+ * and handles the presentation logic for adding a product to the shopping cart.
+ */
+public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary {
     private final ShoppingCartViewModel shoppingCartViewModel;
     private final BuyerViewProductViewModel buyerViewProductViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final ViewManagerModel viewManagerModel;
 
+    /**
+     * Constructs an AddToCartPresenter with the specified view models and view manager model.
+     *
+     * @param viewManagerModel the view manager model to manage active views.
+     * @param shoppingCartViewModel the view model for the shopping cart.
+     * @param buyerViewProductViewModel the view model for the buyer view product.
+     */
     public AddToCartPresenter(ViewManagerModel viewManagerModel,
                               ShoppingCartViewModel shoppingCartViewModel,
                               BuyerViewProductViewModel buyerViewProductViewModel) {
@@ -20,9 +31,14 @@ public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary{
         this.buyerViewProductViewModel = buyerViewProductViewModel;
     }
 
+    /**
+     * Prepares the success view for adding a product to the shopping cart.
+     *
+     * @param response the output data containing the result of adding a product to the shopping cart.
+     */
     @Override
     public void prepareSuccessView(AddShoppingCartProductOutputData response) {
-        //move to shopping_cart_View
+        // Update the shopping cart state
         ShoppingCartState shoppingCartState = shoppingCartViewModel.getState();
         shoppingCartState.setListProducts(response.getListProducts());
 
@@ -40,25 +56,31 @@ public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary{
         shoppingCartState.setErrorMessage(response.getErrorMessage());
         shoppingCartState.setUser(response.getUser());
 
-        //change the state in buyerViewProduct because View needs user's info
+        // Update the buyer view product state
         BuyerViewProductState buyerViewProductState = buyerViewProductViewModel.getState();
         buyerViewProductState.setUser(response.getUser());
 
+        // Set the updated states
         this.shoppingCartViewModel.setState(shoppingCartState);
         this.buyerViewProductViewModel.setState(buyerViewProductState);
 
+        // Notify the views of the state changes
         shoppingCartViewModel.firePropertyChanged();
         buyerViewProductViewModel.firePropertyChanged();
 
+        // Set the active view to the shopping cart view
         viewManagerModel.setActiveView(shoppingCartViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
-
     }
 
+    /**
+     * Prepares the failed view with the specified error message.
+     *
+     * @param errorMessage the error message to be displayed.
+     */
     @Override
     public void prepareFailedView(String errorMessage) {
         ShoppingCartState shoppingCartState = shoppingCartViewModel.getState();
-
         shoppingCartState.setErrorMessage(errorMessage);
         shoppingCartViewModel.firePropertyChanged();
         shoppingCartState.setErrorMessage("");
