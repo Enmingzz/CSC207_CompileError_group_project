@@ -2,6 +2,9 @@ package use_case.rate_product;
 
 import data_access.interfaces.product.ProductUpdateRatingDataAccessInterface;
 import data_access.interfaces.product.ProductUpdateStateDataAccessInterface;
+import entity.product.CommonProductFactory;
+import entity.product.Product;
+import entity.product.ProductFactory;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -62,8 +65,24 @@ public class RateProductInteractor implements RateProductInputBoundary {
         if (validRating) {
             productUpdateStateDataAccessInterface.updateProductState(rateProductInputData.getProduct(), -1);
             productUpdateRatingDataAccessInterface.updateProductRating(rateProductInputData.getProduct(), intRating);
+            ProductFactory commonProductFactory = new CommonProductFactory();
+            Product newProduct = commonProductFactory.createProduct(
+                    rateProductInputData.getProduct().getImage(),
+                    rateProductInputData.getProduct().getDescription(),
+                    rateProductInputData.getProduct().getTitle(),
+                    rateProductInputData.getProduct().getPrice(),
+                    intRating,
+                    -1,
+                    rateProductInputData.getProduct().geteTransferEmail(),
+                    rateProductInputData.getProduct().getSellerStudentNumber(),
+                    rateProductInputData.getProduct().getAddress(),
+                    rateProductInputData.getProduct().getListTags(),
+                    rateProductInputData.getProduct().getProductID(),
+                    rateProductInputData.getProduct().getSchedule()
+            );
 
-            RateProductOutputData rateProductOutputData = new RateProductOutputData(rateProductInputData.getUser(), rateProductInputData.getProduct());
+
+            RateProductOutputData rateProductOutputData = new RateProductOutputData(rateProductInputData.getUser(), newProduct);
             rateProductOutputBoundary.prepareSuccessfulView(rateProductOutputData);
         } else {
             rateProductOutputBoundary.prepareFailedView("You must input a valid integral rating from 1 to 5.");
