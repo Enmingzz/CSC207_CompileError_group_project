@@ -7,6 +7,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ReplyQuestionOutputDataTest {
@@ -14,8 +16,11 @@ class ReplyQuestionOutputDataTest {
 
     @BeforeEach
     void setUp() {
-        Question question = new CommonQuestion("how much is it?", "1234567890", new CommonAnswer("", ""), "123");
-        replyQuestionOutputData = new ReplyQuestionOutputData("question successfully answered", question);
+        ArrayList<Question> questions = new ArrayList<>();
+        Question question = new CommonQuestion("how much is it?", "1234567890",
+                new CommonAnswer("", ""), "123");
+        questions.add(question);
+        replyQuestionOutputData = new ReplyQuestionOutputData("question successfully answered", questions);
     }
 
     @AfterEach
@@ -30,6 +35,6 @@ class ReplyQuestionOutputDataTest {
     @Test
     void getQuestion() {
         Question question = new CommonQuestion("how much is it?", "1234567890", new CommonAnswer("", ""), "123");
-        assertEquals(question.getQuestionID(), replyQuestionOutputData.getQuestion().getQuestionID());
+        assertEquals(question.getQuestionID(), replyQuestionOutputData.getQuestions().get(0).getQuestionID());
     }
 }

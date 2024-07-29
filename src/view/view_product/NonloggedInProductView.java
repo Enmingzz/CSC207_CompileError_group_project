@@ -318,7 +318,7 @@ public class NonloggedInProductView extends JPanel implements ActionListener, Pr
             JLabel proId = new JLabel(String.valueOf(newState.getProduct().getProductID()));
 //            this.productInfo = new ProductInfoLabelTextPanel(title, image, des, price, rating, pro_state, address,lstTags, proId);
 
-            System.out.println("this is the price::::::" + newState.getProduct().getPrice());
+//            System.out.println("this is the price::::::" + newState.getProduct().getPrice());
             nonLoggedInViewModel.setState(newState);
 
             qA_TextPanel.removeAll();

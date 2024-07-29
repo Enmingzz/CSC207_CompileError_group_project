@@ -10,6 +10,7 @@ import entity.user.User;
 import entity.product.Product;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * The ReplyQuestionInteractor class implements the use case for replying to a question.
@@ -60,8 +61,8 @@ public class ReplyQuestionInteractor implements ReplyQuestionInputBoundary {
 
         String questionID = replyQuestionInputData.getQuestion().getQuestionID();
 
-        System.out.println("this is the question I'm replying to:::::::" + questionContent);
-        System.out.println("this is the answer content:::::::" + answerDescription);
+//        System.out.println("this is the question I'm replying to:::::::" + questionContent);
+//        System.out.println("this is the answer content:::::::" + answerDescription);
 
         Question completeQuestion = questionFactory.createQuestion(
                 questionContent,
@@ -70,14 +71,16 @@ public class ReplyQuestionInteractor implements ReplyQuestionInputBoundary {
                 questionID
         );
 
-        System.out.println("this is the answer:::::::" + completeQuestion.getAnswer().getDescription());
-        System.out.println("this is the uuid:::::::" + completeQuestion.getQuestionID());
+//        System.out.println("this is the answer:::::::" + completeQuestion.getAnswer().getDescription());
+//        System.out.println("this is the uuid:::::::" + completeQuestion.getQuestionID());
 
         questionUpdateDataAccessObject.updateQuestion(completeQuestion);
 
+        ArrayList<Question> newLst = questionReadDataAccessObject.getQuestion(product.getProductID());
+
         ReplyQuestionOutputData replyQuestionOutputData = new ReplyQuestionOutputData(
                 "question successfully answered",
-                replyQuestionInputData.getQuestion()
+                newLst
         );
         replyPresenter.prepareSuccessView(replyQuestionOutputData);
     }

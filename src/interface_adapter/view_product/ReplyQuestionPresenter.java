@@ -38,27 +38,29 @@ public class ReplyQuestionPresenter implements ReplyQuestionOutputBoundary {
      */
     @Override
     public void prepareSuccessView(ReplyQuestionOutputData replyQuestionOutputData) {
-        ReplyQuestionState replyQuestionState = replyQuestionViewModel.getState();
+//        ReplyQuestionState replyQuestionState = replyQuestionViewModel.getState();
         SellerViewProductState sellerViewProductState = sellerViewProductViewModel.getState();
 
-        // Update the question in the reply question state
-        replyQuestionState.setQuestion(replyQuestionOutputData.getQuestion());
+//        // Update the question in the reply question state
+//        replyQuestionState.setQuestion(replyQuestionOutputData.getQuestions());
 
-        // Add the replied question to the list of questions in the seller view product state
-        ArrayList<Question> old_lst = sellerViewProductState.getQuestion();
-        old_lst.add(replyQuestionOutputData.getQuestion());
+//        // Add the replied question to the list of questions in the seller view product state
+//        ArrayList<Question> old_lst = sellerViewProductState.getQuestion();
+//        old_lst.add(replyQuestionOutputData.getQuestion());
 
         // Update the seller view product state
-        sellerViewProductState.setLst_question(old_lst);
+        System.out.println("sellerViewProductState: first question description" + sellerViewProductState.getQuestion().get(0).getDescription());
+        sellerViewProductState.setLst_question(replyQuestionOutputData.getQuestions());
         sellerViewProductState.setPromptStr("Successfully replied question");
         sellerViewProductState.setIsChanged(true);
 
         // Set the updated states
-        this.replyQuestionViewModel.setState(replyQuestionState);
+//        this.replyQuestionViewModel.setState(replyQuestionState);
         this.sellerViewProductViewModel.setState(sellerViewProductState);
 
         // Notify the views of the state changes
         sellerViewProductViewModel.firePropertyChanged();
+        System.out.println("ReplyQuestionPresenter called");
         viewManagerModel.setActiveView(sellerViewProductViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

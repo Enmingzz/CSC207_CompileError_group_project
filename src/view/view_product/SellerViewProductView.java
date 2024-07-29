@@ -121,14 +121,14 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
         //(1)product_info
         Product wtv_product = sellerViewProductViewModel.getState().getProduct();
 
-        final JLabel image = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getImage()));//image???
+        final JLabel image = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getImage()));
         final JLabel description = (wtv_product == null)? new JLabel(): new JLabel(wtv_product.getDescription());
         final JLabel price = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getPrice()));
         final JLabel _title = (wtv_product == null)? new JLabel(): new JLabel(wtv_product.getTitle());
         final JLabel rating = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getRating()));
         final JLabel state = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getState()));
         final JLabel address = (wtv_product == null)? new JLabel(): new JLabel(wtv_product.getAddress());
-        final JLabel lstTags = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getListTags()));//what will valueOf list look like???
+        final JLabel lstTags = (wtv_product == null)? new JLabel(): new JLabel(String.valueOf(wtv_product.getListTags()));
         final JLabel productID = (wtv_product == null)? new JLabel(): new JLabel(wtv_product.getProductID());
 
 //        productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
@@ -199,6 +199,7 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
             replyButton.addActionListener(new ReplyButtonListener());
         }
 
+        qA_TextPanel.setLayout(new BoxLayout(qA_TextPanel, BoxLayout.Y_AXIS));
         qAInfo.add(qA_title);
         qAInfo.add((new JScrollPane(qA_TextPanel)));
 
@@ -225,14 +226,31 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
 
         cancel.addActionListener(new CancelButtonListener());
 
-        // needs adjustments x,y axis?????
-//        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+//        // needs adjustments x,y axis?????
+////        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+//        this.setLayout(new BorderLayout(1, 1));
+//        JPanel centerPanel = new JPanel();
+//        centerPanel.setLayout(new GridLayout());
+//        centerPanel.add(productInfo);
+//        centerPanel.add(qAInfo);
+//        this.add(topBar, BorderLayout.NORTH);
+//        this.add(centerPanel, BorderLayout.CENTER);
+//        this.add(cancel, BorderLayout.SOUTH);
+//        this.add(new JPanel(), BorderLayout.EAST);
+//        this.add(new JPanel(), BorderLayout.WEST);
+
         this.setLayout(new BorderLayout(1, 1));
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new GridLayout());
+
+        qAInfo.setLayout(new BoxLayout(qAInfo, BoxLayout.Y_AXIS));
+
         centerPanel.add(productInfo);
         centerPanel.add(qAInfo);
+
+
         this.add(topBar, BorderLayout.NORTH);
+//        this.add(title, BorderLayout.NORTH);
         this.add(centerPanel, BorderLayout.CENTER);
         this.add(cancel, BorderLayout.SOUTH);
         this.add(new JPanel(), BorderLayout.EAST);
@@ -254,14 +272,15 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
 
     @Override
     public void propertyChange(PropertyChangeEvent evt){
+        System.out.println("PropertyChange, seller view product view");
         SellerViewProductState newState = (SellerViewProductState) evt.getNewValue();
         if (!Objects.equals(newState.getPromptStr(), "")){
             JOptionPane.showMessageDialog(this, newState.getPromptStr());
             sellerViewProductViewModel.getState().setPromptStr("");
-        }else if(newState.getIsChanged()){
+        }
             sellerViewProductViewModel.setState(newState);
 
-            qA_TextPanel.removeAll();
+            productInfo.removeAll();
 
             Product wtv_product = newState.getProduct();
 
@@ -269,11 +288,11 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
             image.setIcon(new ImageIcon(wtv_product.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
             final JLabel description = new JLabel(wtv_product.getDescription());
             final JLabel price = new JLabel(String.valueOf(wtv_product.getPrice()));
-            final JLabel _title = new JLabel(wtv_product.getTitle());
+            final JLabel _title = new JLabel( wtv_product.getTitle());
             final JLabel rating = new JLabel(String.valueOf(wtv_product.getRating()));
-            final JLabel state = new JLabel(String.valueOf(wtv_product.getState()));
+            final JLabel state = new JLabel( String.valueOf(wtv_product.getState()));
             final JLabel address = new JLabel(wtv_product.getAddress());
-            final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags()));//what will valueOf list look like???
+            final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags()));
             final JLabel productID = new JLabel(wtv_product.getProductID());
 
 //            productInfo.setLayout(new BoxLayout(productInfo, BoxLayout.Y_AXIS));
@@ -300,7 +319,27 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
             lstTagsInfo.setText(lstTags);
             productIDInfo.setText(productID);
 
+
+//            imageInfo.repaint();
+//            imageInfo.revalidate();
+
+            productInfo.add(imageInfo);
+            productInfo.add(descriptionInfo);
+            productInfo.add(priceInfo);
+            productInfo.add(_titleInfo);
+            productInfo.add(ratingInfo);
+            productInfo.add(stateInfo);
+            productInfo.add(addressInfo);
+            productInfo.add(lstTagsInfo);
+            productInfo.add(productIDInfo);
+
+            productInfo.repaint();
+            productInfo.revalidate();
+
             ArrayList<Question> lst_question = newState.getQuestion();
+        System.out.println(lst_question.get(0).getDescription());
+
+            qA_TextPanel.removeAll();
 
             for (Question question : lst_question) {
                 JButton replyButton = new JButton("Reply");
@@ -310,7 +349,9 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
                 JLabel q = new JLabel(question_content);
                 JLabel a = new JLabel(answer_content);
 
-                singleQa = new SellerQAInfoLabelTextPanel(q, a, replyButton);
+                SellerQAInfoLabelTextPanel singleQa = new SellerQAInfoLabelTextPanel(q, a, replyButton);
+                System.out.println("question_des in button listener, delivered by replyquestioncontroller" + question.getDescription() + question.getAnswer().getDescription());
+
 
                 class ReplyButtonListener implements ActionListener {
                     public void actionPerformed(ActionEvent e) {
@@ -318,7 +359,6 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
                             try{
                                 SellerViewProductState sellerViewProductState = sellerViewProductViewModel.getState();
                                 Product product = sellerViewProductState.getProduct();
-                                System.out.println("question_des in button listener, delivered by replyquestioncontroller" + question.getDescription());
                                 viewReplyQuestionController.execute(product, sellerViewProductState.getUser(), question);
                             }catch (Exception ex){
                                 throw new RuntimeException(ex);
@@ -331,10 +371,9 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
                 qA_TextPanel.add(singleQa);
             }
 
+//            TODO: reply button needs refreshing?
             qA_TextPanel.repaint();
             qA_TextPanel.revalidate();
-            productInfo.repaint();
-            productInfo.revalidate();
 
             topBar.removeAll();
             topBar.add(new TopBarSampleView(sellerViewProductViewModel.getState().getUser(),
@@ -345,6 +384,6 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
             topBar.revalidate();
 
             newState.setIsChanged(false);
-        }
+
     }
 }

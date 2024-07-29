@@ -261,8 +261,8 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
                         Question new_question = questionFactory.createQuestion(question_content,
                                 buyerViewProductViewModel.getState().getProduct().getSellerStudentNumber(), empty_ans, uuid.toString());
 
-                        System.out.println("this is the initial uuid:::::::::::tosting version:" + uuid.toString());
-                        System.out.println("this is the initial uuid:::::::::::tosting version:" + uuid);
+//                        System.out.println("this is the initial uuid:::::::::::tosting version:" + uuid.toString());
+//                        System.out.println("this is the initial uuid:::::::::::tosting version:" + uuid);
                         publishQuestionController.execute(new_question, que_product, buyerViewProductViewModel.getState().getUser());
 
                         buyerViewProductViewModel.getState().setPrompt_words("");
@@ -294,15 +294,32 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         publishQuestion.addActionListener(new QuestionPublishButtonListener());
         cancel.addActionListener(new CancelButtonListener());
 
-        // needs adjustments x,y axis?????
-        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        this.add(title);
-        this.add(Objects.requireNonNullElse(productInfo, message));
-        this.add(qAInfo);
-        this.add(addQuestionInfo);
-        this.add(buttons);
+        this.setLayout(new BorderLayout(1, 1));
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new GridLayout());
+
+        JPanel fakeEastPanel = new JPanel();
+        fakeEastPanel.add(qAInfo);
+        fakeEastPanel.add(addQuestionInfo);
+        fakeEastPanel.setLayout(new BoxLayout(fakeEastPanel, BoxLayout.Y_AXIS));
+
+        centerPanel.add(productInfo);
+        centerPanel.add(fakeEastPanel);
+
+
+        this.add(topBar, BorderLayout.NORTH);
+//        this.add(title, BorderLayout.NORTH);
+        this.add(centerPanel, BorderLayout.CENTER);
+        this.add(buttons, BorderLayout.SOUTH);
+        this.add(new JPanel(), BorderLayout.EAST);
+        this.add(new JPanel(), BorderLayout.WEST);
+
+//        this.add(title);
+//        this.add(Objects.requireNonNullElse(productInfo, message));
+//        this.add(qAInfo);
+//        this.add(addQuestionInfo);
+//        this.add(buttons);
 
 
     }
