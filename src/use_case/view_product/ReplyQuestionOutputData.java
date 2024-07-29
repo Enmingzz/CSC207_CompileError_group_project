@@ -2,23 +2,25 @@ package use_case.view_product;
 
 import entity.comment.Question;
 
+import java.util.ArrayList;
+
 /**
  * This class encapsulates the output data for the use case of replying to a question.
  * It contains a message indicating the result of the operation and the question entity.
  */
 public class ReplyQuestionOutputData {
     private final String outputStr;
-    private final Question question;
+    private final ArrayList<Question> questions;
 
     /**
      * Constructs a ReplyQuestionOutputData object with the specified output message and question entity.
      *
      * @param outputStr the message indicating the result of the reply question operation.
-     * @param question the question entity that was replied to.
+     * @param questions the question entity that was replied to.
      */
-    public ReplyQuestionOutputData(String outputStr, Question question) {
+    public ReplyQuestionOutputData(String outputStr, ArrayList<Question> questions) {
         this.outputStr = outputStr;
-        this.question = question;
+        this.questions = questions;
     }
 
     /**
@@ -35,7 +37,7 @@ public class ReplyQuestionOutputData {
      *
      * @return the question entity.
      */
-    public Question getQuestion() {
-        return question;
+    public ArrayList<Question> getQuestions() {
+        return questions;
     }
 }

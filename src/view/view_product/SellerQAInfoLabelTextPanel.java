@@ -1,5 +1,10 @@
 package view.view_product;
 
+import entity.comment.Answer;
+import entity.comment.AnswerFactory;
+import entity.comment.CommonAnswer;
+import entity.comment.CommonAnswerFactory;
+
 import javax.swing.*;
 import java.awt.*;
 /**
@@ -27,6 +32,12 @@ public class SellerQAInfoLabelTextPanel extends JPanel {
         this.removeAll();
         this.add(question);
         this.add(answer);
-        this.add(replyButton);
+
+//        no need to add because we allow change answer
+//        String e = "";
+//        if (e.equals("")){
+            this.add(replyButton);
+//        }
+
     }
 }

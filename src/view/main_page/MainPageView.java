@@ -99,7 +99,6 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
         this.setLayout(new BorderLayout());
         this.add(title);
 
-        //TODO: check if the top bar is correct
 //        JPanel topBar = new TopBarSampleView(this.mainPageViewModel.getState().getUser(),
 //                getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
 //        this.add(topBar, BorderLayout.NORTH);
@@ -203,7 +202,7 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
             }
         }
 
-        System.out.println("propertyChange");
+//        System.out.println("propertyChange");
 
         MainPageState state = (MainPageState) evt.getNewValue();
 

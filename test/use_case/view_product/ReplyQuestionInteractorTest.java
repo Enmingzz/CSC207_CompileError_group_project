@@ -81,7 +81,7 @@ class ReplyQuestionInteractorTest {
         ReplyQuestionOutputBoundary successPresenter = new ReplyQuestionOutputBoundary() {
             @Override
             public void prepareSuccessView(ReplyQuestionOutputData replyQuestionOutputData) {
-                assertEquals(question,replyQuestionOutputData.getQuestion());
+                assertEquals(questions,replyQuestionOutputData.getQuestions());
                 assertEquals("question successfully answered", replyQuestionOutputData.getOutputStr());
             }
         };
