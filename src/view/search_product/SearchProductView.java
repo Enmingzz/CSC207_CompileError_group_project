@@ -99,7 +99,7 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
         topBar = new TopBarSampleView(commonUser,
                 getSearchPageController, viewSignupPageController, viewLoginPageController,
                 shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
+//        this.add(topBar);
 
         viewModel.addPropertyChangeListener(this);
 
@@ -155,15 +155,26 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
             }
         });
 
-        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-        this.add(searchPanel);
-        this.add(tagsPanel);
+//        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 
+        this.setLayout(new BorderLayout(1, 1));
+        this.add(topBar, BorderLayout.NORTH);
+
+        JPanel searchPagePanel = new JPanel();
+        searchPagePanel.setLayout(new BorderLayout());
+        JPanel searchNameAndTagPanel = new JPanel();
+        searchNameAndTagPanel.setLayout(new BoxLayout(searchNameAndTagPanel, BoxLayout.Y_AXIS));
+        searchNameAndTagPanel.add(searchPanel);
+        searchNameAndTagPanel.add(tagsPanel);
+        searchPagePanel.add(searchNameAndTagPanel, BorderLayout.NORTH);
         // products display starts here
         ArrayList<Product> products = viewModel.getState().getProducts();
         allProductsPanel = new AllProductsPanel(products, viewModel, viewProductController);
 //        this.add(allProductsPanel);
-        this.add(new JScrollPane(allProductsPanel), BorderLayout.CENTER);
+        JScrollPane productsScrollPanel = new JScrollPane(allProductsPanel);
+        searchPagePanel.add(productsScrollPanel, BorderLayout.CENTER);
+
+        this.add(searchPagePanel, BorderLayout.CENTER);
 
         // Wrong implementation of SearchProductView, left for reference
 //        int _i = 0;

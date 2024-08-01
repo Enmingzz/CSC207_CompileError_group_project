@@ -113,7 +113,7 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
         topBar = new TopBarSampleView(commonUser,
                 getSearchPageController, viewSignupPageController, viewLoginPageController,
                 shoppingCartController, logOutController, viewProfileController, mainPageController);
-        this.add(topBar);
+//        this.add(topBar);
 
         viewModel.addPropertyChangeListener(this);
 
@@ -237,12 +237,22 @@ public class SellerScheduleView extends JPanel implements ActionListener, Proper
             }
         });
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+//        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+//
+//        this.add(title);
+//        this.add(dateTimePanel);
+//        this.add(timesListPanel);
+//        this.add(buttonPanel);
 
-        this.add(title);
-        this.add(dateTimePanel);
-        this.add(timesListPanel);
-        this.add(buttonPanel);
+        this.setLayout(new BorderLayout(1, 1));
+        this.add(topBar, BorderLayout.NORTH);
+        JPanel schedulePanel = new JPanel();
+        schedulePanel.setLayout(new BoxLayout(schedulePanel, BoxLayout.Y_AXIS));
+        schedulePanel.add(title);
+        schedulePanel.add(dateTimePanel);
+        schedulePanel.add(timesListPanel);
+        schedulePanel.add(buttonPanel);
+        this.add(schedulePanel, BorderLayout.CENTER);
 
 
     }
