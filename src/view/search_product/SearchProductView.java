@@ -18,8 +18,7 @@ import view.TopBarSampleView;
 import javax.swing.*;
 import javax.swing.text.View;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
@@ -53,6 +52,7 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
     private final String[] tags = {"Furniture", "Clothes", "Electronics"}; // to be decided later
     AllProductsPanel allProductsPanel;
     private JPanel topBar;
+    private int panelWidth = 10;
 
     /**
      * Constructs a SearchProductView with the specified controllers and view model.
@@ -169,12 +169,36 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
         searchPagePanel.add(searchNameAndTagPanel, BorderLayout.NORTH);
         // products display starts here
         ArrayList<Product> products = viewModel.getState().getProducts();
-        allProductsPanel = new AllProductsPanel(products, viewModel, viewProductController);
+
+
+
+        allProductsPanel = new AllProductsPanel(products, viewModel, viewProductController, panelWidth);
 //        this.add(allProductsPanel);
         JScrollPane productsScrollPanel = new JScrollPane(allProductsPanel);
         searchPagePanel.add(productsScrollPanel, BorderLayout.CENTER);
 
         this.add(searchPagePanel, BorderLayout.CENTER);
+
+
+        addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+//                allProductsPanel.removeAll();
+//                allProductsPanel.add(new view.search_product.AllProductsPanel(products, searchProductViewModel, viewProductController));
+//                allProductsPanel.repaint();
+//                allProductsPanel.revalidate();
+                Dimension newSize = e.getComponent().getBounds().getSize();
+                System.out.println(new Dimension(newSize.width, newSize.height));
+                panelWidth = newSize.width;
+                if (panelWidth != 10) {
+                    allProductsPanel.removeAll();
+                    ArrayList<Product> products = viewModel.getState().getProducts();
+                    allProductsPanel.add(new view.search_product.AllProductsPanel(products, viewModel, viewProductController, panelWidth));
+                    allProductsPanel.repaint();
+                    allProductsPanel.revalidate();
+                }
+
+            }
+        });
 
         // Wrong implementation of SearchProductView, left for reference
 //        int _i = 0;
@@ -267,7 +291,7 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
 //        this.add(topBar);
 
         allProductsPanel.removeAll();
-        allProductsPanel.add(new view.search_product.AllProductsPanel(products, searchProductViewModel, viewProductController));
+        allProductsPanel.add(new view.search_product.AllProductsPanel(products, searchProductViewModel, viewProductController, panelWidth));
         allProductsPanel.repaint();
         allProductsPanel.revalidate();
 

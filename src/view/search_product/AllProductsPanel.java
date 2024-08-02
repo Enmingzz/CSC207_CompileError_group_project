@@ -11,84 +11,89 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
-/**
- * The AllProductsPanel class represents a panel that displays all products in a vertically stacked layout,
- * with each product displayed in a horizontal panel containing its image, title, price, and a view button.
- */
-public class AllProductsPanel extends JPanel  {
-    /**
-     * Constructs an AllProductsPanel with the specified list of products, view model, and product controller.
-     *
-     * @param allProducts the list of all products to be displayed
-     * @param searchProductViewModel the view model for search products
-     * @param viewProductController the controller for viewing products
-     */
-    AllProductsPanel(ArrayList<Product> allProducts,
-                     SearchProductViewModel searchProductViewModel,
-                     ViewProductController viewProductController) {
+public class AllProductsPanel extends JPanel {
+    private ArrayList<Product> allProducts;
+    private SearchProductViewModel searchProductViewModel;
+    private ViewProductController viewProductController;
+    private int panelWidth;
 
-        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+    public AllProductsPanel(ArrayList<Product> allProducts, SearchProductViewModel searchProductViewModel,
+                            ViewProductController viewProductController, int panelWidth) {
+        this.allProducts = allProducts;
+        this.searchProductViewModel = searchProductViewModel;
+        this.viewProductController = viewProductController;
+        this.panelWidth = panelWidth;
 
-        int _i = 0;
-        List<JPanel> listProductPanels = new ArrayList<>();
+        this.setLayout(new GridBagLayout());
+        displayProducts();
+    }
+
+    private void displayProducts() {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.BOTH;
+
+        int columns = calculateColumns();
+        int row = 0;
+        int col = 0;
 
         for (Product product : allProducts) {
+            JPanel productPanel = createProductPanel(product);
+            gbc.gridx = col;
+            gbc.gridy = row;
+            this.add(productPanel, gbc);
 
-            JLabel paneledImage = new JLabel();
-            paneledImage.setIcon(new ImageIcon(product.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
-            JLabel productTitle = new JLabel(product.getTitle());
-
-            JLabel productPrice = new JLabel(String.valueOf(product.getPrice()));
-
-            JButton viewButton = new JButton(product.getTitle());
-            // dimension set as this for now but will likely get changed later
-            viewButton.setPreferredSize(new Dimension(100, 50));
-            viewButton.addActionListener(
-                    new ActionListener() {
-                        public void actionPerformed(ActionEvent event) {
-                            if (event.getSource().equals(viewButton)) {
-                                User user = searchProductViewModel.getState().getUser();
-                                try {
-                                    viewProductController.execute(product, user);
-                                } catch (SQLException e) {
-                                    throw new RuntimeException(e); //Revisit this in case of bug in viewing a product
-                                }
-
-                            }
-                        }
-                    }
-            );
-
-            view.search_product.ProductPanel productPanel = new view.search_product.ProductPanel(
-                    paneledImage, productTitle, productPrice, viewButton
-            );
-
-            // Above created one panel for image
-
-            if (_i % 3 == 0) {
-                listProductPanels = new ArrayList<>();
-
+            col++;
+            if (col >= columns) {
+                col = 0;
+                row++;
             }
-            listProductPanels.add(productPanel);
-
-            if (_i % 3 == 2) {
-                view.search_product.HorizontalLayoutPanel horizontalLayoutPanel = new view.search_product.HorizontalLayoutPanel(
-                        listProductPanels
-                );
-                this.add(horizontalLayoutPanel);
-            } else if (_i + 1 == allProducts.size()) {
-                view.search_product.HorizontalLayoutPanel horizontalLayoutPanel = new view.search_product.HorizontalLayoutPanel(
-                        listProductPanels
-                );
-                this.add(horizontalLayoutPanel);
-            }
-
-            _i++;
-
-
         }
-
     }
+
+    private int calculateColumns() {
+        int productPanelWidth = 140; // Including padding and margins
+//        int availableWidth = this.getWidth();
+//        Rectangle r = this.getBounds();
+//        int h = r.height;
+//        int w = r.width;
+
+        System.out.println("width: " + panelWidth);
+        return Math.max(2, panelWidth / productPanelWidth);
+    }
+
+    private JPanel createProductPanel(Product product) {
+        JLabel paneledImage = new JLabel();
+        paneledImage.setIcon(new ImageIcon(product.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        JLabel productTitle = new JLabel(product.getTitle());
+        JLabel productPrice = new JLabel(String.valueOf(product.getPrice()));
+
+        JButton viewButton = new JButton("View");
+        viewButton.setPreferredSize(new Dimension(100, 50));
+        viewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (event.getSource().equals(viewButton)) {
+                    User user = searchProductViewModel.getState().getUser();
+                    try {
+                        viewProductController.execute(product, user);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
+
+        JPanel productPanel = new RoundedPanel(15);
+        productPanel.setBackground(Color.PINK);
+        productPanel.setLayout(new BoxLayout(productPanel, BoxLayout.Y_AXIS));
+        productPanel.setPreferredSize(new Dimension(120, 180));
+        productPanel.add(paneledImage);
+        productPanel.add(productTitle);
+        productPanel.add(productPrice);
+        productPanel.add(viewButton);
+
+        return productPanel;
+    }
+
 }
