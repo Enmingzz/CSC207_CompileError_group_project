@@ -74,7 +74,6 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
     private ProductInfoLabelTextPanel productIDInfo;
     /**
      * Constructs a SellerViewProductView with specific controllers and view model.
-     *
      * @param sellerViewProductViewModel the view model containing state and operations for product viewing.
      * @param viewReplyQuestionController the controller for replying to questions.
      * @param mainPageController the controller for navigating to the main page.

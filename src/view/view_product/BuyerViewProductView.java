@@ -74,7 +74,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
     JPanel qAInfo = new JPanel();
     private JPanel topBar;
     private JPanel qA_TextPanel = new JPanel();
-    private final JPanel titlePanel = new JPanel();
+//    private final JPanel titlePanel = new JPanel();
     private BuyerQAInfoLabelTextPanel singleQa;
     private final JButton viewUserProfile;
 
@@ -135,8 +135,41 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
 
         //(1)product_info
         Product wtv_product = buyerViewProductViewModel.getState().getProduct();
-        productInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        productInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
         productInfo.setLayout(new BoxLayout(productInfo, BoxLayout.Y_AXIS));
+
+
+        if(wtv_product != null){
+            final JLabel _title = new JLabel(" Title: "+ wtv_product.getTitle());
+            final JLabel image = new JLabel();
+            image.setIcon(new ImageIcon(wtv_product.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+            final JLabel description = new JLabel("Product Description: " + wtv_product.getDescription());
+            final JLabel price = new JLabel("Price: " + String.valueOf(wtv_product.getPrice()));
+            final JLabel rating = new JLabel("Rating: " + String.valueOf(wtv_product.getRating()));
+            final JLabel state = new JLabel("Selling State: " + String.valueOf(wtv_product.getState()));
+            final JLabel address = new JLabel("Pick Up Address: "+ wtv_product.getAddress());
+            final JLabel lstTags = new JLabel("Tags" + String.valueOf(wtv_product.getListTags()));
+            final JLabel productID = new JLabel("ProductID: " + wtv_product.getProductID());
+
+            productInfo.add(_title);
+            productInfo.add(Box.createRigidArea(new Dimension(0, 5)));
+            productInfo.add(image);
+            productInfo.add(Box.createRigidArea(new Dimension(0, 10)));
+            productInfo.add(description);
+            productInfo.add(Box.createRigidArea(new Dimension(0, 20)));
+            productInfo.add(price);
+            productInfo.add(Box.createRigidArea(new Dimension(0, 20)));
+            productInfo.add(rating);
+            productInfo.add(Box.createRigidArea(new Dimension(0, 20)));
+            productInfo.add(state);
+            productInfo.add(Box.createRigidArea(new Dimension(0, 20)));
+            productInfo.add(address);
+            productInfo.add(Box.createRigidArea(new Dimension(0, 20)));
+            productInfo.add(lstTags);
+            productInfo.add(Box.createRigidArea(new Dimension(0, 20)));
+            productInfo.add(productID);
+        }
+
 
         final JLabel message = new JLabel("There is no product!");
 
@@ -304,7 +337,7 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         fakeEastPanel.add(addQuestionInfo);
         fakeEastPanel.setLayout(new BoxLayout(fakeEastPanel, BoxLayout.Y_AXIS));
 
-        centerPanel.add(productInfo);
+        centerPanel.add(new JScrollPane(productInfo));
         centerPanel.add(fakeEastPanel);
 
 
@@ -353,33 +386,51 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         qAInfo.removeAll();
         qA_TextPanel.removeAll();
 
-        productInfo.add(titlePanel);
+//        productInfo.add(titlePanel);
 
         Product wtv_product = newState.getProduct();
 
-        final JLabel image = new JLabel();//image???
+        final JLabel _title = new JLabel(" Title: "+ wtv_product.getTitle());
+        final JLabel image = new JLabel();
         image.setIcon(new ImageIcon(wtv_product.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
-        final JLabel description = new JLabel(wtv_product.getDescription());
-        final JLabel price = new JLabel(String.valueOf(wtv_product.getPrice()));
-        final JLabel _title = new JLabel(wtv_product.getTitle());
-        final JLabel rating = new JLabel(String.valueOf(wtv_product.getRating()));
-        final JLabel state = new JLabel(String.valueOf(wtv_product.getState()));
-        final JLabel address = new JLabel(wtv_product.getAddress());
-        final JLabel lstTags = new JLabel(String.valueOf(wtv_product.getListTags()));//what will valueOf list look like???
-        final JLabel productID = new JLabel(wtv_product.getProductID());
+        final JLabel description = new JLabel("Product Description: " + wtv_product.getDescription());
+        final JLabel price = new JLabel("Price: " + String.valueOf(wtv_product.getPrice()));
+        final JLabel rating = new JLabel("Rating: " + String.valueOf(wtv_product.getRating()));
+        final JLabel state = new JLabel("Selling State: " + String.valueOf(wtv_product.getState()));
+        final JLabel address = new JLabel("Pick Up Address: "+ wtv_product.getAddress());
+        final JLabel lstTags = new JLabel("Tags" + String.valueOf(wtv_product.getListTags()));
+        final JLabel productID = new JLabel("ProductID: " + wtv_product.getProductID());
 
 //            productInfo.setLayout(new BoxLayout(productInfo, BoxLayout.Y_AXIS));
 ////            productInfo = new ProductInfoLabelTextPanel(_title, image, description, price, rating, state, address,
 ////                    lstTags, productID);
+//        productInfo.add(_title);
+//        productInfo.add(productID);
+//        productInfo.add(description);
+//        productInfo.add(price);
+//        productInfo.add(rating);
+//        productInfo.add(state);
+//        productInfo.add(address);
+//        productInfo.add(lstTags);
+//        productInfo.add(image);
+
         productInfo.add(_title);
-        productInfo.add(productID);
-        productInfo.add(description);
-        productInfo.add(price);
-        productInfo.add(rating);
-        productInfo.add(state);
-        productInfo.add(address);
-        productInfo.add(lstTags);
+        productInfo.add(Box.createRigidArea(new Dimension(0, 20)));
         productInfo.add(image);
+        productInfo.add(Box.createRigidArea(new Dimension(0, 30)));
+        productInfo.add(description);
+        productInfo.add(Box.createRigidArea(new Dimension(0, 30)));
+        productInfo.add(price);
+        productInfo.add(Box.createRigidArea(new Dimension(0, 30)));
+        productInfo.add(rating);
+        productInfo.add(Box.createRigidArea(new Dimension(0, 30)));
+        productInfo.add(state);
+        productInfo.add(Box.createRigidArea(new Dimension(0, 30)));
+        productInfo.add(address);
+        productInfo.add(Box.createRigidArea(new Dimension(0, 30)));
+        productInfo.add(lstTags);
+        productInfo.add(Box.createRigidArea(new Dimension(0, 30)));
+        productInfo.add(productID);
 
         ArrayList<Question> lst_question = newState.getQuestion();
 
@@ -407,8 +458,14 @@ public class BuyerViewProductView extends JPanel implements ActionListener, Prop
         qAInfo.add(new JScrollPane(qA_TextPanel));
 
 
+        Color customColor1 = new Color(217, 131, 150);
+        qAInfo.setBackground(customColor1);
+
         qAInfo.repaint();
         qAInfo.revalidate();
+
+        Color customColor = new Color(160, 158, 214);
+        productInfo.setBackground(customColor);
 
         productInfo.repaint();
         productInfo.revalidate();
