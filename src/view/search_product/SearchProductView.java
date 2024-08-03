@@ -53,7 +53,7 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
     AllProductsPanel allProductsPanel;
     private JPanel topBar;
     private int panelWidth = 10;
-    private Color color1 = new Color(137, 207, 240);
+    private Color color1 = new Color(184,222,254);
 
 
     /**
