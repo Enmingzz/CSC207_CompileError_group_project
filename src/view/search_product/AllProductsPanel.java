@@ -1,23 +1,32 @@
 package view.search_product;
 
 import entity.product.Product;
-import entity.user.User;
 import interface_adapter.search_product.SearchProductViewModel;
 import interface_adapter.view_product.ViewProductController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * The AllProductsPanel class represents a panel that displays all products in a grid layout.
+ * It dynamically adjusts the number of columns based on the available width.
+ */
 public class AllProductsPanel extends JPanel {
     private ArrayList<Product> allProducts;
     private SearchProductViewModel searchProductViewModel;
     private ViewProductController viewProductController;
     private int panelWidth;
+    private final Color color1 = new Color(251,249,238);
 
+    /**
+     * Constructs an AllProductsPanel with the specified list of products, view model, product controller, and panel width.
+     *
+     * @param allProducts the list of all products to be displayed
+     * @param searchProductViewModel the view model for search products
+     * @param viewProductController the controller for viewing products
+     * @param panelWidth the width of the panel
+     */
     public AllProductsPanel(ArrayList<Product> allProducts, SearchProductViewModel searchProductViewModel,
                             ViewProductController viewProductController, int panelWidth) {
         this.allProducts = allProducts;
@@ -25,10 +34,14 @@ public class AllProductsPanel extends JPanel {
         this.viewProductController = viewProductController;
         this.panelWidth = panelWidth;
 
+        this.setBackground(color1);
         this.setLayout(new GridBagLayout());
         displayProducts();
     }
 
+    /**
+     * Displays the products in a grid layout. The number of columns is calculated based on the available panel width.
+     */
     private void displayProducts() {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
@@ -52,12 +65,14 @@ public class AllProductsPanel extends JPanel {
         }
     }
 
+    /**
+     * Calculates the number of columns based on the available panel width.
+     *
+     * @return the number of columns
+     */
     private int calculateColumns() {
         int productPanelWidth = 140; // Including padding and margins
-//        int availableWidth = this.getWidth();
-//        Rectangle r = this.getBounds();
-//        int h = r.height;
-//        int w = r.width;
+
         return Math.max(2, panelWidth / productPanelWidth);
     }
 

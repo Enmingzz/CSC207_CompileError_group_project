@@ -53,6 +53,8 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
     AllProductsPanel allProductsPanel;
     private JPanel topBar;
     private int panelWidth = 10;
+    private Color color1 = new Color(137, 207, 240);
+
 
     /**
      * Constructs a SearchProductView with the specified controllers and view model.
@@ -94,16 +96,17 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
         this.viewProfileController = viewProfileController;
         this.mainPageController = mainPageController;
 
+
         UserFactory commonUserFactory = new CommonUserFactory();
         User commonUser = commonUserFactory.createUser("", "", "", 0, "");
         topBar = new TopBarSampleView(commonUser,
                 getSearchPageController, viewSignupPageController, viewLoginPageController,
                 shoppingCartController, logOutController, viewProfileController, mainPageController);
-//        this.add(topBar);
 
         viewModel.addPropertyChangeListener(this);
 
         searchPanel = new JPanel();
+        searchPanel.setBackground(color1);
         searchPanel.setLayout(new FlowLayout());
         searchBox = new JTextField(20);
         searchButton = new JButton("Search");
@@ -111,6 +114,7 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
         searchPanel.add(searchButton);
 
         JPanel tagsPanel = new JPanel();
+        tagsPanel.setBackground(color1);
         tagsPanel.setLayout(new FlowLayout());
         for (String tag : tags) {
             JButton tagButton = new JButton(tag);
@@ -155,7 +159,8 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
             }
         });
 
-//        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+
+
 
         this.setLayout(new BorderLayout(1, 1));
         this.add(topBar, BorderLayout.NORTH);
@@ -173,22 +178,25 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
 
 
         allProductsPanel = new AllProductsPanel(products, viewModel, viewProductController, panelWidth);
-//        this.add(allProductsPanel);
         JScrollPane productsScrollPanel = new JScrollPane(allProductsPanel);
+        productsScrollPanel.setOpaque(true);
+        productsScrollPanel.getViewport().setBackground(color1);
         searchPagePanel.add(productsScrollPanel, BorderLayout.CENTER);
 
         this.add(searchPagePanel, BorderLayout.CENTER);
 
 
         addComponentListener(new ComponentAdapter() {
+            /**
+             * Handles the component resize event.
+             *
+             * @param e the component event
+             */
             public void componentResized(ComponentEvent e) {
-//                allProductsPanel.removeAll();
-//                allProductsPanel.add(new view.search_product.AllProductsPanel(products, searchProductViewModel, viewProductController));
-//                allProductsPanel.repaint();
-//                allProductsPanel.revalidate();
+
                 Dimension newSize = e.getComponent().getBounds().getSize();
-                panelWidth = newSize.width;
-                if (panelWidth != 10) {
+                if (panelWidth != newSize.width) {
+                    panelWidth = newSize.width;
                     allProductsPanel.removeAll();
                     ArrayList<Product> products = viewModel.getState().getProducts();
                     allProductsPanel.add(new view.search_product.AllProductsPanel(products, viewModel, viewProductController, panelWidth));
@@ -295,6 +303,7 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
         allProductsPanel.revalidate();
 
         searchPanel.removeAll();
+        searchPanel.setBackground(color1);
         searchBox = new JTextField(20);
         searchPanel.add(searchBox);
         searchPanel.add(searchButton);
