@@ -32,4 +32,8 @@ class PublishQuestionOutputDataTest {
     void getOutputStr() {
         assertEquals("question successfully published", outputData.getOutputStr());
     }
+
+    void getQuestion(){assertEquals("question successfully published", outputData.getQuestion()); }
+
+    void getQuestionUser(){assertEquals("hanrui", outputData.getQuestionUser()); }
 }
