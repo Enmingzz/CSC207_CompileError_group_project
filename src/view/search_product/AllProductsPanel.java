@@ -39,7 +39,7 @@ public class AllProductsPanel extends JPanel {
         int col = 0;
 
         for (Product product : allProducts) {
-            JPanel productPanel = createProductPanel(product);
+            ProductPanel productPanel = new ProductPanel(product, searchProductViewModel, viewProductController);
             gbc.gridx = col;
             gbc.gridy = row;
             this.add(productPanel, gbc);
@@ -58,42 +58,7 @@ public class AllProductsPanel extends JPanel {
 //        Rectangle r = this.getBounds();
 //        int h = r.height;
 //        int w = r.width;
-
-        System.out.println("width: " + panelWidth);
         return Math.max(2, panelWidth / productPanelWidth);
-    }
-
-    private JPanel createProductPanel(Product product) {
-        JLabel paneledImage = new JLabel();
-        paneledImage.setIcon(new ImageIcon(product.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
-        JLabel productTitle = new JLabel(product.getTitle());
-        JLabel productPrice = new JLabel(String.valueOf(product.getPrice()));
-
-        JButton viewButton = new JButton("View");
-        viewButton.setPreferredSize(new Dimension(100, 50));
-        viewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (event.getSource().equals(viewButton)) {
-                    User user = searchProductViewModel.getState().getUser();
-                    try {
-                        viewProductController.execute(product, user);
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        });
-
-        JPanel productPanel = new RoundedPanel(15);
-        productPanel.setBackground(Color.PINK);
-        productPanel.setLayout(new BoxLayout(productPanel, BoxLayout.Y_AXIS));
-        productPanel.setPreferredSize(new Dimension(120, 180));
-        productPanel.add(paneledImage);
-        productPanel.add(productTitle);
-        productPanel.add(productPrice);
-        productPanel.add(viewButton);
-
-        return productPanel;
     }
 
 }

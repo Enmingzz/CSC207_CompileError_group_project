@@ -187,7 +187,6 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
 //                allProductsPanel.repaint();
 //                allProductsPanel.revalidate();
                 Dimension newSize = e.getComponent().getBounds().getSize();
-                System.out.println(new Dimension(newSize.width, newSize.height));
                 panelWidth = newSize.width;
                 if (panelWidth != 10) {
                     allProductsPanel.removeAll();
