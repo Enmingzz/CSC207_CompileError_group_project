@@ -41,7 +41,7 @@ class CommonUserTest {
 
     @Test
     void getStudentNumber() {
-        assertEquals(0, commonUser.getStudentNumber());
+        assertEquals("123456", commonUser.getStudentNumber());
     }
 
 }

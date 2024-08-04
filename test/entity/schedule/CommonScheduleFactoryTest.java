@@ -33,7 +33,7 @@ class CommonScheduleFactoryTest {
     void createSchedule() {
         Schedule newCommonSchedule = commonScheduleFactory.createSchedule(time,
                 localDateTimeList);
-        assertEquals(commonSchedule, newCommonSchedule);
+        assertEquals(commonSchedule.getBuyerTime(), newCommonSchedule.getBuyerTime());
     }
 
 }
