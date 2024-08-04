@@ -336,7 +336,7 @@ public class SellerViewProductView extends JPanel implements ActionListener, Pro
             productInfo.revalidate();
 
             ArrayList<Question> lst_question = newState.getQuestion();
-        System.out.println(lst_question.get(0).getDescription());
+        // System.out.println(lst_question.get(0).getDescription());
 
             qA_TextPanel.removeAll();
 
