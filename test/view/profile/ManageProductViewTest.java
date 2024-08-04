@@ -60,20 +60,13 @@ class ManageProductViewTest {
         ViewProfileViewModel viewProfileViewModel = new ViewProfileViewModel();
         ShoppingCartViewModel shoppingCartViewModel = new ShoppingCartViewModel();
         manageProductViewModel = new ManageProductViewModel();
-        ModifyProfileViewModel modifyProfileViewModel = new ModifyProfileViewModel();
         SellerViewProductViewModel sellerViewProductViewModel = new SellerViewProductViewModel();
         BuyerViewProductViewModel buyerViewProductViewModel = new BuyerViewProductViewModel();
-        ViewModifyProductViewModel modifyProductViewModel = new ViewModifyProductViewModel();
         SellerSelectScheduleViewModel sellerSelectScheduleViewModel = new SellerSelectScheduleViewModel();
-        BuyerSelectScheduleViewModel buyerSelectScheduleViewModel = new BuyerSelectScheduleViewModel();
         SearchProductViewModel searchProductViewModel = new SearchProductViewModel();
         UnloggedInViewModel unloggedInViewModel = new UnloggedInViewModel();
-        SignupViewModel signUpViewModel = new SignupViewModel();
-        ReplyQuestionViewModel replyQuestionViewModel = new ReplyQuestionViewModel();
-        RateProductViewModel rateProductViewModel = new RateProductViewModel();
         ViewCreateProductViewModel viewCreateProductViewModel = new ViewCreateProductViewModel();
         ViewModifyProductViewModel viewModifyProductViewModel = new ViewModifyProductViewModel();
-        ViewUserProfileViewModel viewUserProfileViewModel = new ViewUserProfileViewModel();
 
         manageProductView = ManageProductUseCaseFactory.create(searchProductViewModel, manageProductViewModel,
                 viewManagerModel, buyerViewProductViewModel, sellerViewProductViewModel, unloggedInViewModel, signupViewModel, loginViewModel,
