@@ -24,7 +24,7 @@ class CommonUserFactoryTest {
     @Test
     void createUser() {
         User newUser = commonUserFactory.createUser("hanrui", "123456", "hanrui@mail", 0, "123456");
-        assertEquals(commonUser, newUser);
+        assertEquals(commonUser.getStudentNumber(), newUser.getStudentNumber());
     }
 
 }

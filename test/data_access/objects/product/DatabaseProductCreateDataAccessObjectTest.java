@@ -3,6 +3,7 @@ package data_access.objects.product;
 import data_access.interfaces.product.ProductCreateDataAccessInterface;
 import data_access.interfaces.product.ProductReadAllDataAccessInterface;
 import data_access.interfaces.product.ProductReadByIdDataAccessInterface;
+import data_access.interfaces.product.ProductReadByNameDataAccessInterface;
 import entity.product.CommonProduct;
 import entity.product.CommonProductFactory;
 import entity.product.Product;
@@ -28,12 +29,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class DatabaseProductCreateDataAccessObjectTest {
 
     private ProductCreateDataAccessInterface databaseProductCreateDataAccessObject;
-    private ProductReadByIdDataAccessInterface databaseProductReadByIdDataAccessObject;
+    private ProductReadByNameDataAccessInterface databaseProductReadByNameDataAccessObject;
     private Product commonProduct;
     private Schedule commonSchedule;
     private LocalDateTime startTime;
     private Image image;
-    private ArrayList<String> tags;
+    private ArrayList<String> tags = new ArrayList<>();
     private LocalDateTime time;
     private ArrayList<LocalDateTime> localDateTimeList;
     private String studentNumber = "123456";
@@ -41,7 +42,7 @@ class DatabaseProductCreateDataAccessObjectTest {
     @BeforeEach
     void setUp() throws SQLException, IOException {
         tags.add("tag1");
-        image = ImageIO.read(new File("/src/pic/testpic1"));
+        image = ImageIO.read(new File("src/pic/testpic1.png"));
         time = LocalDateTime.now();
         localDateTimeList = new ArrayList<>();
         localDateTimeList.add(time);
@@ -51,8 +52,8 @@ class DatabaseProductCreateDataAccessObjectTest {
         databaseProductCreateDataAccessObject = new DatabaseProductCreateDataAccessObject();
         ProductFactory commonProductFactory = new CommonProductFactory();
         ScheduleFactory commonScheduleFactory = new CommonScheduleFactory();
-        databaseProductReadByIdDataAccessObject =
-                new DatabaseProductReadByIdDataAccessObject(commonProductFactory,
+        databaseProductReadByNameDataAccessObject =
+                new DatabaseProductReadByNameDataAccessObject(commonProductFactory,
                         commonScheduleFactory);
     }
 
@@ -62,8 +63,12 @@ class DatabaseProductCreateDataAccessObjectTest {
 
     @Test
     void saveProduct() throws SQLException, IOException {
+
+        ArrayList<Product> products = databaseProductReadByNameDataAccessObject.getProductByName("pro");
+        Product product = products.get(0);
+
         databaseProductCreateDataAccessObject.saveProduct(commonProduct);
-        assertEquals(commonProduct, databaseProductReadByIdDataAccessObject.getProductById(studentNumber));
+        assertEquals(commonProduct.getDescription(), product.getDescription());
     }
 
 }

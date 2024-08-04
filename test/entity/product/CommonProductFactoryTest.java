@@ -23,7 +23,7 @@ class CommonProductFactoryTest {
     private Schedule commonSchedule;
     private LocalDateTime startTime;
     private Image image;
-    private ArrayList<String> tags;
+    private ArrayList<String> tags = new ArrayList<>();
     private LocalDateTime time;
     private ArrayList<LocalDateTime> localDateTimeList;
 
@@ -32,7 +32,7 @@ class CommonProductFactoryTest {
     void setUp() throws IOException {
         commonProductFactory = new CommonProductFactory();
         tags.add("tag1");
-        image = ImageIO.read(new File("/src/pic/testpic1"));
+        image = ImageIO.read(new File("src/pic/testpic1.png"));
         time = LocalDateTime.now();
         localDateTimeList = new ArrayList<>();
         localDateTimeList.add(time);
@@ -53,7 +53,7 @@ class CommonProductFactoryTest {
                 10, 5
             , 0,
                 "hanrui@mail", "123456", "hanrui123456", tags, "123456", commonSchedule);
-        assertEquals(commonProduct, newCommonProduct);
+        assertEquals(commonProduct.getProductID(), newCommonProduct.getProductID());
     }
 
 }

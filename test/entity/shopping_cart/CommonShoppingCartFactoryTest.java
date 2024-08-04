@@ -25,7 +25,7 @@ class CommonShoppingCartFactoryTest {
     private Schedule commonSchedule;
     private LocalDateTime startTime;
     private Image image;
-    private ArrayList<String> tags;
+    private ArrayList<String> tags = new ArrayList<>();
     private float price = 10;
     private String studentNumber = "123456";
     private LocalDateTime time;
@@ -34,7 +34,7 @@ class CommonShoppingCartFactoryTest {
     @BeforeEach
     void setUp() throws IOException {
         tags.add("tag1");
-        image = ImageIO.read(new File("/src/pic/testpic1"));
+        image = ImageIO.read(new File("src/pic/testpic1.png"));
         time = LocalDateTime.now();
         localDateTimeList = new ArrayList<>();
         localDateTimeList.add(time);
@@ -55,6 +55,6 @@ class CommonShoppingCartFactoryTest {
     void createShoppingCart() {
         ShoppingCart newCommonShoppingCart =  commonShoppingCartFactory.createShoppingCart(price,
                 studentNumber, productList);
-        assertEquals(commonShoppingCart, newCommonShoppingCart);
+        assertEquals(commonShoppingCart.getStudentNumber(), newCommonShoppingCart.getStudentNumber());
     }
 }

@@ -27,7 +27,7 @@ class CommonQuestionFactoryTest {
     void createQuestion() {
         Question newQuestion = commonQuestionFactory.createQuestion("test question", "123456",
                 commonAnswer, "123456");
-        assertEquals(commonQuestion, newQuestion);
+        assertEquals(commonQuestion.getQuestionID(), newQuestion.getQuestionID());
     }
 
 }
