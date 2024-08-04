@@ -83,9 +83,7 @@ public class Main {
         JPanel views = new JPanel(cardLayout);
         application.add(views);
 
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        new ViewManager(views, cardLayout, viewManagerModel);
-        UserFactory commonUserFactory = new CommonUserFactory();
+
 
         LoginViewModel loginViewModel = new LoginViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
@@ -100,8 +98,6 @@ public class Main {
         SellerSelectScheduleViewModel sellerSelectScheduleViewModel = new SellerSelectScheduleViewModel();
         BuyerSelectScheduleViewModel buyerSelectScheduleViewModel = new BuyerSelectScheduleViewModel();
         SearchProductViewModel searchProductViewModel = new SearchProductViewModel();
-//        SearchProductByTagViewModel searchProductByTagViewModel = new SearchProductByTagViewModel();
-        //ViewProfileViewModel viewProfileViewModel = new ViewProfileViewModel();
         UnloggedInViewModel unloggedInViewModel = new UnloggedInViewModel();
         SignupViewModel signUpViewModel = new SignupViewModel();
         ReplyQuestionViewModel replyQuestionViewModel = new ReplyQuestionViewModel();
@@ -109,6 +105,9 @@ public class Main {
         ViewCreateProductViewModel viewCreateProductViewModel = new ViewCreateProductViewModel();
         ViewModifyProductViewModel viewModifyProductViewModel = new ViewModifyProductViewModel();
         ViewUserProfileViewModel viewUserProfileViewModel = new ViewUserProfileViewModel();
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+        new ViewManager(views, cardLayout, viewManagerModel);
+        UserFactory commonUserFactory = new CommonUserFactory();
 
 
         SellerReplyView sellerReplyView = SellerReplyUseCaseFactory.create(replyQuestionViewModel,
