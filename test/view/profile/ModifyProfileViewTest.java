@@ -41,26 +41,12 @@ class ModifyProfileViewTest {
 
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         LoginViewModel loginViewModel = new LoginViewModel();
-        SignupViewModel signupViewModel = new SignupViewModel();
         MainPageViewModel mainPageViewModel = new MainPageViewModel();
         ViewProfileViewModel viewProfileViewModel = new ViewProfileViewModel();
         ShoppingCartViewModel shoppingCartViewModel = new ShoppingCartViewModel();
-        ManageProductViewModel manageProductViewModel = new ManageProductViewModel();
         modifyProfileViewModel = new ModifyProfileViewModel();
-        SellerViewProductViewModel sellerViewProductViewModel = new SellerViewProductViewModel();
-        BuyerViewProductViewModel buyerViewProductViewModel = new BuyerViewProductViewModel();
-        ViewModifyProductViewModel modifyProductViewModel = new ViewModifyProductViewModel();
-        SellerSelectScheduleViewModel sellerSelectScheduleViewModel = new SellerSelectScheduleViewModel();
-        BuyerSelectScheduleViewModel buyerSelectScheduleViewModel = new BuyerSelectScheduleViewModel();
         SearchProductViewModel searchProductViewModel = new SearchProductViewModel();
-        UnloggedInViewModel unloggedInViewModel = new UnloggedInViewModel();
         SignupViewModel signUpViewModel = new SignupViewModel();
-        ReplyQuestionViewModel replyQuestionViewModel = new ReplyQuestionViewModel();
-        RateProductViewModel rateProductViewModel = new RateProductViewModel();
-        ViewCreateProductViewModel viewCreateProductViewModel = new ViewCreateProductViewModel();
-        ViewModifyProductViewModel viewModifyProductViewModel = new ViewModifyProductViewModel();
-        ViewUserProfileViewModel viewUserProfileViewModel = new ViewUserProfileViewModel();
-
         modifyProfileView = ModifyProfileUseCaseFactory.create(viewManagerModel
                 , mainPageViewModel,shoppingCartViewModel, searchProductViewModel, viewProfileViewModel, signUpViewModel,
                 loginViewModel,modifyProfileViewModel);
