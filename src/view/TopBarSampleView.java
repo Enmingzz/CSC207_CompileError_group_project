@@ -35,6 +35,7 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
 
     private final JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     private final JPanel title = new JPanel();
+    private Color topBarColor = new Color(255,223,179);
 
     /**
      * Constructs a TopBarSampleView with specific controllers and user information.
@@ -56,8 +57,9 @@ public class TopBarSampleView extends JPanel implements ActionListener, Property
                             ViewProfileController viewProfileController,
                             MainPageController mainPageController) {
 
+        buttonPanel.setBackground(topBarColor);
+        title.setBackground(topBarColor);
         this.setLayout(new BorderLayout());
-
         // Search button
         searchButton = new JButton("Search");
         searchButton.addActionListener(new SearchButtonListener(getSearchPageController, user));

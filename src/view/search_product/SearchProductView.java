@@ -54,6 +54,8 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
     private JPanel topBar;
     private int panelWidth = 10;
     private Color color1 = new Color(184,222,254);
+    private Color topBarColor = new Color(255,223,179);
+
 
 
     /**
@@ -102,7 +104,6 @@ public class SearchProductView extends JPanel implements ActionListener, Propert
         topBar = new TopBarSampleView(commonUser,
                 getSearchPageController, viewSignupPageController, viewLoginPageController,
                 shoppingCartController, logOutController, viewProfileController, mainPageController);
-
         viewModel.addPropertyChangeListener(this);
 
         searchPanel = new JPanel();
