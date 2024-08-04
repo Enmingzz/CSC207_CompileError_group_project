@@ -28,7 +28,7 @@ import java.util.Arrays;
  * The {@link LoginView} class represents the login view in the application.
  * It handles user interactions for logging in and displays the login interface.
  */
-public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
+public class LoginView extends JPanel implements PropertyChangeListener {
 
     public final String viewName = "log in";
     private final LoginViewModel loginViewModel;
@@ -136,11 +136,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         logInPanel.add(passwordInfo);
         logInPanel.add(logInButton);
         this.add(logInPanel, BorderLayout.CENTER);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
     }
 
     @Override
