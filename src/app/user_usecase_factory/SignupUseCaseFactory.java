@@ -279,29 +279,6 @@ public class SignupUseCaseFactory {
 //        return new ViewLoginPageController(viewLoginPageInteractor);
 //    }
 
-    /**
-     * Creates an instance of {@link LoginController}.
-     *
-     * @param viewManagerModel  the view manager model
-     * @param loginViewModel    the login view model
-     * @param mainPageViewModel the main page view model
-     * @return an instance of {@link LoginController}
-     * @throws IOException  if an I/O error occurs
-     * @throws SQLException if a database access error occurs
-     */
-    private static LoginController createUserLoginUseCase(ViewManagerModel viewManagerModel, LoginViewModel
-            loginViewModel, MainPageViewModel mainPageViewModel) throws IOException, SQLException {
-
-        LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel, loginViewModel, mainPageViewModel);
-        DatabaseUserReadDataAccessObjectFactoryInterface databaseUserReadDataAccessObjectFactory = new DatabaseUserReadDataAccessObjectFactory();
-        UserReadDataAccessInterface userReadDataAccessInterface = databaseUserReadDataAccessObjectFactory.create(new CommonUserFactory());
-
-        UserFactory userFactory = new CommonUserFactory();
-
-        LoginInputBoundary userLoginInteractor = new LoginInteractor(userReadDataAccessInterface, loginOutputBoundary);
-
-        return new LoginController(userLoginInteractor);
-    }
 
     /**
      * Creates an instance of {@link ViewLoginPageController}.
