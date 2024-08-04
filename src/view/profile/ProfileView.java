@@ -3,7 +3,6 @@ package view.profile;
 import entity.user.CommonUserFactory;
 import entity.user.User;
 import entity.user.UserFactory;
-import interface_adapter.login.LoginController;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
@@ -14,12 +13,12 @@ import interface_adapter.profile.view_profile.ViewProfileState;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
 import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
-import interface_adapter.signup.SignupController;
 import interface_adapter.signup.ViewSignupPageController;
 import view.TopBarSampleView;
 import view.profile.ProfileHelper.ManageProductListener;
 import view.profile.ProfileHelper.ModifyProfileListener;
 import view.profile.ProfileHelper.ProfileLabelTextPanel;
+import view.profile.ProfileHelper.SetButtonHelper;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,9 +26,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Objects;
 
 public class ProfileView extends JPanel implements PropertyChangeListener {
     public final String viewName = "profile view";
@@ -61,6 +57,7 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
     private JLabel studentPasswordViewField = new JLabel();
     private JLabel messageField = new JLabel("");
     private JPanel infoPanel = new JPanel();
+    private SetButtonHelper setButtonHelper;
 
     private JPanel topBar;
 
@@ -118,10 +115,18 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         leftPanel.setLayout(new GridLayout(3, 1));
 
         showProfile = new JButton(profileViewModel.VIEW_PROFILE_BOTTON_LABEL);
+        setButtonHelper = new SetButtonHelper("/pic/dog.jpg", showProfile);
+        setButtonHelper.setButton();
         leftPanel.add(showProfile);
+
         manageProduct = new JButton(profileViewModel.MANAGEPRODUCT_BUTTONLABEL);
+        setButtonHelper = new SetButtonHelper("/pic/dog.jpg", manageProduct);
+        setButtonHelper.setButton();
         leftPanel.add(manageProduct);
+
         modifyProfile = new JButton(profileViewModel.MODIFYPROFILE_BUTTON_LABEL);
+        setButtonHelper = new SetButtonHelper("/pic/dog.jpg", modifyProfile);
+        setButtonHelper.setButton();
         leftPanel.add(modifyProfile);
 
         manageProduct.addActionListener(new ManageProductListener(manageProductController, viewModel));
