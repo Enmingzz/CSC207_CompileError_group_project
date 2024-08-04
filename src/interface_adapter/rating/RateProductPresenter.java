@@ -43,8 +43,8 @@ public class RateProductPresenter implements RateProductOutputBoundary {
         ArrayList<Product> productList = shoppingCartState.getListProducts();
         for (int i = 0; i < productList.size(); i++) {
             if (productList.get(i).getProductID().equals(rateProductOutputData.getProduct().getProductID())) {
-                productList.remove(productList.get(i));
                 totalPrice -= productList.get(i).getPrice();
+                productList.remove(productList.get(i));
             }
         }
         shoppingCartState.setListProducts(productList);

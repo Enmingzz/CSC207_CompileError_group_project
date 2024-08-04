@@ -31,6 +31,8 @@ public class AllProductsPanel extends JPanel{
                      ){
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        this.setAlignmentY(Component.TOP_ALIGNMENT);
+
         for (Product product : listProducts) {
 
             JButton viewButton = new JButton(product.getTitle());
@@ -98,7 +100,7 @@ public class AllProductsPanel extends JPanel{
                 ShoppingCartSellingPanel productSellingPanel = new ShoppingCartSellingPanel(
                         viewButton, priceLabel, checkoutButton, deleteButton
                 );
-                this.add(productSellingPanel);
+                this.add(productSellingPanel, BorderLayout.NORTH);
 
             }
             else if (product.getState() == 1) {
@@ -106,7 +108,7 @@ public class AllProductsPanel extends JPanel{
                 ShoppingCartSellerSelectPanel sellerSelectPanel = new ShoppingCartSellerSelectPanel(
                         viewButton, priceLabel, pendingScheduleLabel
                 );
-                this.add(sellerSelectPanel);
+                this.add(sellerSelectPanel, BorderLayout.NORTH);
 
             }
 
@@ -133,7 +135,7 @@ public class AllProductsPanel extends JPanel{
                 ShoppingCartBuyerSelectPanel buyerSelectPanel = new ShoppingCartBuyerSelectPanel(
                         viewButton, priceLabel, scheduleButton
                 );
-                this.add(buyerSelectPanel);
+                this.add(buyerSelectPanel, BorderLayout.NORTH);
 
             }
 
@@ -166,7 +168,7 @@ public class AllProductsPanel extends JPanel{
                 ShoppingCartConfirmationPanel confirmationPanel = new ShoppingCartConfirmationPanel(
                         viewButton, priceLabel, scheduleLabel, confirmButton
                 );
-                this.add(confirmationPanel);
+                this.add(confirmationPanel, BorderLayout.NORTH);
             }
 
             else if (product.getState() == 4) {
@@ -195,7 +197,7 @@ public class AllProductsPanel extends JPanel{
                 ShoppingCartRatingPanel ratingPanel = new ShoppingCartRatingPanel(
                         viewButton, priceLabel, ratingButton
                 );
-                this.add(ratingPanel);
+                this.add(ratingPanel, BorderLayout.NORTH);
             }
 
         }
@@ -208,6 +210,6 @@ public class AllProductsPanel extends JPanel{
                 totalPriceLabel
         );
 
-        this.add(totalPricePanel);
+        this.add(totalPricePanel, BorderLayout.NORTH);
     }
 }
