@@ -10,10 +10,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LoginStateTest {
     private String studentNumber;
-    private String studentNumberError = null;
+    private String studentNumberError;
     private String password;
-    private String passwordError = null;
-    private User commonUser;
+    private String passwordError;
     private boolean isChanged = false;
 
     private LoginState loginState;
@@ -25,7 +24,8 @@ class LoginStateTest {
         loginState = new LoginState(copy);
         studentNumber = "123456";
         password = "123456";
-        commonUser = new CommonUser("hanrui", password, "hanrui@mail", 0, studentNumber);
+        studentNumberError = "error1";
+        passwordError = "error2";
     }
 
     @AfterEach
@@ -34,19 +34,26 @@ class LoginStateTest {
 
     @Test
     void getStudentNumber() {
-
+        loginState.setStudentNumber(studentNumber);
+        assertEquals(studentNumber, loginState.getStudentNumber());
     }
 
     @Test
     void getStudentNumberError() {
+        loginState.setStudentNumberError(studentNumberError);
+        assertEquals(studentNumberError, loginState.getStudentNumberError());
     }
 
     @Test
     void getPassword() {
+        loginState.setPassword(password);
+        assertEquals(password, loginState.getPassword());
     }
 
     @Test
     void getPasswordError() {
+        loginState.setPasswordError(passwordError);
+        assertEquals(passwordError, loginState.getPasswordError());
     }
 
 }
