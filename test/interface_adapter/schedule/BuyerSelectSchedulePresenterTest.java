@@ -104,7 +104,8 @@ class BuyerSelectSchedulePresenterTest {
 
     @Test
     void prepareFailedView() {
-//        buyerSelectSchedulePresenter.prepareFailedView("a");
+        buyerSelectSchedulePresenter.prepareFailedView("a");
+        assertEquals(viewModel.getState().getError(), "a");
 
     }
 }
