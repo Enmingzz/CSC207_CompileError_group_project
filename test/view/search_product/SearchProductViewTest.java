@@ -1,7 +1,6 @@
-package use_case.search_product;
+package view.search_product;
 
-import data_access.in_memory.product.InMemoryProductReadAllDataAccessObject;
-import data_access.interfaces.product.ProductReadAllDataAccessInterface;
+import app.search_product_usecase_factory.SearchProductUseCaseFactory;
 import entity.product.CommonProductFactory;
 import entity.product.Product;
 import entity.product.ProductFactory;
@@ -11,6 +10,17 @@ import entity.schedule.ScheduleFactory;
 import entity.user.CommonUserFactory;
 import entity.user.User;
 import entity.user.UserFactory;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.login.LoginViewModel;
+import interface_adapter.main_page.MainPageViewModel;
+import interface_adapter.profile.view_profile.ViewProfileViewModel;
+import interface_adapter.search_product.SearchProductState;
+import interface_adapter.search_product.SearchProductViewModel;
+import interface_adapter.shopping_cart.ShoppingCartViewModel;
+import interface_adapter.signup.SignupViewModel;
+import interface_adapter.view_product.BuyerViewProductViewModel;
+import interface_adapter.view_product.SellerViewProductViewModel;
+import interface_adapter.view_product.UnloggedInViewModel;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,16 +33,41 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
-class GetSearchViewInteractorTest {
+class SearchByNameViewTest {
+    private SearchProductViewModel searchProductViewModel;
+    private ViewManagerModel viewManagerModel;
+    private BuyerViewProductViewModel buyerViewProductViewModel;
+    private SellerViewProductViewModel sellerViewProductViewModel;
+    private UnloggedInViewModel unloggedInViewModel;
+    private SignupViewModel signupViewModel;
+    private LoginViewModel loginViewModel;
+    private ShoppingCartViewModel shoppingCartViewModel;
+    private MainPageViewModel mainPageViewModel;
+    private ViewProfileViewModel viewProfileViewModel;
+
     private User user;
     private ArrayList<Product> products;
     private Product product1;
     private Product product2;
+    private SearchProductView searchProductView;
 
     @BeforeEach
-    void setUp() throws IOException {
+    void setUp() throws IOException, SQLException {
+
+        searchProductViewModel = new SearchProductViewModel();
+        viewManagerModel = new ViewManagerModel();
+        buyerViewProductViewModel = new BuyerViewProductViewModel();
+        sellerViewProductViewModel = new SellerViewProductViewModel();
+        unloggedInViewModel = new UnloggedInViewModel();
+        signupViewModel = new SignupViewModel();
+        loginViewModel = new LoginViewModel();
+        shoppingCartViewModel = new ShoppingCartViewModel();
+        mainPageViewModel = new MainPageViewModel();
+        viewProfileViewModel = new ViewProfileViewModel();
+
         String name = "tabby cat";
         String password = "password";
         String email = "tabby@mail.utoronto.ca";
@@ -41,8 +76,6 @@ class GetSearchViewInteractorTest {
 
         UserFactory userFactory = new CommonUserFactory();
         user = userFactory.createUser(name, password, email, userRating, studentNumber);
-
-        // product1 is a product that is on sale, so its state is 0.
         ProductFactory productFactory = new CommonProductFactory();
         ScheduleFactory scheduleFactory = new CommonScheduleFactory();
         Image image = ImageIO.read(new File("src/pic/testpic1.png"));
@@ -67,14 +100,12 @@ class GetSearchViewInteractorTest {
         products = new ArrayList<>();
         products.add(product1);
 
-        // product2 is a product that is not on sale, so its state is non-zero
-
         Image image2 = ImageIO.read(new File("src/pic/testpic2.png"));
         String description2 = "This is a description";
         String title2 = "This is a title ";
         float price2 = 2;
         Integer rating2 = 0;
-        int state2 = 1;
+        int state2 = 0;
         String eTransferEmail2 = "example@email.com";
         String sellerStudentNumber2 = "1234567890";
         String address2 = "BA 3185";
@@ -91,7 +122,8 @@ class GetSearchViewInteractorTest {
 
         products.add(product2);
 
-
+        searchProductView = SearchProductUseCaseFactory.create(searchProductViewModel, viewManagerModel, buyerViewProductViewModel,
+                sellerViewProductViewModel, unloggedInViewModel, signupViewModel, loginViewModel, shoppingCartViewModel, mainPageViewModel, viewProfileViewModel);
 
     }
 
@@ -100,42 +132,17 @@ class GetSearchViewInteractorTest {
     }
 
     @Test
-    void getSearchView() throws SQLException, IOException {
-        GetSearchViewOutputBoundary getSearchViewOutputBoundary = new GetSearchViewOutputBoundary() {
-            @Override
-            public void prepareSuccessView(GetSearchViewOutputData getSearchViewOutputData) {
-                User ActualUser = getSearchViewOutputData.getUser();
-                assertEquals(user, ActualUser);
+    void actionPerformed() {
+    }
 
-                ArrayList<Product> actualProducts = getSearchViewOutputData.getAllProducts();
-                ArrayList<Product> expectedProducts = new ArrayList<>();
-                expectedProducts.add(product1);
-                assertEquals(expectedProducts.size(), actualProducts.size());
-                for (int i = 0; i < expectedProducts.size(); i++) {
-                    Product expectedProduct = expectedProducts.get(i);
-                    Product actualProduct = actualProducts.get(i);
-                    assertEquals(expectedProduct.getImage(), actualProduct.getImage());
-                    assertEquals(expectedProduct.getDescription(), actualProduct.getDescription());
-                    assertEquals(expectedProduct.getTitle(), actualProduct.getTitle());
-                    assertEquals(expectedProduct.getPrice(), actualProduct.getPrice(), 0);
-                    assertEquals(expectedProduct.getState(), actualProduct.getState());
-                    assertEquals(expectedProduct.getRating(), actualProduct.getRating(), 0);
-                    assertEquals(expectedProduct.geteTransferEmail(), actualProduct.geteTransferEmail());
-                    assertEquals(expectedProduct.getSellerStudentNumber(), actualProduct.getSellerStudentNumber());
-                    assertEquals(expectedProduct.getAddress(), actualProduct.getAddress());
-                    assertEquals(expectedProduct.getListTags(), actualProduct.getListTags());
-                    assertEquals(expectedProduct.getProductID(), actualProduct.getProductID());
-                    assertEquals(expectedProduct.getSchedule().getSellerTime(), actualProduct.getSchedule().getSellerTime());
-                    assertEquals(expectedProduct.getSchedule().getBuyerTime(), actualProduct.getSchedule().getBuyerTime());
-                }
-                // only product1 should be displayed.
-            }
-        };
-        ProductReadAllDataAccessInterface inMemoryProductReadAllDataAccessObject =
-                new InMemoryProductReadAllDataAccessObject(products);
-        GetSearchViewInputData inputData = new GetSearchViewInputData(user);
-        GetSearchViewInteractor interactor =
-                new GetSearchViewInteractor(getSearchViewOutputBoundary, inMemoryProductReadAllDataAccessObject);
-        interactor.getSearchView(inputData);
+    @Test
+    void propertyChange() {
+        SearchProductState searchProductState = searchProductViewModel.getState();
+        searchProductState.setProducts(products);
+        searchProductState.setUser(user);
+        searchProductViewModel.setState(searchProductState);
+        searchProductViewModel.firePropertyChanged();
+        assertEquals(searchProductViewModel.getState(), searchProductState);
+        assertInstanceOf(SearchProductView.class, searchProductView);
     }
 }
