@@ -10,6 +10,7 @@ import javax.swing.*;
 
 public class ShoppingCartSellingPanel extends JPanel{
     ShoppingCartSellingPanel(JButton viewProductButton, JLabel priceLabel, JButton checkoutButton, JButton deleteButton) {
+
         this.add(viewProductButton);
         this.add(priceLabel);
         this.add(checkoutButton);

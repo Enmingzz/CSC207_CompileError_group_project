@@ -95,6 +95,7 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
         JLabel title = new JLabel(mainPageViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        title.setAlignmentY(Component.TOP_ALIGNMENT);
 
         this.setLayout(new BorderLayout());
         this.add(title);
@@ -109,12 +110,14 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
                 shoppingCartController, logOutController, viewProfileController, mainPageController);
         this.add(topBar);
         this.add(topBar, BorderLayout.NORTH);
+        topBar.setAlignmentY(Component.TOP_ALIGNMENT);
 
         // Products page starts here
 
         ArrayList<Product> allProducts = mainPageViewModel.getState().getAllProducts();
 
         allProductsPanel = new AllProductsPanel(allProducts, mainPageViewModel, viewProductController);
+        allProductsPanel.setAlignmentY(Component.TOP_ALIGNMENT);
         this.add(new JScrollPane(allProductsPanel));
 
 
@@ -221,11 +224,13 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
                 getSearchPageController, viewSignupPageController, viewLoginPageController,
                 shoppingCartController, logOutController, viewProfileController,
                 mainPageController));
+        topBar.setAlignmentY(Component.TOP_ALIGNMENT);
         topBar.repaint();
         topBar.revalidate();
 
         allProductsPanel.removeAll();
         allProductsPanel.add(new AllProductsPanel(allProducts, mainPageViewModel, viewProductController));
+        allProductsPanel.setAlignmentY(Component.TOP_ALIGNMENT);
         allProductsPanel.repaint();
         allProductsPanel.revalidate();
 //        this.revalidate();
