@@ -89,6 +89,9 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         viewModel.addPropertyChangeListener(this);
         title = new JLabel(profileViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        title.setFont(new Font("Times New Roman", Font.PLAIN, 40));
+
+
         this.setLayout(new BorderLayout());
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
 
@@ -115,17 +118,17 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         leftPanel.setLayout(new GridLayout(3, 1));
 
         showProfile = new JButton(profileViewModel.VIEW_PROFILE_BOTTON_LABEL);
-        setButtonHelper = new SetButtonHelper("/pic/dog.jpg", showProfile);
+        setButtonHelper = new SetButtonHelper("/pic/user.jpg", showProfile);
         setButtonHelper.setButton();
         leftPanel.add(showProfile);
 
         manageProduct = new JButton(profileViewModel.MANAGEPRODUCT_BUTTONLABEL);
-        setButtonHelper = new SetButtonHelper("/pic/dog.jpg", manageProduct);
+        setButtonHelper = new SetButtonHelper("/pic/manage.jpg", manageProduct);
         setButtonHelper.setButton();
         leftPanel.add(manageProduct);
 
         modifyProfile = new JButton(profileViewModel.MODIFYPROFILE_BUTTON_LABEL);
-        setButtonHelper = new SetButtonHelper("/pic/dog.jpg", modifyProfile);
+        setButtonHelper = new SetButtonHelper("/pic/modify.jpg", modifyProfile);
         setButtonHelper.setButton();
         leftPanel.add(modifyProfile);
 
@@ -145,14 +148,15 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         }
         showProfile.addActionListener(new ViewProfileListener());
         this.add(leftPanel, BorderLayout.WEST);
-
         infoPanel.add(title);
+        infoPanel.add(Box.createRigidArea(new Dimension(0, 40)));
         infoPanel.add(userNameInfo);
         infoPanel.add(passwordInfo);
         infoPanel.add(userIDInfo);
         infoPanel.add(userEmail);
         infoPanel.add(userRating);
         infoPanel.add(messageField);
+        infoPanel.setBorder(BorderFactory.createEmptyBorder(0, 80, 20, 20));
 
         this.add(infoPanel, BorderLayout.CENTER);
 

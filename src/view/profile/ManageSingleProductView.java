@@ -81,15 +81,15 @@ public class ManageSingleProductView extends JPanel implements PropertyChangeLis
             stateViewField.setText("product has been sold and buyer has rated the product");
         }
 
-        ProfileLabelTextPanel titleInfo = new ProfileLabelTextPanel(new JLabel(manageProductViewModel.PRODUCTTITLE_LABEL),
+        ProductLabelTextPanel titleInfo = new ProductLabelTextPanel(new JLabel(manageProductViewModel.PRODUCTTITLE_LABEL),
                 titleViewField);
-        ProfileLabelTextPanel ratingInfo = new ProfileLabelTextPanel(new JLabel(manageProductViewModel.RATING_LABEL),
+        ProductLabelTextPanel ratingInfo = new ProductLabelTextPanel(new JLabel(manageProductViewModel.RATING_LABEL),
                 ratingViewField);
-        ProfileLabelTextPanel stateInfo = new ProfileLabelTextPanel(new JLabel(manageProductViewModel.STATE_LABEL),
+        ProductLabelTextPanel stateInfo = new ProductLabelTextPanel(new JLabel(manageProductViewModel.STATE_LABEL),
                 stateViewField);
-        ProfileLabelTextPanel imageInfo = new ProfileLabelTextPanel(new JLabel(manageProductViewModel.IMAGE_LABEL),
+        ProductLabelTextPanel imageInfo = new ProductLabelTextPanel(new JLabel(manageProductViewModel.IMAGE_LABEL),
                 imageViewField);
-        ProfileLabelTextPanel priceInfo = new ProfileLabelTextPanel(new JLabel(manageProductViewModel.PRICE_LABEL),
+        ProductLabelTextPanel priceInfo = new ProductLabelTextPanel(new JLabel(manageProductViewModel.PRICE_LABEL),
                 priceViewField);
 
         modifyProduct = new JButton(manageProductViewModel.MODIFY_BUTTON_LABEL);
@@ -99,8 +99,7 @@ public class ManageSingleProductView extends JPanel implements PropertyChangeLis
 
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
-        infoPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        this.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.lightGray));
 
         infoPanel.add(titleInfo);
         infoPanel.add(stateInfo);

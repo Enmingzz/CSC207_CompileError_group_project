@@ -15,7 +15,7 @@ public class SetButtonHelper {
 
     public void setButton(){
         jButton.setIcon(new ImageIcon(resizedImage));
-        jButton.setVerticalTextPosition(JButton.CENTER);
+        jButton.setVerticalTextPosition(JButton.BOTTOM);
         jButton.setHorizontalTextPosition(JButton.CENTER);
         jButton.setVerticalAlignment(JButton.CENTER);
         jButton.setHorizontalAlignment(JButton.CENTER);
