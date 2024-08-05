@@ -11,8 +11,7 @@ import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.main_page.MainPageState;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -37,8 +36,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
@@ -51,6 +48,7 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
     public final String viewName = "main page";
     private final MainPageViewModel mainPageViewModel;
     private JPanel topBar;
+    private int panelWidth = 10;
 
     // Check necessity of this initialization
     private List<JButton> viewProductButtons = new ArrayList<>();
@@ -116,9 +114,29 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
 
         ArrayList<Product> allProducts = mainPageViewModel.getState().getAllProducts();
 
-        allProductsPanel = new AllProductsPanel(allProducts, mainPageViewModel, viewProductController);
-        allProductsPanel.setAlignmentY(Component.TOP_ALIGNMENT);
+        allProductsPanel = new AllProductsPanel(allProducts, mainPageViewModel, viewProductController, panelWidth);
         this.add(new JScrollPane(allProductsPanel));
+
+        addComponentListener(new ComponentAdapter() {
+            /**
+             * Handles the component resize event.
+             *
+             * @param e the component event
+             */
+            public void componentResized(ComponentEvent e) {
+
+                Dimension newSize = e.getComponent().getBounds().getSize();
+                if (panelWidth != newSize.width) {
+                    panelWidth = newSize.width;
+                    allProductsPanel.removeAll();
+                    ArrayList<Product> products = mainPageViewModel.getState().getAllProducts();
+                    allProductsPanel.add(new AllProductsPanel(products, mainPageViewModel, viewProductController, panelWidth));
+                    allProductsPanel.repaint();
+                    allProductsPanel.revalidate();
+                }
+
+            }
+        });
 
 
 //        Wrong implementation of MainPAgeView, left for reference
@@ -229,7 +247,7 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
         topBar.revalidate();
 
         allProductsPanel.removeAll();
-        allProductsPanel.add(new AllProductsPanel(allProducts, mainPageViewModel, viewProductController));
+        allProductsPanel.add(new AllProductsPanel(allProducts, mainPageViewModel, viewProductController, panelWidth));
         allProductsPanel.setAlignmentY(Component.TOP_ALIGNMENT);
         allProductsPanel.repaint();
         allProductsPanel.revalidate();
