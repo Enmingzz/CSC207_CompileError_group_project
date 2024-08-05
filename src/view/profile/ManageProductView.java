@@ -110,6 +110,7 @@ public class ManageProductView extends JPanel implements ActionListener, Propert
         JLabel title = new JLabel(manageProductViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         updateMainPanel();
 
         this.add(new JScrollPane(mainPanel), BorderLayout.CENTER);
