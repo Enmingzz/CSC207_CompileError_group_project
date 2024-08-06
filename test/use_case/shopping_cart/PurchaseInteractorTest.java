@@ -118,6 +118,11 @@ class PurchaseInteractorTest {
                 assertEquals(actualProduct.getState(), initialProducts.get(0).getState());
                 assertEquals(actualProduct.getState(), 1);
             }
+
+            @Override
+            public void prepareFailedView(String error) throws SQLException, IOException {
+                assert false;
+            }
         };
 
         PurchaseInputData inputData =
