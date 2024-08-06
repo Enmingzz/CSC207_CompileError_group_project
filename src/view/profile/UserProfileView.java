@@ -102,7 +102,7 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
 
         viewModel.addPropertyChangeListener(this);
         ProfileTitleLabel title = new ProfileTitleLabel(viewModel.TITLE_LABEL);
-
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
 
         studentNumberViewField.setText(viewModel.getState().getSellerUser().getStudentNumber());
         studentNameViewField.setText(viewModel.getState().getSellerUser().getName());
@@ -117,17 +117,19 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         infoPanel.add(title);
+        infoPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         infoPanel.add(userNameInfo);
         infoPanel.add(userIDInfo);
         infoPanel.add(userEmail);
         infoPanel.add(userRating);
+        infoPanel.setBorder(BorderFactory.createEmptyBorder(0, 80, 20, 80));
 
         this.add(infoPanel, BorderLayout.CENTER);
 
         ArrayList<Product> allProducts = viewModel.getState().getListProduct();
 
         allProductsPanel = new ViewUserProductPanel(allProducts, viewModel, viewProductController);
-        this.add(new JScrollPane(allProductsPanel));
+        this.add(new JScrollPane(allProductsPanel), BorderLayout.SOUTH);
 
     }
 
@@ -154,11 +156,7 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
         infoPanel.repaint();
         infoPanel.revalidate();
 
-
-        this.add(infoPanel, BorderLayout.CENTER);
-
-
-
+//        this.add(infoPanel, BorderLayout.CENTER);
 
         ViewUserProfileState state = (ViewUserProfileState) evt.getNewValue();
 
