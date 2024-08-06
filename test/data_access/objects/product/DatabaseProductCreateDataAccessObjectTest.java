@@ -1,9 +1,6 @@
 package data_access.objects.product;
 
-import data_access.interfaces.product.ProductCreateDataAccessInterface;
-import data_access.interfaces.product.ProductReadAllDataAccessInterface;
-import data_access.interfaces.product.ProductReadByIdDataAccessInterface;
-import data_access.interfaces.product.ProductReadByNameDataAccessInterface;
+import data_access.interfaces.product.*;
 import entity.product.CommonProduct;
 import entity.product.CommonProductFactory;
 import entity.product.Product;
@@ -30,6 +27,7 @@ class DatabaseProductCreateDataAccessObjectTest {
 
     private ProductCreateDataAccessInterface databaseProductCreateDataAccessObject;
     private ProductReadByNameDataAccessInterface databaseProductReadByNameDataAccessObject;
+    private ProductDeleteDataAccessByIDInterface databaseProductDeleteDataAccessByID;
     private Product commonProduct;
     private Schedule commonSchedule;
     private LocalDateTime startTime;
@@ -55,6 +53,7 @@ class DatabaseProductCreateDataAccessObjectTest {
         databaseProductReadByNameDataAccessObject =
                 new DatabaseProductReadByNameDataAccessObject(commonProductFactory,
                         commonScheduleFactory);
+        databaseProductDeleteDataAccessByID = new DatabaseProductDeleteByIDDataAccessObject();
     }
 
     @AfterEach
@@ -69,6 +68,7 @@ class DatabaseProductCreateDataAccessObjectTest {
 
         databaseProductCreateDataAccessObject.saveProduct(commonProduct);
         assertEquals(commonProduct.getDescription(), product.getDescription());
+        databaseProductDeleteDataAccessByID.deleteProductByID(product.getProductID());
     }
 
 }
