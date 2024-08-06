@@ -15,6 +15,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A view component for managing a single product.
+ * This class extends JPanel and implements PropertyChangeListener to respond to property changes in the view model.
+ */
 public class ManageSingleProductView extends JPanel implements PropertyChangeListener {
     private final Product product;
     private final User user;
@@ -36,6 +40,17 @@ public class ManageSingleProductView extends JPanel implements PropertyChangeLis
     private final JButton showDetil;
     private JButton selectTime;
 
+    /**
+     * Constructs a ManageSingleProductView with the specified user, product, view model, and controllers.
+     *
+     * @param user                          the user managing the product
+     * @param product                       the product being managed
+     * @param manageProductViewModel        the view model for managing products
+     * @param viewProductController         the controller for viewing a product
+     * @param viewModifyProductController   the controller for modifying a product
+     * @param deleteProductController       the controller for deleting a product
+     * @param getSellerSchedulePageController the controller for getting the seller's schedule page
+     */
     public ManageSingleProductView(User user, Product product, ManageProductViewModel manageProductViewModel,
                                    ViewProductController viewProductController,
                                    ViewModifyProductController viewModifyProductController,
@@ -129,6 +144,12 @@ public class ManageSingleProductView extends JPanel implements PropertyChangeLis
         this.setVisible(true);
     }
 
+    /**
+     * Responds to property changes in the view model.
+     * Notice that this is no more used.
+     *
+     * @param evt the property change event
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 //        ManageProductState state = (ManageProductState) evt.getNewValue();

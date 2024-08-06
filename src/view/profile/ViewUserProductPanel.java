@@ -25,7 +25,20 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * ViewUserProductPanel is a custom JPanel that displays a list of products for a user.
+ * The products are arranged in a grid layout with each row containing three products.
+ */
 public class ViewUserProductPanel extends JPanel {
+
+    /**
+     * Constructs a ViewUserProductPanel with the specified list of products, view model, and product controller.
+     * Each product is displayed with its image, title, price, rating, and a button to view details.
+     *
+     * @param allProducts             the list of products to display
+     * @param viewUserProfileViewModel the view model for the user profile
+     * @param viewProductController   the controller for viewing a product
+     */
     ViewUserProductPanel(ArrayList<Product> allProducts,
                      ViewUserProfileViewModel viewUserProfileViewModel,
                      ViewProductController viewProductController) {

@@ -28,6 +28,11 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * ModifyProfileView class represents the view for modifying user profiles.
+ * This class handles the user interface and interaction logic for updating user details.
+ * It implements ActionListener to handle button actions and PropertyChangeListener to listen to property changes.
+ */
 public class ModifyProfileView extends JPanel implements ActionListener, PropertyChangeListener {
 
     private final ModifyProfileViewModel modifyProfileViewModel;
@@ -56,6 +61,21 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
     ModifyLabelTextPanel usernameInfo = new ModifyLabelTextPanel();
     ModifyLabelTextPanel passwordInfo = new ModifyLabelTextPanel();
 
+    /**
+     * Constructs a ModifyProfileView with the specified view model, user factory, and various controllers.
+     *
+     * @param modifyProfileViewModel      the view model for modifying profile
+     * @param userFactory                 the factory for creating User instances
+     * @param modifyProfileController     the controller for modifying profile
+     * @param mainPageController          the controller for the main page
+     * @param shoppingCartController      the controller for the shopping cart
+     * @param searchProductByNameController the controller for searching products by name
+     * @param viewProfileController       the controller for viewing profiles
+     * @param getSearchPageController     the controller for getting search pages
+     * @param viewSignupPageController    the controller for viewing the signup page
+     * @param viewLoginPageController     the controller for viewing the login page
+     * @param logOutController            the controller for logging out
+     */
     public ModifyProfileView(ModifyProfileViewModel modifyProfileViewModel,
                              UserFactory userFactory,
                              ModifyProfileController modifyProfileController,
@@ -98,7 +118,7 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
-        usernameInfo.setText( new JLabel(modifyProfileViewModel.USERNAME_LABEL), usernameInputField);
+        usernameInfo.setText(new JLabel(modifyProfileViewModel.USERNAME_LABEL), usernameInputField);
         passwordInfo.setText(new JLabel(modifyProfileViewModel.PASSWORD_LABEL), passwordInputField);
 
 
@@ -116,6 +136,11 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
         this.add(buttons, BorderLayout.SOUTH);
     }
 
+    /**
+     * Handles button actions for the confirm and back buttons.
+     *
+     * @param e the action event triggered by button clicks
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(confirmButton)){
@@ -142,6 +167,11 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
         }
     }
 
+    /**
+     * Listens to property changes in the ModifyProfileViewModel and updates the view accordingly.
+     *
+     * @param evt the property change event
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         System.out.println("view profile property change");
@@ -151,7 +181,6 @@ public class ModifyProfileView extends JPanel implements ActionListener, Propert
 
         if(!Objects.equals(state.getModified(), true)){
             JOptionPane.showMessageDialog(this, state.getMessage());
-
         }
 
         passwordInputField.setText("");

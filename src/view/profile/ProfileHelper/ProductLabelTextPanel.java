@@ -4,10 +4,18 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * A panel containing a label and a text field.
+ * ProductLabelTextPanel is a custom JPanel that contains a label and a text field (another label) arranged horizontally.
+ * It sets custom fonts for both the label and the text field and ensures a consistent layout.
  */
 public class ProductLabelTextPanel extends JPanel {
 
+    /**
+     * Constructs a ProductLabelTextPanel with the specified label and text field.
+     * Both the label and text field are styled and arranged in a horizontal layout.
+     *
+     * @param label     the JLabel representing the label of the panel
+     * @param textField the JLabel representing the text field of the panel
+     */
     public ProductLabelTextPanel(JLabel label, JLabel textField) {
         textField.setFont( new Font("Arial", Font.PLAIN, 20));
         label.setFont( new Font("Times New Roman", Font.BOLD, 20));
