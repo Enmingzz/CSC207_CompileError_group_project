@@ -1,13 +1,17 @@
 package use_case.rate_product;
 
+import data_access.interfaces.product.ProductReadByUserDataAccessInterface;
 import data_access.interfaces.product.ProductUpdateRatingDataAccessInterface;
 import data_access.interfaces.product.ProductUpdateStateDataAccessInterface;
+import data_access.interfaces.user.UserUpdateRatingDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.Product;
 import entity.product.ProductFactory;
+import entity.user.User;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * The RateProductInteractor class is responsible for handling the process of rating a product.
@@ -20,6 +24,7 @@ public class RateProductInteractor implements RateProductInputBoundary {
     private final ProductUpdateRatingDataAccessInterface productUpdateRatingDataAccessInterface;
     private final ProductUpdateStateDataAccessInterface productUpdateStateDataAccessInterface;
     private final RateProductOutputBoundary rateProductOutputBoundary;
+    private final UserUpdateRatingDataAccessInterface userUpdateRatingDataAccessObject;
 
     /**
      * Constructs a RateProductInteractor instance with the specified data access interfaces and output boundary.
@@ -30,10 +35,12 @@ public class RateProductInteractor implements RateProductInputBoundary {
      */
     public RateProductInteractor(ProductUpdateRatingDataAccessInterface productUpdateRatingDataAccessInterface,
                                  ProductUpdateStateDataAccessInterface productUpdateStateDataAccessInterface,
-                                 RateProductOutputBoundary rateProductOutputBoundary) {
+                                 RateProductOutputBoundary rateProductOutputBoundary,
+                                 UserUpdateRatingDataAccessInterface userUpdateRatingDataAccessObject) {
         this.productUpdateRatingDataAccessInterface = productUpdateRatingDataAccessInterface;
         this.productUpdateStateDataAccessInterface = productUpdateStateDataAccessInterface;
         this.rateProductOutputBoundary = rateProductOutputBoundary;
+        this.userUpdateRatingDataAccessObject = userUpdateRatingDataAccessObject;
     }
 
     /**
@@ -80,12 +87,12 @@ public class RateProductInteractor implements RateProductInputBoundary {
                     rateProductInputData.getProduct().getProductID(),
                     rateProductInputData.getProduct().getSchedule()
             );
-
+            userUpdateRatingDataAccessObject.updateUserRating(newProduct);
 
             RateProductOutputData rateProductOutputData = new RateProductOutputData(rateProductInputData.getUser(), newProduct);
             rateProductOutputBoundary.prepareSuccessfulView(rateProductOutputData);
         } else {
-            rateProductOutputBoundary.prepareFailedView("You must input a valid integral rating from 1 to 5.");
+            rateProductOutputBoundary.prepareFailedView("You must input a valid integer rating from 1 to 5.");
         }
     }
 }
