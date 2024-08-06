@@ -15,10 +15,7 @@ import interface_adapter.search_product.GetSearchPageController;
 import interface_adapter.shopping_cart.ShoppingCartController;
 import interface_adapter.signup.ViewSignupPageController;
 import view.TopBarSampleView;
-import view.profile.ProfileHelper.ManageProductListener;
-import view.profile.ProfileHelper.ModifyProfileListener;
-import view.profile.ProfileHelper.ProfileLabelTextPanel;
-import view.profile.ProfileHelper.SetButtonHelper;
+import view.profile.ProfileHelper.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +23,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 
+/**
+ * A view for displaying and managing user profiles.
+ * This class extends JPanel and implements PropertyChangeListener to respond to property changes in the view model.
+ */
 public class ProfileView extends JPanel implements PropertyChangeListener {
     public final String viewName = "profile view";
 
@@ -49,7 +51,6 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
     private final JButton modifyProfile;
     private final JButton showProfile;
 
-    private JLabel title = new JLabel();
     private JLabel studentNumberViewField = new JLabel();
     private JLabel studentNameViewField = new JLabel();
     private JLabel studentEmailViewField = new JLabel();
@@ -61,6 +62,21 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
 
     private JPanel topBar;
 
+    /**
+     * Constructs a ProfileView with the specified controllers and view model.
+     *
+     * @param mainPageController              the main page controller
+     * @param manageProductController         the controller for managing products
+     * @param viewModifyProfileController     the controller for modifying the profile
+     * @param profileViewModel                the view model for the profile view
+     * @param getSearchPageController         the controller for getting the search page
+     * @param viewSignupPageController        the controller for viewing the signup page
+     * @param viewLoginPageController         the controller for viewing the login page
+     * @param shoppingCartController          the controller for managing the shopping cart
+     * @param logOutController                the controller for logging out
+     * @param viewProfileController           the controller for viewing the profile
+     * @throws IOException if an error occurs during image loading
+     */
     public ProfileView (MainPageController mainPageController,
                         ManageProductController manageProductController,
                         ViewModifyProfileController viewModifyProfileController,
@@ -70,7 +86,7 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
                         ViewLoginPageController viewLoginPageController,
                         ShoppingCartController shoppingCartController,
                         LogOutController logOutController,
-                        ViewProfileController viewProfileController){
+                        ViewProfileController viewProfileController) throws IOException {
 
         this.manageProductController = manageProductController;
         this.viewModifyProfileController = viewModifyProfileController;
@@ -87,10 +103,7 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
 
         this.viewModel = profileViewModel;
         viewModel.addPropertyChangeListener(this);
-        title = new JLabel(profileViewModel.TITLE_LABEL);
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        title.setFont(new Font("Times New Roman", Font.PLAIN, 40));
-
+        ProfileTitleLabel title = new ProfileTitleLabel(profileViewModel.TITLE_LABEL);
 
         this.setLayout(new BorderLayout());
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
@@ -163,6 +176,11 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         this.setVisible(true);
     }
 
+    /**
+     * Responds to property changes in the view model.
+     *
+     * @param evt the property change event
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         ViewProfileState state = (ViewProfileState) evt.getNewValue();

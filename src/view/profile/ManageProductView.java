@@ -144,6 +144,11 @@ public class ManageProductView extends JPanel implements ActionListener, Propert
         mainPanel.repaint();
     }
 
+    /**
+     * Handles button actions for adding a product.
+     *
+     * @param e the action event triggered by button clicks
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
@@ -153,6 +158,11 @@ public class ManageProductView extends JPanel implements ActionListener, Propert
         }
     }
 
+    /**
+     * Listens to property changes in the ManageProductViewModel and updates the view accordingly.
+     *
+     * @param evt the property change event
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         ManageProductState newState = (ManageProductState) evt.getNewValue();

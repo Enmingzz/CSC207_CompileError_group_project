@@ -49,7 +49,7 @@ public class ModifyProfilePresenter implements ModifyProfileOutputBoundary {
 
         modifyProfileViewModel.firePropertyChanged();
         viewProfileViewModel.firePropertyChanged();
-        modifyProfileViewModel.firePropertyChanged();
+//        modifyProfileViewModel.firePropertyChanged();
 
         viewManagerModel.setActiveView(viewProfileViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

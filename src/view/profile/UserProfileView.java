@@ -20,6 +20,7 @@ import interface_adapter.view_product.ViewProductController;
 import view.TopBarSampleView;
 import view.main_page.AllProductsPanel;
 import view.profile.ProfileHelper.ProfileLabelTextPanel;
+import view.profile.ProfileHelper.ProfileTitleLabel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +32,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * UserProfileView is a custom JPanel that displays the profile information of a user along with their products.
+ * This class implements PropertyChangeListener to respond to changes in the user profile state.
+ */
 public class UserProfileView extends JPanel implements PropertyChangeListener {
     public final String viewName = "user profile view";
     private final ViewUserProfileViewModel viewModel;
@@ -52,6 +57,20 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
     private JPanel infoPanel = new JPanel();
     private JPanel topBar;
     private JPanel allProductsPanel;
+
+    /**
+     * Constructs a UserProfileView with the specified controllers and view model.
+     *
+     * @param mainPageController        the controller for the main page
+     * @param shoppingCartController    the controller for the shopping cart
+     * @param profileViewModel          the view model for the user profile view
+     * @param viewProfileController     the controller for viewing the profile
+     * @param getSearchPageController   the controller for getting the search page
+     * @param viewSignupPageController  the controller for viewing the signup page
+     * @param viewLoginPageController   the controller for viewing the login page
+     * @param logOutController          the controller for logging out
+     * @param viewProductController     the controller for viewing a product
+     */
     public UserProfileView(MainPageController mainPageController,
                            ShoppingCartController shoppingCartController,
                            ViewUserProfileViewModel profileViewModel,
@@ -60,7 +79,7 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
                            ViewSignupPageController viewSignupPageController,
                            ViewLoginPageController viewLoginPageController,
                            LogOutController logOutController,
-                           ViewProductController viewProductController) {
+                           ViewProductController viewProductController) throws IOException {
         this.viewModel = profileViewModel;
         this.viewProductController = viewProductController;
         this.viewProfileController = viewProfileController;
@@ -82,8 +101,7 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
         this.add(topBar, BorderLayout.NORTH);
 
         viewModel.addPropertyChangeListener(this);
-        JLabel title = new JLabel(viewModel.TITLE_LABEL);
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        ProfileTitleLabel title = new ProfileTitleLabel(viewModel.TITLE_LABEL);
 
 
         studentNumberViewField.setText(viewModel.getState().getSellerUser().getStudentNumber());
@@ -113,6 +131,11 @@ public class UserProfileView extends JPanel implements PropertyChangeListener {
 
     }
 
+    /**
+     * Responds to property changes in the view model.
+     *
+     * @param evt the property change event
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         topBar.removeAll();
