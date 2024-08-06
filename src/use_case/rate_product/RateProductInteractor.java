@@ -3,6 +3,7 @@ package use_case.rate_product;
 import data_access.interfaces.product.ProductReadByUserDataAccessInterface;
 import data_access.interfaces.product.ProductUpdateRatingDataAccessInterface;
 import data_access.interfaces.product.ProductUpdateStateDataAccessInterface;
+import data_access.interfaces.user.UserReadDataAccessInterface;
 import data_access.interfaces.user.UserUpdateRatingDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.Product;
@@ -25,6 +26,7 @@ public class RateProductInteractor implements RateProductInputBoundary {
     private final ProductUpdateStateDataAccessInterface productUpdateStateDataAccessInterface;
     private final RateProductOutputBoundary rateProductOutputBoundary;
     private final UserUpdateRatingDataAccessInterface userUpdateRatingDataAccessObject;
+    private final UserReadDataAccessInterface userReadDataAccessObject;
 
     /**
      * Constructs a RateProductInteractor instance with the specified data access interfaces and output boundary.
@@ -36,11 +38,13 @@ public class RateProductInteractor implements RateProductInputBoundary {
     public RateProductInteractor(ProductUpdateRatingDataAccessInterface productUpdateRatingDataAccessInterface,
                                  ProductUpdateStateDataAccessInterface productUpdateStateDataAccessInterface,
                                  RateProductOutputBoundary rateProductOutputBoundary,
-                                 UserUpdateRatingDataAccessInterface userUpdateRatingDataAccessObject) {
+                                 UserUpdateRatingDataAccessInterface userUpdateRatingDataAccessObject,
+                                 UserReadDataAccessInterface userReadDataAccessObject) {
         this.productUpdateRatingDataAccessInterface = productUpdateRatingDataAccessInterface;
         this.productUpdateStateDataAccessInterface = productUpdateStateDataAccessInterface;
         this.rateProductOutputBoundary = rateProductOutputBoundary;
         this.userUpdateRatingDataAccessObject = userUpdateRatingDataAccessObject;
+        this.userReadDataAccessObject = userReadDataAccessObject;
     }
 
     /**
@@ -89,7 +93,10 @@ public class RateProductInteractor implements RateProductInputBoundary {
             );
             userUpdateRatingDataAccessObject.updateUserRating(newProduct);
 
-            RateProductOutputData rateProductOutputData = new RateProductOutputData(rateProductInputData.getUser(), newProduct);
+            User user = userReadDataAccessObject.getUser(rateProductInputData.getUser().getStudentNumber());
+
+
+            RateProductOutputData rateProductOutputData = new RateProductOutputData(user, newProduct);
             rateProductOutputBoundary.prepareSuccessfulView(rateProductOutputData);
         } else {
             rateProductOutputBoundary.prepareFailedView("You must input a valid integer rating from 1 to 5.");

@@ -152,9 +152,10 @@ public class RateProductInteractorTest {
         ProductUpdateStateDataAccessInterface inMemoryProductUpdateStateDataAccessObject = new InMemoryProductUpdateStateDataAccessObject(productsList);
         ProductUpdateRatingDataAccessInterface inMemoryProductUpdateRatingDataAccessObject = new InMemoryProductUpdateRatingDataAccessObject(productsList);
         UserUpdateRatingDataAccessInterface inMemoryUserUpdateRatingDataAccessObject = new InMemoryUserUpdateRatingDataAccessObject();
+        UserReadDataAccessInterface inMemoryUserReadDataAccessObject = new InMemoryUserDataReadAccessObject(usersList, userFactory);
 
         RateProductInteractor rateProductInteractor = new RateProductInteractor(inMemoryProductUpdateRatingDataAccessObject, inMemoryProductUpdateStateDataAccessObject,
-                rateProductPresenter, inMemoryUserUpdateRatingDataAccessObject);
+                rateProductPresenter, inMemoryUserUpdateRatingDataAccessObject, inMemoryUserReadDataAccessObject);
 
         RateProductInputData inputData = new RateProductInputData(user, productRating, product);
         rateProductInteractor.execute(inputData);
@@ -186,9 +187,11 @@ public class RateProductInteractorTest {
 
         ProductUpdateStateDataAccessInterface inMemoryProductUpdateStateDataAccessObject = new InMemoryProductUpdateStateDataAccessObject(productsList);
         ProductUpdateRatingDataAccessInterface inMemoryProductUpdateRatingDataAccessObject = new InMemoryProductUpdateRatingDataAccessObject(productsList);
+        UserUpdateRatingDataAccessInterface inMemoryUserUpdateRatingDataAccessObject = new InMemoryUserUpdateRatingDataAccessObject();
+        UserReadDataAccessInterface inMemoryUserReadDataAccessObject = new InMemoryUserDataReadAccessObject(usersList, userFactory);
 
         RateProductInteractor rateProductInteractor = new RateProductInteractor(inMemoryProductUpdateRatingDataAccessObject, inMemoryProductUpdateStateDataAccessObject,
-                rateProductPresenter, in);
+                rateProductPresenter, inMemoryUserUpdateRatingDataAccessObject, inMemoryUserReadDataAccessObject);
 
         RateProductInputData inputData = new RateProductInputData(user, productRating, product);
         rateProductInteractor.execute(inputData);
@@ -219,9 +222,10 @@ public class RateProductInteractorTest {
         ProductUpdateStateDataAccessInterface inMemoryProductUpdateStateDataAccessObject = new InMemoryProductUpdateStateDataAccessObject(productsList);
         ProductUpdateRatingDataAccessInterface inMemoryProductUpdateRatingDataAccessObject = new InMemoryProductUpdateRatingDataAccessObject(productsList);
         UserUpdateRatingDataAccessInterface inMemoryUserUpdateRatingDataAccessObject = new InMemoryUserUpdateRatingDataAccessObject();
+        UserReadDataAccessInterface inMemoryUserReadDataAccessObject = new InMemoryUserDataReadAccessObject(usersList, userFactory);
 
         RateProductInteractor rateProductInteractor = new RateProductInteractor(inMemoryProductUpdateRatingDataAccessObject, inMemoryProductUpdateStateDataAccessObject,
-                rateProductPresenter, inMemoryUserUpdateRatingDataAccessObject);
+                rateProductPresenter, inMemoryUserUpdateRatingDataAccessObject, inMemoryUserReadDataAccessObject);
 
         RateProductInputData inputData = new RateProductInputData(user, productRating, product);
         rateProductInteractor.execute(inputData);

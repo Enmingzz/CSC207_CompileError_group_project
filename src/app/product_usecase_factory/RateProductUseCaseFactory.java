@@ -6,18 +6,21 @@ import data_access.factories.interfaces.product.DatabaseProductReadByNameDataAcc
 import data_access.factories.interfaces.product.DatabaseProductUpdateRatingDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.product.DatabaseProductUpdateStateDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.user.DatabaseUserReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.user.DatabaseUserUpdateRatingDataAccessObjectFactoryInterface;
 import data_access.factories.objects.product.DatabaseProductReadAllDataAccessObjectFactory;
 import data_access.factories.objects.product.DatabaseProductReadByNameDataAccessObjectFactory;
 import data_access.factories.objects.product.DatabaseProductUpdateRatingDataAccessObjectFactory;
 import data_access.factories.objects.product.DatabaseProductUpdateStateDataAccessObjectFactory;
 import data_access.factories.objects.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactory;
+import data_access.factories.objects.user.DatabaseUserReadDataAccessObjectFactory;
 import data_access.factories.objects.user.DatabaseUserUpdateRatingDataAccessObjectFactory;
 import data_access.interfaces.product.ProductReadAllDataAccessInterface;
 import data_access.interfaces.product.ProductReadByNameDataAccessInterface;
 import data_access.interfaces.product.ProductUpdateRatingDataAccessInterface;
 import data_access.interfaces.product.ProductUpdateStateDataAccessInterface;
 import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
+import data_access.interfaces.user.UserReadDataAccessInterface;
 import data_access.interfaces.user.UserUpdateRatingDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.ProductFactory;
@@ -25,6 +28,8 @@ import entity.schedule.CommonScheduleFactory;
 import entity.schedule.ScheduleFactory;
 import entity.shopping_cart.CommonShoppingCartFactory;
 import entity.shopping_cart.ShoppingCartFactory;
+import entity.user.CommonUserFactory;
+import entity.user.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.login.ViewLoginPageController;
@@ -122,8 +127,15 @@ public class RateProductUseCaseFactory {
                 new DatabaseUserUpdateRatingDataAccessObjectFactory();
         UserUpdateRatingDataAccessInterface userUpdateRatingDataAccessObject =
                 databaseUserUpdateRatingDataAccessObjectFactory.create();
+
+        UserFactory userFactory = new CommonUserFactory();
+
+        DatabaseUserReadDataAccessObjectFactoryInterface databaseUserReadDataAccessObjectFactory =
+                new DatabaseUserReadDataAccessObjectFactory();
+        UserReadDataAccessInterface userReadDataAccessObject =
+                databaseUserReadDataAccessObjectFactory.create(userFactory);
         RateProductInputBoundary rateProductInteractor =
-                new RateProductInteractor(productUpdateRatingDataAccessObject, productUpdateStateDataAccessObject, rateProductPresenter, userUpdateRatingDataAccessObject);
+                new RateProductInteractor(productUpdateRatingDataAccessObject, productUpdateStateDataAccessObject, rateProductPresenter, userUpdateRatingDataAccessObject, userReadDataAccessObject);
         return new RateProductController(rateProductInteractor);
     }
 
