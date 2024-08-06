@@ -6,16 +6,19 @@ import data_access.factories.interfaces.product.DatabaseProductReadByNameDataAcc
 import data_access.factories.interfaces.product.DatabaseProductUpdateRatingDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.product.DatabaseProductUpdateStateDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.user.DatabaseUserUpdateRatingDataAccessObjectFactoryInterface;
 import data_access.factories.objects.product.DatabaseProductReadAllDataAccessObjectFactory;
 import data_access.factories.objects.product.DatabaseProductReadByNameDataAccessObjectFactory;
 import data_access.factories.objects.product.DatabaseProductUpdateRatingDataAccessObjectFactory;
 import data_access.factories.objects.product.DatabaseProductUpdateStateDataAccessObjectFactory;
 import data_access.factories.objects.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactory;
+import data_access.factories.objects.user.DatabaseUserUpdateRatingDataAccessObjectFactory;
 import data_access.interfaces.product.ProductReadAllDataAccessInterface;
 import data_access.interfaces.product.ProductReadByNameDataAccessInterface;
 import data_access.interfaces.product.ProductUpdateRatingDataAccessInterface;
 import data_access.interfaces.product.ProductUpdateStateDataAccessInterface;
 import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
+import data_access.interfaces.user.UserUpdateRatingDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.ProductFactory;
 import entity.schedule.CommonScheduleFactory;
@@ -115,8 +118,12 @@ public class RateProductUseCaseFactory {
                 new DatabaseProductUpdateRatingDataAccessObjectFactory();
         ProductUpdateRatingDataAccessInterface productUpdateRatingDataAccessObject =
                 databaseProductUpdateRatingDataAccessObjectFactoryInterface.create();
+        DatabaseUserUpdateRatingDataAccessObjectFactoryInterface databaseUserUpdateRatingDataAccessObjectFactory =
+                new DatabaseUserUpdateRatingDataAccessObjectFactory();
+        UserUpdateRatingDataAccessInterface userUpdateRatingDataAccessObject =
+                databaseUserUpdateRatingDataAccessObjectFactory.create();
         RateProductInputBoundary rateProductInteractor =
-                new RateProductInteractor(productUpdateRatingDataAccessObject, productUpdateStateDataAccessObject, rateProductPresenter);
+                new RateProductInteractor(productUpdateRatingDataAccessObject, productUpdateStateDataAccessObject, rateProductPresenter, userUpdateRatingDataAccessObject);
         return new RateProductController(rateProductInteractor);
     }
 
