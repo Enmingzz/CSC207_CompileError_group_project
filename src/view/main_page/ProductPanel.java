@@ -3,8 +3,7 @@ package view.main_page;
 import entity.product.Product;
 import entity.user.User;
 import interface_adapter.main_page.MainPageViewModel;
-import interface_adapter.search_product.SearchProductViewModel;
-import interface_adapter.view_product.ViewProductController;
+import interface_adapter.view_product.non_logged_in_view.ViewProductController;
 
 import javax.swing.*;
 import java.awt.*;

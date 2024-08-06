@@ -2,26 +2,14 @@ package view.profile;
 
 import entity.product.Product;
 import entity.user.User;
-import interface_adapter.main_page.MainPageViewModel;
-import interface_adapter.modify_product.DeleteProductController;
-import interface_adapter.modify_product.ViewModifyProductController;
-import interface_adapter.profile.manage_product.ManageProductViewModel;
-import interface_adapter.profile.view_profile.ViewUserProfileController;
 import interface_adapter.profile.view_profile.ViewUserProfileViewModel;
-import interface_adapter.schedule.GetSellerSchedulePageController;
-import interface_adapter.view_product.ViewProductController;
-import view.main_page.HorizontalLayoutPanel;
-import view.main_page.ProductPanel;
-import view.profile.ProfileHelper.*;
+import interface_adapter.view_product.non_logged_in_view.ViewProductController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 

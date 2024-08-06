@@ -1,7 +1,6 @@
 package interface_adapter.profile.manage_product;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.modify_product.ViewModifyProductViewModel;
 import use_case.profile.manage_product.ManageProductOutputBoundary;
 import use_case.profile.manage_product.ManageProductOutputData;
 /**

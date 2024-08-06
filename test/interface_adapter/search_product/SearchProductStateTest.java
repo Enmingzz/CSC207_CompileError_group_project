@@ -1,6 +1,7 @@
 package interface_adapter.search_product;
 
 import entity.product.Product;
+import interface_adapter.search_product.search.SearchProductState;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -2,7 +2,7 @@ package view.profile.ProfileHelper;
 
 import entity.product.Product;
 import entity.user.User;
-import interface_adapter.modify_product.DeleteProductController;
+import interface_adapter.modify_product.delete.DeleteProductController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

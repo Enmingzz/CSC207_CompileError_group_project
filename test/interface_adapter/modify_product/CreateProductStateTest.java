@@ -1,5 +1,6 @@
 package interface_adapter.modify_product;
 
+import interface_adapter.modify_product.create.CreateProductState;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

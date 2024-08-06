@@ -1,9 +1,9 @@
 package interface_adapter.shopping_cart;
 
 import entity.product.Product;
-import entity.shopping_cart.ShoppingCart;
 import entity.user.CommonUser;
 import entity.user.User;
+import interface_adapter.shopping_cart.view_shopping_cart.ShoppingCartState;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

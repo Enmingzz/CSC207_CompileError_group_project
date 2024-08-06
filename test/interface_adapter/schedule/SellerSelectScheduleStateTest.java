@@ -1,5 +1,6 @@
 package interface_adapter.schedule;
 
+import interface_adapter.schedule.seller_select_schedule.SellerSelectScheduleState;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

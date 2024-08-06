@@ -3,12 +3,12 @@ package view.shopping_cart;
 import entity.product.Product;
 import entity.user.User;
 import interface_adapter.rating.GetRatePageController;
-import interface_adapter.schedule.GetBuyerSchedulePageController;
-import interface_adapter.shopping_cart.ConfirmController;
-import interface_adapter.shopping_cart.DeleteShoppingCartProductController;
-import interface_adapter.shopping_cart.PurchaseController;
-import interface_adapter.shopping_cart.ShoppingCartViewModel;
-import interface_adapter.view_product.ViewProductController;
+import interface_adapter.schedule.buyer_select_schedule.GetBuyerSchedulePageController;
+import interface_adapter.shopping_cart.confirm.ConfirmController;
+import interface_adapter.shopping_cart.delete.DeleteShoppingCartProductController;
+import interface_adapter.shopping_cart.purchase.PurchaseController;
+import interface_adapter.shopping_cart.view_shopping_cart.ShoppingCartViewModel;
+import interface_adapter.view_product.non_logged_in_view.ViewProductController;
 
 import javax.swing.*;
 import java.awt.*;

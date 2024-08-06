@@ -1,7 +1,5 @@
 package view.modify_product;
 
-import interface_adapter.modify_product.ModifyProductController;
-
 import javax.swing.*;
 
 public class ModifyProductTextPanel extends JPanel {

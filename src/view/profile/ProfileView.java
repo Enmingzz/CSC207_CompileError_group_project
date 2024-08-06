@@ -11,9 +11,9 @@ import interface_adapter.profile.modify_profile.ViewModifyProfileController;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.profile.view_profile.ViewProfileState;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
-import interface_adapter.search_product.GetSearchPageController;
-import interface_adapter.shopping_cart.ShoppingCartController;
-import interface_adapter.signup.ViewSignupPageController;
+import interface_adapter.search_product.view_search_page.GetSearchPageController;
+import interface_adapter.shopping_cart.view_shopping_cart.ShoppingCartController;
+import interface_adapter.signup.view_signup_page.ViewSignupPageController;
 import view.TopBarSampleView;
 import view.profile.ProfileHelper.*;
 

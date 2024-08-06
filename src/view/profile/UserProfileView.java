@@ -4,32 +4,25 @@ import entity.product.Product;
 import entity.user.CommonUserFactory;
 import entity.user.User;
 import entity.user.UserFactory;
-import interface_adapter.login.LoginController;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.profile.view_profile.ViewProfileController;
-import interface_adapter.profile.view_profile.ViewProfileState;
 import interface_adapter.profile.view_profile.ViewUserProfileState;
 import interface_adapter.profile.view_profile.ViewUserProfileViewModel;
-import interface_adapter.search_product.GetSearchPageController;
-import interface_adapter.shopping_cart.ShoppingCartController;
-import interface_adapter.signup.SignupController;
-import interface_adapter.signup.ViewSignupPageController;
-import interface_adapter.view_product.ViewProductController;
+import interface_adapter.search_product.view_search_page.GetSearchPageController;
+import interface_adapter.shopping_cart.view_shopping_cart.ShoppingCartController;
+import interface_adapter.signup.view_signup_page.ViewSignupPageController;
+import interface_adapter.view_product.non_logged_in_view.ViewProductController;
 import view.TopBarSampleView;
-import view.main_page.AllProductsPanel;
 import view.profile.ProfileHelper.ProfileLabelTextPanel;
 import view.profile.ProfileHelper.ProfileTitleLabel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
