@@ -5,7 +5,6 @@ import entity.user.CommonUserFactory;
 import entity.user.User;
 
 import entity.user.UserFactory;
-import interface_adapter.login.LoginController;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.main_page.MainPageViewModel;
 import interface_adapter.main_page.MainPageState;
@@ -15,29 +14,23 @@ import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import interface_adapter.main_page.MainPageViewModel;
-import interface_adapter.main_page.MainPageState;
-
 // Import all controllers related to MainPage
-import interface_adapter.search_product.GetSearchPageController;
-import interface_adapter.signup.ViewSignupPageController;
-import interface_adapter.view_product.ViewProductController;
+import interface_adapter.search_product.view_search_page.GetSearchPageController;
+import interface_adapter.signup.view_signup_page.ViewSignupPageController;
+import interface_adapter.view_product.non_logged_in_view.ViewProductController;
 
 // Import all Controllers related to the top bar
-import interface_adapter.shopping_cart.ShoppingCartController;
+import interface_adapter.shopping_cart.view_shopping_cart.ShoppingCartController;
 import interface_adapter.profile.view_profile.ViewProfileController;
-// import interface_adapter.search_product.GetSearchPageController;
+// import interface_adapter.search_product.view_search_page.GetSearchPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
 import view.TopBarSampleView;
 
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

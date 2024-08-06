@@ -10,11 +10,10 @@ import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.profile.view_profile.ViewProfileController;
-import interface_adapter.search_product.GetSearchPageController;
-import interface_adapter.shopping_cart.ShoppingCartController;
-import interface_adapter.signup.ViewSignupPageController;
+import interface_adapter.search_product.view_search_page.GetSearchPageController;
+import interface_adapter.shopping_cart.view_shopping_cart.ShoppingCartController;
+import interface_adapter.signup.view_signup_page.ViewSignupPageController;
 import view.TopBarSampleView;
-import view.signup.SignupLabelTextPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +22,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
-import java.util.Arrays;
+
 /**
  * The {@link LoginView} class represents the login view in the application.
  * It handles user interactions for logging in and displays the login interface.

@@ -2,7 +2,7 @@ package view.profile.ProfileHelper;
 
 import entity.product.Product;
 import entity.user.User;
-import interface_adapter.modify_product.ViewModifyProductController;
+import interface_adapter.modify_product.modify.ViewModifyProductController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

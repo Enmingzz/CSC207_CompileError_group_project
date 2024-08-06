@@ -2,8 +2,8 @@ package interface_adapter.rating;
 
 import entity.product.Product;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.shopping_cart.ShoppingCartState;
-import interface_adapter.shopping_cart.ShoppingCartViewModel;
+import interface_adapter.shopping_cart.view_shopping_cart.ShoppingCartState;
+import interface_adapter.shopping_cart.view_shopping_cart.ShoppingCartViewModel;
 import use_case.rate_product.RateProductOutputBoundary;
 import use_case.rate_product.RateProductOutputData;
 

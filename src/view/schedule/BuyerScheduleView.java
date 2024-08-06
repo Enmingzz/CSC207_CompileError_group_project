@@ -8,12 +8,12 @@ import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.profile.view_profile.ViewProfileController;
-import interface_adapter.schedule.BuyerSelectScheduleController;
-import interface_adapter.schedule.BuyerSelectScheduleState;
-import interface_adapter.schedule.BuyerSelectScheduleViewModel;
-import interface_adapter.search_product.GetSearchPageController;
-import interface_adapter.shopping_cart.ShoppingCartController;
-import interface_adapter.signup.ViewSignupPageController;
+import interface_adapter.schedule.buyer_select_schedule.BuyerSelectScheduleController;
+import interface_adapter.schedule.buyer_select_schedule.BuyerSelectScheduleState;
+import interface_adapter.schedule.buyer_select_schedule.BuyerSelectScheduleViewModel;
+import interface_adapter.search_product.view_search_page.GetSearchPageController;
+import interface_adapter.shopping_cart.view_shopping_cart.ShoppingCartController;
+import interface_adapter.signup.view_signup_page.ViewSignupPageController;
 import view.TopBarSampleView;
 
 

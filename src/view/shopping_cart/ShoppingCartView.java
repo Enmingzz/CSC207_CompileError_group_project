@@ -6,24 +6,24 @@ import entity.user.User;
 
 import entity.user.UserFactory;
 import interface_adapter.login.ViewLoginPageController;
-import interface_adapter.search_product.GetSearchPageController;
-import interface_adapter.shopping_cart.ShoppingCartState;
-import interface_adapter.shopping_cart.ShoppingCartViewModel;
+import interface_adapter.search_product.view_search_page.GetSearchPageController;
+import interface_adapter.shopping_cart.view_shopping_cart.ShoppingCartState;
+import interface_adapter.shopping_cart.view_shopping_cart.ShoppingCartViewModel;
 
 // Import all controllers related to shopping_cart
-import interface_adapter.shopping_cart.PurchaseController;
-import interface_adapter.schedule.GetBuyerSchedulePageController;
-import interface_adapter.signup.ViewSignupPageController;
-import interface_adapter.view_product.ViewProductController;
-import interface_adapter.shopping_cart.DeleteShoppingCartProductController;
-import interface_adapter.shopping_cart.ConfirmController;
+import interface_adapter.shopping_cart.purchase.PurchaseController;
+import interface_adapter.schedule.buyer_select_schedule.GetBuyerSchedulePageController;
+import interface_adapter.signup.view_signup_page.ViewSignupPageController;
+import interface_adapter.view_product.non_logged_in_view.ViewProductController;
+import interface_adapter.shopping_cart.delete.DeleteShoppingCartProductController;
+import interface_adapter.shopping_cart.confirm.ConfirmController;
 import interface_adapter.rating.GetRatePageController;
 
 // Import all Controllers related to the top bar
 import interface_adapter.logout.LogOutController;
 import interface_adapter.profile.view_profile.ViewProfileController;
-// import interface_adapter.search_product.GetSearchPageController;
-import interface_adapter.shopping_cart.ShoppingCartController;
+// import interface_adapter.search_product.view_search_page.GetSearchPageController;
+import interface_adapter.shopping_cart.view_shopping_cart.ShoppingCartController;
 import interface_adapter.main_page.MainPageController;
 import view.TopBarSampleView;
 
@@ -32,13 +32,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.sql.SQLException;
 import java.util.Objects;
 
 public class ShoppingCartView extends JPanel implements ActionListener, PropertyChangeListener {

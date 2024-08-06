@@ -4,10 +4,8 @@ import entity.user.CommonUserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.profile.view_profile.ViewProfileState;
 import interface_adapter.profile.view_profile.ViewProfileViewModel;
-import interface_adapter.signup.SignupState;
 import use_case.profile.modify_profile.ModifyProfileOutputBoundary;
 import use_case.profile.modify_profile.ModifyProfileOutputData;
-import view.profile.ProfileView;
 
 /**
  * Presenter for modifying the user's profile, responsible for preparing the view models and triggering view updates.

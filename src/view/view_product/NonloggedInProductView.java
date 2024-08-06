@@ -1,6 +1,5 @@
 package view.view_product;
 
-import app.Main;
 import entity.comment.Question;
 import entity.product.Product;
 import entity.user.CommonUserFactory;
@@ -11,11 +10,11 @@ import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.profile.view_profile.ViewProfileController;
 import interface_adapter.profile.view_profile.ViewUserProfileController;
-import interface_adapter.search_product.GetSearchPageController;
-import interface_adapter.shopping_cart.ShoppingCartController;
-import interface_adapter.signup.ViewSignupPageController;
-import interface_adapter.view_product.UnloggedInState;
-import interface_adapter.view_product.UnloggedInViewModel;
+import interface_adapter.search_product.view_search_page.GetSearchPageController;
+import interface_adapter.shopping_cart.view_shopping_cart.ShoppingCartController;
+import interface_adapter.signup.view_signup_page.ViewSignupPageController;
+import interface_adapter.view_product.non_logged_in_view.UnloggedInState;
+import interface_adapter.view_product.non_logged_in_view.UnloggedInViewModel;
 import view.TopBarSampleView;
 
 
@@ -26,7 +25,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * This class provides a view for non-logged-in users to explore product details. It includes functionality

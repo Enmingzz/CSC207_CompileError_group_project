@@ -1,6 +1,5 @@
 package view.schedule;
 
-import app.Main;
 import entity.product.Product;
 import entity.user.CommonUserFactory;
 import entity.user.User;
@@ -10,14 +9,13 @@ import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.profile.manage_product.ManageProductController;
 import interface_adapter.profile.view_profile.ViewProfileController;
-import interface_adapter.schedule.SellerSelectScheduleController;
-import interface_adapter.schedule.SellerSelectScheduleState;
-import interface_adapter.schedule.SellerSelectScheduleViewModel;
-import interface_adapter.search_product.GetSearchPageController;
-import interface_adapter.shopping_cart.ShoppingCartController;
-import interface_adapter.signup.ViewSignupPageController;
+import interface_adapter.schedule.seller_select_schedule.SellerSelectScheduleController;
+import interface_adapter.schedule.seller_select_schedule.SellerSelectScheduleState;
+import interface_adapter.schedule.seller_select_schedule.SellerSelectScheduleViewModel;
+import interface_adapter.search_product.view_search_page.GetSearchPageController;
+import interface_adapter.shopping_cart.view_shopping_cart.ShoppingCartController;
+import interface_adapter.signup.view_signup_page.ViewSignupPageController;
 import view.TopBarSampleView;
-import view.profile.ManageProductView;
 
 import javax.swing.*;
 import java.awt.*;

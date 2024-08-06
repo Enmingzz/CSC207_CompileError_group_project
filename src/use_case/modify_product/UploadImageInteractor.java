@@ -1,11 +1,6 @@
 package use_case.modify_product;
 
-import interface_adapter.modify_product.UploadImagePresenter;
-import pic.ImageUploader;
-
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;

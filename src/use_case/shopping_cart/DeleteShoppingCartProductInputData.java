@@ -8,7 +8,7 @@ public class DeleteShoppingCartProductInputData {
     final private User user;
     // user of cart
     final private Product product;
-    // modify_product to be deleted
+    // modify to be deleted
 
     public DeleteShoppingCartProductInputData(User user, Product product) {
         this.user = user;

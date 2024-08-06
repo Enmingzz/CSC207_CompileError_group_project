@@ -1,29 +1,21 @@
 package view.rate_product;
 
-import entity.product.CommonProductFactory;
 import entity.product.Product;
-import entity.product.ProductFactory;
-import entity.schedule.CommonScheduleFactory;
-import entity.schedule.Schedule;
-import entity.schedule.ScheduleFactory;
 import entity.user.CommonUserFactory;
 import entity.user.User;
 import entity.user.UserFactory;
-import interface_adapter.ViewModel;
 import interface_adapter.login.ViewLoginPageController;
 import interface_adapter.logout.LogOutController;
 import interface_adapter.main_page.MainPageController;
 import interface_adapter.profile.view_profile.ViewProfileController;
-import interface_adapter.rating.GetRatePageController;
 import interface_adapter.rating.RateProductController;
 import interface_adapter.rating.RateProductState;
 import interface_adapter.rating.RateProductViewModel;
-import interface_adapter.search_product.GetSearchPageController;
-import interface_adapter.shopping_cart.ShoppingCartController;
-import interface_adapter.signup.ViewSignupPageController;
+import interface_adapter.search_product.view_search_page.GetSearchPageController;
+import interface_adapter.shopping_cart.view_shopping_cart.ShoppingCartController;
+import interface_adapter.signup.view_signup_page.ViewSignupPageController;
 import view.TopBarSampleView;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -32,11 +24,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class RateProductView extends JPanel implements ActionListener, PropertyChangeListener {
 

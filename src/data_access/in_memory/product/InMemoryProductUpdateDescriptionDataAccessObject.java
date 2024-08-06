@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * Update specific modify_product description
- * Input is modify_product and String description
+ * Update specific modify description
+ * Input is modify and String description
  * No return Value
  * @author CompileError group
  */

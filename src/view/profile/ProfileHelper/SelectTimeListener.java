@@ -2,15 +2,12 @@ package view.profile.ProfileHelper;
 
 import entity.product.Product;
 import entity.user.User;
-import interface_adapter.schedule.GetSellerSchedulePageController;
-import interface_adapter.schedule.SellerSelectScheduleController;
+import interface_adapter.schedule.seller_select_schedule.GetSellerSchedulePageController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 /**
  * SelectTimeListener is an ActionListener that handles the action of selecting a meeting time for a product.

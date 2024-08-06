@@ -1,8 +1,8 @@
 package view.search_product;
 
 import entity.product.Product;
-import interface_adapter.search_product.SearchProductViewModel;
-import interface_adapter.view_product.ViewProductController;
+import interface_adapter.search_product.search.SearchProductViewModel;
+import interface_adapter.view_product.non_logged_in_view.ViewProductController;
 
 import javax.swing.*;
 import java.awt.*;
