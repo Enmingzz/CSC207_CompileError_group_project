@@ -158,7 +158,7 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
                 confirmController,
                 getRatePageController);
 
-        this.add(allProductsPanel, BorderLayout.NORTH);
+        this.add(new JScrollPane(allProductsPanel));
         allProductsPanel.setAlignmentY(Component.TOP_ALIGNMENT);
     }
 

@@ -50,8 +50,6 @@ public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary 
             }
         }
 
-        totalPrice += shoppingCartState.getTotalPrice();
-
         shoppingCartState.setTotalPrice(totalPrice);
         shoppingCartState.setErrorMessage(response.getErrorMessage());
         shoppingCartState.setUser(response.getUser());

@@ -5,4 +5,5 @@ import java.sql.SQLException;
 
 public interface PurchaseOutputBoundary {
     void prepareSuccessView(PurchaseOutputData purchaseOutputData) throws SQLException, IOException;
+    void prepareFailedView(String error) throws SQLException, IOException;
 }

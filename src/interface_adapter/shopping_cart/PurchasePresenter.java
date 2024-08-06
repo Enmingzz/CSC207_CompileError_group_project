@@ -59,4 +59,14 @@ public class PurchasePresenter implements PurchaseOutputBoundary {
         viewManagerModel.setActiveView(shoppingCartViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
+
+    @Override
+    public void prepareFailedView(String error) throws SQLException, IOException {
+        ShoppingCartState shoppingCartState = shoppingCartViewModel.getState();
+        shoppingCartState.setErrorMessage(error);
+        shoppingCartViewModel.setState(shoppingCartState);
+        shoppingCartViewModel.firePropertyChanged();
+        viewManagerModel.setActiveView(shoppingCartViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
 }

@@ -51,8 +51,12 @@ public class PurchaseInteractor implements PurchaseInputBoundary {
         productUpdateStateDataAccessObject.updateProductState(product, product.getState() + 1);
         Product updated_product = productReadByIdDataAccessObject.getProductById(product.getProductID());
 
-        PurchaseOutputData purchaseOutputData = new PurchaseOutputData(user, updated_product);
+        if (updated_product != null) {
+            PurchaseOutputData purchaseOutputData = new PurchaseOutputData(user, updated_product);
 
-        purchasePresenter.prepareSuccessView(purchaseOutputData);
+            purchasePresenter.prepareSuccessView(purchaseOutputData);
+        } else {
+            purchasePresenter.prepareFailedView("Product not found");
+        }
     }
 }
