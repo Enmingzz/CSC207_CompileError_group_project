@@ -8,8 +8,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BuyerSelectScheduleStateTest {
 
+    private BuyerSelectScheduleState buyerSelectScheduleState;
+
     @BeforeEach
     void setUp() {
+        buyerSelectScheduleState = new BuyerSelectScheduleState();
     }
 
     @AfterEach
@@ -18,25 +21,32 @@ class BuyerSelectScheduleStateTest {
 
     @Test
     void getBuyer() {
+        assertEquals(null, buyerSelectScheduleState.getBuyer());
     }
 
     @Test
     void setBuyer() {
+        buyerSelectScheduleState.setBuyer(null);
     }
 
     @Test
     void getProduct() {
+        assertEquals(null, buyerSelectScheduleState.getProduct());
     }
 
     @Test
     void setProduct() {
+        buyerSelectScheduleState.setProduct(null);
+    }
+
+
+    @Test
+    void getError() {
+        assertEquals(null, buyerSelectScheduleState.getError());
     }
 
     @Test
-    void getSelectedTime() {
-    }
-
-    @Test
-    void setSelectedTime() {
+    void setError() {
+        buyerSelectScheduleState.setError(null);
     }
 }

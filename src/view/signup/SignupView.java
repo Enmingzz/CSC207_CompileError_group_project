@@ -67,10 +67,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JButton signUp;
     private final JButton emailVerification;
     private final JButton viewLoginButton;
-    private final JButton mainPageButton;
-    private final JButton shoppingCartButton;
-    private final JButton searchProductByNameButton;
-    private final JButton searchProductByTagButton;
 
     private final JPanel signUpPanel = new JPanel();
     private TopBarSampleView topBar;
@@ -172,25 +168,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         signUp.addActionListener(new SignUpButtonListener());
 
-        class UsernameKeyListener implements KeyListener{
-            @Override
-            public void keyTyped(KeyEvent e) {
-                SignupState currentState = signupViewModel.getState();
-                currentState.setUsername(usernameInputField.getText() + e.getKeyChar());
-                signupViewModel.setState(currentState);
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        }
-
-        usernameInputField.addKeyListener(new UsernameKeyListener());
-
         class VerificationCodeButtonListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -208,102 +185,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         JPanel viewLoginButtonPanel = new JPanel();
         this.viewLoginButton = new JButton("log in");
         viewLoginButtonPanel.add(viewLoginButton);
-
-        class LoginButtonListener implements ActionListener {
-
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                if (evt.getSource().equals(viewLoginButton)) {
-                    try {
-                        viewLoginPageController.execute();
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        }
-        viewLoginButton.addActionListener(new LoginButtonListener());
-
-        JPanel mainPageButtonPanel = new JPanel();
-        this.mainPageButton = new JButton("main page");
-        mainPageButtonPanel.add(mainPageButton);
-
-        class MainPageButtonListener implements ActionListener {
-            public void actionPerformed(ActionEvent evt) {
-                if (evt.getSource().equals(mainPageButton)) {
-                    try {
-                        UserFactory commonUserFactory = new CommonUserFactory();
-                        User user = commonUserFactory.createUser("", "", "", 0, "");
-                        mainPageController.execute(user);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        }
-        mainPageButton.addActionListener(new MainPageButtonListener());
-
-        JPanel shoppingCartButtonPanel = new JPanel();
-        this.shoppingCartButton = new JButton("shopping cart");
-        shoppingCartButtonPanel.add(shoppingCartButton);
-
-        class ShoppingCartButtonListener implements ActionListener {
-            public void actionPerformed(ActionEvent evt) {
-                if (evt.getSource().equals(shoppingCartButton)) {
-                    try {
-                        UserFactory commonUserFactory = new CommonUserFactory();
-                        User user = commonUserFactory.createUser("", "", "", 0, "");
-                        shoppingCartController.execute(user);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        }
-        shoppingCartButton.addActionListener(new ShoppingCartButtonListener());
-
-        JPanel searchProductByNameButtonPanel = new JPanel();
-        this.searchProductByNameButton = new JButton("search product");
-        searchProductByNameButtonPanel.add(searchProductByNameButton);
-
-        class SearchProductByNameButtonListener implements ActionListener {
-            public void actionPerformed(ActionEvent evt) {
-                if (evt.getSource().equals(searchProductByNameButtonPanel)) {
-                    try {
-                        UserFactory commonUserFactory = new CommonUserFactory();
-                        User user = commonUserFactory.createUser("", "", "", 0, "");
-                        searchProductByNameController.execute(user,
-                                String.valueOf(productSearchByNameInputField.getText()));
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        }
-
-        searchProductByNameButton.addActionListener(new SearchProductByNameButtonListener());
-
-        JPanel searchProductByTagButtonPanel = new JPanel();
-        this.searchProductByTagButton = new JButton("search product");
-        searchProductByTagButtonPanel.add(searchProductByTagButton);
-
-        class SearchProductByTagButtonListener implements ActionListener {
-            public void actionPerformed(ActionEvent evt) {
-                if (evt.getSource().equals(searchProductByTagButtonPanel)) {
-                    try {
-                        UserFactory commonUserFactory = new CommonUserFactory();
-                        User user = commonUserFactory.createUser("", "", "", 0, "");
-                        //TODO need to implement this method
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        }
-
-        searchProductByTagButton.addActionListener(new SearchProductByTagButtonListener());
-
-//        signUpPanel.setLayout(new BoxLayout(signUpPanel, BoxLayout.Y_AXIS));
 
         signUpPanel.add(title);
         signUpPanel.add(studentNumberInfo);
@@ -344,8 +225,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         if (state.getUsernameError() != null) {
             JOptionPane.showMessageDialog(this, state.getUsernameError());
         }
-//        UserFactory userFactory = new CommonUserFactory();
-//        User user = userFactory.createUser("", "", "", 0, "");
+
         topBar = new TopBarSampleView(this.signupViewModel.getState().getUser(),
                 getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
 
