@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
 /**
@@ -30,11 +32,56 @@ public class ProductPanel extends JPanel {
         paneledImage.setIcon(new ImageIcon(product.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
         paneledImage.setAlignmentX(CENTER_ALIGNMENT);
 
+
         JLabel productTitle = new JLabel(product.getTitle());
         productTitle.setAlignmentX(CENTER_ALIGNMENT);
+        Font originalFont = productTitle.getFont();
+        Font enlargedFont = originalFont.deriveFont(originalFont.getSize() * 1.5f);
+
+        final Timer[] timer = new Timer[1];
+        productTitle.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                timer[0] = new Timer(1000, event -> {
+                    productTitle.setFont(enlargedFont);
+                    timer[0].stop();
+                });
+                timer[0].setRepeats(false);
+                timer[0].start();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (timer[0] != null) {
+                    timer[0].stop();
+                }
+                productTitle.setFont(originalFont);
+            }
+        });
+
 
         JLabel productPrice = new JLabel(String.valueOf(product.getPrice()));
         productPrice.setAlignmentX(CENTER_ALIGNMENT);
+
+        productPrice.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                timer[0] = new Timer(1000, event -> {
+                    productPrice.setFont(enlargedFont);
+                    timer[0].stop();
+                });
+                timer[0].setRepeats(false);
+                timer[0].start();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (timer[0] != null) {
+                    timer[0].stop();
+                }
+                productPrice.setFont(originalFont);
+            }
+        });
 
         JButton viewButton = new JButton("View");
         viewButton.setPreferredSize(new Dimension(100, 30));
