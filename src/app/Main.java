@@ -297,7 +297,6 @@ public class Main {
         viewUserProfileState.setBuyerUser(commonUserFactory.createUser("", "", "", 0, ""));
         viewUserProfileViewModel.setState(viewUserProfileState);
 
-
         TestView testView = new TestView();
         views.add(signupView.viewName, signupView);
         views.add(loginView.viewName, loginView);

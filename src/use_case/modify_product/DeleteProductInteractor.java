@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class DeleteProductInteractor implements DeleteProductInputBoundary {
     private final DeleteProductOutputBoundary deleteProductOutputBoundary;
     private final ProductDeleteDataAccessByIDInterface productDeleteDataAccessByIDInterface;
-
+    //get all user, get all product sho
     /**
      * Constructs a DeleteProductInteractor instance with the specified output boundary and data access interface.
      *
