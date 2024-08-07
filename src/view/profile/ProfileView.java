@@ -191,7 +191,7 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         studentNumberViewField.setText(viewModel.getState().getUser().getStudentNumber());
         studentNameViewField.setText(viewModel.getState().getUser().getName());
         studentPasswordViewField.setText(viewModel.getState().getUser().getPassword());
-        studentEmailViewField.setText(viewModel.getState().getUser().getEmail());
+        studentEmailViewField.setText(viewModel.getState().getUser().getEmail()+"@mail.utoronto.ca");
         studentRatingViewField.setText(String.valueOf(viewModel.getState().getUser().getUserRating()));
         messageField.setText(message);
 

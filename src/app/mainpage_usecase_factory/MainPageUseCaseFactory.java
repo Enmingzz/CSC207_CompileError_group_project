@@ -354,5 +354,4 @@ public class MainPageUseCaseFactory {
         return new ViewLoginPageController(viewLoginPageInteractor);
     }
 
-
 }
