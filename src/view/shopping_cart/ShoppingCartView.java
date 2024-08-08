@@ -129,7 +129,9 @@ public class ShoppingCartView extends JPanel implements ActionListener, Property
 
         ArrayList<Product> listProducts = shoppingCartViewModel.getState().getListProducts();
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+//        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new BorderLayout(1, 1));
+
         this.setAlignmentY(Component.TOP_ALIGNMENT);
 
 
