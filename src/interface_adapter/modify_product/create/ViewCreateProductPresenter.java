@@ -38,6 +38,7 @@ public class ViewCreateProductPresenter implements ViewCreateProductOutputBounda
     public void prepareSuccessfulView(ViewCreateProductOutputData createProductOutputData) {
         CreateProductState state = new CreateProductState();
         state.setUser(createProductOutputData.getUser());
+        state.setImage(null);
 
         // TODO: Remove this debugging output after testing
         System.out.println(createProductOutputData.getUser().getName());

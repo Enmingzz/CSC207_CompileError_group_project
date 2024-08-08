@@ -259,6 +259,7 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
                         addressInputField.setText("");
 
                         CreateProductState state = viewCreateProductViewModel.getState();
+                        state.setImage(null); //erases the image
                         User user = state.getUser();
                         if (user != null) System.out.println("use is " + user);
                         else System.out.println("no user");
