@@ -47,8 +47,10 @@ public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary 
         float totalPrice = 0;
 
         for (Product product : shoppingCartState.getListProducts()) {
-            if (product.getState() != -1) {
-                totalPrice += product.getPrice();
+            if (product != null) {
+                if (product.getState() != -1) {
+                    totalPrice += product.getPrice();
+                }
             }
         }
 

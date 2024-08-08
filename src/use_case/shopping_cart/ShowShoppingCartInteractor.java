@@ -56,8 +56,10 @@ public class ShowShoppingCartInteractor implements ShowShoppingCartInputBoundary
         ArrayList<Product> filteredProducts = new ArrayList<>();
 
         for (Product product : listProducts) {
-            if (productReadByIdDataAccessObject.getProductById(product.getProductID()) != null) {
-                filteredProducts.add(product);
+            if (product instanceof Product) {
+                if (productReadByIdDataAccessObject.getProductById(product.getProductID()) != null) {
+                    filteredProducts.add(product);
+                }
             }
         }
 
