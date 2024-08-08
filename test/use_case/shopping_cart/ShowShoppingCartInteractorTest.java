@@ -1,6 +1,8 @@
 package use_case.shopping_cart;
 
+import data_access.in_memory.product.InMemoryProductReadByIdDataAccessObject;
 import data_access.in_memory.shopping_cart.InMemoryShoppingCartReadDataAccessObject;
+import data_access.interfaces.product.ProductReadByIdDataAccessInterface;
 import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
 import entity.product.CommonProductFactory;
 import entity.product.Product;
@@ -34,6 +36,7 @@ class ShowShoppingCartInteractorTest {
     private User user;
     private ShoppingCart shoppingCart;
     private ArrayList<ShoppingCart> initialShoppingCarts;
+    private ArrayList<Product> initialProducts = new ArrayList<>();
 
     @BeforeEach
     void setUp() throws IOException {
@@ -93,6 +96,7 @@ class ShowShoppingCartInteractorTest {
         float totalPrice = 1;
         ArrayList<Product> listProducts = new ArrayList<>();
         listProducts.add(product);
+        initialProducts.add(product);
 
         shoppingCart = shoppingCartFactory.createShoppingCart(totalPrice, studentNumber, listProducts);
 
@@ -134,9 +138,12 @@ class ShowShoppingCartInteractorTest {
         ShoppingCartReadDataAccessInterface shoppingCartReadDataAccessInterface =
                 new InMemoryShoppingCartReadDataAccessObject(initialShoppingCarts);
 
-        ShowShoppingCartInteractor interactor =
-                new ShowShoppingCartInteractor(mockPresenter, shoppingCartReadDataAccessInterface);
+        ProductReadByIdDataAccessInterface productReadByIdDataAccessObject = new InMemoryProductReadByIdDataAccessObject(initialProducts);
 
+        ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
+
+        ShowShoppingCartInteractor interactor =
+                new ShowShoppingCartInteractor(mockPresenter, shoppingCartReadDataAccessInterface, productReadByIdDataAccessObject, shoppingCartFactory);
         interactor.execute(inputData);
     }
 }

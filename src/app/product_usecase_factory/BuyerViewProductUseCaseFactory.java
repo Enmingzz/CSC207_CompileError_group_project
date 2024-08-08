@@ -1,16 +1,19 @@
 package app.product_usecase_factory;
 
 import data_access.factories.interfaces.product.DataBaseProductReadAllDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.product.DataBaseProductReadByIdDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.product.DatabaseProductReadByUserDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartUpdateAddDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.user.DatabaseUserReadDataAccessObjectFactoryInterface;
+import data_access.factories.objects.product.DataBaseProductReadByIdDataAccessObjectFactory;
 import data_access.factories.objects.product.DatabaseProductReadAllDataAccessObjectFactory;
 import data_access.factories.objects.product.DatabaseProductReadByUserDataAccessObjectFactory;
 import data_access.factories.objects.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactory;
 import data_access.factories.objects.shopping_cart.DatabaseShoppingCartUpdateAddDataAccessObjectFactory;
 import data_access.factories.objects.user.DatabaseUserReadDataAccessObjectFactory;
 import data_access.interfaces.product.ProductReadAllDataAccessInterface;
+import data_access.interfaces.product.ProductReadByIdDataAccessInterface;
 import data_access.interfaces.product.ProductReadByUserDataAccessInterface;
 import data_access.interfaces.question.QuestionCreateDataAccessInterface;
 import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
@@ -211,14 +214,24 @@ public class BuyerViewProductUseCaseFactory {
     private static ShoppingCartController createShoppingCartController(ViewManagerModel viewManagerModel, ShoppingCartViewModel shoppingCartViewModel) throws SQLException {
         ShoppingCartFactory shoppingCartFactory = new CommonShoppingCartFactory();
         ProductFactory productFactory = new CommonProductFactory();
-        ShowShoppingCartOutputBoundary presenter = new ShoppingCartPresenter(viewManagerModel, shoppingCartViewModel);
-        DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory = new DatabaseShoppingCartReadDataAccessObjectFactory();
+        ShowShoppingCartOutputBoundary presenter = new ShoppingCartPresenter(viewManagerModel,
+                shoppingCartViewModel);
+        DatabaseShoppingCartReadDataAccessObjectFactoryInterface databaseShoppingCartReadDataAccessObjectFactory
+                = new DatabaseShoppingCartReadDataAccessObjectFactory();
         ScheduleFactory scheduleFactory = new CommonScheduleFactory();
-        ShoppingCartReadDataAccessInterface shoppingCartReadDataAccess = databaseShoppingCartReadDataAccessObjectFactory.create(shoppingCartFactory, productFactory, scheduleFactory);
-        ShowShoppingCartInputBoundary showShoppingCartInteractor = new ShowShoppingCartInteractor(presenter, shoppingCartReadDataAccess);
+        ShoppingCartReadDataAccessInterface shoppingCartReadDataAccess =
+                databaseShoppingCartReadDataAccessObjectFactory.create(shoppingCartFactory,
+                        productFactory, scheduleFactory);
+
+        DataBaseProductReadByIdDataAccessObjectFactoryInterface dataBaseProductReadByIdDataAccessObjectFactory =
+                new DataBaseProductReadByIdDataAccessObjectFactory();
+        ProductReadByIdDataAccessInterface productReadByIdDataAccessObject =
+                dataBaseProductReadByIdDataAccessObjectFactory.create(productFactory, scheduleFactory);
+
+        ShowShoppingCartInputBoundary showShoppingCartInteractor =
+                new ShowShoppingCartInteractor(presenter, shoppingCartReadDataAccess, productReadByIdDataAccessObject, shoppingCartFactory);
         return new ShoppingCartController(showShoppingCartInteractor);
     }
-
     /**
      * Creates an instance of {@link MainPageController}.
      *
