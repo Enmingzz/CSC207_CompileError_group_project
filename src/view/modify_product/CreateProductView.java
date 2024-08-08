@@ -58,6 +58,9 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
     private Image image = null;
 
     ArrayList<String> arrayListTags = new ArrayList<>();
+    private final String[] items = {"Furniture", "Clothes", "Electronics"};
+
+    private JList<String> listTags;
 
     private JPanel topBar;
 
@@ -141,9 +144,8 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
         cancel.addActionListener(this);
 
 //        JFrame frame = new JFrame("Multi-Select List Example");
-        String[] items = {"Furniture", "Clothes", "Electronics"};
 
-        JList<String> listTags = new JList<>(items);
+        listTags = new JList<>(items);
 
         listTags.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
@@ -332,13 +334,13 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
 
 
                         }
-//                        else if (image == null) {
-//                            createProductController.execute(viewCreateProductViewModel.getState().getUser(), image,
-//                                    descriptionInputField.getText(), priceInputField.getText(), titleInputField.getText(),
-//                                    eTransferEmailInputField.getText(), addressInputField.getText(), arrayListTags);
-//
-//                        }
-                        else {
+                        else if (image == null) {
+                            createProductController.execute(viewCreateProductViewModel.getState().getUser(), image,
+                                    descriptionInputField.getText(), priceInputField.getText(), titleInputField.getText(),
+                                    eTransferEmailInputField.getText(), addressInputField.getText(), arrayListTags);
+
+                        }
+                        else{
                             // Create a BufferedImage with the same width, height, and type as the original Image
                                 BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 
@@ -412,7 +414,9 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
         CreateProductState newState = (CreateProductState) evt.getNewValue();
 
         if (newState.getCreateProductError() != null & !Objects.equals(newState.getCreateProductError(), "")) {
-            JOptionPane.showMessageDialog(this, newState.getCreateProductError());}
+            JOptionPane.showMessageDialog(this, newState.getCreateProductError());
+            listTags = new JList<>(items);
+            listTags.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);}
         else {
             viewCreateProductViewModel.setState(newState);
         }
@@ -423,7 +427,10 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
             topBar = new TopBarSampleView(newState.getUser(),
                     getSearchPageController, viewSignupPageController, viewLoginPageController, shoppingCartController, logOutController, viewProfileController, mainPageController);
             this.add(topBar, BorderLayout.NORTH);
+
         }
+        listTags.removeAll();
+        listTags.setListData(items);
         //TODO reevaluate
     }
 
