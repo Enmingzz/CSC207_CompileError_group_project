@@ -49,6 +49,8 @@ public class CreateProductPresenter implements CreateProductOutputBoundary {
     public void prepareSuccessfulView(CreateProductOutputData createProductOutputData) {
         ManageProductState manageProductState = manageProductViewModel.getState();
         ArrayList<Product> productList = manageProductState.getProduct();
+        CreateProductState createProductState = viewCreateProductViewModel.getState();
+        createProductState.setImage(null);
 
         productList.add(createProductOutputData.getProduct());
         manageProductState.setProduct(productList);
@@ -59,7 +61,6 @@ public class CreateProductPresenter implements CreateProductOutputBoundary {
         viewManagerModel.setActiveView(manageProductViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
-
     /**
      * Prepares the view for a failed product creation.
      *
