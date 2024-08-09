@@ -415,8 +415,9 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
 
         if (newState.getCreateProductError() != null & !Objects.equals(newState.getCreateProductError(), "")) {
             JOptionPane.showMessageDialog(this, newState.getCreateProductError());
-            listTags = new JList<>(items);
-            listTags.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);}
+//            listTags = new JList<>(items);
+//            listTags.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+            }
         else {
             viewCreateProductViewModel.setState(newState);
         }
@@ -429,9 +430,12 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
             this.add(topBar, BorderLayout.NORTH);
 
         }
-        listTags.removeAll();
-        listTags.setListData(items);
         //TODO reevaluate
+        titleInputField.setText("");
+        descriptionInputField.setText("");
+        priceInputField.setText("");
+        eTransferEmailInputField.setText("");
+        addressInputField.setText("");
     }
 
     @Override
