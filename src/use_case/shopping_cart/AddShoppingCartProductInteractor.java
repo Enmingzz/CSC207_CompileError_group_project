@@ -55,11 +55,12 @@ public class AddShoppingCartProductInteractor implements AddShoppingCartProductI
         ArrayList<Product> initialListProducts = shoppingCart.getListProducts();
         boolean isFailed = false;
         for (Product product : initialListProducts) {
-            if (Objects.equals(product.getProductID(), addProduct.getProductID())) {
-                isFailed = true;
-                addShoppingCartProductPresenter.prepareFailedView("Product already in Shopping Cart");
+            if (product instanceof Product) {
+                if (Objects.equals(product.getProductID(), addProduct.getProductID())) {
+                    isFailed = true;
+                    addShoppingCartProductPresenter.prepareFailedView("Product already in Shopping Cart");
+                }
             }
-
         }
         if (!Objects.equals(addProduct.getState(), 0)) {
             addShoppingCartProductPresenter.prepareFailedView("Product has already been sold");

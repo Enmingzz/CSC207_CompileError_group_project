@@ -47,8 +47,10 @@ public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary 
         float totalPrice = 0;
 
         for (Product product : shoppingCartState.getListProducts()) {
-            if (product.getState() != -1) {
-                totalPrice += product.getPrice();
+            if (product != null) {
+                if (product.getState() != -1) {
+                    totalPrice += product.getPrice();
+                }
             }
         }
 
@@ -82,7 +84,9 @@ public class AddToCartPresenter implements AddShoppingCartProductOutputBoundary 
     public void prepareFailedView(String errorMessage) {
         ShoppingCartState shoppingCartState = shoppingCartViewModel.getState();
         shoppingCartState.setErrorMessage(errorMessage);
+        shoppingCartViewModel.setState(shoppingCartState);
         shoppingCartViewModel.firePropertyChanged();
-        shoppingCartState.setErrorMessage("");
+        viewManagerModel.setActiveView(shoppingCartViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 }

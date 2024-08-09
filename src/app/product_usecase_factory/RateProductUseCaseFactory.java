@@ -1,11 +1,13 @@
 package app.product_usecase_factory;
 
 import data_access.factories.interfaces.product.DataBaseProductReadAllDataAccessObjectFactoryInterface;
+import data_access.factories.interfaces.product.DataBaseProductReadByIdDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.product.DatabaseProductUpdateRatingDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.product.DatabaseProductUpdateStateDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.shopping_cart.DatabaseShoppingCartReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.user.DatabaseUserReadDataAccessObjectFactoryInterface;
 import data_access.factories.interfaces.user.DatabaseUserUpdateRatingDataAccessObjectFactoryInterface;
+import data_access.factories.objects.product.DataBaseProductReadByIdDataAccessObjectFactory;
 import data_access.factories.objects.product.DatabaseProductReadAllDataAccessObjectFactory;
 import data_access.factories.objects.product.DatabaseProductUpdateRatingDataAccessObjectFactory;
 import data_access.factories.objects.product.DatabaseProductUpdateStateDataAccessObjectFactory;
@@ -13,6 +15,7 @@ import data_access.factories.objects.shopping_cart.DatabaseShoppingCartReadDataA
 import data_access.factories.objects.user.DatabaseUserReadDataAccessObjectFactory;
 import data_access.factories.objects.user.DatabaseUserUpdateRatingDataAccessObjectFactory;
 import data_access.interfaces.product.ProductReadAllDataAccessInterface;
+import data_access.interfaces.product.ProductReadByIdDataAccessInterface;
 import data_access.interfaces.product.ProductUpdateRatingDataAccessInterface;
 import data_access.interfaces.product.ProductUpdateStateDataAccessInterface;
 import data_access.interfaces.shopping_cart.ShoppingCartReadDataAccessInterface;
@@ -157,8 +160,14 @@ public class RateProductUseCaseFactory {
         ShoppingCartReadDataAccessInterface shoppingCartReadDataAccess =
                 databaseShoppingCartReadDataAccessObjectFactory.create(shoppingCartFactory,
                         productFactory, scheduleFactory);
+
+        DataBaseProductReadByIdDataAccessObjectFactoryInterface dataBaseProductReadByIdDataAccessObjectFactory =
+                new DataBaseProductReadByIdDataAccessObjectFactory();
+        ProductReadByIdDataAccessInterface productReadByIdDataAccessObject =
+                dataBaseProductReadByIdDataAccessObjectFactory.create(productFactory, scheduleFactory);
+
         ShowShoppingCartInputBoundary showShoppingCartInteractor =
-                new ShowShoppingCartInteractor(presenter, shoppingCartReadDataAccess);
+                new ShowShoppingCartInteractor(presenter, shoppingCartReadDataAccess, productReadByIdDataAccessObject, shoppingCartFactory);
         return new ShoppingCartController(showShoppingCartInteractor);
     }
 

@@ -430,6 +430,13 @@ public class CreateProductView extends JPanel implements ActionListener, ListSel
             this.add(topBar, BorderLayout.NORTH);
 
         }
+        if (newState.getImage() == null){
+            System.out.println("here");
+            imageLabel.setIcon(null);
+            imageLabel.revalidate();
+            imageLabel.repaint();
+        }
+
         //TODO reevaluate
         titleInputField.setText("");
         descriptionInputField.setText("");

@@ -177,8 +177,14 @@ public class SellerScheduleUseCaseFactory {
         ShoppingCartReadDataAccessInterface shoppingCartReadDataAccess =
                 databaseShoppingCartReadDataAccessObjectFactory.create(shoppingCartFactory,
                         productFactory, scheduleFactory);
+
+        DataBaseProductReadByIdDataAccessObjectFactoryInterface dataBaseProductReadByIdDataAccessObjectFactory =
+                new DataBaseProductReadByIdDataAccessObjectFactory();
+        ProductReadByIdDataAccessInterface productReadByIdDataAccessObject =
+                dataBaseProductReadByIdDataAccessObjectFactory.create(productFactory, scheduleFactory);
+
         ShowShoppingCartInputBoundary showShoppingCartInteractor =
-                new ShowShoppingCartInteractor(presenter, shoppingCartReadDataAccess);
+                new ShowShoppingCartInteractor(presenter, shoppingCartReadDataAccess, productReadByIdDataAccessObject, shoppingCartFactory);
         return new ShoppingCartController(showShoppingCartInteractor);
     }
 
